@@ -16,21 +16,67 @@ Emit `phase-6-macro.md`.
 | `mcp__uw-pp__historical_trend` | symbol=SPY, days=10 | SPY recent action context |
 | `mcp__uw-pp__historical_trend` | symbol=VIX or use regime VIX field | Vol context |
 
-### Priority 2 — FRED (free tier ONLY)
+### Priority 2 — FRED (registered-but-free API, conditional on key)
 
-Use WebFetch on FRED public series endpoints. Free series include:
-- `CPIAUCSL` — CPI, all urban consumers
-- `PCEPI` / `PCEPILFE` — PCE / Core PCE
-- `PAYEMS` — Total nonfarm payrolls
-- `UNRATE` — Unemployment rate
-- `DFF` — Federal funds effective rate
-- `T10Y2Y` — 10y-2y spread
-- `DGS10`, `DGS2` — 10y / 2y treasury yields
-- `DTWEXBGS` — Broad dollar index
-- `SOFR` — Secured overnight financing rate
+**Reality check:** FRED's public chart-CSV endpoints
+(`fred.stlouisfed.org/graph/fredgraph.csv?id=<ID>`,
+`fred.stlouisfed.org/data/<ID>`, `fred.stlouisfed.org/series/<ID>`) are
+**actively blocked** at the CDN layer for both `WebFetch` and `curl`
+requests (verified 2026-05 — both return HTTP 403 / connection reset).
+Do NOT attempt the chart-CSV path.
 
-If a series requires a key or paid endpoint, DO NOT call it — fall through to
-priority 3 and tag the source.
+Two paths that DO work:
+
+#### Path A — FRED JSON API with a free API key (preferred when available)
+
+If the env var `FRED_API_KEY` is set, call the official JSON API. The key
+is free (no paid tier needed) — register once at
+https://fred.stlouisfed.org/docs/api/api_key.html and `export
+FRED_API_KEY=…` in `~/.zshrc`.
+
+Use the Bash tool (NOT WebFetch — the API uses a different host that is
+not blocked):
+
+```bash
+curl -sSL "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCSL&api_key=$FRED_API_KEY&file_type=json&sort_order=desc&limit=14" \
+  | jq '.observations[] | {date, value}'
+```
+
+Run these series in parallel (independent calls; ~12 series total):
+
+| Series | What to extract |
+|--------|-----------------|
+| `CPIAUCSL` — CPI all urban | Last 3 monthly + YoY % vs 12mo ago |
+| `CPILFESL` — Core CPI | Same |
+| `PCEPI` — PCE | Last 3 monthly + YoY |
+| `PCEPILFE` — Core PCE | Same |
+| `PAYEMS` — Total nonfarm payrolls | Last 3 monthly + MoM Δ (thousands) |
+| `UNRATE` — Unemployment rate | Last 3 monthly |
+| `DFF` — Federal funds effective | Latest daily |
+| `DGS10` — 10y treasury yield | Latest + 30d-ago |
+| `DGS2` — 2y treasury yield | Latest + 30d-ago |
+| `T10Y2Y` — 10y minus 2y spread | Latest + sign (inverted / normal) |
+| `DTWEXBGS` — Broad USD index | Latest + 30d-ago |
+| `SOFR` — Secured overnight | Latest daily |
+
+Tag values as `[MACRO:<SERIES_ID>_<release-date> FRED]`, e.g.
+`[MACRO:CPIAUCSL_2026-04 FRED]`.
+
+#### Path B — Key not set: skip FRED, go straight to priority 3
+
+If `FRED_API_KEY` is unset (`echo $FRED_API_KEY` is empty), write the
+following line in the `## Tool / source errors` section of phase-6 and
+proceed entirely with WebSearch (priority 3):
+
+> FRED skipped — no `FRED_API_KEY` env var set. Public CSV endpoint is
+> blocked at CDN. To enable automated rate / inflation / labor pulls, the
+> user can register a free key at
+> https://fred.stlouisfed.org/docs/api/api_key.html and export it in
+> their shell rc.
+
+WebSearch + WebFetch on reporter coverage of BLS / Fed / Treasury
+releases is sufficient for a single-ticker macro overlay; precise series
+values are only needed for production / multi-ticker dashboards.
 
 ### Priority 3 — WebSearch + WebFetch fallback
 
