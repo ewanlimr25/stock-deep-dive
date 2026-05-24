@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stock-deep-dive/schemas/decision.schema.json",
+  "title": "DeepDiveDecision",
+  "description": "Machine-resolvable envelope written beside phase-9-trade-plan.md. Consumed by /deep-dive-calibration to mark blueprints to market. Adapted from claude-trading-agents FinalDecision (schemas.py) for a flow-driven options blueprint.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ticker", "date", "generated", "bias", "conviction", "horizon",
+    "spot_reference", "thesis", "entries", "levels", "invalidation",
+    "sizing", "structures", "gates", "macro", "catalysts", "key_risks",
+    "citations", "paths", "disclaimer"
+  ],
+  "properties": {
+    "ticker": { "type": "string", "pattern": "^[A-Z][A-Z0-9.]{0,5}$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "description": "As-of date" },
+    "generated": { "type": "string", "description": "ISO-8601 timestamp the blueprint was written" },
+    "bias": { "enum": ["LONG", "SHORT", "NEUTRAL", "RANGE"] },
+    "conviction": { "enum": [0.55, 0.65, 0.75, 0.85, 0.95], "description": "M-01 conviction bin, post-gates" },
+    "horizon": { "enum": ["intraday", "1-5d", "1-4w", "1-3m"] },
+    "spot_reference": { "type": "number" },
+    "thesis": { "type": "string", "minLength": 1 },
+    "entries": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primary"],
+      "properties": {
+        "primary": { "$ref": "#/$defs/entry" },
+        "aggressive": { "$ref": "#/$defs/entry" },
+        "fade": { "$ref": "#/$defs/entry" }
+      }
+    },
+    "levels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "support": { "type": ["number", "null"] },
+        "resistance": { "type": ["number", "null"] },
+        "gamma_flip": { "type": ["number", "null"] },
+        "largest_pin": { "type": ["number", "null"] }
+      }
+    },
+    "invalidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["price", "signal", "macro"],
+      "properties": {
+        "price": { "type": "string" },
+        "signal": { "type": "string" },
+        "macro": { "type": "string" }
+      }
+    },
+    "sizing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p", "payoff_b", "raw_kelly", "fraction", "cap_pct", "final_size_pct", "win_rate_source"],
+      "properties": {
+        "p_raw": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Phase-5 backtest win-rate before the N-cap" },
+        "p": { "type": "number", "minimum": 0, "maximum": 1, "description": "Capped win-rate (or conviction-bin fallback) used as Kelly p" },
+        "win_rate_n": { "type": ["integer", "null"], "minimum": 0 },
+        "win_rate_source": { "enum": ["backtest", "fallback_bin", "null"] },
+        "payoff_b": { "type": "number", "exclusiveMinimum": 0 },
+        "raw_kelly": { "type": "number" },
+        "fraction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "cap_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "final_size_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "deviation_reason": { "type": ["string", "null"] }
+      }
+    },
+    "structures": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/structure" }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["fundamentals", "correlation_cluster", "sector_rotation", "debate_disconfirmed"],
+      "properties": {
+        "fundamentals": { "enum": ["CONFIRM", "CAUTION", "VETO", "NA"] },
+        "correlation_cluster": { "type": ["string", "null"], "description": "Cluster name + coefficient if a >=0.70 pair fired, else null" },
+        "sector_rotation": { "enum": ["aligned", "adverse", "neutral"] },
+        "debate_disconfirmed": { "type": "boolean" }
+      }
+    },
+    "macro": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["net"],
+      "properties": {
+        "net": { "enum": ["tailwind", "headwind", "mixed", "neutral"] },
+        "tailwinds": { "type": "array", "items": { "type": "string" } },
+        "headwinds": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "catalysts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["date", "event", "impact"],
+        "properties": {
+          "date": { "type": "string" },
+          "event": { "type": "string" },
+          "impact": { "enum": ["+", "-", "?"] }
+        }
+      }
+    },
+    "key_risks": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string" } },
+    "citations": { "type": "array", "minItems": 3, "items": { "type": "string" }, "description": "Tagged upstream datapoints, e.g. '[FLOW:top_premium_trades] net call premium $42M'" },
+    "confluence_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100, "description": "Filled by phase-10 if available at write time, else null" },
+    "recommended_bin": { "type": ["number", "null"], "enum": [0.55, 0.65, 0.75, 0.85, 0.95, null] },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan"],
+      "properties": {
+        "plan": { "type": "string", "description": "Relative path to phase-9-trade-plan.md" },
+        "audit": { "type": ["string", "null"], "description": "Relative path to phase-10-audit.md" }
+      }
+    },
+    "disclaimer": { "type": "string" }
+  },
+  "$defs": {
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["price", "trigger"],
+      "properties": {
+        "price": { "type": ["number", "string"] },
+        "trigger": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "type", "strikes", "expiry", "max_loss"],
+      "properties": {
+        "kind": { "enum": ["directional", "defined_risk"] },
+        "type": { "type": "string", "description": "e.g. 'call debit spread', 'iron condor'" },
+        "strikes": { "type": "string" },
+        "expiry": { "type": "string" },
+        "debit_credit": { "type": ["number", "string", "null"] },
+        "breakeven": { "type": ["number", "string", "null"] },
+        "max_loss": { "type": ["number", "string"] },
+        "note": { "type": ["string", "null"] }
+      }
+    }
+  }
+}
