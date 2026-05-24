@@ -2,18 +2,22 @@
 
 ## Goal
 
-Speak as a desk PM running an institutional book. Translate phases 1–8 into a
-single, actionable, falsifiable trade blueprint. Emit `phase-9-trade-plan.md`
-following `templates/trade-plan-template.md`.
+Speak as a desk PM running an institutional book. Translate phases 1 through 8b
+(including the 7b fundamental veto and the 8b debate) into a single, actionable,
+falsifiable trade blueprint. Emit `phase-9-trade-plan.md` following
+`templates/trade-plan-template.md`, plus a structured `decision.json`.
 
 ## Inputs (read all)
 
-- `phase-1-flow.md` through `phase-8-agent-views.md` from the current run.
+- `phase-1-flow.md` through `phase-8-agent-views.md` from the current run,
+  **plus `phase-7b-fundamentals.md` (quality veto) and `phase-8b-debate.md`
+  (disconfirmation residuals).**
 - `rubrics/confluence-scoring.md` (for the conviction bin choice)
 - `rubrics/invalidation-rubric.md` (for the invalidation section)
-- `rubrics/sizing-rubric.md` (for Kelly math)
+- `rubrics/sizing-rubric.md` (for Kelly math + the risk gates)
 - `rubrics/citation-conventions.md` (for every numeric claim)
 - `templates/trade-plan-template.md` (the skeleton to fill)
+- `templates/decision-template.json` (the structured envelope to emit alongside)
 
 ## Voice
 
@@ -41,7 +45,8 @@ Must cite at least 3 distinct upstream datapoints with proper tags:
 
 ### Bias + conviction
 
-- Bias from the plurality of phases 1–8.
+- Bias from the plurality of phases 1–8 (the 7b fundamental veto and the 8b
+  debate can only cut conviction/size, never set the bias).
 - Conviction MUST snap to one of {0.55, 0.65, 0.75, 0.85, 0.95}.
 - Conviction must match the band given by phase-10's confluence score. If
   phase-9 wants to deviate (which is allowed but rare), write a
@@ -71,11 +76,21 @@ Apply `rubrics/invalidation-rubric.md`: write all three categories
 ### Sizing (% of risk)
 
 Apply `rubrics/sizing-rubric.md`:
-1. Pick p = conviction bin.
+1. Pick **p = the phase-5 `signal_backtest_win_rate`** (read the sizing
+   handoff block in `phase-5-historical.md` §Verdict), then apply the
+   N-conditional cap from the rubric using `win_rate_n`. Only if
+   `win_rate_source` is `null`/insufficient do you fall back to the
+   conviction bin. Show both `p_raw` and the capped `p`.
 2. Pick b = payoff ratio from your chosen target/entry/stop.
 3. Compute raw_kelly.
-4. Apply fraction=0.25 and cap_pct=5.
-5. Write Final size = …, with deviation_reason only if you deviated upward.
+4. Apply fraction=0.25 and cap_pct=5; cross-check against the win-rate sizing
+   map (take the smaller). Enforce the SHORT-side floor if `p < 0.50`.
+5. **Apply the risk gates** (fundamentals veto from phase-7b, correlation
+   cluster from phase-6/8, sector-rotation from phase-6, debate
+   disconfirmation from phase-8b) — each can only cut size or down-shift the
+   bin. List every gate and whether it fired.
+6. Write Final size = …, with deviation_reason only if you deviated upward
+   (forbidden if any gate fired).
 
 ### Option structures (≥1 directional + ≥1 defined-risk)
 
@@ -106,16 +121,43 @@ Concrete things to re-check daily / on each phase. At least 4 items.
 Final block listing the ≥3 distinct upstream datapoints from the thesis
 (M-04). This is what phase-10 will spot-check.
 
+## Emit the structured `decision.json` (MANDATORY)
+
+After writing `phase-9-trade-plan.md`, write a machine-readable
+`decision.json` in the SAME `research/<SYMBOL>/<DATE>/` directory, mirroring
+the markdown. This is the envelope `/deep-dive-calibration` later marks to
+market — the markdown alone is not machine-resolvable.
+
+1. Fill `templates/decision-template.json` from the plan you just wrote. The
+   numeric `sizing` block (`p_raw`, `p`, `win_rate_n`, `win_rate_source`,
+   `payoff_b`, `raw_kelly`, `fraction`, `cap_pct`, `final_size_pct`,
+   `deviation_reason`) and the `gates` block (`fundamentals`,
+   `correlation_cluster`, `sector_rotation`, `debate_disconfirmed`) are
+   authoritative — they must match the markdown sizing section exactly.
+2. Leave `confluence_score` and `recommended_bin` as `null`; phase-10 fills
+   them after it scores.
+3. **Validate before finishing:**
+   ```bash
+   python3 schemas/validate_decision.py --file research/<SYMBOL>/<DATE>/decision.json
+   ```
+   If it prints any error, FIX the JSON and re-run until it prints `OK`. Do
+   not leave an invalid `decision.json` behind — a broken envelope silently
+   drops the blueprint out of the calibration loop. (For a `-vK` re-run, name
+   it `decision-vK.json`.)
+
 ## Validation before writing the file
 
 - [ ] All template sections are non-empty.
 - [ ] Conviction is in {0.55, 0.65, 0.75, 0.85, 0.95}.
-- [ ] Sizing math shown explicitly.
+- [ ] Kelly `p` came from the phase-5 win-rate (capped), or conviction-bin
+      fallback only when `win_rate_source=null`.
+- [ ] Sizing math shown explicitly, with every risk gate listed (fired or not).
 - [ ] ≥3 distinct upstream citations in the thesis.
 - [ ] ≥1 directional + ≥1 defined-risk structure.
 - [ ] All citation tags resolve to actual content in the cited phase MD
       (spot-check 2 of them).
 - [ ] Disclaimer line is present at the top.
+- [ ] `decision.json` written AND `validate_decision.py` prints `OK`.
 
 ## Common pitfalls
 

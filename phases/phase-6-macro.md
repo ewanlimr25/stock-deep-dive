@@ -15,6 +15,22 @@ Emit `phase-6-macro.md`.
 | `mcp__uw-pp__risk_market_regime` | (date if as-of) | SPY trend, VIX, breadth → regime label |
 | `mcp__uw-pp__historical_trend` | symbol=SPY, days=10 | SPY recent action context |
 | `mcp__uw-pp__historical_trend` | symbol=VIX or use regime VIX field | Vol context |
+| `mcp__uw-pp__options_flow_sector_flow` | (date if as-of) | Premium by sector × call/put — which sectors smart money is leaning into today |
+| `mcp__uw-pp__options_flow_sector_flow_persistence` | days=5 | Per-sector net flow + persistence score (sign consistency over 5 sessions) — is the rotation *durable* or a one-day blip? |
+| `mcp__uw-pp__risk_portfolio_correlation` | symbols=`<SYMBOL>` + every other ticker with an open blueprint for the same date | Pairwise price correlation — flags when this deep dive is the same bet as another |
+
+These last three were previously never invoked even though `uw-pp` exposes
+them (AUDIT.md §2). Sector rotation contextualises a single-name flow signal
+(a bullish-flow long into a sector smart money is *leaving* is weaker); the
+correlation matrix prevents concurrent deep dives from becoming one
+undiversified position with no flag.
+
+**Building the correlation symbol set.** List sibling research dirs for the
+same as-of date — `ls research/*/<YYYY-MM-DD>/` (Bash) — collect those tickers,
+and pass `symbols=<SYMBOL>,<other1>,<other2>,…` to `risk_portfolio_correlation`
+with `lookback-days=30`. If `<SYMBOL>` is the only blueprint for the date, note
+"no concurrent positions to correlate against" and skip the gate (but still
+report the tool was run with the single symbol or skipped).
 
 ### Priority 2 — FRED (registered-but-free API, conditional on key)
 
@@ -29,15 +45,17 @@ Two paths that DO work:
 
 #### Path A — FRED JSON API with a free API key (preferred when available)
 
-If the env var `FRED_API_KEY` is set, call the official JSON API. The key
-is free (no paid tier needed) — register once at
-https://fred.stlouisfed.org/docs/api/api_key.html and `export
-FRED_API_KEY=…` in `~/.zshrc`.
+The key is free (no paid tier needed) — register once at
+https://fred.stlouisfed.org/docs/api/api_key.html. Provide it either by
+`export FRED_API_KEY=…` in `~/.zshrc`, OR (preferred for this skill) by
+putting `FRED_API_KEY=…` in a gitignored `.env` at the repo root — the recipe
+below auto-sources it so no shell-rc change is needed.
 
 Use the Bash tool (NOT WebFetch — the API uses a different host that is
-not blocked):
+not blocked). Source `.env` first so a repo-local key is picked up:
 
 ```bash
+set -a; [ -f .env ] && . ./.env; set +a   # auto-load repo-local FRED_API_KEY
 curl -sSL "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCSL&api_key=$FRED_API_KEY&file_type=json&sort_order=desc&limit=14" \
   | jq '.observations[] | {date, value}'
 ```
@@ -64,15 +82,16 @@ Tag values as `[MACRO:<SERIES_ID>_<release-date> FRED]`, e.g.
 
 #### Path B — Key not set: skip FRED, go straight to priority 3
 
-If `FRED_API_KEY` is unset (`echo $FRED_API_KEY` is empty), write the
-following line in the `## Tool / source errors` section of phase-6 and
-proceed entirely with WebSearch (priority 3):
+If `FRED_API_KEY` is still unset after sourcing `.env`
+(`set -a; [ -f .env ] && . ./.env; set +a; echo $FRED_API_KEY` is empty),
+write the following line in the `## Tool / source errors` section of phase-6
+and proceed entirely with WebSearch (priority 3):
 
-> FRED skipped — no `FRED_API_KEY` env var set. Public CSV endpoint is
-> blocked at CDN. To enable automated rate / inflation / labor pulls, the
-> user can register a free key at
-> https://fred.stlouisfed.org/docs/api/api_key.html and export it in
-> their shell rc.
+> FRED skipped — no `FRED_API_KEY` (neither env var nor repo `.env`). Public
+> CSV endpoint is blocked at CDN. To enable automated rate / inflation / labor
+> pulls, register a free key at
+> https://fred.stlouisfed.org/docs/api/api_key.html and put it in `~/.zshrc`
+> or the repo-root `.env`.
 
 WebSearch + WebFetch on reporter coverage of BLS / Fed / Treasury
 releases is sufficient for a single-ticker macro overlay; precise series
@@ -101,6 +120,15 @@ Use for:
    - ### Activity (ISM Mfg PMI, ISM Services PMI)
    - ### Consumer (U-Mich, Conference Board)
    - ### Sector overlay (specific catalysts for `<SYMBOL>`'s sector)
+   - ### Sector rotation (UW `sector_flow` + `sector_flow_persistence`)
+     - `<SYMBOL>`'s sector net flow today + 5-session persistence score.
+     - Verdict: is smart money rotating INTO or OUT OF this sector, and is the
+       rotation persistent (high sign-consistency) or noise? Tag the direction
+       relative to the trade thesis: `aligned` / `adverse` / `neutral`.
+   - ### Cross-name correlation (UW `risk_portfolio_correlation`)
+     - Concurrent blueprints correlated against (list tickers + date).
+     - Pairwise correlation table; flag any pair ≥ 0.70 as a **cluster**
+       (phase-9 cuts size), 0.60–0.70 as **soft-watch** (surface only).
 4. **Tailwind / Headwind table**
 
    | Datapoint | Latest value | Release date | Source | Impact on \<SECTOR\> |
@@ -121,6 +149,11 @@ Use for:
    - Conviction 1–5
    - Top 2 datapoints phase-9 must cite in its macro overlay
    - Top 2 catalysts phase-9 must put in the calendar
+   - **Sector-rotation verdict:** `aligned` / `adverse` / `neutral` +
+     persistence score (phase-9 sizing gate input).
+   - **Correlation verdict:** any cluster (≥0.70) or soft-watch (0.60–0.70)
+     pair, named with the coefficient (phase-9 sizing gate input). State
+     "no concurrent positions" if `<SYMBOL>` is the only blueprint for the date.
 
 ## Source tagging convention
 

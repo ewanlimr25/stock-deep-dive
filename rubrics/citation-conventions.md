@@ -13,9 +13,11 @@ resolves to a specific upstream phase + tool. Adapted from
 | `[OI:<tool>]`     | phase-3  | `oi_*` | `[OI:pin_risk]` |
 | `[STRUCT:<tool>]` | phase-4  | `options_structure_*` | `[STRUCT:gex]` |
 | `[HIST:<tool>]`   | phase-5  | `historical_*` | `[HIST:iv_percentile_zscore]` |
-| `[MACRO:<series>]`| phase-6  | UW regime / FRED / WebSearch | `[MACRO:CPI_YoY_2026-05]` |
+| `[MACRO:<series>]`| phase-6  | UW regime / FRED / WebSearch / `sector_flow*` / `portfolio_correlation` | `[MACRO:CPI_YoY_2026-05]`, `[MACRO:sector_flow_persistence]` |
 | `[INSIGHT:<tool>]`| phase-7  | `insights_*` | `[INSIGHT:conviction_matrix]` |
+| `[FUND:<metric>]` | phase-7b | Finnhub metric / surprise / consensus / MSPR | `[FUND:operatingMarginTTM]`, `[FUND:mspr_2026-04]` |
 | `[AGENT:<name>]`  | phase-8  | sub-agent name | `[AGENT:sweep-tracker]` |
+| `[DEBATE:<side>]` | phase-8b | bull / bear residual + cited point | `[DEBATE:bear_residual]` |
 
 ## Resolution rule
 

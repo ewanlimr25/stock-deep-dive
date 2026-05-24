@@ -25,6 +25,12 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
   verdict (e.g., `bullish_flow` if phase-1 was bullish, `bearish_flow` if
   bearish, `dark_pool_accumulation` if phase-2 was the dominant signal).
   Record signal-specific win_rate or vol_realisation_rate.
+- **This win-rate is the Kelly `p` for phase-9 sizing — surface it explicitly.**
+  The backtest result returns a `win_rate` (or `vol_realisation_rate`) and a
+  sample size `n` (`total_signals`). Phase 9 sizes on this empirical rate, not
+  the conviction bin (`rubrics/sizing-rubric.md` §"Choosing the Kelly `p`").
+  If the tool returns `{"note":"no backtest results","total_signals":0}`,
+  record `win_rate_source=null` so phase-9 falls back to the conviction bin.
 - `historical_trend` and `historical_oi_trend` are the workhorses — run both.
 
 ## Output sections
@@ -47,6 +53,16 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
    - Premium-buying vs premium-selling environment
    - Conviction 1–5 on whether today's signal is HISTORICALLY EDGE-POSITIVE
    - Three specific data points (IV %ile, VRP value, signal win rate)
+   - **Sizing handoff block (phase-9 reads these verbatim):**
+     ```
+     signal_class:     <e.g. bullish_flow>
+     signal_backtest_win_rate: <0.00–1.00 or null>
+     win_rate_n:       <integer total_signals, or 0>
+     win_rate_source:  backtest | null
+     ```
+     This is the Kelly `p` input — see `rubrics/sizing-rubric.md`
+     §"Choosing the Kelly `p`". Quote the raw win-rate; phase-9 applies the
+     N-conditional cap.
    - Open questions
 
 ## Interpretation heuristics

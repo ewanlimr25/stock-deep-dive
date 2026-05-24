@@ -54,6 +54,9 @@ verdict.
 === PHASE 7: UW INSIGHTS (phase-7-insights.md) ===
 <full contents>
 
+=== PHASE 7b: DEEP FUNDAMENTALS (phase-7b-fundamentals.md) ===
+<full contents — includes the fundamental_signal + tier_adjustment veto>
+
 === END CONTEXT ===
 
 You may call additional UW MCP tools if and only if you need a specific
@@ -108,7 +111,11 @@ might need.)
 - **Split 3-2**: treat as MIXED; phase-9 should target 0.55–0.65 conviction
   and use a defined-risk structure.
 - **risk-monitor flags HIGH correlation** with another active book position:
-  phase-9 must call this out in sizing.
+  phase-9 must call this out in sizing. risk-monitor should read phase-6's
+  `risk_portfolio_correlation` and `sector_flow_persistence` verdicts (and may
+  re-call those `mcp__uw-pp__risk_*` / `options_flow_sector_flow_persistence`
+  tools for a fresh read) — a ≥0.70 cluster with another open blueprint, or an
+  adverse sector rotation, is a size-cut the desk must see.
 
 ## Common pitfalls
 

@@ -45,10 +45,17 @@
 
 ## Sizing (% of risk, NOT dollars)
 
-- **Kelly inputs:** p = {{conviction bin}}, b = {{payoff ratio}}, fraction = 0.25
-- **Raw Kelly:** {{%}}
+- **Kelly p (empirical):** p_raw = {{phase-5 signal_backtest_win_rate}} (n={{win_rate_n}}, source={{backtest|null}}) → capped p = {{min(p_raw, N-cap)}} `[HIST:signal_backtest]`
+  - (fallback to conviction bin {{0.55…0.95}} only if win_rate_source=null)
+- **Kelly inputs:** b = {{payoff ratio}}, fraction = 0.25, cap_pct = {{5}}
+- **Raw Kelly:** {{%}} · **Win-rate map ceiling:** {{full/half/starter}}
+- **Risk gates:**
+  - Fundamentals (phase-7b): {{CONFIRM/CAUTION/VETO/NA}} → {{effect}}
+  - Correlation cluster (phase-6/8): {{none / cluster <name> @ corr X.XX}} → {{effect}}
+  - Sector rotation (phase-6): {{aligned / adverse}} → {{effect}}
+  - Debate (phase-8b): bull_residual {{0.xx}} vs bear_residual {{0.xx}} → {{effect}}
 - **Final size:** {{%}} (capped at {{cap%}} of book risk)
-- **Deviation reason (if any):** {{leave blank if none, else explain}}
+- **Deviation reason (if any):** {{leave blank if none; forbidden if a gate fired}}
 
 ## Option structures
 

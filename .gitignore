@@ -6,3 +6,7 @@ research/*
 __pycache__/
 .venv/
 node_modules/
+
+# Secrets — never commit. API keys live here (auto-sourced by phase-6/7b).
+.env
+.claude/settings.local.json

@@ -6,7 +6,7 @@ with directional sign and a per-phase contradiction log.
 
 ## Scoring axes
 
-Score each of the seven phases (1–7) as one of:
+Score each of the eight signal phases (1, 2, 3, 4, 5, 6, 7, 7b) as one of:
 
 | Symbol | Meaning | Points |
 |--------|---------|--------|
@@ -16,15 +16,31 @@ Score each of the seven phases (1–7) as one of:
 | `-`  | Mildly contradicts | -7 |
 | `--` | Strongly contradicts | -15 |
 
+Phase-7b (fundamentals) scores on the same scale, with one hard rule: a
+`tier_adjustment = VETO` is at most `--` and the audit MUST note that the
+directional thesis is fundamentally vetoed. `NA` (no data / ETF) scores `0`.
+
 Plus phase-8 (multi-agent desk):
 - Each of the 5 sub-agents contributes ±2 based on whether its verdict aligns
   with the dominant bias.
 
-**Score range:** -115 to +115. Normalize to 0–100 via:
+**Symmetric raw range:** the eight phases (±15 each = ±120) plus phase-8
+(±10) give a raw range of **−130 to +130**. Normalize to 0–100 via:
 
 ```
-confluence_score = round( (raw_score + 115) / 230 * 100 )
+base_score = round( (raw_score + 130) / 260 * 100 )
 ```
+
+Then apply the **phase-8b debate penalty** AFTER normalization (a one-sided
+cut, so it can never inflate the score and keeps 50 = perfectly mixed):
+
+```
+confluence_score = base_score − (5 if phase-8b disconfirmed else 0)
+```
+
+`disconfirmed = true` means the bear's residual ≥ the bull's residual — the
+adversarial pass did not clear the trade. A `false` result subtracts nothing;
+a strong defender residual is not allowed to add confluence.
 
 A score of **50** means perfectly mixed signals. **>70** indicates strong
 positive confluence; **<30** indicates strong negative confluence (the

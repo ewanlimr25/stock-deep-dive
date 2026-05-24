@@ -1,0 +1,84 @@
+{
+  "ticker": "NVDA",
+  "date": "2026-05-15",
+  "generated": "2026-05-15T17:28:00Z",
+  "bias": "LONG",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 132.4,
+  "thesis": "Net call premium $42M [FLOW:top_premium_trades] alongside dark-pool accumulation [DP:largest] and a positive DEX regime [STRUCT:dex] support a measured long into the 2026-05-20 print, sized to the empirical bullish_flow win-rate not the narrative.",
+  "entries": {
+    "primary": { "price": 130.5, "trigger": "tag of gamma flip then reclaim", "source": "[STRUCT:today_gamma_flip]" },
+    "aggressive": { "price": 128.0, "trigger": "intraday VWAP fade into DP wall", "source": "[DP:price_levels]" },
+    "fade": { "price": 137.0, "trigger": "rejection at OPEX call wall — counter-trade", "source": "[OI:opex_concentration]" }
+  },
+  "levels": { "support": 128.0, "resistance": 137.0, "gamma_flip": 130.5, "largest_pin": 135.0 },
+  "invalidation": {
+    "price": "two daily closes below 126.0",
+    "signal": "DEX flips negative while spot holds [STRUCT:dex]",
+    "macro": "hawkish FOMC surprise 2026-05-? [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 0.58,
+    "p": 0.58,
+    "win_rate_n": 14,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.0,
+    "raw_kelly": 0.37,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.85,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "132/140",
+      "expiry": "2026-06-19",
+      "debit_credit": 2.6,
+      "breakeven": 134.6,
+      "max_loss": 2.6,
+      "note": "strikes anchored to the 135 pin and 140 OI cluster"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "125/120",
+      "expiry": "2026-06-19",
+      "debit_credit": -1.4,
+      "breakeven": 123.6,
+      "max_loss": 3.6,
+      "note": "sells the 126 invalidation shelf"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_flow_persistence] semis net inflow 5/5 sessions"],
+    "headwinds": ["[MACRO:DGS10] 10y at cycle highs pressures multiples"]
+  },
+  "catalysts": [
+    { "date": "2026-05-20", "event": "earnings AMC", "impact": "?" },
+    { "date": "2026-06-18", "event": "FOMC", "impact": "?" }
+  ],
+  "key_risks": [
+    "earnings IV crush despite directional move",
+    "10y yields break higher and compress growth multiples",
+    "DEX regime flips negative on a gap up"
+  ],
+  "citations": [
+    "[FLOW:top_premium_trades] net call premium $42M",
+    "[DP:largest] $96M block accumulation print",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.58 (n=14)"
+  ],
+  "confluence_score": null,
+  "recommended_bin": null,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}
