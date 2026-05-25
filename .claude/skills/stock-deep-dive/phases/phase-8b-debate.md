@@ -16,7 +16,7 @@ mechanic).
 ## Inputs (read all)
 
 - `phase-1-flow.md` … `phase-7-insights.md`, `phase-7b-fundamentals.md`,
-  `phase-8-agent-views.md` from the current run.
+  `phase-7c-sentiment.md`, `phase-8-agent-views.md` from the current run.
 - The dominant bias from phase-8's plurality (the side the bull defends).
 
 ## Procedure

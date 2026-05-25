@@ -138,10 +138,16 @@ Use for:
 
 5. **Catalyst calendar (next 30d)**
 
-   | Date | Event | Likely impact |
-   |------|-------|---------------|
-   | ...  | FOMC  | ?             |
-   | ...  | CPI release | ?       |
+   Record the **front-expiry expected (implied) move** at the top of this section
+   from the screener `implied_move` / `implied_move_perc` (already surfaced in
+   phase-0.5 `[CTX:implied_move_pct]` and phase-7's `uw_screener` block) — e.g.
+   "front-expiry implied move ±3.8% / $3.78 [CTX:implied_move]". Phase-9 sizes its
+   structures to this priced range (N4); each binary below should be read against it.
+
+   | Date | Event | Likely impact | vs expected move |
+   |------|-------|---------------|------------------|
+   | ...  | FOMC  | ?             | inside / exceeds ±X% |
+   | ...  | CPI release | ?       | ...              |
 
 6. **Tool / source errors** — verbatim.
 7. **Verdict for downstream**

@@ -1,5 +1,9 @@
 research/*
 !research/.gitkeep
+
+# Audit deep-dives — kept local, not committed.
+docs/audit/
+
 .DS_Store
 *.swp
 *.swo

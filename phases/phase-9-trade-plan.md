@@ -9,9 +9,11 @@ falsifiable trade blueprint. Emit `phase-9-trade-plan.md` following
 
 ## Inputs (read all)
 
+- `phase-0.5-context.md` (the `[CTX:]` cross-sectional/self-history block — is the
+  setup `GENUINELY_UNUSUAL`, `BUSY_NAME_NORMAL_DAY`, or `QUIET`?),
 - `phase-1-flow.md` through `phase-8-agent-views.md` from the current run,
-  **plus `phase-7b-fundamentals.md` (quality veto) and `phase-8b-debate.md`
-  (disconfirmation residuals).**
+  **plus `phase-7b-fundamentals.md` (quality veto), `phase-7c-sentiment.md`
+  (positioning/crowd gate), and `phase-8b-debate.md` (disconfirmation residuals).**
 - `rubrics/confluence-scoring.md` (for the conviction bin choice)
 - `rubrics/invalidation-rubric.md` (for the invalidation section)
 - `rubrics/sizing-rubric.md` (for Kelly math + the risk gates)
@@ -85,12 +87,19 @@ Apply `rubrics/sizing-rubric.md`:
 3. Compute raw_kelly.
 4. Apply fraction=0.25 and cap_pct=5; cross-check against the win-rate sizing
    map (take the smaller). Enforce the SHORT-side floor if `p < 0.50`.
-5. **Apply the risk gates** (fundamentals veto from phase-7b, correlation
-   cluster from phase-6/8, sector-rotation from phase-6, debate
-   disconfirmation from phase-8b) — each can only cut size or down-shift the
-   bin. List every gate and whether it fired.
+5. **Apply the risk gates** — each can only cut size or down-shift the bin; list
+   every gate and whether it fired (`rubrics/sizing-rubric.md` §"Risk gates"):
+   1. fundamentals veto (phase-7b `tier_adjustment`),
+   2. **sentiment/crowded gate (phase-7c `tier_adjustment` + `crowd_state`)** —
+      CAUTION cuts one step, VETO → directional watch-only,
+   3. correlation cluster (phase-6/8 `risk_portfolio_correlation`),
+   4. sector-rotation (phase-6),
+   5. debate disconfirmation (phase-8b).
+   Also apply the **context check**: if phase-0.5 `unusual_verdict =
+   BUSY_NAME_NORMAL_DAY`, do not size at the top of the band — the "big flow" is a
+   normal day for this name; `QUIET` caps at starter regardless of Kelly.
 6. Write Final size = …, with deviation_reason only if you deviated upward
-   (forbidden if any gate fired).
+   (forbidden if any gate fired, or if context is `BUSY_NAME_NORMAL_DAY`/`QUIET`).
 
 ### Option structures (≥1 directional + ≥1 defined-risk)
 
@@ -103,6 +112,13 @@ Required minimums:
   possible.
 - Pick expiries that match the time horizon AND avoid binary events you do
   not want to trade (use phase-6 catalyst calendar).
+- **Size to the expected move (N4).** State the front-expiry implied move
+  (`[CTX:implied_move_pct]` from phase-0.5 / phase-7's `uw_screener`) and choose
+  structure width and target relative to it: a target beyond ~1.5× the priced move
+  is rich, a debit spread narrower than the expected move caps upside before the
+  move completes. For any structure whose expiry straddles a catalyst, confirm a
+  single-catalyst gap of the expected-move magnitude does **not** exceed the stop —
+  if it does, move the expiry or cut size. Record `expected_move` in `decision.json`.
 
 ### Macro overlay
 
@@ -131,9 +147,13 @@ market — the markdown alone is not machine-resolvable.
 1. Fill `templates/decision-template.json` from the plan you just wrote. The
    numeric `sizing` block (`p_raw`, `p`, `win_rate_n`, `win_rate_source`,
    `payoff_b`, `raw_kelly`, `fraction`, `cap_pct`, `final_size_pct`,
-   `deviation_reason`) and the `gates` block (`fundamentals`,
-   `correlation_cluster`, `sector_rotation`, `debate_disconfirmed`) are
-   authoritative — they must match the markdown sizing section exactly.
+   `deviation_reason`) and the `gates` block (`fundamentals`, **`sentiment`,
+   `crowd_state`**, `correlation_cluster`, `sector_rotation`,
+   `debate_disconfirmed`) are authoritative — they must match the markdown sizing
+   section exactly. Also fill the **`context`** block (from phase-0.5 `[CTX:]`:
+   `unusual_verdict`, `universe_rank_net_dir`, `iv_rank`, `self_pctile_net_dir`)
+   and the **`expected_move`** block (`front_expiry_pct`, `front_expiry_abs`,
+   `source`) used to size the structures (N1/N4).
 2. Leave `confluence_score` and `recommended_bin` as `null`; phase-10 fills
    them after it scores.
 3. **Validate before finishing:**
@@ -151,7 +171,11 @@ market — the markdown alone is not machine-resolvable.
 - [ ] Conviction is in {0.55, 0.65, 0.75, 0.85, 0.95}.
 - [ ] Kelly `p` came from the phase-5 win-rate (capped), or conviction-bin
       fallback only when `win_rate_source=null`.
-- [ ] Sizing math shown explicitly, with every risk gate listed (fired or not).
+- [ ] Sizing math shown explicitly, with **all five** risk gates listed (fired or
+      not): fundamentals (7b), sentiment/crowd (7c), correlation, rotation, debate.
+- [ ] Phase-0.5 `unusual_verdict` reflected in sizing (no top-of-band size on a
+      `BUSY_NAME_NORMAL_DAY`; starter only on `QUIET`).
+- [ ] Structures sized to the front-expiry expected move; `expected_move` in JSON.
 - [ ] ≥3 distinct upstream citations in the thesis.
 - [ ] ≥1 directional + ≥1 defined-risk structure.
 - [ ] All citation tags resolve to actual content in the cited phase MD

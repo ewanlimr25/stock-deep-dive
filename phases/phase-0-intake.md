@@ -35,13 +35,33 @@ Validate inputs, prepare the immutable output directory, and write
    activity" in phase-0 and proceed. If the tool errors with "no such
    symbol", abort.
 
-7. **Write `phase-0-intake.md`** using the template at
+7. **Probe the local snapshot (for the DuckDB escape hatch + gap-awareness).**
+   The `uw-pp` MCP reads parquet files under `~/Documents/Stocks`
+   (`STOCKS_DIR`, overridable in `.env`). The escape hatch (`lib/duckdb-cuts.md`),
+   phase-0.5 self-history, and phase-5 gap-handling need to know which dates are
+   present locally. Run once and record the result:
+   ```bash
+   set -a; [ -f .env ] && . ./.env; set +a
+   STOCKS_DIR="${STOCKS_DIR:-$HOME/Documents/Stocks}"
+   python3 -c "import duckdb" 2>/dev/null && DUCK=yes || DUCK=no
+   ls "$STOCKS_DIR/Stock Screener/" 2>/dev/null \
+     | sed -E 's/.*screener-([0-9-]+)\.parquet/\1/' | sort
+   echo "DUCKDB=$DUCK  STOCKS_DIR=$STOCKS_DIR"
+   ```
+   Record `local_data_available` (yes/no), `duckdb_available`, and the **full list
+   of available local dates** in phase-0. Flag the known non-contiguous gap if the
+   list shows it. This is informational only — the MCP remains the primary path;
+   the local list just tells later phases when the escape hatch and self-history
+   are usable. Never abort on a missing snapshot.
+
+8. **Write `phase-0-intake.md`** using the template at
    `templates/phase-N-template.md`. The summary section should list:
    - Resolved ticker + as-of date
    - Output directory absolute path
    - Versioning decision (v1 / v2 / ...)
    - UW MCP availability check result
    - Options activity check result
+   - Local-data availability + DuckDB present + available local dates (+ gap flag)
 
 ## Output template (specific to phase 0)
 
@@ -68,6 +88,14 @@ Proceeding to phase 1.
 ## Ticker sanity
 
 - Options activity (unusual_volume top 1): <option_symbol or "empty">
+
+## Local data (escape hatch / gap-awareness)
+
+- `local_data_available`: <yes/no> · `duckdb_available`: <yes/no>
+- `STOCKS_DIR`: <path>
+- Available local dates: <list> (gap flagged: <yes/no>)
+- Note: MCP is primary; local DuckDB is opt-in for cuts the MCP can't express
+  (`lib/duckdb-cuts.md`).
 
 ## Prior versions
 

@@ -31,6 +31,12 @@ Then in any Claude Code session: `/stock-deep-dive NVDA` (or any US ticker).
 - WebSearch + WebFetch tools available (used as fallback for macro data).
 - `python3` on PATH (stdlib only — used to validate `decision.json`; no pip
   installs required).
+- Optional: `python3 -c "import duckdb"` (DuckDB) + a local `~/Documents/Stocks`
+  snapshot (`STOCKS_DIR` overridable) for the **escape hatch** (`lib/duckdb-cuts.md`)
+  — used only for the few cuts the MCP can't express (custom aggregations,
+  cross-dataset timestamp joins, full-universe/long self-history percentiles). The
+  MCP reads the same files, so this is purely an opt-in augmentation; the skill runs
+  fully without it.
 - Optional: `FRED_API_KEY` (free) for hard inflation/rate/labor series in
   phase-6 — otherwise WebSearch fallback. Register at
   https://fred.stlouisfed.org/docs/api/api_key.html.
@@ -48,8 +54,9 @@ For each run:
 
 ```
 research/<TICKER>/<YYYY-MM-DD>/
-  phase-0-intake.md         intake + sanity checks
-  phase-1-flow.md           options flow (sweeps, premium, IV outliers)
+  phase-0-intake.md         intake + sanity checks + local-data probe
+  phase-0.5-context.md      cross-sectional rank + self-history (is the flow unusual?)
+  phase-1-flow.md           options flow (whole-tape aggregate + sweeps, premium, IV)
   phase-2-dark-pool.md      block prints + price levels
   phase-3-positioning.md    OI buildup, pin risk, rolls
   phase-4-structure.md      dealer GEX/DEX, vanna/charm, term skew
@@ -57,6 +64,7 @@ research/<TICKER>/<YYYY-MM-DD>/
   phase-6-macro.md          regime + CPI/NFP/FOMC + sector rotation + correlation
   phase-7-insights.md       UW composite confluence (insights_*)
   phase-7b-fundamentals.md  FINNHUB statements/surprise/peers/MSPR — quality veto
+  phase-7c-sentiment.md     news/revisions/short-interest/crowd — positioning gate
   phase-8-agent-views.md    5 analyst sub-agents in parallel
   phase-8b-debate.md        bull vs bear disconfirmation (1–2 rounds)
   phase-9-trade-plan.md     PM-voice blueprint (thesis, structures, sizing)
@@ -65,9 +73,11 @@ research/<TICKER>/<YYYY-MM-DD>/
 ```
 
 The blueprint is sized on the **empirical** signal win-rate that phase-5
-backtests (not the narrative conviction), then run through four risk gates —
-fundamental veto (7b), cross-name correlation (6/8), sector rotation (6), and
-bull/bear disconfirmation (8b) — each of which can only cut size, never add it.
+backtests (not the narrative conviction), then run through five downside-only risk
+gates — fundamental veto (7b), sentiment/crowd (7c), cross-name correlation (6/8),
+sector rotation (6), and bull/bear disconfirmation (8b) — each of which can only
+cut size, never add it — plus a phase-0.5 context modifier that caps sizing on a
+"busy name, normal day."
 
 ## Design principles
 
@@ -78,8 +88,9 @@ bull/bear disconfirmation (8b) — each of which can only cut size, never add it
 3. **No mocks.** Tool errors surface verbatim in the phase MD; the run
    continues with what's available.
 4. **Citation discipline.** Every numeric claim in phase-9 must be tagged
-   (`[FLOW:]`, `[DP:]`, `[OI:]`, `[STRUCT:]`, `[HIST:]`, `[MACRO:]`,
-   `[AGENT:<name>]`) and resolve to an upstream phase file.
+   (`[FLOW:]`, `[DP:]`, `[OI:]`, `[STRUCT:]`, `[HIST:]`, `[MACRO:]`, `[INSIGHT:]`,
+   `[FUND:]`, `[SENT:]`, `[CTX:]`, `[AGENT:<name>]`, `[DEBATE:]`) and resolve to an
+   upstream phase file. Escape-hatch cuts add a ` DUCKDB` qualifier.
 5. **Free macro only.** UW `risk_market_regime` first; FRED-free series second;
    WebSearch + WebFetch fallback. Never silently substitute a paid feed.
 
@@ -87,11 +98,13 @@ bull/bear disconfirmation (8b) — each of which can only cut size, never add it
 
 ```
 SKILL.md            entry point + when-to-invoke + phase graph
-phases/             one detailed prompt per phase (12 files: 0–10 + 7b/8b)
+phases/             one detailed prompt per phase (14 files: 0–10 + 0.5/7b/7c/8b)
+lib/                duckdb-cuts.md — opt-in escape hatch for cuts the MCP can't express
 templates/          shared MD skeletons (phase + trade plan) + decision.json
 rubrics/            confluence, invalidation, sizing, citation conventions
 schemas/            decision.schema.json + stdlib validate_decision.py
 commands/           /deep-dive-calibration — the outcome/calibration loop
+docs/audit/         dated deep-audit history (rubric + findings + roadmap)
 research/           run outputs — gitignored
 ```
 

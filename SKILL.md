@@ -5,9 +5,10 @@ description: End-to-end single-equity deep dive that synthesizes options flow, d
 
 # Stock Deep Dive
 
-A multi-phase institutional research workflow (steps 0–10, plus a fundamentals
-quality-veto `7b` and a bull/bear disconfirmation `8b`) that produces a
-desk-PM-grade trade blueprint for a single US-listed ticker. Each phase writes
+A multi-phase institutional research workflow (steps 0–10, plus a cross-sectional
+context pass `0.5`, a fundamentals quality-veto `7b`, a sentiment/positioning gate
+`7c`, and a bull/bear disconfirmation `8b`) that produces a desk-PM-grade trade
+blueprint for a single US-listed ticker. Each phase writes
 an immutable markdown artifact to
 `research/<SYMBOL>/<YYYY-MM-DD>/phase-N-<topic>.md`, phase 9 also emits a
 structured `decision.json`, and the final phase audits the chain for internal
@@ -38,6 +39,7 @@ flow if the user wants a CFA-style memo rather than a flow-driven blueprint.
 ```
 research/<SYMBOL>/<YYYY-MM-DD>/
   phase-0-intake.md
+  phase-0.5-context.md         cross-sectional + self-history context (CTX)
   phase-1-flow.md
   phase-2-dark-pool.md
   phase-3-positioning.md
@@ -46,6 +48,7 @@ research/<SYMBOL>/<YYYY-MM-DD>/
   phase-6-macro.md
   phase-7-insights.md
   phase-7b-fundamentals.md     deep fundamentals + quality veto (FINNHUB)
+  phase-7c-sentiment.md        sentiment + positioning + short interest gate
   phase-8-agent-views.md
   phase-8b-debate.md           bull vs bear disconfirmation
   phase-9-trade-plan.md
@@ -61,8 +64,9 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 
 | # | File | Source of truth | Detailed prompt |
 |---|------|-----------------|-----------------|
-| 0 | `phase-0-intake.md` | input validation + dir setup | `phases/phase-0-intake.md` |
-| 1 | `phase-1-flow.md` | UW `options_flow_*` + `hot_chains_*` | `phases/phase-1-flow.md` |
+| 0 | `phase-0-intake.md` | input validation + dir setup + local-data probe | `phases/phase-0-intake.md` |
+| 0.5 | `phase-0.5-context.md` | UW `screener_*` + `insights_deep_dive` (universe/sector rank, self-history) → `[CTX:]` | `phases/phase-0.5-context.md` |
+| 1 | `phase-1-flow.md` | UW `options_flow_*` + `hot_chains_*` + whole-tape aggregate (`insights_deep_dive`) | `phases/phase-1-flow.md` |
 | 2 | `phase-2-dark-pool.md` | UW `dark_pool_*` | `phases/phase-2-dark-pool.md` |
 | 3 | `phase-3-positioning.md` | UW `oi_*` | `phases/phase-3-positioning.md` |
 | 4 | `phase-4-structure.md` | UW `options_structure_*` | `phases/phase-4-structure.md` |
@@ -70,6 +74,7 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 | 6 | `phase-6-macro.md` | UW `risk_market_regime` + `sector_flow_persistence` + `risk_portfolio_correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
 | 7 | `phase-7-insights.md` | UW `insights_*` composite | `phases/phase-7-insights.md` |
 | 7b | `phase-7b-fundamentals.md` | FINNHUB statements / surprise / peers / MSPR — quality veto | `phases/phase-7b-fundamentals.md` |
+| 7c | `phase-7c-sentiment.md` | FINNHUB news/revisions + WebSearch short interest + retail-vs-inst — positioning gate | `phases/phase-7c-sentiment.md` |
 | 8 | `phase-8-agent-views.md` | 5 analyst sub-agents (parallel) | `phases/phase-8-agent-views.md` |
 | 8b | `phase-8b-debate.md` | bull vs bear disconfirmation (1–2 rounds) | `phases/phase-8b-debate.md` |
 | 9 | `phase-9-trade-plan.md` | PM-voice synthesis + `decision.json` | `phases/phase-9-trade-plan.md` |
@@ -79,16 +84,27 @@ Each phase MUST cite at least one prior phase by file path and quote at least
 one specific datapoint from upstream output. Phase 9 must cite ≥3 distinct
 upstream datapoints. Phase 10 must flag every internal contradiction.
 
-**Phase 7b is a quality veto, phase 8b is a disconfirmation gate.** Both can
-only *cut* conviction/size, never add it — they filter the flow, they don't
-amplify it.
+**Phase 7b (fundamentals), phase 7c (sentiment/positioning), and phase 8b
+(debate) are all downside-only gates.** Each can only *cut* conviction/size,
+never add it — they filter the flow, they don't amplify it. **Phase 0.5 sets
+context only** (no bias): it tells the later phases whether the flow is
+genuinely unusual or a busy name's normal day.
 
 ## Orchestration rules
 
-1. **Sequential phases 0–7b**, then **parallel phase 8** (5 agents), then
-   **phase 8b** (bull/bear debate), then sequential phases 9–10. Phase 7b runs
-   after phase 7 so the desk agents (phase 8) and debate (phase 8b) can read
-   the fundamental veto.
+1. **Phase 0 → phase 0.5 → sequential phases 1–7c**, then **parallel phase 8**
+   (5 agents), then **phase 8b** (bull/bear debate), then sequential phases
+   9–10. Phase 0.5 runs right after intake so every later phase inherits the
+   `[CTX:]` cross-sectional read. Phases 7b and 7c run after phase 7 so the desk
+   agents (phase 8) and debate (phase 8b) can read both the fundamental veto and
+   the positioning gate.
+1b. **MCP first; DuckDB only for the inexpressible.** The `uw-pp` MCP reads the
+   same `~/Documents/Stocks` parquet the skill could query directly, so the MCP
+   is the default for every read. Drop to the DuckDB escape hatch
+   (`lib/duckdb-cuts.md`) ONLY for the three cuts the MCP can't express (custom
+   aggregations, cross-dataset timestamp joins, full-universe/long self-history
+   percentiles) and tag those datapoints `[… DUCKDB]`. Never re-implement an MCP
+   tool. (See `docs/audit/2026-05-25/06`.)
 2. **Composite first.** Prefer `insights_*` / `playbook_*` tools over
    re-implementing confluence math from raw flow + DP + OI.
 3. **Surface tool errors verbatim.** If a UW tool errors, write the failing
@@ -108,9 +124,11 @@ amplify it.
   includes phase-7b + the phase-8b debate penalty)
 - `rubrics/invalidation-rubric.md` — what counts as thesis-broken
 - `rubrics/sizing-rubric.md` — Kelly on the empirical phase-5 win-rate, with the
-  fundamentals/correlation/rotation/debate risk gates
+  five downside-only risk gates (fundamentals / **sentiment** / correlation /
+  rotation / debate) and the phase-0.5 context modifier
 - `rubrics/citation-conventions.md` — `[FLOW:]`, `[DP:]`, `[OI:]`, `[STRUCT:]`,
-  `[HIST:]`, `[MACRO:]`, `[INSIGHT:]`, `[FUND:]`, `[AGENT:<name>]`, `[DEBATE:]` tags
+  `[HIST:]`, `[MACRO:]`, `[INSIGHT:]`, `[FUND:]`, `[SENT:]`, `[CTX:]`,
+  `[AGENT:<name>]`, `[DEBATE:]` tags (+ ` DUCKDB` source qualifier for escape-hatch cuts)
 
 ## Schemas & structured output
 

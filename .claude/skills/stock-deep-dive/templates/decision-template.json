@@ -54,9 +54,22 @@
   ],
   "gates": {
     "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
     "correlation_cluster": null,
     "sector_rotation": "aligned",
     "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 17,
+    "iv_rank": 34.0,
+    "self_pctile_net_dir": 55.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.8,
+    "front_expiry_abs": 3.78,
+    "source": "[CTX:implied_move]"
   },
   "macro": {
     "net": "mixed",

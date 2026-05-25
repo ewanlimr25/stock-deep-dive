@@ -78,9 +78,32 @@
       "required": ["fundamentals", "correlation_cluster", "sector_rotation", "debate_disconfirmed"],
       "properties": {
         "fundamentals": { "enum": ["CONFIRM", "CAUTION", "VETO", "NA"] },
+        "sentiment": { "enum": ["CONFIRM", "CAUTION", "VETO", "NA"], "description": "Phase-7c positioning/crowd gate (optional; present on runs >= 2026-05-25)" },
+        "crowd_state": { "enum": ["CROWDED_LONG", "CROWDED_SHORT", "BALANCED", "NA"], "description": "Phase-7c crowd read" },
         "correlation_cluster": { "type": ["string", "null"], "description": "Cluster name + coefficient if a >=0.70 pair fired, else null" },
         "sector_rotation": { "enum": ["aligned", "adverse", "neutral"] },
         "debate_disconfirmed": { "type": "boolean" }
+      }
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Phase-0.5 cross-sectional/self-history context (optional; present on runs >= 2026-05-25)",
+      "properties": {
+        "unusual_verdict": { "enum": ["GENUINELY_UNUSUAL", "BUSY_NAME_NORMAL_DAY", "QUIET"] },
+        "universe_rank_net_dir": { "type": ["integer", "string", "null"], "description": "Rank on net-directional premium, or 'outside top-N'" },
+        "iv_rank": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+        "self_pctile_net_dir": { "type": ["number", "null"], "minimum": 0, "maximum": 100 }
+      }
+    },
+    "expected_move": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Front-expiry implied move the structures are sized to (N4; optional, present on runs >= 2026-05-25)",
+      "properties": {
+        "front_expiry_pct": { "type": ["number", "null"] },
+        "front_expiry_abs": { "type": ["number", "null"] },
+        "source": { "type": ["string", "null"] }
       }
     },
     "macro": {

@@ -20,6 +20,12 @@ Phase-7b (fundamentals) scores on the same scale, with one hard rule: a
 `tier_adjustment = VETO` is at most `--` and the audit MUST note that the
 directional thesis is fundamentally vetoed. `NA` (no data / ETF) scores `0`.
 
+**Context modifier (phase-0.5).** When phase-0.5 `unusual_verdict =
+BUSY_NAME_NORMAL_DAY`, the flow phases (1 and 2) are capped at `+` (cannot score
+`++`): "big flow on a name that always has big flow" is weak confluence. `QUIET`
+caps phases 1–2 at `0`. `GENUINELY_UNUSUAL` applies no cap. Phase-7c is **not** a
+scored axis — it enters as a one-sided penalty (below), like phase-8b.
+
 Plus phase-8 (multi-agent desk):
 - Each of the 5 sub-agents contributes ±2 based on whether its verdict aligns
   with the dominant bias.
@@ -31,16 +37,22 @@ Plus phase-8 (multi-agent desk):
 base_score = round( (raw_score + 130) / 260 * 100 )
 ```
 
-Then apply the **phase-8b debate penalty** AFTER normalization (a one-sided
-cut, so it can never inflate the score and keeps 50 = perfectly mixed):
+Then apply the **one-sided gate penalties** AFTER normalization (cuts only, so
+they can never inflate the score and keep 50 = perfectly mixed):
 
 ```
-confluence_score = base_score − (5 if phase-8b disconfirmed else 0)
+confluence_score = base_score
+                 − (5  if phase-8b disconfirmed else 0)      # debate
+                 − (5  if phase-7c tier_adjustment == CAUTION else 0)  # sentiment
+                 − (10 if phase-7c tier_adjustment == VETO    else 0)  # sentiment veto
 ```
 
-`disconfirmed = true` means the bear's residual ≥ the bull's residual — the
-adversarial pass did not clear the trade. A `false` result subtracts nothing;
-a strong defender residual is not allowed to add confluence.
+`disconfirmed = true` (phase-8b) means the bear's residual ≥ the bull's residual —
+the adversarial pass did not clear the trade. The **phase-7c** penalty fires when
+the crowd/positioning read contradicts the thesis (CAUTION) or hard-vetoes it
+(VETO — crowded-the-same-way + squeeze/borrow mismatch). All three are one-sided:
+confirming sentiment or a strong defender residual is **not** allowed to add
+confluence (filters never amplify). `NA`/`CONFIRM` subtract nothing.
 
 A score of **50** means perfectly mixed signals. **>70** indicates strong
 positive confluence; **<30** indicates strong negative confluence (the

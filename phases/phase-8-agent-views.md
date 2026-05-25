@@ -57,6 +57,9 @@ verdict.
 === PHASE 7b: DEEP FUNDAMENTALS (phase-7b-fundamentals.md) ===
 <full contents — includes the fundamental_signal + tier_adjustment veto>
 
+=== PHASE 7c: SENTIMENT & POSITIONING (phase-7c-sentiment.md) ===
+<full contents — includes sentiment_signal, crowd_state, short interest, tier_adjustment>
+
 === END CONTEXT ===
 
 You may call additional UW MCP tools if and only if you need a specific

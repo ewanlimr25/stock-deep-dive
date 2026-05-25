@@ -28,9 +28,11 @@ phase-9 citations. Emit `phase-10-audit.md`.
 3. **Score phase 8** as the agent-desk average: each non-MISSING agent
    contributes ±2 based on bias alignment with phase-9.
 
-4. **Compute base_score and apply the phase-8b debate penalty** (−5 if
-   `disconfirmed = true`) to get confluence_score (0–100), per
-   `rubrics/confluence-scoring.md`.
+4. **Compute base_score and apply the one-sided gate penalties** to get
+   confluence_score (0–100), per `rubrics/confluence-scoring.md`: −5 if phase-8b
+   `disconfirmed`, −5 if phase-7c `CAUTION`, −10 if phase-7c `VETO`. Also apply the
+   **phase-0.5 context modifier** when scoring phases 1–2 (cap at `+` if
+   `BUSY_NAME_NORMAL_DAY`, at `0` if `QUIET`).
 
 5. **Map score to recommended conviction bin** per the table in
    `rubrics/confluence-scoring.md`. Compare to phase-9's actual bin.
@@ -53,15 +55,19 @@ phase-9 citations. Emit `phase-10-audit.md`.
    citations go under `## Citation failures`.
 
 8. **Sanity checks.**
-   - Are all `phase-*.md` files present (including `phase-7b` and `phase-8b`)?
+   - Are all `phase-*.md` files present (including `phase-0.5`, `phase-7b`,
+     `phase-7c`, and `phase-8b`)?
    - Does phase-9 cite ≥3 distinct upstream datapoints?
    - Is the conviction bin one of {0.55, 0.65, 0.75, 0.85, 0.95}?
    - Are at least 1 directional + 1 defined-risk structure present?
    - Is sizing math shown, and is Kelly `p` the phase-5 win-rate (or a
      justified bin fallback)?
-   - Did every applicable risk gate (fundamentals / correlation / rotation /
-     debate) get evaluated in phase-9's sizing block?
-   - Does `decision.json` exist and pass `validate_decision.py`?
+   - Did every applicable risk gate (fundamentals / **sentiment** / correlation /
+     rotation / debate) get evaluated in phase-9's sizing block, and is the
+     phase-0.5 `unusual_verdict` reflected in sizing?
+   - Are structures sized to the front-expiry expected move (`expected_move` in JSON)?
+   - Does `decision.json` exist and pass `validate_decision.py` (incl. the new
+     `context`/`expected_move`/`gates.sentiment` fields if present)?
 
 ## Output sections
 

@@ -3,6 +3,19 @@ _Audited: 2026-05-23 · Perspective: options trader / hedge fund PM / MM_
 
 Rubric — **Impact:** CRITICAL/HIGH/MEDIUM/LOW/NICE · **Effort:** S(<1d)/M(1–3d)/L(1wk+) · **Edge:** A=alpha R=risk O=operational. Siblings: `claude-trading-agents`, `uw-daily-analysis` (both `/Users/ewan/Development/`).
 
+> **Follow-up deep audit — 2026-05-25** (`docs/audit/2026-05-25/`): end-to-end
+> flow audit against an institutional-desk rubric. **Key corrected finding** (after
+> a head-to-head test, see `06-revision-mcp-reads-local.md`): the `uw-pp` MCP server
+> **reads the same `~/Documents/Stocks` parquet files** (its output names the source
+> file), so using the MCP is *correct*, not a gap. The real gaps are **under-extraction**
+> (the skill never calls the screener/context tools it already has — e.g. one
+> `screener_bullish_bearish` call shows the single name's universe rank), **two missing
+> analyses** (sentiment/positioning phase, short interest/borrow), and a **thin DuckDB
+> escape hatch** for the few query shapes the MCP can't express (custom aggregations,
+> cross-dataset timestamp joins, full-universe percentiles). The initial pass mis-framed
+> this as "local data unused → go local-first"; that is retracted in `06`. Start at
+> `docs/audit/2026-05-25/06-revision-mcp-reads-local.md`.
+
 ## 1. What this repo does well
 - **Most thorough single-name workup of the three.** 10 sequential phases (`phases/phase-0`…`phase-10`) walk flow → dark pool → OI → dealer structure → historical IV/VRP → macro → UW insights → 5-agent desk → trade blueprint → audit. Nothing in the set goes this deep on one ticker.
 - **Only macro-aware repo.** Phase 6 pulls **hard FRED data** (CPI/PCE/NFP/Fed funds/10y-2y/2s10s) with WebSearch fallback — free, and a capability both siblings lack entirely.

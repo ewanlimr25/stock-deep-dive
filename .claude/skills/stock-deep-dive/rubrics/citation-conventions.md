@@ -16,8 +16,19 @@ resolves to a specific upstream phase + tool. Adapted from
 | `[MACRO:<series>]`| phase-6  | UW regime / FRED / WebSearch / `sector_flow*` / `portfolio_correlation` | `[MACRO:CPI_YoY_2026-05]`, `[MACRO:sector_flow_persistence]` |
 | `[INSIGHT:<tool>]`| phase-7  | `insights_*` | `[INSIGHT:conviction_matrix]` |
 | `[FUND:<metric>]` | phase-7b | Finnhub metric / surprise / consensus / MSPR | `[FUND:operatingMarginTTM]`, `[FUND:mspr_2026-04]` |
+| `[SENT:<source>]` | phase-7c | news / analyst-revision / short-interest / crowd | `[SENT:short_interest]`, `[SENT:revision_trend]` |
+| `[CTX:<metric>]`  | phase-0.5| cross-sectional rank / self-history / implied move | `[CTX:universe_rank_net_dir]`, `[CTX:implied_move_pct]` |
 | `[AGENT:<name>]`  | phase-8  | sub-agent name | `[AGENT:sweep-tracker]` |
 | `[DEBATE:<side>]` | phase-8b | bull / bear residual + cited point | `[DEBATE:bear_residual]` |
+
+## Source qualifier (MCP vs DuckDB escape hatch)
+
+A datapoint computed via the **DuckDB escape hatch** (`lib/duckdb-cuts.md` — a cut
+the MCP can't express) carries a trailing ` DUCKDB` qualifier inside the tag, so
+`/deep-dive-calibration` can attribute edge to the escape hatch vs the MCP:
+`[FLOW:aggressor_ex0dte DUCKDB]`, `[DP:ts_confirm DUCKDB]`, `[CTX:self_pctile DUCKDB]`.
+Default (no qualifier) = the MCP tool path. Do not use the escape hatch for anything
+the MCP already returns — those stay plain MCP tags.
 
 ## Resolution rule
 

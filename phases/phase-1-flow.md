@@ -20,6 +20,28 @@ Cap `top_n` at 25 to keep output readable.
 | `mcp__uw-pp__hot_chains_smart_money_flow` | direction=both, top_n=10, min_volume=500 | Ask vs bid imbalance |
 | `mcp__uw-pp__hot_chains_sweep_persistence` | days=5, top_n=20, symbol | Multi-day sweep campaigns |
 | `mcp__uw-pp__hot_chains_sweep_ratio` | top_n=15, min_volume=500, min_sweep_ratio=0.3 | Aggressive-sweep ratio |
+| `mcp__uw-pp__insights_deep_dive` | symbol=`<SYMBOL>` (date if as-of) | **Whole-tape aggregate** — the `uw_screener` block: `call_premium`, `put_premium`, `bullish_premium`, `bearish_premium`, `net_flow`, `put_call_ratio`, ask vs bid volume across the ENTIRE tape |
+
+## Whole-tape aggregate first (do NOT read direction off top-N alone)
+
+The ranked tools above return the **top-N prints — the tip of the iceberg** (audit
+2026-05-25 `§3`: the top-25 AAPL prints were only ~30% of the day's premium, and
+read "clean bullish" while the whole tape was near-balanced). **Before interpreting
+the top prints, state the whole-tape aggregate** from `insights_deep_dive`'s
+`uw_screener` block (the same screener data phase-7 / phase-0.5 use):
+- call vs put premium, `bullish_premium` vs `bearish_premium`, `net_flow`,
+  ask-side vs bid-side volume, P/C ratio.
+
+Then read the top-N prints *against* that aggregate: a single huge ask-side LEAP on
+top of a near-balanced tape is one print, not a one-sided tape — say so. Carry
+`[CTX:]` from phase-0.5: if `unusual_verdict = BUSY_NAME_NORMAL_DAY`, discount the
+magnitude and cap this phase's downstream conviction (phases 1–2 capped at `+`,
+`rubrics/confluence-scoring.md`).
+
+> When the MCP top-N view and the aggregate disagree and you need the directional
+> read **stripped of 0DTE pin noise** or in **delta-notional** terms, that exact cut
+> is the DuckDB escape hatch `lib/duckdb-cuts.md §A` (tag `[FLOW:… DUCKDB]`). Optional;
+> only when the snapshot exists and the standard view is ambiguous.
 
 ## Composition guidance
 
@@ -34,6 +56,9 @@ Cap `top_n` at 25 to keep output readable.
 1. **Summary** — 3 sentences: net bias, premium magnitude, persistence.
 2. **Key signals** — bulleted top-5 with `[FLOW:<tool>]` citations.
 3. **Detailed findings**
+   - ### Whole-tape aggregate (call vs put premium, bullish vs bearish premium,
+     net_flow, ask vs bid volume, P/C) — `[FLOW:insights_deep_dive]`; the top-N
+     below is read against this
    - ### Sweeps (ask vs bid, premium, persistence)
    - ### New positioning (unusual vol, vol/OI ratio)
    - ### Largest premium prints (table: time, strike, expiry, premium, side)

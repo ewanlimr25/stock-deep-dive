@@ -116,17 +116,33 @@ add. Apply them in order and show each in the sizing block. Mirrors
      {earnings_trend, insider MSPR, growth/margins} — treat the bullish flow
      as smart-money distribution, not a tradeable long. You may still publish
      a defined-risk structure marked "fundamentals-vetoed, carry only".
-2. **Correlation cluster gate (phase-6 / phase-8 `risk_portfolio_correlation`).**
+2. **Sentiment / crowded-trade gate (phase-7c).** Read `tier_adjustment` +
+   `crowd_state` from `phase-7c-sentiment.md`:
+   - `CONFIRM` / `NA` → no-op.
+   - `CAUTION` → cut one size step (e.g. crowded the same way as the thesis, or
+     adverse analyst-revision momentum).
+   - `VETO` → directional size is **watch-only / 0%** (e.g. extreme retail euphoria
+     into dark-pool distribution on a long; or a fresh short into a heavily-shorted,
+     hard-to-borrow name where squeeze risk dominates the edge). Defined-risk carry
+     only, marked "sentiment-vetoed". A `VETO` here is symmetric to the 7b veto:
+     the crowd is already your way and smart money isn't, or the squeeze/borrow
+     risk swamps the signal.
+3. **Correlation cluster gate (phase-6 / phase-8 `risk_portfolio_correlation`).**
    If this name is pairwise-correlated ≥ 0.70 with another open research blueprint
    (same `research/<other>/<date>/`), cut one size step and name the cluster.
    `0.60–0.70` is a soft-watch — surface it, do not cut.
-3. **Adverse sector-rotation gate (phase-6 `options_flow_sector_flow_persistence`).**
+4. **Adverse sector-rotation gate (phase-6 `options_flow_sector_flow_persistence`).**
    If smart money is persistently rotating *out* of this name's sector against
    the trade direction, cut half a size step.
-4. **Debate-disconfirmation gate (phase-8b).** If the bear's residual
+5. **Debate-disconfirmation gate (phase-8b).** If the bear's residual
    confidence ≥ the bull's residual confidence, the disconfirmation step did
    NOT clear the trade: down-shift the conviction bin by one and cut one size
    step. Quote both residuals. The debate can only cut, never add.
+
+**Context modifier (phase-0.5, not a gate but applied alongside).** If
+`unusual_verdict = BUSY_NAME_NORMAL_DAY`, do not size at the top of the band — the
+magnitude is normal for this name. `QUIET` caps the directional size at **starter**
+regardless of Kelly. `GENUINELY_UNUSUAL` is a no-op (the edge is already in `p`).
 
 ## Deviation escape hatch
 

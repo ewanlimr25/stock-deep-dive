@@ -33,6 +33,23 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
   record `win_rate_source=null` so phase-9 falls back to the conviction bin.
 - `historical_trend` and `historical_oi_trend` are the workhorses — run both.
 
+### Gap-aware lookbacks (MANDATORY — the snapshot window is non-contiguous)
+
+The data behind these tools is **not contiguous**: there is a **21-session hole
+(2026-03-28 → 2026-04-24)** between two clusters (2026-03-13…03-27 and
+2026-04-27…05-22) — see phase-0's available-local-dates list. The `historical_*`
+tools read the same `~/Documents/Stocks` files the escape hatch does, so:
+- When a `days=` / `lookback_days=` window **crosses the hole**, report the
+  **actual number of sessions present**, not the calendar span, and never annualize
+  or fit a "30-day trend" across the gap. Quote N explicitly (e.g. "30d trend over
+  the **19 sessions actually present**, gap 03-28→04-24 excluded").
+- If an MCP historical series looks suspiciously smooth across late-Mar/Apr,
+  **suspect the gap** — cross-check against phase-0's date list (or `lib/duckdb-cuts.md
+  § gap`). If the MCP silently interpolates across the hole, surface that as a
+  data-quality caveat in the `## Tool errors` section rather than trusting the line.
+- This caveat shrinks confidence; a small *true* N (< 10 sessions) is low-confidence
+  regardless of the calendar window requested.
+
 ## Output sections
 
 1. **Summary** — IV percentile, VRP regime, premium-flow direction, GEX

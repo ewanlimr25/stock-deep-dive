@@ -29,6 +29,9 @@ CONVICTION_BINS = (0.55, 0.65, 0.75, 0.85, 0.95)
 BIAS = {"LONG", "SHORT", "NEUTRAL", "RANGE"}
 HORIZON = {"intraday", "1-5d", "1-4w", "1-3m"}
 FUND_GATE = {"CONFIRM", "CAUTION", "VETO", "NA"}
+SENTIMENT_GATE = {"CONFIRM", "CAUTION", "VETO", "NA"}
+CROWD_STATE = {"CROWDED_LONG", "CROWDED_SHORT", "BALANCED", "NA"}
+UNUSUAL_VERDICT = {"GENUINELY_UNUSUAL", "BUSY_NAME_NORMAL_DAY", "QUIET"}
 ROTATION = {"aligned", "adverse", "neutral"}
 
 REQUIRED_TOP = [
@@ -105,6 +108,25 @@ def validate(data: dict) -> list[str]:
                 errs.append("fundamentals VETO requires directional final_size_pct == 0 (watch-only)")
         except (TypeError, ValueError):
             pass
+
+    # Optional phase-7c sentiment gate (present on runs >= 2026-05-25). Checked
+    # only when supplied, so pre-7c blueprints stay valid.
+    if "sentiment" in gates and gates.get("sentiment") not in SENTIMENT_GATE:
+        errs.append(f"gates.sentiment must be one of {sorted(SENTIMENT_GATE)}")
+    if "crowd_state" in gates and gates.get("crowd_state") not in CROWD_STATE:
+        errs.append(f"gates.crowd_state must be one of {sorted(CROWD_STATE)}")
+    if gates.get("sentiment") == "VETO" and data["bias"] in {"LONG", "SHORT"}:
+        try:
+            if float(sizing.get("final_size_pct", 1)) != 0:
+                errs.append("sentiment VETO requires directional final_size_pct == 0 (watch-only)")
+        except (TypeError, ValueError):
+            pass
+
+    # Optional phase-0.5 context block (present on runs >= 2026-05-25).
+    ctx = data.get("context")
+    if isinstance(ctx, dict) and "unusual_verdict" in ctx \
+            and ctx["unusual_verdict"] not in UNUSUAL_VERDICT:
+        errs.append(f"context.unusual_verdict must be one of {sorted(UNUSUAL_VERDICT)}")
 
     structs = data["structures"]
     if not isinstance(structs, list) or len(structs) < 2:
