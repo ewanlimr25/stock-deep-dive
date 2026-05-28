@@ -16,17 +16,7 @@
       "Agent",
       "WebSearch",
       "WebFetch",
-      "mcp__uw-pp__dark_pool_*",
-      "mcp__uw-pp__options_flow_*",
-      "mcp__uw-pp__options_structure_*",
-      "mcp__uw-pp__hot_chains_*",
-      "mcp__uw-pp__oi_*",
-      "mcp__uw-pp__historical_*",
-      "mcp__uw-pp__insights_*",
-      "mcp__uw-pp__playbook_*",
-      "mcp__uw-pp__screener_*",
-      "mcp__uw-pp__watchlist_*",
-      "mcp__uw-pp__risk_*"
+      "Bash(uw:*)"
     ]
   }
 }

@@ -31,8 +31,9 @@ flow if the user wants a CFA-style memo rather than a flow-driven blueprint.
 ## Inputs
 
 - **Required:** one US-listed ticker (equity or ETF).
-- **Optional:** as-of date (default = today). If supplied, all UW tool calls
-  receive `date=<as-of>`. Never call live data when an as-of date is given.
+- **Optional:** as-of date (default = today). If supplied, all UW commands
+  receive `--date <as-of>` (where the flag exists). Never call live data when an
+  as-of date is given.
 
 ## Output convention (MANDATORY)
 
@@ -65,14 +66,14 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 | # | File | Source of truth | Detailed prompt |
 |---|------|-----------------|-----------------|
 | 0 | `phase-0-intake.md` | input validation + dir setup + local-data probe | `phases/phase-0-intake.md` |
-| 0.5 | `phase-0.5-context.md` | UW `screener_*` + `insights_deep_dive` (universe/sector rank, self-history) → `[CTX:]` | `phases/phase-0.5-context.md` |
-| 1 | `phase-1-flow.md` | UW `options_flow_*` + `hot_chains_*` + whole-tape aggregate (`insights_deep_dive`) | `phases/phase-1-flow.md` |
-| 2 | `phase-2-dark-pool.md` | UW `dark_pool_*` | `phases/phase-2-dark-pool.md` |
-| 3 | `phase-3-positioning.md` | UW `oi_*` | `phases/phase-3-positioning.md` |
-| 4 | `phase-4-structure.md` | UW `options_structure_*` | `phases/phase-4-structure.md` |
-| 5 | `phase-5-historical.md` | UW `historical_*` (emits signal win-rate for sizing) | `phases/phase-5-historical.md` |
-| 6 | `phase-6-macro.md` | UW `risk_market_regime` + `sector_flow_persistence` + `risk_portfolio_correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
-| 7 | `phase-7-insights.md` | UW `insights_*` composite | `phases/phase-7-insights.md` |
+| 0.5 | `phase-0.5-context.md` | `uw screener` + `uw insights deep-dive` (universe/sector rank, self-history) → `[CTX:]` | `phases/phase-0.5-context.md` |
+| 1 | `phase-1-flow.md` | `uw options-flow` + `uw hot-chains` + whole-tape aggregate (`uw insights deep-dive`) | `phases/phase-1-flow.md` |
+| 2 | `phase-2-dark-pool.md` | `uw dark-pool` | `phases/phase-2-dark-pool.md` |
+| 3 | `phase-3-positioning.md` | `uw oi` | `phases/phase-3-positioning.md` |
+| 4 | `phase-4-structure.md` | `uw options-structure` | `phases/phase-4-structure.md` |
+| 5 | `phase-5-historical.md` | `uw historical` (emits signal win-rate for sizing) | `phases/phase-5-historical.md` |
+| 6 | `phase-6-macro.md` | `uw risk market-regime` + `options-flow sector-flow-persistence` + `risk portfolio-correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
+| 7 | `phase-7-insights.md` | `uw insights` composite | `phases/phase-7-insights.md` |
 | 7b | `phase-7b-fundamentals.md` | FINNHUB statements / surprise / peers / MSPR + `fz` peer-breadth / insider-clusters / analyst cross-source — quality veto | `phases/phase-7b-fundamentals.md` |
 | 7c | `phase-7c-sentiment.md` | FINNHUB news/revisions + `fz` short interest / float (WebSearch fallback; borrow/HTB still WebSearch) + retail-vs-inst — positioning gate | `phases/phase-7c-sentiment.md` |
 | 8 | `phase-8-agent-views.md` | 5 analyst sub-agents (parallel) | `phases/phase-8-agent-views.md` |
@@ -98,16 +99,19 @@ genuinely unusual or a busy name's normal day.
    `[CTX:]` cross-sectional read. Phases 7b and 7c run after phase 7 so the desk
    agents (phase 8) and debate (phase 8b) can read both the fundamental veto and
    the positioning gate.
-1b. **MCP first; DuckDB only for the inexpressible.** The `uw-pp` MCP reads the
-   same `~/Documents/Stocks` parquet the skill could query directly, so the MCP
-   is the default for every read. Drop to the DuckDB escape hatch
-   (`lib/duckdb-cuts.md`) ONLY for the three cuts the MCP can't express (custom
-   aggregations, cross-dataset timestamp joins, full-universe/long self-history
-   percentiles) and tag those datapoints `[… DUCKDB]`. Never re-implement an MCP
-   tool. (See `docs/audit/2026-05-25/06`.)
+1b. **`uw` CLI first; DuckDB only for the inexpressible.** The `uw` CLI
+   (`unusual-whales-pp-cli`, on `PATH` as `uw`) reads the same `~/Documents/Stocks`
+   parquet the skill could query directly, so the CLI is the default for every
+   read. Every call emits JSON with `--json` and may narrow output with `--select`.
+   Drop to the DuckDB escape hatch (`lib/duckdb-cuts.md`) ONLY for the three cuts
+   the CLI can't express (custom aggregations, cross-dataset timestamp joins,
+   full-universe/long self-history percentiles) and tag those datapoints
+   `[… DUCKDB]`. Never re-implement a `uw` command. The CLI is the same engine the
+   old `uw-pp` MCP wrapped (output is bit-identical), so the MCP is deprecated.
+   (See `docs/audit/2026-05-25/06` and `docs/audit/2026-05-27/uw-cli-migration`.)
 1c. **`fz` for fundamentals/SI/float/peer/breadth only.** The `fz` (Finviz) CLI
    (`lib/fz-recipes.md`) supplies the short-interest / float / peer-breadth /
-   sector-breadth data neither the MCP nor Finnhub carries cleanly. It is a Bash
+   sector-breadth data neither the `uw` CLI nor Finnhub carries cleanly. It is a Bash
    CLI like the `curl`/Finnhub calls — used in phases 7c/7b (gates), 2/3 (float
    normalization, advisory), 6 (breadth overlay, advisory), and 0/5/9 (price
    context, advisory). It has **no** flow/greeks/dark-pool/GEX/OI and touches none
@@ -116,11 +120,11 @@ genuinely unusual or a busy name's normal day.
    enters the Kelly `p`. Tag `fz` datapoints with the ` fz` source qualifier
    (`rubrics/citation-conventions.md`). Graceful-skip to WebSearch/Finnhub if `fz`
    is absent. (See `docs/audit/2026-05-27`.)
-2. **Composite first.** Prefer `insights_*` / `playbook_*` tools over
+2. **Composite first.** Prefer `uw insights` / `uw playbook` commands over
    re-implementing confluence math from raw flow + DP + OI.
-3. **Surface tool errors verbatim.** If a UW tool errors, write the failing
-   call (tool name + args) + the error into the phase MD under a `## Tool
-   errors` section. Do not mock or skip.
+3. **Surface tool errors verbatim.** If a `uw` command errors, write the failing
+   command line + the error into the phase MD under a `## Tool errors` section.
+   Do not mock or skip.
 4. **No paid data.** If FRED or Finnhub requires a paid endpoint (or the key is
    unset), fall back gracefully — WebSearch+WebFetch for macro (phase-6),
    `tier_adjustment=NA` for fundamentals (phase-7b) — and label the source.

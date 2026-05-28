@@ -8,21 +8,25 @@ or distributing, at what price levels, and during which sessions. Emit
 
 ## Tools
 
-All ticker-scoped; some require `ticker=<SYMBOL>` (singular, not `symbol`).
+All take `--symbol` (the CLI unifies what the old MCP split between `symbol` and
+`ticker`) and `--json`. Pass `--date <AS-OF>` if not today.
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__dark_pool_largest` | symbol, top_n=25, sort_by=premium | Biggest individual blocks |
-| `mcp__uw-pp__dark_pool_block_stratified` | symbol, top_n=30, min_tier=large | Premium tier breakdown + buy/sell ratio |
-| `mcp__uw-pp__dark_pool_extended_hours` | symbol, top_n=15 | Pre/post-market institutional moves |
-| `mcp__uw-pp__dark_pool_price_levels` | ticker=<SYMBOL>, top_n=15, days=5 | Institutional S/R clusters |
-| `mcp__uw-pp__dark_pool_ticker_summary` | top_n=30 | Verify `<SYMBOL>` ranks in today's top |
+| Command | What it answers |
+|---------|-----------------|
+| `uw dark-pool largest --symbol <S> --top-n 25 --sort-by premium --json` | Biggest individual blocks |
+| `uw dark-pool block-stratified --symbol <S> --top-n 30 --min-tier large --json` | Premium tier breakdown + buy/sell ratio |
+| `uw dark-pool extended-hours --symbol <S> --top-n 15 --json` | Pre/post-market institutional moves |
+| `uw dark-pool price-levels --symbol <S> --top-n 15 --days 5 --json` | Institutional S/R clusters |
+| `uw dark-pool ticker-summary --top-n 30 --json` | Verify `<SYMBOL>` ranks in today's top |
 
 ## Composition guidance
 
-- `dark_pool_price_levels` is the only one that natively supports multi-day
-  aggregation — use `days=5` to find clusters not just today's prints.
-- Cross-reference `dark_pool_extended_hours` against any overnight news in
+- `uw dark-pool price-levels` is the only one that natively supports multi-day
+  aggregation — use `--days 5` to find clusters not just today's prints.
+  **Caveat:** `--days` anchors its window to the *latest available date*, not to
+  `--date`; on a re-run after a new session lands the window slides. Cross-check
+  the returned cluster premiums against phase-0's available-dates list.
+- Cross-reference `uw dark-pool extended-hours` against any overnight news in
   phase-6 to attribute (or rule out) news-driven prints.
 - **Float-normalize block size (D2, advisory).** If phase-0 captured `Shs Float`
   (`fz`, `lib/fz-recipes.md`), express the mega/block-tier print size as a **% of

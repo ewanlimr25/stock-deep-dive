@@ -12,29 +12,29 @@ Emit `phase-0.5-context.md`.
 
 > **Why this phase exists (audit 2026-05-25, `docs/audit/2026-05-25/06`).** The skill
 > read a single name in isolation and could mistake "big flow on a name that always
-> has big flow" for a signal. The ranking below is one MCP screener call the skill
+> has big flow" for a signal. The ranking below is one `uw screener` call the skill
 > previously never made for the single name. (Worked example: AAPL 2026-05-20 ranked
 > ~17th on net bullish flow behind AMD/MU/SNDK/INTC — semis led the tape, AAPL was not
 > a top directional name — a fact invisible to a single-name-only read.)
 
-## Tools (MCP — primary path)
+## Tools (`uw` CLI — primary path)
 
-The `screener_*` tools are MARKET-WIDE rankings sourced from the same screener data
-`insights_deep_dive` returns per-name. Call with a generous `top-n` so `<SYMBOL>`
-falls inside the returned list; if it does not, the name is outside the top of that
-metric (record "outside top-N on <metric>").
+The `uw screener` commands are MARKET-WIDE rankings sourced from the same screener
+data `uw insights deep-dive` returns per-name. Call with a generous `--top-n` so
+`<SYMBOL>` falls inside the returned list; if it does not, the name is outside the
+top of that metric (record "outside top-N on <metric>"). All commands take `--json`.
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__screener_bullish_bearish` | direction=bullish, top_n=50 (date if as-of) | Where `<SYMBOL>` ranks on net bullish premium today; which names lead |
-| `mcp__uw-pp__screener_bullish_bearish` | direction=bearish, top_n=50 | Same for net bearish premium |
-| `mcp__uw-pp__screener_volume_vs_average` | min_volume_ratio=2, top_n=50 | Is today's option volume unusual vs the name's 30-day average |
-| `mcp__uw-pp__screener_iv_rank` | mode=high/low, top_n=50 | Where the name's IV rank sits in the universe |
-| `mcp__uw-pp__insights_deep_dive` | symbol=`<SYMBOL>` (date if as-of) | The name's own `uw_screener` block — bullish/bearish/call/put premium, `net_flow`, `iv_rank`, `implied_move`, P/C (the absolute numbers behind the rank) |
+| Command | What it answers |
+|---------|-----------------|
+| `uw screener bullish-bearish --direction bullish --top-n 50 [--date D] --json` | Where `<SYMBOL>` ranks on net bullish premium today; which names lead |
+| `uw screener bullish-bearish --direction bearish --top-n 50 [--date D] --json` | Same for net bearish premium |
+| `uw screener volume-vs-average --min-volume-ratio 2 --top-n 50 [--date D] --json` | Is today's option volume unusual vs the name's 30-day average |
+| `uw screener iv-rank --mode high\|low --top-n 50 [--date D] --json` | Where the name's IV rank sits in the universe |
+| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | The name's own `uw_screener` block — bullish/bearish/call/put premium, `net_flow`, `iv_rank`, `implied_move`, P/C (the absolute numbers behind the rank) |
 
 ## Optional precise percentile (DuckDB escape hatch — `lib/duckdb-cuts.md` §C)
 
-The MCP returns *ranked top-N*, not an exact percentile or a self-history series.
+The CLI returns *ranked top-N*, not an exact percentile or a self-history series.
 If the local screener parquet for the as-of date exists
 (`~/Documents/Stocks/Stock Screener/stock-screener-<DATE>.parquet`; `STOCKS_DIR`
 overridable), run `lib/duckdb-cuts.md §C` for:
@@ -43,7 +43,7 @@ overridable), run `lib/duckdb-cuts.md §C` for:
 - its **self-history percentile** (today vs the name's own ≤31-session distribution).
 
 This is purely additive — it sharpens the verdict. If the parquet is absent (live
-run beyond the snapshot, or `STOCKS_DIR` unset), skip it and rank from the MCP
+run beyond the snapshot, or `STOCKS_DIR` unset), skip it and rank from the CLI
 lists alone; say so in the `## Source` line.
 
 ## Output sections
@@ -56,10 +56,10 @@ lists alone; say so in the `## Source` line.
    sector in or out of favour (hands the macro phase a head start).
 4. **Self-history** (if parquet present) — today's premium / net-direction /
    P-C / IV rank percentile vs the name's own recent sessions.
-5. **Source** — MCP-only or MCP+DuckDB; note any "outside top-N" metrics.
+5. **Source** — CLI-only or CLI+DuckDB; note any "outside top-N" metrics.
 6. **Verdict for downstream** — the `[CTX:]` block (phases 1, 5, 9 read it verbatim):
    ```
-   universe_pctile_total_prem:  <0–100 or null>   # null if MCP-rank-only
+   universe_pctile_total_prem:  <0–100 or null>   # null if CLI-rank-only
    universe_rank_net_dir:       <integer rank, or "outside top-50">
    sector_leadership:           <SECTOR is leading | lagging | mid-pack today>
    iv_rank:                     <0–100>            # from insights_deep_dive

@@ -33,19 +33,19 @@ Validate inputs, prepare the immutable output directory, and write
      under "Prior version(s)". Skip silently if `fz` is absent or there is no
      prior snapshot (`lib/fz-recipes.md §5`).
 
-5. **Smoke-test UW MCP availability.** Call
-   `mcp__uw-pp__historical_available_dates` (no args). If it errors, write the
+5. **Smoke-test UW CLI availability.** Run
+   `uw historical available-dates --json` (no args). If it errors, write the
    error to phase-0 under `## Tool errors` and ABORT the run — without UW data
    the rest of the skill is useless.
 
-6. **Confirm ticker has options.** Call
-   `mcp__uw-pp__options_flow_unusual_volume` with `symbol=<TICKER>` and
-   `top_n=1`. If empty AND the ticker is a known equity, note "thin options
+6. **Confirm ticker has options.** Run
+   `uw options-flow unusual-volume --symbol <TICKER> --top-n 1 --json`. If empty
+   AND the ticker is a known equity, note "thin options
    activity" in phase-0 and proceed. If the tool errors with "no such
    symbol", abort.
 
 7. **Probe the local snapshot (for the DuckDB escape hatch + gap-awareness).**
-   The `uw-pp` MCP reads parquet files under `~/Documents/Stocks`
+   The `uw` CLI reads parquet files under `~/Documents/Stocks`
    (`STOCKS_DIR`, overridable in `.env`). The escape hatch (`lib/duckdb-cuts.md`),
    phase-0.5 self-history, and phase-5 gap-handling need to know which dates are
    present locally. Run once and record the result:
@@ -59,13 +59,13 @@ Validate inputs, prepare the immutable output directory, and write
    ```
    Record `local_data_available` (yes/no), `duckdb_available`, and the **full list
    of available local dates** in phase-0. Flag the known non-contiguous gap if the
-   list shows it. This is informational only — the MCP remains the primary path;
+   list shows it. This is informational only — the CLI remains the primary path;
    the local list just tells later phases when the escape hatch and self-history
    are usable. Never abort on a missing snapshot.
 
 7b. **Probe `fz` + snapshot float (for the Finviz augments).** `fz`
    (`finviz-pp-cli`, `lib/fz-recipes.md`) supplies the short-interest / float /
-   peer / breadth data the MCP lacks, used in phases 7c/7b/2/3/6. Probe its
+   peer / breadth data the `uw` CLI lacks, used in phases 7c/7b/2/3/6. Probe its
    health once, set `fz_available`, and snapshot `Shs Float` so phase-2/3 can
    express order size as % of float (and seed next run's `quote-drift`):
    ```bash
@@ -84,7 +84,7 @@ Validate inputs, prepare the immutable output directory, and write
    - Resolved ticker + as-of date
    - Output directory absolute path
    - Versioning decision (v1 / v2 / ...)
-   - UW MCP availability check result
+   - UW CLI availability check result
    - Options activity check result
    - Local-data availability + DuckDB present + available local dates (+ gap flag)
    - `fz_available` + snapshotted `Shs Float` (for the Finviz augments)
@@ -102,12 +102,12 @@ Validate inputs, prepare the immutable output directory, and write
 
 ## Summary
 
-Ticker validated. Output directory created. UW MCP reachable.
+Ticker validated. Output directory created. UW CLI reachable.
 Proceeding to phase 1.
 
 ## UW availability
 
-- `historical_available_dates`: <ok / error text>
+- `uw historical available-dates`: <ok / error text>
 - Latest available options date: <date>
 - Latest available darkpool date: <date>
 
@@ -120,8 +120,8 @@ Proceeding to phase 1.
 - `local_data_available`: <yes/no> · `duckdb_available`: <yes/no>
 - `STOCKS_DIR`: <path>
 - Available local dates: <list> (gap flagged: <yes/no>)
-- Note: MCP is primary; local DuckDB is opt-in for cuts the MCP can't express
-  (`lib/duckdb-cuts.md`).
+- Note: the `uw` CLI is primary; local DuckDB is opt-in for cuts the CLI can't
+  express (`lib/duckdb-cuts.md`).
 
 ## Finviz augments (`fz`)
 
@@ -143,4 +143,4 @@ Proceeding to phase 1.
 
 - [ ] Output dir exists and is empty (or contains only prior-version files)
 - [ ] `phase-0-intake.md` (or `-vK.md`) written
-- [ ] Either UW MCP confirmed working OR run aborted with clear error
+- [ ] Either UW CLI confirmed working OR run aborted with clear error

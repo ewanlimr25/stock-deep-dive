@@ -8,20 +8,23 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
 
 ## Tools
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__historical_iv_percentile_zscore` | symbol, lookback_days=252 | 1y IV percentile + z-score |
-| `mcp__uw-pp__historical_vrp` | symbol | IV30 minus realized vol30 |
-| `mcp__uw-pp__historical_cumulative_premium_flow` | symbol, days=90 | LEAP-grade premium accretion |
-| `mcp__uw-pp__historical_pc_ratio_zscore` | symbol, lookback_days=20 | Sentiment extreme detector |
-| `mcp__uw-pp__historical_gex_time_series` | symbol, days=30, dte_max=45 | Multi-day ZGL + regime flips |
-| `mcp__uw-pp__historical_oi_trend` | symbol, days=30, top_n=10 | OI buildup over time |
-| `mcp__uw-pp__historical_trend` | symbol, days=30 | Multi-day vol/premium/IV/PCR |
-| `mcp__uw-pp__historical_signal_backtest` | signal_type=bullish_flow (or aligned with phase-1 verdict), lookback_days=20, top_n=20 | Historical win rate of current signal |
+All take `--symbol <S>` (except `signal-backtest`, which is market-wide) and
+`--json`.
+
+| Command | What it answers |
+|---------|-----------------|
+| `uw historical iv-percentile-zscore --symbol <S> --lookback-days 252 --json` | 1y IV percentile + z-score |
+| `uw historical vrp --symbol <S> --realised-window-days 30 --json` | IV30 minus realized vol30 |
+| `uw historical cumulative-premium-flow --symbol <S> --days 90 --json` | LEAP-grade premium accretion |
+| `uw historical pc-ratio-zscore --symbol <S> --lookback-days 20 --json` | Sentiment extreme detector |
+| `uw historical gex-time-series --symbol <S> --days 30 --dte-max 45 --json` | Multi-day ZGL + regime flips |
+| `uw historical oi-trend --symbol <S> --days 30 --top-n 10 --json` | OI buildup over time |
+| `uw historical trend --symbol <S> --days 30 --json` | Multi-day vol/premium/IV/PCR |
+| `uw historical signal-backtest --signal-type bullish_flow --lookback-days 5 --top-n 20 --json` | Historical win rate of current signal (set `--signal-type` to match the phase-1/2 verdict) |
 
 ## Composition guidance
 
-- Run `historical_signal_backtest` with the signal type that matches phase-1's
+- Run `uw historical signal-backtest` with the signal type that matches phase-1's
   verdict (e.g., `bullish_flow` if phase-1 was bullish, `bearish_flow` if
   bearish, `dark_pool_accumulation` if phase-2 was the dominant signal).
   Record signal-specific win_rate or vol_realisation_rate.
@@ -31,7 +34,7 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
   the conviction bin (`rubrics/sizing-rubric.md` §"Choosing the Kelly `p`").
   If the tool returns `{"note":"no backtest results","total_signals":0}`,
   record `win_rate_source=null` so phase-9 falls back to the conviction bin.
-- `historical_trend` and `historical_oi_trend` are the workhorses — run both.
+- `uw historical trend` and `uw historical oi-trend` are the workhorses — run both.
 - **`fz` price-context cross-check (D8, advisory).** If `fz_available=yes`
   (phase-0), pull a non-UW read of where price sits in its own range:
   `fz quote <SYMBOL> --agent | jq -c '{rsi:.fundamentals."RSI (14)", sma50:.fundamentals.SMA50, sma200:.fundamentals.SMA200, perf_ytd:.fundamentals."Perf YTD", high52:.fundamentals."52W High", low52:.fundamentals."52W Low"}'`
@@ -45,18 +48,26 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
 
 The data behind these tools is **not contiguous**: there is a **21-session hole
 (2026-03-28 → 2026-04-24)** between two clusters (2026-03-13…03-27 and
-2026-04-27…05-22) — see phase-0's available-local-dates list. The `historical_*`
-tools read the same `~/Documents/Stocks` files the escape hatch does, so:
-- When a `days=` / `lookback_days=` window **crosses the hole**, report the
+2026-04-27…05-22) — see phase-0's available-local-dates list. The `uw historical`
+commands read the same `~/Documents/Stocks` files the escape hatch does, so:
+- When a `--days` / `--lookback-days` window **crosses the hole**, report the
   **actual number of sessions present**, not the calendar span, and never annualize
   or fit a "30-day trend" across the gap. Quote N explicitly (e.g. "30d trend over
   the **19 sessions actually present**, gap 03-28→04-24 excluded").
-- If an MCP historical series looks suspiciously smooth across late-Mar/Apr,
+- If a `uw historical` series looks suspiciously smooth across late-Mar/Apr,
   **suspect the gap** — cross-check against phase-0's date list (or `lib/duckdb-cuts.md
-  § gap`). If the MCP silently interpolates across the hole, surface that as a
+  § gap`). If the CLI silently interpolates across the hole, surface that as a
   data-quality caveat in the `## Tool errors` section rather than trusting the line.
 - This caveat shrinks confidence; a small *true* N (< 10 sessions) is low-confidence
   regardless of the calendar window requested.
+- **Latest-anchor caveat (not as-of reproducible).** The trailing commands that
+  take no `--date` (`iv-percentile-zscore`, `pc-ratio-zscore`, `oi-trend`,
+  `cumulative-premium-flow`, `signal-backtest`) and `vrp`'s realised-vol leg
+  anchor their window to the **latest available date**, not to the run's as-of
+  date. A re-run after a new session lands (e.g. an earnings day) shifts every
+  trailing read — IV30d, z-scores, build-day counts, win-rates all move. This is
+  engine behavior, not a data error; note the latest available date alongside any
+  trailing datapoint so a later re-read is interpretable.
 
 ## Output sections
 

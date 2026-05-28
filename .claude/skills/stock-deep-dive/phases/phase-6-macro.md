@@ -8,18 +8,20 @@ Emit `phase-6-macro.md`.
 
 ## Data sources (in priority order)
 
-### Priority 1 — UW MCP (always run)
+### Priority 1 — `uw` CLI (always run)
 
-| Tool | Args | What it gives |
-|------|------|---------------|
-| `mcp__uw-pp__risk_market_regime` | (date if as-of) | SPY trend, VIX, breadth → regime label |
-| `mcp__uw-pp__historical_trend` | symbol=SPY, days=10 | SPY recent action context |
-| `mcp__uw-pp__historical_trend` | symbol=VIX or use regime VIX field | Vol context |
-| `mcp__uw-pp__options_flow_sector_flow` | (date if as-of) | Premium by sector × call/put — which sectors smart money is leaning into today |
-| `mcp__uw-pp__options_flow_sector_flow_persistence` | days=5 | Per-sector net flow + persistence score (sign consistency over 5 sessions) — is the rotation *durable* or a one-day blip? |
-| `mcp__uw-pp__risk_portfolio_correlation` | symbols=`<SYMBOL>` + every other ticker with an open blueprint for the same date | Pairwise price correlation — flags when this deep dive is the same bet as another |
+All take `--json`; pass `--date <AS-OF>` where the flag exists if not today.
 
-These last three were previously never invoked even though `uw-pp` exposes
+| Command | What it gives |
+|---------|---------------|
+| `uw risk market-regime [--date D] --json` | SPY trend, VIX, breadth → regime label |
+| `uw historical trend --symbol SPY --days 10 --json` | SPY recent action context |
+| `uw historical trend --symbol VIX --days 10 --json` (or use the regime VIX field) | Vol context |
+| `uw options-flow sector-flow [--date D] --json` | Premium by sector × call/put — which sectors smart money is leaning into today |
+| `uw options-flow sector-flow-persistence --days 5 --json` | Per-sector net flow + persistence score (sign consistency over 5 sessions) — is the rotation *durable* or a one-day blip? |
+| `uw risk portfolio-correlation --symbols <SYMBOL>,<other1>,… --lookback-days 30 --json` | Pairwise price correlation — flags when this deep dive is the same bet as another |
+
+These last three were previously never invoked even though the `uw` engine exposes
 them (AUDIT.md §2). Sector rotation contextualises a single-name flow signal
 (a bullish-flow long into a sector smart money is *leaving* is weaker); the
 correlation matrix prevents concurrent deep dives from becoming one
@@ -27,8 +29,8 @@ undiversified position with no flag.
 
 **Building the correlation symbol set.** List sibling research dirs for the
 same as-of date — `ls research/*/<YYYY-MM-DD>/` (Bash) — collect those tickers,
-and pass `symbols=<SYMBOL>,<other1>,<other2>,…` to `risk_portfolio_correlation`
-with `lookback-days=30`. If `<SYMBOL>` is the only blueprint for the date, note
+and pass `--symbols <SYMBOL>,<other1>,<other2>,…` to `uw risk portfolio-correlation`
+with `--lookback-days 30`. If `<SYMBOL>` is the only blueprint for the date, note
 "no concurrent positions to correlate against" and skip the gate (but still
 report the tool was run with the single symbol or skipped).
 
@@ -136,7 +138,7 @@ Use for:
    - ### Activity (ISM Mfg PMI, ISM Services PMI)
    - ### Consumer (U-Mich, Conference Board)
    - ### Sector overlay (specific catalysts for `<SYMBOL>`'s sector)
-   - ### Sector rotation (UW `sector_flow` + `sector_flow_persistence`)
+   - ### Sector rotation (`uw options-flow sector-flow` + `sector-flow-persistence`)
      - `<SYMBOL>`'s sector net flow today + 5-session persistence score.
      - Verdict: is smart money rotating INTO or OUT OF this sector, and is the
        rotation persistent (high sign-consistency) or noise? Tag the direction
@@ -145,7 +147,7 @@ Use for:
        (advancers/decliners, pct_green) and group P/E from `fz` — does the
        price-breadth read corroborate the UW flow rotation? Note agreement or
        divergence; this colors, never overrides, the rotation verdict.
-   - ### Cross-name correlation (UW `risk_portfolio_correlation`)
+   - ### Cross-name correlation (`uw risk portfolio-correlation`)
      - Concurrent blueprints correlated against (list tickers + date).
      - Pairwise correlation table; flag any pair ≥ 0.70 as a **cluster**
        (phase-9 cuts size), 0.60–0.70 as **soft-watch** (surface only).

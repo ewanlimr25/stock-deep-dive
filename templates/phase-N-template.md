@@ -28,9 +28,9 @@ name and value, never paraphrase a number.}}
 
 ## Tool calls (audit trail)
 
-| Tool | Args | Result summary |
-|------|------|----------------|
-| `mcp__uw-pp__<tool>` | `{symbol: NVDA, ...}` | {{1 line}} |
+| Command | Result summary |
+|---------|----------------|
+| `uw <group> <leaf> --symbol NVDA … --json` | {{1 line}} |
 
 ## Tool errors
 

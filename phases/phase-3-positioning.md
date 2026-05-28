@@ -7,20 +7,24 @@ chain. Identify pin risk and OPEX cliffs. Emit `phase-3-positioning.md`.
 
 ## Tools
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__oi_biggest_increases` | symbol, top_n=20, min_oi_change=500 | Largest new positions opened |
-| `mcp__uw-pp__oi_decrease_with_volume` | symbol, top_n=15, min_volume=100 | Closing or roll activity |
-| `mcp__uw-pp__oi_smart_positioning` | symbol, direction=both, top_n=20, min_oi_change=500 | Inferred directional positioning |
-| `mcp__uw-pp__oi_position_rolls` | symbol, threshold=500, near_dte_max=30 | Near→far expiry rolls |
-| `mcp__uw-pp__oi_pin_risk` | top_n=25, dte_max=7, max_distance_pct=5 | OPEX-week pin candidates |
-| `mcp__uw-pp__oi_opex_concentration` | top_n=20, min_concentration_pct=40 | Per-ticker OI cliffs |
+All take `--json`; ticker-scoped ones take `--symbol <S>` and `--date <AS-OF>` if
+not today. `biggest-increases` reports the absolute delta in `oi_diff_plain` (the
+fractional `oi_change` field is the ratio, not the delta).
+
+| Command | What it answers |
+|---------|-----------------|
+| `uw oi biggest-increases --symbol <S> --top-n 20 --min-oi-change 500 --json` | Largest new positions opened |
+| `uw oi decrease-with-volume --symbol <S> --top-n 15 --min-volume 100 --json` | Closing or roll activity |
+| `uw oi smart-positioning --symbol <S> --top-n 20 --min-oi-change 500 --json` | Inferred directional positioning (omit `--direction` for both) |
+| `uw oi position-rolls --symbol <S> --threshold 500 --near-dte-max 30 --json` | Near→far expiry rolls |
+| `uw oi pin-risk --top-n 25 --dte-max 7 --max-distance-pct 5 --json` | OPEX-week pin candidates |
+| `uw oi opex-concentration --top-n 20 --min-concentration-pct 40 --json` | Per-ticker OI cliffs |
 
 ## Composition guidance
 
-- `oi_pin_risk` and `oi_opex_concentration` are MARKET-WIDE; filter to
+- `uw oi pin-risk` and `uw oi opex-concentration` are MARKET-WIDE; filter to
   `<SYMBOL>` after.
-- If today is > 7 calendar days from OPEX, `oi_pin_risk` will likely return
+- If today is > 7 calendar days from OPEX, `uw oi pin-risk` will likely return
   empty — record that and skip pin commentary.
 - **Float-normalize the OI build (D2, advisory).** If phase-0 captured `Shs Float`
   (`fz`, `lib/fz-recipes.md`), express the largest OI increase as a **% of float**
@@ -65,7 +69,7 @@ chain. Identify pin risk and OPEX cliffs. Emit `phase-3-positioning.md`.
 ## Common pitfalls
 
 - OI updates daily after close; intraday calls will see prior-day OI.
-- `oi_smart_positioning` infers direction from OPRA symbol parsing — for
+- `uw oi smart-positioning` infers direction from OPRA symbol parsing — for
   unusual ticker symbols (e.g. dual-class shares), verify by spot-checking
   one contract manually.
 - A single 50,000-contract OI increase in a far-DTE strike can be a hedge

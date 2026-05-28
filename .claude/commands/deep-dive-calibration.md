@@ -40,7 +40,7 @@ Ported and adapted from `uw-daily-analysis/.claude/commands/calibration-audit.md
 ## When NOT to invoke
 
 - A fresh single-ticker workup → `/stock-deep-dive <TICKER>`
-- "Did NVDA work last week?" → ad-hoc `mcp__uw-pp__historical_trend`
+- "Did NVDA work last week?" → ad-hoc `uw historical trend --symbol NVDA --json`
 - Editing a phase prompt directly (no outcome data needed) → `code-reviewer`
 
 ## Operating principle: outcome-driven, not opinion-driven
@@ -72,7 +72,7 @@ quant (do the weights match realised marginal contribution?).
      every checkpoint and at the top of `SUMMARY.md`.
 4. **Resume detection** — if `research/_calibration/<DATE>/phase_<N>_*.md`
    exists, resume from the next phase. Each checkpoint is self-contained.
-5. **Available-dates check** — `mcp__uw-pp__historical_available_dates`. Phase 2
+5. **Available-dates check** — `uw historical available-dates --json`. Phase 2
    needs forward outcomes; if the latest UW data is < (most recent blueprint
    date + its shortest outcome window), some rows are unresolvable — tag those
    `INCONCLUSIVE(reason=window_not_elapsed)` rather than forcing a verdict.
@@ -160,13 +160,18 @@ plan's own invalidation rule would have stopped it out first. For NEUTRAL/RANGE
 blueprints, resolve against the defined-risk structure: WIN if spot stayed
 inside the structure's profit zone through expiry (or the window end).
 
-### Tool calls (cap: 1 `historical_trend` per row)
+### Tool calls (cap: 1 `historical trend` per row)
 
-`mcp__uw-pp__historical_trend` — `ticker`, `start_date=blueprint_date`,
-`lookback_days=longest_window`. Capture intra-window high/low,
-drawdown-from-entry, and end-of-window close. Compute realised R-multiple and
-max adverse excursion. If the call fails (delisted, no history) or the window
-hasn't elapsed → `INCONCLUSIVE` with the reason; **never** tag as LOSS.
+`uw historical trend --symbol <TICKER> --days <N> --json`. **Note:** the engine
+has no `start_date`/`lookback_days` — `trend` returns the last `N` sessions
+ending at the latest available date. Set `--days` large enough to span from the
+blueprint date through the end of its longest outcome window (e.g.
+`(latest_available − blueprint_date) + longest_window` trading days), then **slice
+the returned rows to the dates inside the outcome window** by their `date` field.
+Capture intra-window high/low, drawdown-from-entry, and end-of-window close.
+Compute realised R-multiple and max adverse excursion. If the data doesn't reach
+the blueprint date (delisted, no history) or the window hasn't elapsed →
+`INCONCLUSIVE` with the reason; **never** tag as LOSS.
 
 ### Output
 - `phase_2_outcomes.md` — WIN/LOSS/INCONCLUSIVE counts by bias, horizon, and
@@ -368,8 +373,8 @@ voice):
 
 - **Phase 2 rate-limit mid-batch** — checkpoint partial outcomes; resume from the
   last completed ticker. Phase 2 is the only phase that may carry a `_partial` suffix.
-- **`historical_available_dates` too stale for a recent blueprint** — resolve what
-  has elapsed; tag the rest `INCONCLUSIVE(window_not_elapsed)`; never force LOSS.
+- **`uw historical available-dates` too stale for a recent blueprint** — resolve
+  what has elapsed; tag the rest `INCONCLUSIVE(window_not_elapsed)`; never force LOSS.
 - **A `decision.json` fails `validate_decision.py`** — include it in Phase 1 with
   `decision_valid=false`, resolve its outcome if possible, and count it in the
   Phase 6 schema-failure rate.

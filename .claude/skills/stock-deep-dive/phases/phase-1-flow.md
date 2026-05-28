@@ -7,20 +7,21 @@ and at what conviction. Emit `phase-1-flow.md`.
 
 ## Tools (call all; surface errors verbatim, do not skip)
 
-All ticker-scoped (pass `symbol=<SYMBOL>` and `date=<AS-OF>` if not today).
-Cap `top_n` at 25 to keep output readable.
+All ticker-scoped (pass `--symbol <SYMBOL>` and `--date <AS-OF>` if not today).
+Cap `--top-n` at 25 to keep output readable. All commands take `--json`.
+For the two ask/bid sweep reads, call `uw options-flow sweeps` once per `--side`.
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__options_flow_sweeps` | symbol, side (both), min_premium=100000, top_n=25 | Aggressive ask/bid-side sweeps |
-| `mcp__uw-pp__options_flow_unusual_volume` | symbol, min_vol_oi_ratio=3, top_n=25 | New positions opening (vol >> OI) |
-| `mcp__uw-pp__options_flow_top_premium_trades` | symbol, top_n=25 | Largest single-trade premium bets |
-| `mcp__uw-pp__options_flow_iv_outliers` | symbol, top_n=15 | Unusually high-IV contracts |
-| `mcp__uw-pp__options_flow_greek_screener` | symbol, top_n=15, sort_by=premium | Delta/gamma/vega-filtered tape |
-| `mcp__uw-pp__hot_chains_smart_money_flow` | direction=both, top_n=10, min_volume=500 | Ask vs bid imbalance |
-| `mcp__uw-pp__hot_chains_sweep_persistence` | days=5, top_n=20, symbol | Multi-day sweep campaigns |
-| `mcp__uw-pp__hot_chains_sweep_ratio` | top_n=15, min_volume=500, min_sweep_ratio=0.3 | Aggressive-sweep ratio |
-| `mcp__uw-pp__insights_deep_dive` | symbol=`<SYMBOL>` (date if as-of) | **Whole-tape aggregate** — the `uw_screener` block: `call_premium`, `put_premium`, `bullish_premium`, `bearish_premium`, `net_flow`, `put_call_ratio`, ask vs bid volume across the ENTIRE tape |
+| Command | What it answers |
+|---------|-----------------|
+| `uw options-flow sweeps --symbol <S> --side ask\|bid --min-premium 100000 --top-n 25 --json` | Aggressive ask/bid-side sweeps (run both sides) |
+| `uw options-flow unusual-volume --symbol <S> --min-vol-oi-ratio 3 --top-n 25 --json` | New positions opening (vol >> OI) |
+| `uw options-flow top-premium-trades --symbol <S> --top-n 25 --json` | Largest single-trade premium bets |
+| `uw options-flow iv-outliers --symbol <S> --top-n 15 --json` | Unusually high-IV contracts |
+| `uw options-flow greek-screener --symbol <S> --top-n 15 --sort-by premium --json` | Delta/gamma/vega-filtered tape |
+| `uw hot-chains smart-money-flow --direction bullish\|bearish --top-n 10 --min-volume 500 --json` | Ask vs bid imbalance (run both directions) |
+| `uw hot-chains sweep-persistence --days 5 --top-n 20 --symbol <S> --json` | Multi-day sweep campaigns |
+| `uw hot-chains sweep-ratio --top-n 15 --min-volume 500 --min-sweep-ratio 0.3 --json` | Aggressive-sweep ratio |
+| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | **Whole-tape aggregate** — the `uw_screener` block: `call_premium`, `put_premium`, `bullish_premium`, `bearish_premium`, `net_flow`, `put_call_ratio`, ask vs bid volume across the ENTIRE tape |
 
 ## Whole-tape aggregate first (do NOT read direction off top-N alone)
 
@@ -38,18 +39,19 @@ top of a near-balanced tape is one print, not a one-sided tape — say so. Carry
 magnitude and cap this phase's downstream conviction (phases 1–2 capped at `+`,
 `rubrics/confluence-scoring.md`).
 
-> When the MCP top-N view and the aggregate disagree and you need the directional
+> When the CLI top-N view and the aggregate disagree and you need the directional
 > read **stripped of 0DTE pin noise** or in **delta-notional** terms, that exact cut
 > is the DuckDB escape hatch `lib/duckdb-cuts.md §A` (tag `[FLOW:… DUCKDB]`). Optional;
 > only when the snapshot exists and the standard view is ambiguous.
 
 ## Composition guidance
 
-- `hot_chains_*` tools are MARKET-WIDE; filter the returned rows to
-  `<SYMBOL>` after the call. If a tool exposes a `symbol` filter (e.g.
-  `sweep_persistence`), use it.
-- If `smart_money_flow` returns no rows for `<SYMBOL>`, note "no smart-money
-  flow detected on this date" — do NOT call it again with looser thresholds.
+- `uw hot-chains` commands are MARKET-WIDE; filter the returned rows to
+  `<SYMBOL>` after the call. If a command exposes a `--symbol` filter (e.g.
+  `sweep-persistence`), use it.
+- If `uw hot-chains smart-money-flow` returns no rows for `<SYMBOL>`, note "no
+  smart-money flow detected on this date" — do NOT call it again with looser
+  thresholds.
 
 ## Output sections (follow templates/phase-N-template.md)
 

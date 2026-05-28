@@ -7,24 +7,27 @@ charm flows, term structure regime. Emit `phase-4-structure.md`.
 
 ## Tools
 
-All require `symbol=<SYMBOL>`.
+All require `--symbol <SYMBOL>` and take `--json`; pass `--date <AS-OF>` if not
+today. `term-skew` reports the regime in `interpretation` and the ratio in
+`skew_ratio`; `iv-term-structure` returns the regime in `structure` and the rows
+in `term_structure`.
 
-| Tool | Args | What it answers |
-|------|------|-----------------|
-| `mcp__uw-pp__options_structure_gex` | symbol, dte_max=45 | GEX per strike + Zero Gamma Level |
-| `mcp__uw-pp__options_structure_dex` | symbol, dte_max=45 | Net dealer delta hedge |
-| `mcp__uw-pp__options_structure_vanna_charm` | symbol, dte_max=45 | Vanna + charm + squeeze signal |
-| `mcp__uw-pp__options_structure_iv_term_structure` | symbol | Backwardation / contango / kinked |
-| `mcp__uw-pp__options_structure_term_skew` | symbol, dte_target=30 | 25Δ put vs call IV |
-| `mcp__uw-pp__options_structure_front_end_iv_ratio` | symbol, near_dte=7, far_dte=30 | Event-stress signal |
-| `mcp__uw-pp__options_structure_today_gamma_flip` | symbol | 0DTE ZGL + ATM flip + walls |
+| Command | What it answers |
+|---------|-----------------|
+| `uw options-structure gex --symbol <S> --dte-max 45 --json` | GEX per strike + Zero Gamma Level |
+| `uw options-structure dex --symbol <S> --dte-max 45 --json` | Net dealer delta hedge |
+| `uw options-structure vanna-charm --symbol <S> --dte-max 45 --json` | Vanna + charm + squeeze signal |
+| `uw options-structure iv-term-structure --symbol <S> --json` | Backwardation / contango / kinked |
+| `uw options-structure term-skew --symbol <S> --dte-target 30 --json` | 25Δ put vs call IV |
+| `uw options-structure front-end-iv-ratio --symbol <S> --near-dte 7 --far-dte 30 --json` | Event-stress signal |
+| `uw options-structure today-gamma-flip --symbol <S> --json` | 0DTE ZGL + ATM flip + walls |
 
 ## Composition guidance
 
-- Default `dte_max=45` keeps the read on near-term dealer hedging (which
-  drives intraday moves). For LEAPs, pass `dte_max=365` and call out
+- Default `--dte-max 45` keeps the read on near-term dealer hedging (which
+  drives intraday moves). For LEAPs, pass `--dte-max 365` and call out
   separately.
-- `today_gamma_flip` is 0DTE-only and intraday — only meaningful if running
+- `uw options-structure today-gamma-flip` is 0DTE-only and intraday — only meaningful if running
   the skill during the trading session. If after-hours, note and skip.
 
 ## Output sections

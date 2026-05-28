@@ -62,7 +62,7 @@ verdict.
 
 === END CONTEXT ===
 
-You may call additional UW MCP tools if and only if you need a specific
+You may run additional `uw` CLI commands if and only if you need a specific
 datapoint not present above. Do not duplicate work.
 
 Return ONLY the following structured verdict (no preamble, no closing remarks):
@@ -81,8 +81,8 @@ VERDICT
 ```
 
 (Tools listed for the parent orchestrator: `Agent` with the five
-`subagent_type` values above, plus all `mcp__uw-pp__*` tools the sub-agent
-might need.)
+`subagent_type` values above, plus the `uw` CLI (`Bash(uw:*)`) for any command
+the sub-agent might need.)
 
 ## Output sections (parent assembles after agents return)
 
@@ -115,9 +115,9 @@ might need.)
   and use a defined-risk structure.
 - **risk-monitor flags HIGH correlation** with another active book position:
   phase-9 must call this out in sizing. risk-monitor should read phase-6's
-  `risk_portfolio_correlation` and `sector_flow_persistence` verdicts (and may
-  re-call those `mcp__uw-pp__risk_*` / `options_flow_sector_flow_persistence`
-  tools for a fresh read) — a ≥0.70 cluster with another open blueprint, or an
+  `risk portfolio-correlation` and `sector-flow-persistence` verdicts (and may
+  re-run `uw risk portfolio-correlation` / `uw options-flow sector-flow-persistence`
+  for a fresh read) — a ≥0.70 cluster with another open blueprint, or an
   adverse sector rotation, is a size-cut the desk must see.
 
 ## Common pitfalls

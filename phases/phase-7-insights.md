@@ -8,24 +8,24 @@ should AGREE with phases 1–5 if the run is internally consistent, and
 DISAGREE only when one of the upstream phases was thin or wrong. Emit
 `phase-7-insights.md`.
 
-## Tools (all `symbol=<SYMBOL>`-scoped)
+## Tools (all `--symbol <SYMBOL>`-scoped unless noted; all take `--json`)
 
-| Tool | When | What it returns |
-|------|------|-----------------|
-| `mcp__uw-pp__insights_deep_dive` | always | Full 360° (fundamentals + options + dp + oi) |
-| `mcp__uw-pp__insights_signal_confluence` | always | 0–6 factor score + factor list |
-| `mcp__uw-pp__insights_conviction_matrix` | always | Scenario classification |
-| `mcp__uw-pp__insights_price_vs_flow` | always | Divergence (reversal signal) |
-| `mcp__uw-pp__insights_analyst_vs_flow` | always | Wall Street vs options-trader agreement |
-| `mcp__uw-pp__insights_institutional_accumulation` | always | Accumulation / distribution / neutral |
-| `mcp__uw-pp__insights_earnings_play` | only if earnings within 30d (from phase-6 calendar) | IV + OI buildup setup |
+| Command | When | What it returns |
+|---------|------|-----------------|
+| `uw insights deep-dive --symbol <S> [--date D] --json` | always | Full 360° (fundamentals + options + dp + oi) |
+| `uw insights signal-confluence --direction bullish\|bearish --min-score 1 --top-n 20 --json` (market-wide) | always | 0–6 factor score + factor list |
+| `uw insights conviction-matrix --symbol <S> [--date D] --json` | always | Scenario classification |
+| `uw insights price-vs-flow --symbol <S> --lookback-days 30 --json` | always | Divergence (reversal signal) |
+| `uw insights analyst-vs-flow --symbol <S> --json` | always | Wall Street vs options-trader agreement |
+| `uw insights institutional-accumulation --symbol <S> --json` | always | Accumulation / distribution / neutral |
+| `uw insights earnings-play --days-until-earnings 30 --json` | only if earnings within 30d (from phase-6 calendar) | IV + OI buildup setup |
 
 ## Composition guidance
 
-- `insights_signal_confluence` is MARKET-WIDE; filter for `<SYMBOL>` in the
+- `uw insights signal-confluence` is MARKET-WIDE; filter for `<SYMBOL>` in the
   returned list. If `<SYMBOL>` is not in the result, it means the score is
-  below `min_score` (default 3). Re-call with `min_score=1` to confirm.
-- `insights_deep_dive` calls Yahoo — may be slower (5–10s) and rate-limited.
+  below `--min-score` (default 3). Re-call with `--min-score 1` to confirm.
+- `uw insights deep-dive` calls Yahoo — may be slower (5–10s) and rate-limited.
   Tolerate retries.
 
 ## Output sections
@@ -80,9 +80,9 @@ DISAGREE only when one of the upstream phases was thin or wrong. Emit
 
 ## Common pitfalls
 
-- `insights_deep_dive` Yahoo fundamentals can be 1–2 quarters stale on
+- `uw insights deep-dive` Yahoo fundamentals can be 1–2 quarters stale on
   smaller names.
-- `insights_analyst_vs_flow` consensus is yfinance — may not reflect very
+- `uw insights analyst-vs-flow` consensus is yfinance — may not reflect very
   recent rating changes.
-- `insights_earnings_play` errors if no earnings date is found in the
+- `uw insights earnings-play` errors if no earnings date is found in the
   screener; that's not a true error, just "out of window".
