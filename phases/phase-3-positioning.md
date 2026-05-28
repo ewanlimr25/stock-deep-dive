@@ -22,6 +22,12 @@ chain. Identify pin risk and OPEX cliffs. Emit `phase-3-positioning.md`.
   `<SYMBOL>` after.
 - If today is > 7 calendar days from OPEX, `oi_pin_risk` will likely return
   empty — record that and skip pin commentary.
+- **Float-normalize the OI build (D2, advisory).** If phase-0 captured `Shs Float`
+  (`fz`, `lib/fz-recipes.md`), express the largest OI increase as a **% of float**
+  in share-equivalent terms (`OI_Δ × 100 / Shs Float × 100`). A 50k-contract build
+  is a structural bet in a small-float name and a rounding error in a mega-float
+  one. **Advisory context, not a new gate**; never raises conviction. Tag
+  `[OI:oi_pct_float fz]`. Skip if `fz_available=no`.
 
 ## Output sections
 
@@ -39,6 +45,8 @@ chain. Identify pin risk and OPEX cliffs. Emit `phase-3-positioning.md`.
    - Positioning bias (calls being built / puts being built / hedges /
      rolling out)
    - Conviction 1–5
+   - Largest OI build as **% of float** (share-equivalent; advisory, "n/a" if no
+     `Shs Float`) — one line on whether the build is structural for this name
    - Three pin/cliff strikes for phase-9 entry/stop reference
    - Open questions (e.g., "is the call buildup speculative or covered?")
 

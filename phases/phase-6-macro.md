@@ -32,6 +32,22 @@ with `lookback-days=30`. If `<SYMBOL>` is the only blueprint for the date, note
 "no concurrent positions to correlate against" and skip the gate (but still
 report the tool was run with the single symbol or skipped).
 
+### Priority 1b — `fz` sector breadth + group valuation (free, optional; D7)
+
+A free, deterministic, logged breadth + valuation overlay that **complements** the
+UW flow-based sector read (it does not replace it). Run if `fz_available=yes`
+(phase-0); skip silently otherwise (`lib/fz-recipes.md §4`):
+
+```bash
+fz breadth --group sector --agent   # advancers/decliners/pct_green/top_mover, timestamped
+fz groups --by sector --view valuation --agent   # per-sector P/E, Fwd P/E, PEG, EPS growth, Change
+```
+
+Use it to cross-check the UW `sector_flow` direction (is `<SYMBOL>`'s sector green
+on breadth and where does its P/E sit vs peers?). **Advisory only** — it never sets
+the macro bias or sizes. Tag `[MACRO:sector_breadth fz EOD]`,
+`[MACRO:group_valuation fz EOD]`.
+
 ### Priority 2 — FRED (registered-but-free API, conditional on key)
 
 **Reality check:** FRED's public chart-CSV endpoints
@@ -125,6 +141,10 @@ Use for:
      - Verdict: is smart money rotating INTO or OUT OF this sector, and is the
        rotation persistent (high sign-consistency) or noise? Tag the direction
        relative to the trade thesis: `aligned` / `adverse` / `neutral`.
+     - **`fz` breadth cross-check (D7, advisory):** the sector's breadth
+       (advancers/decliners, pct_green) and group P/E from `fz` — does the
+       price-breadth read corroborate the UW flow rotation? Note agreement or
+       divergence; this colors, never overrides, the rotation verdict.
    - ### Cross-name correlation (UW `risk_portfolio_correlation`)
      - Concurrent blueprints correlated against (list tickers + date).
      - Pairwise correlation table; flag any pair ≥ 0.70 as a **cluster**

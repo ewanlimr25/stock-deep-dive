@@ -73,8 +73,8 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 | 5 | `phase-5-historical.md` | UW `historical_*` (emits signal win-rate for sizing) | `phases/phase-5-historical.md` |
 | 6 | `phase-6-macro.md` | UW `risk_market_regime` + `sector_flow_persistence` + `risk_portfolio_correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
 | 7 | `phase-7-insights.md` | UW `insights_*` composite | `phases/phase-7-insights.md` |
-| 7b | `phase-7b-fundamentals.md` | FINNHUB statements / surprise / peers / MSPR — quality veto | `phases/phase-7b-fundamentals.md` |
-| 7c | `phase-7c-sentiment.md` | FINNHUB news/revisions + WebSearch short interest + retail-vs-inst — positioning gate | `phases/phase-7c-sentiment.md` |
+| 7b | `phase-7b-fundamentals.md` | FINNHUB statements / surprise / peers / MSPR + `fz` peer-breadth / insider-clusters / analyst cross-source — quality veto | `phases/phase-7b-fundamentals.md` |
+| 7c | `phase-7c-sentiment.md` | FINNHUB news/revisions + `fz` short interest / float (WebSearch fallback; borrow/HTB still WebSearch) + retail-vs-inst — positioning gate | `phases/phase-7c-sentiment.md` |
 | 8 | `phase-8-agent-views.md` | 5 analyst sub-agents (parallel) | `phases/phase-8-agent-views.md` |
 | 8b | `phase-8b-debate.md` | bull vs bear disconfirmation (1–2 rounds) | `phases/phase-8b-debate.md` |
 | 9 | `phase-9-trade-plan.md` | PM-voice synthesis + `decision.json` | `phases/phase-9-trade-plan.md` |
@@ -105,6 +105,17 @@ genuinely unusual or a busy name's normal day.
    aggregations, cross-dataset timestamp joins, full-universe/long self-history
    percentiles) and tag those datapoints `[… DUCKDB]`. Never re-implement an MCP
    tool. (See `docs/audit/2026-05-25/06`.)
+1c. **`fz` for fundamentals/SI/float/peer/breadth only.** The `fz` (Finviz) CLI
+   (`lib/fz-recipes.md`) supplies the short-interest / float / peer-breadth /
+   sector-breadth data neither the MCP nor Finnhub carries cleanly. It is a Bash
+   CLI like the `curl`/Finnhub calls — used in phases 7c/7b (gates), 2/3 (float
+   normalization, advisory), 6 (breadth overlay, advisory), and 0/5/9 (price
+   context, advisory). It has **no** flow/greeks/dark-pool/GEX/OI and touches none
+   of phases 1–5 as a source. Every `fz` contribution is **downside-only or
+   advisory** — it can cut/veto or color, never inflate conviction, and never
+   enters the Kelly `p`. Tag `fz` datapoints with the ` fz` source qualifier
+   (`rubrics/citation-conventions.md`). Graceful-skip to WebSearch/Finnhub if `fz`
+   is absent. (See `docs/audit/2026-05-27`.)
 2. **Composite first.** Prefer `insights_*` / `playbook_*` tools over
    re-implementing confluence math from raw flow + DP + OI.
 3. **Surface tool errors verbatim.** If a UW tool errors, write the failing

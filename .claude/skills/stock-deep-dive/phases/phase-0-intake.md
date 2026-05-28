@@ -23,6 +23,15 @@ Validate inputs, prepare the immutable output directory, and write
      where K is the new version.
    - The intake file itself becomes `phase-0-intake-vK.md` and must include a
      "Prior version(s)" section listing earlier files in the same dir.
+   - **As-of fundamental drift (optional, `fz`).** If a prior run snapshotted
+     `fz quote` (step 7b below), list which of the 84 fundamental fields moved
+     since then so the intake delta is auto-populated:
+     ```bash
+     fz quote-drift <SYMBOL> --since <prior_run_date> --agent 2>/dev/null || echo "no prior fz snapshot — skip drift"
+     ```
+     Record the moved fields (target cut, short-float spike, guidance re-rate)
+     under "Prior version(s)". Skip silently if `fz` is absent or there is no
+     prior snapshot (`lib/fz-recipes.md §5`).
 
 5. **Smoke-test UW MCP availability.** Call
    `mcp__uw-pp__historical_available_dates` (no args). If it errors, write the
@@ -54,6 +63,22 @@ Validate inputs, prepare the immutable output directory, and write
    the local list just tells later phases when the escape hatch and self-history
    are usable. Never abort on a missing snapshot.
 
+7b. **Probe `fz` + snapshot float (for the Finviz augments).** `fz`
+   (`finviz-pp-cli`, `lib/fz-recipes.md`) supplies the short-interest / float /
+   peer / breadth data the MCP lacks, used in phases 7c/7b/2/3/6. Probe its
+   health once, set `fz_available`, and snapshot `Shs Float` so phase-2/3 can
+   express order size as % of float (and seed next run's `quote-drift`):
+   ```bash
+   fz --version >/dev/null 2>&1 && fz doctor --agent >/dev/null 2>&1 && FZ=yes || FZ=no
+   [ "$FZ" = yes ] && fz quote <SYMBOL> --agent \
+     | jq -c '{float:.fundamentals."Shs Float", shs_out:.fundamentals."Shs Outstand", short_float:.fundamentals."Short Float"}'
+   echo "fz_available=$FZ"
+   ```
+   Record `fz_available` (yes/no) and the snapshotted `Shs Float` (carry it
+   forward like the `[CTX:]` block). On `fz_available=no`, every `fz` lane
+   degrades to its current source (WebSearch SI in 7c, Finnhub peers in 7b) —
+   informational only; **never abort**.
+
 8. **Write `phase-0-intake.md`** using the template at
    `templates/phase-N-template.md`. The summary section should list:
    - Resolved ticker + as-of date
@@ -62,6 +87,7 @@ Validate inputs, prepare the immutable output directory, and write
    - UW MCP availability check result
    - Options activity check result
    - Local-data availability + DuckDB present + available local dates (+ gap flag)
+   - `fz_available` + snapshotted `Shs Float` (for the Finviz augments)
 
 ## Output template (specific to phase 0)
 
@@ -96,6 +122,13 @@ Proceeding to phase 1.
 - Available local dates: <list> (gap flagged: <yes/no>)
 - Note: MCP is primary; local DuckDB is opt-in for cuts the MCP can't express
   (`lib/duckdb-cuts.md`).
+
+## Finviz augments (`fz`)
+
+- `fz_available`: <yes/no>
+- `Shs Float`: <value or n/a> (carried to phase-2/3 for % -of-float normalization)
+- Note: `fz` supplements SI/float/peer/breadth only (`lib/fz-recipes.md`); on
+  `no`, phase-7c falls back to WebSearch SI and phase-7b to Finnhub peers.
 
 ## Prior versions
 

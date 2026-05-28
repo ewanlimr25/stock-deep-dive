@@ -69,6 +69,11 @@ Source every level from a specific upstream phase. The minimum set:
 - resistance (phase-2 / phase-3)
 - gamma flip (phase-4 `today_gamma_flip` if available, else phase-4 ZGL)
 - largest pin (phase-3 `pin_risk` if within OPEX week)
+- **price-context color (D8, advisory):** if phase-5 carried the `fz` read,
+  mention RSI and **52-week proximity** in the levels/risks prose (e.g. "entering
+  at the 52-week high with RSI 79 — chase risk; prefer the fade entry"). Tag
+  `[HIST:rsi fz]` / `[HIST:52w_proximity fz]`. This is **narrative color only — it
+  never alters the Kelly `p` or the final size.**
 
 ### Invalidation
 

@@ -24,6 +24,13 @@ All ticker-scoped; some require `ticker=<SYMBOL>` (singular, not `symbol`).
   aggregation — use `days=5` to find clusters not just today's prints.
 - Cross-reference `dark_pool_extended_hours` against any overnight news in
   phase-6 to attribute (or rule out) news-driven prints.
+- **Float-normalize block size (D2, advisory).** If phase-0 captured `Shs Float`
+  (`fz`, `lib/fz-recipes.md`), express the mega/block-tier print size as a **% of
+  float** (`block_shares / Shs Float × 100`). Order size is meaningless in the
+  abstract — a mega block is conviction in a 5M-float name and noise in a
+  14.67B-float name. This is **advisory context for the verdict, not a new gate**
+  and never raises conviction. Tag `[DP:block_pct_float fz]`. Skip if
+  `fz_available=no`.
 
 ## Output sections
 
@@ -31,7 +38,8 @@ All ticker-scoped; some require `ticker=<SYMBOL>` (singular, not `symbol`).
    balanced) + premium magnitude.
 2. **Key signals** — top-5 with `[DP:<tool>]` citations.
 3. **Detailed findings**
-   - ### Largest blocks (table: time, price, size, premium, NBBO context)
+   - ### Largest blocks (table: time, price, size, premium, NBBO context; add a
+     **% of float** column for the top prints if `Shs Float` is available)
    - ### Tier breakdown (mega / block / large + buy/sell ratio per tier)
    - ### Price levels (sorted; flag clusters within 1% of spot)
    - ### Extended-hours activity (any unusual pre/post-market)
@@ -40,6 +48,8 @@ All ticker-scoped; some require `ticker=<SYMBOL>` (singular, not `symbol`).
 6. **Verdict for downstream**
    - Accumulation / Distribution / Mixed
    - Conviction 1–5 (size + tier + consistency)
+   - Largest block as **% of float** (advisory; "n/a" if no `Shs Float`) — one
+     line on whether the size is meaningful *for this name*
    - Three S/R levels for phase-9 to use as entry/stop reference
    - Open questions
 

@@ -21,7 +21,7 @@ resolves to a specific upstream phase + tool. Adapted from
 | `[AGENT:<name>]`  | phase-8  | sub-agent name | `[AGENT:sweep-tracker]` |
 | `[DEBATE:<side>]` | phase-8b | bull / bear residual + cited point | `[DEBATE:bear_residual]` |
 
-## Source qualifier (MCP vs DuckDB escape hatch)
+## Source qualifier (MCP vs DuckDB escape hatch vs `fz`)
 
 A datapoint computed via the **DuckDB escape hatch** (`lib/duckdb-cuts.md` — a cut
 the MCP can't express) carries a trailing ` DUCKDB` qualifier inside the tag, so
@@ -29,6 +29,17 @@ the MCP can't express) carries a trailing ` DUCKDB` qualifier inside the tag, so
 `[FLOW:aggressor_ex0dte DUCKDB]`, `[DP:ts_confirm DUCKDB]`, `[CTX:self_pctile DUCKDB]`.
 Default (no qualifier) = the MCP tool path. Do not use the escape hatch for anything
 the MCP already returns — those stay plain MCP tags.
+
+A datapoint sourced from the **`fz` (Finviz) CLI** (`lib/fz-recipes.md` —
+fundamentals / short-interest / float / peer / breadth the MCP doesn't carry)
+carries a trailing ` fz` qualifier inside the tag, so calibration can attribute
+edge to it separately: `[SENT:short_float fz]`, `[FUND:peer_pe fz]`,
+`[FUND:insider_cluster fz]`, `[DP:block_pct_float fz]`, `[OI:oi_pct_float fz]`,
+`[HIST:rsi fz]`, `[MACRO:sector_breadth fz EOD]`. **Short interest is the
+semi-monthly settlement figure (~2-week lag)** — add a ` semi-monthly` note:
+`[SENT:short_float fz semi-monthly]`. `fz` contributions are **downside-only or
+advisory** (they can cut/veto or color, never inflate conviction) and never enter
+the Kelly `p`.
 
 ## Resolution rule
 

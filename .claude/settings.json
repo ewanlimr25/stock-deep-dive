@@ -12,6 +12,7 @@
       "Bash(date)",
       "Bash(git *)",
       "Bash(cat *)",
+      "Bash(fz:*)",
       "Agent",
       "WebSearch",
       "WebFetch",

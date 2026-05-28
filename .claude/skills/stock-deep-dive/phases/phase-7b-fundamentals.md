@@ -28,6 +28,8 @@ test -n "$FINNHUB_API_KEY" && echo "key set" || echo "NO KEY"
 # 2. US ticker? Finnhub free tier is US-equity-focused; a "." suffix
 #    (e.g. .TO/.L/.HK) is not covered.
 case "<SYMBOL>" in *.*) echo "non-US — skip" ;; *) echo "US ok" ;; esac
+# 3. fz present? (peer-breadth + insider-cluster + analyst cross-source augments)
+fz --version >/dev/null 2>&1 && echo "fz ok" || echo "NO fz — Finnhub peers only"
 ```
 
 **Graceful skip.** If `FINNHUB_API_KEY` is unset (neither env var nor repo
@@ -55,8 +57,11 @@ a future earnings print is look-ahead contamination.
 | 2 | Earnings surprises | `curl -sS "https://finnhub.io/api/v1/stock/earnings?symbol=<SYMBOL>&limit=8&token=$FINNHUB_API_KEY" \| jq '.'` | Last 8 quarters: actual vs estimate EPS, surprise, surprise %. Filter `period <= as-of`. Compute beat-rate. |
 | 3 | Forward EPS consensus | `curl -sS "https://finnhub.io/api/v1/stock/eps-estimate?symbol=<SYMBOL>&freq=quarterly&token=$FINNHUB_API_KEY" \| jq '.data'` | Next ≤4 quarters: epsAvg/High/Low + #analysts. Keep only `period > as-of`. |
 | 4 | Forward revenue consensus | `curl -sS "https://finnhub.io/api/v1/stock/revenue-estimate?symbol=<SYMBOL>&freq=quarterly&token=$FINNHUB_API_KEY" \| jq '.data'` | Next ≤4 quarters revenue avg/high/low + #analysts. Keep only `period > as-of`. |
-| 5 | Peers | `curl -sS "https://finnhub.io/api/v1/stock/peers?symbol=<SYMBOL>&token=$FINNHUB_API_KEY" \| jq '.'` | Peer ticker list (drop self) — anchor relative-value commentary. |
-| 6 | Insider sentiment (MSPR) | `curl -sS "https://finnhub.io/api/v1/stock/insider-sentiment?symbol=<SYMBOL>&from=<as-of-365d>&to=<as-of>&token=$FINNHUB_API_KEY" \| jq '.data'` | Monthly Share Purchase Ratio per month. |
+| 5 | Peers | `curl -sS "https://finnhub.io/api/v1/stock/peers?symbol=<SYMBOL>&token=$FINNHUB_API_KEY" \| jq '.'` | Peer ticker **list** (drop self) — anchor for the peer-breadth comparison in #5b. |
+| 5b | **Peer-breadth (`fz`, D3)** | With the #5 list: `fz quote --tickers <SYMBOL>,<peer1>,<peer2>,... --agent \| jq -c '.[] \| {t:.Ticker, pe:."P/E", mcap:."Market Cap", perf_ytd:."Perf YTD"}'` (overview, one call). For **depth incl. SI + float**, screen the sector/industry: `fz screen --filter sec_<sector>,ind_<industry> --view ownership --agent --select 'Ticker,Float,Short Float,Short Ratio,Inst Own'` and `--view valuation --select 'Ticker,P/E,Forward P/E,PEG,EPS Next Y'`. | A peer *comparison*, not just a list — P/E / growth / **SI / float** side-by-side (Finnhub peer metrics lack SI + float). **NOTE:** `--tickers` returns only a flat 9-field overview (no `.fundamentals`, no SI/float) — use `fz screen --view` for the deep cut. See `lib/fz-recipes.md §2`. Tag `[FUND:peer_pe fz]`. |
+| 6 | Insider sentiment (MSPR) | `curl -sS "https://finnhub.io/api/v1/stock/insider-sentiment?symbol=<SYMBOL>&from=<as-of-365d>&to=<as-of>&token=$FINNHUB_API_KEY" \| jq '.data'` | Monthly Share Purchase Ratio per month (blended ratio). |
+| 6b | **Insider clusters (`fz`, D5)** | `fz insider-clusters --days 30 --min-buyers 2 --side buy --agent` (and `--side sell`); grep the result for `<SYMBOL>`. | **Distinct-buyer count** for the name — the conviction MSPR averages away. Populate `insider_cluster: {present, distinct_buyers, side}`. A *sell* cluster into bullish flow sharpens a VETO. See `lib/fz-recipes.md §3`. Tag `[FUND:insider_cluster fz]`. |
+| 6c | **Analyst cross-source (`fz`, D6)** | `fz quote <SYMBOL> --agent \| jq -c '{recom:.fundamentals.Recom, target:.fundamentals."Target Price"}'` | `Recom` 1=strong-buy…5=strong-sell + target, as an independent cross-check vs Finnhub. Flag divergence; overlaps Finnhub (cross-check, not net-new). Tag `[FUND:recom fz]`. |
 | 7 | Statements (best-effort) | `curl -sS "https://finnhub.io/api/v1/stock/financials-reported?symbol=<SYMBOL>&freq=quarterly&token=$FINNHUB_API_KEY" \| jq '.data[0].report \| keys'` | Balance sheet / cash flow / income line items if free on this key; many accounts get 403 here — mark "paid, skipped" and lean on the metric + growth fields from #1. |
 
 `<as-of-365d>` = the as-of date minus 365 calendar days. If no as-of date, use
@@ -87,8 +92,15 @@ note it, don't treat it as bullish.
      "statements paid-tier, using metric proxies"
    - ### Cash-flow quality (FCF, capex intensity, buyback/dividend) — proxy
      from margins/ROE if statements are paid
-   - ### Insider signal (MSPR table, last ≤12 months, trend)
-   - ### Peers (list + one line of relative-value context)
+   - ### Insider signal (MSPR table, last ≤12 months, trend; + `fz`
+     distinct-buyer cluster count and side if present)
+   - ### Peers — relative-value **comparison** (not just a list): a small table of
+     the named peers' P/E / fwd P/E / growth + (from `fz screen`) **SI / float**,
+     with one line placing `<SYMBOL>` in the group. Note if the peer list was thin
+     and a sector/industry screen was used instead.
+
+     | Ticker | P/E | Fwd P/E | EPS next Y | Short Float | Float |
+     |--------|----:|--------:|-----------:|------------:|------:|
 4. **Red flags** — declining margins, rising debt, negative FCF, serial
    misses, deteriorating consensus, insider selling (MSPR persistently < −30).
 5. **Tool / source calls** — audit trail (which endpoints ran, which 403'd).
@@ -99,6 +111,7 @@ note it, don't treat it as bullish.
    tier_adjustment:     CONFIRM | CAUTION | VETO | NA
    contradiction_count: <0–3>   # of {earnings_trend, insider_MSPR, growth/margins}
                                  # that contradict the phase-1→7 flow bias
+   insider_cluster:     {present: <y/n>, distinct_buyers: <int or n/a>, side: <buy/sell/n/a>}  # fz, D5
    key_risks:           [<≤3 one-line fundamental risks for phase-9 to carry>]
    ```
 
@@ -126,6 +139,12 @@ a new long. (Symmetric for a short thesis into an *improving* underlying.)
   distribution setup. VETO the directional long; the flow is exit liquidity.
 - **MSPR > +30 sustained 3+ months + bullish flow + accumulation (phase-2)** →
   triple-confirmed; this is the strongest quality stack the skill can produce.
+- **`fz` insider buy-cluster (≥2 distinct officers) corroborating a positive MSPR**
+  → sharpens CONFIRM (clustered opportunistic insider buying has documented
+  predictive content). A **sell**-cluster into bullish flow is the distribution
+  signature — sharpens VETO. Downside-only: the cluster never *raises* conviction,
+  it only strengthens the existing CONFIRM or sharpens the VETO on the
+  `insider_MSPR` axis.
 - **Cheap multiple alone is not CONFIRM** — value traps miss for years. Require
   a growth or insider co-signal before upgrading.
 - **Non-US ticker / ETF** → expect NA; fundamentals don't apply to an ETF.

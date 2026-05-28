@@ -21,11 +21,14 @@ can confirm or cut conviction, never add it. Emit `phase-7c-sentiment.md`.
 ```bash
 set -a; [ -f .env ] && . ./.env; set +a   # FINNHUB_API_KEY (same key as 7b)
 test -n "$FINNHUB_API_KEY" && echo "finnhub key set" || echo "NO FINNHUB KEY"
+fz --version >/dev/null 2>&1 && echo "fz ok" || echo "NO fz — SI via WebSearch"
 case "<SYMBOL>" in *.*) echo "non-US — news/revisions limited" ;; *) echo "US ok" ;; esac
 ```
 
-If `FINNHUB_API_KEY` is unset, run the WebSearch paths only (news, short interest)
-and mark the Finnhub paths skipped. Never abort.
+If `FINNHUB_API_KEY` is unset, run the WebSearch paths only (news) and mark the
+Finnhub paths skipped. Short interest is `fz`-primary (source #4) — if `fz` is
+unavailable (`fz_available=no` from phase-0), the short-interest leg falls back to
+WebSearch. Never abort.
 
 ### Look-ahead guard (MANDATORY for as-of runs)
 
@@ -37,9 +40,9 @@ dated after the as-of. Quoting a post-as-of headline is look-ahead contamination
 | # | Source | How | Extract |
 |---|--------|-----|---------|
 | 1 | **News-flow sentiment** | `curl -sS "https://finnhub.io/api/v1/company-news?symbol=<SYMBOL>&from=<as-of-14d>&to=<as-of>&token=$FINNHUB_API_KEY" \| jq '[.[] \| {datetime,headline,source}]'` (free). Fallback: WebSearch `"<SYMBOL>" news <month> <year>` | Net tone (bullish/bearish/mixed) of the trailing 14d; did the tape *lead* or *lag* the news? |
-| 2 | **Analyst-revision momentum** | `curl -sS "https://finnhub.io/api/v1/stock/recommendation?symbol=<SYMBOL>&token=$FINNHUB_API_KEY" \| jq '.'` (free) | Direction of the last 2–3 months: are strongBuy/buy counts rising or falling? Revisions trend; static ratings lag. |
+| 2 | **Analyst-revision momentum** | `curl -sS "https://finnhub.io/api/v1/stock/recommendation?symbol=<SYMBOL>&token=$FINNHUB_API_KEY" \| jq '.'` (free). **Cross-source (D6):** `fz quote <SYMBOL> --agent \| jq -c '{recom:.fundamentals.Recom, target:.fundamentals."Target Price"}'` — `Recom` 1=strong-buy…5=strong-sell + price target. | Direction of the last 2–3 months: are strongBuy/buy counts rising or falling? Revisions trend; static ratings lag. Flag any **divergence** between the Finnhub recommendation trend and the `fz` `Recom`/target — vendor disagreement is itself information. Tag `[SENT:recom fz]`. |
 | 3 | **Retail vs institutional** | From phase-1 (lit tape) + phase-2 (dark pool): small-lot ask-side call buying (retail euphoria) vs dark-pool block accumulation/distribution (institutional). Optionally `lib/duckdb-cuts.md §A` for a lit small-lot vs block premium split. | Are retail and institutions on the *same* side? Divergence = fade-the-crowd flag. |
-| 4 | **Short interest & borrow** (N4) | WebSearch: `"<SYMBOL>" short interest percent float days to cover <month> <year>` + borrow/HTB status (e.g. Fintel/Ortex/exchange SI). Finnhub `/stock/metric` (phase-7b) carries some short ratios. | % float short, days-to-cover, borrow fee / HTB. Reframes the directional thesis. |
+| 4 | **Short interest & borrow** (N4, D1) | **Primary (`fz`, deterministic):** `fz quote <SYMBOL> --agent \| jq -c '{short_float:.fundamentals."Short Float", days_to_cover:.fundamentals."Short Ratio", float:.fundamentals."Shs Float"}'` → % float short, days-to-cover, float in one point-in-time call. **Keep WebSearch for borrow-fee / HTB only** (`fz` has no borrow field): `"<SYMBOL>" borrow fee hard to borrow <month> <year>`. Fallback if `fz` absent: WebSearch the full SI figure (Fintel/Ortex/exchange). | % float short, days-to-cover (tag `[SENT:short_float fz semi-monthly]` — Finviz SI is the exchange semi-monthly settlement, ~2-week lag), borrow fee / HTB (WebSearch). Reframes the directional thesis. See `lib/fz-recipes.md §1`. |
 | 5 | **Positioning extremes** | Reuse phase-5 `historical_pc_ratio_zscore` + phase-0.5 `iv_rank`. | P/C z-score \|z\|>2 or IV-rank extreme = contrarian trigger. |
 
 `<as-of-14d>` = as-of minus 14 calendar days; default to today (US/Eastern) if no
@@ -52,9 +55,11 @@ as-of.
 2. **Key signals** — top-5 with `[SENT:<source>]` citations.
 3. **Detailed findings**
    - ### News flow (14d tone; lead/lag vs price)
-   - ### Analyst-revision momentum (direction, not level)
+   - ### Analyst-revision momentum (direction, not level) — note any
+     Finnhub-vs-`fz` `Recom`/target divergence (D6)
    - ### Retail vs institutional (lit small-lot vs dark-pool blocks)
-   - ### Short interest & borrow (%float, days-to-cover, HTB)
+   - ### Short interest & borrow (%float, days-to-cover from `fz` — point-in-time
+     & semi-monthly-tagged; HTB/borrow-fee from WebSearch)
    - ### Positioning extremes (P/C z-score, IV-rank percentile)
 4. **Divergences** — explicit list where the crowd and the flow disagree.
 5. **Source calls** — audit (which ran, which skipped/404'd).
@@ -63,7 +68,7 @@ as-of.
    ```
    sentiment_signal:  BULLISH | BEARISH | NEUTRAL
    crowd_state:       CROWDED_LONG | CROWDED_SHORT | BALANCED | NA
-   short_interest:    <%float short or "n/a"> ; borrow: EASY | HTB | n/a
+   short_interest:    <%float short or "n/a"> [fz, semi-monthly] ; days_to_cover: <x or n/a> ; borrow: EASY | HTB | n/a [WebSearch]
    tier_adjustment:   CONFIRM | CAUTION | VETO | NA
    divergences:       [<=3 one-line, e.g. "retail call euphoria vs DP distribution">]
    key_risks:         [<=3 one-line positioning risks for phase-9]

@@ -32,6 +32,14 @@ win rate of the signals that are currently firing. Emit `phase-5-historical.md`.
   If the tool returns `{"note":"no backtest results","total_signals":0}`,
   record `win_rate_source=null` so phase-9 falls back to the conviction bin.
 - `historical_trend` and `historical_oi_trend` are the workhorses — run both.
+- **`fz` price-context cross-check (D8, advisory).** If `fz_available=yes`
+  (phase-0), pull a non-UW read of where price sits in its own range:
+  `fz quote <SYMBOL> --agent | jq -c '{rsi:.fundamentals."RSI (14)", sma50:.fundamentals.SMA50, sma200:.fundamentals.SMA200, perf_ytd:.fundamentals."Perf YTD", high52:.fundamentals."52W High", low52:.fundamentals."52W Low"}'`
+  (`lib/fz-recipes.md §1`; `52W High/Low` come as a combined `"<level> <pct>%"`
+  string). This is an **independent, EOD cross-check** on the UW IV/trend read —
+  e.g. an overbought RSI at the 52-week high tempers a fresh-breakout thesis. Tag
+  `[HIST:rsi fz]`, `[HIST:52w_proximity fz]`. Advisory; it never enters the Kelly
+  `p` or the sizing handoff block. Skip silently if `fz` is absent.
 
 ### Gap-aware lookbacks (MANDATORY — the snapshot window is non-contiguous)
 
@@ -62,6 +70,8 @@ tools read the same `~/Documents/Stocks` files the escape hatch does, so:
    - ### GEX time series (regime flip dates if any)
    - ### OI trend (sustained buildup vs spike vs decay)
    - ### Multi-day trend table (date / vol / premium / IV rank / PCR)
+   - ### Price context (`fz` RSI / SMA20-50-200 / Perf / 52W proximity — advisory
+     cross-check on the UW IV/trend read; omit if `fz` absent)
    - ### Signal backtest (current signal's historical edge)
 4. **Tool calls** — audit.
 5. **Tool errors** — verbatim.
