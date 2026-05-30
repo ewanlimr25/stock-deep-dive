@@ -69,8 +69,8 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 | 0.5 | `phase-0.5-context.md` | `uw screener` + `uw insights deep-dive` (universe/sector rank, self-history) → `[CTX:]` | `phases/phase-0.5-context.md` |
 | 1 | `phase-1-flow.md` | `uw options-flow` + `uw hot-chains` + whole-tape aggregate (`uw insights deep-dive`) | `phases/phase-1-flow.md` |
 | 2 | `phase-2-dark-pool.md` | `uw dark-pool` | `phases/phase-2-dark-pool.md` |
-| 3 | `phase-3-positioning.md` | `uw oi` | `phases/phase-3-positioning.md` |
-| 4 | `phase-4-structure.md` | `uw options-structure` | `phases/phase-4-structure.md` |
+| 3 | `phase-3-positioning.md` | `uw oi` (incl. `oi-by-strike` walls + `term-structure` OPEX cliffs) | `phases/phase-3-positioning.md` |
+| 4 | `phase-4-structure.md` | `uw options-structure` (incl. `max-pain` opex-gravity) | `phases/phase-4-structure.md` |
 | 5 | `phase-5-historical.md` | `uw historical` (emits signal win-rate for sizing) | `phases/phase-5-historical.md` |
 | 6 | `phase-6-macro.md` | `uw risk market-regime` + `options-flow sector-flow-persistence` + `risk portfolio-correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
 | 7 | `phase-7-insights.md` | `uw insights` composite | `phases/phase-7-insights.md` |

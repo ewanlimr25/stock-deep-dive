@@ -21,6 +21,7 @@ in `term_structure`.
 | `uw options-structure term-skew --symbol <S> --dte-target 30 --json` | 25Δ put vs call IV |
 | `uw options-structure front-end-iv-ratio --symbol <S> --near-dte 7 --far-dte 30 --json` | Event-stress signal |
 | `uw options-structure today-gamma-flip --symbol <S> --json` | 0DTE ZGL + ATM flip + walls |
+| `uw options-structure max-pain --symbol <S> --dte-max 30 --json` | **Per-expiry max-pain strike** (the OI-pin magnet) + `distance_pct` from spot + `put_call_oi_ratio`. The opex-gravity read — where the chain pulls price into each expiry. Add `--expiry <D>` for the full per-strike `pain_curve`; `--dte-max 0` to include LEAPs. |
 
 ## Composition guidance
 
@@ -29,6 +30,14 @@ in `term_structure`.
   separately.
 - `uw options-structure today-gamma-flip` is 0DTE-only and intraday — only meaningful if running
   the skill during the trading session. If after-hours, note and skip.
+- **`uw options-structure max-pain` is the opex-gravity read** — compute max pain
+  natively here, never assert a max-pain level by eye (the invented-command
+  fabrication of 2026-05-30, `docs/audit/2026-05-30`, asserted "max-pain 195" when
+  the real magnet was 207.5–210). Read it *with* the GEX surface: max pain near a
+  positive-gamma pin reinforces the range; max pain far below spot with a high
+  `put_call_oi_ratio` is a downward pull that a short-gamma break can chase toward.
+  Cross-check the near-expiry max-pain strike against phase-3's `oi-by-strike`
+  walls and `term-structure` OPEX cliff — they should roughly agree.
 
 ## Output sections
 
@@ -43,13 +52,15 @@ in `term_structure`.
    - ### Term skew (put vs call IV, regime)
    - ### Front-end IV ratio (event stress)
    - ### Today's gamma flip (if intraday)
+   - ### Max pain (per-expiry pin strike, distance from spot, P/C OI ratio —
+     the opex-gravity magnet for phase-9's levels/calendar)
 4. **Tool calls** — audit.
 5. **Tool errors** — verbatim.
 6. **Verdict for downstream**
    - Dealer regime (long γ / short γ / transitional)
    - Conviction 1–5
    - Three structural levels for phase-9 (ZGL, largest GEX strike, vanna
-     pivot)
+     pivot) — **plus the near-expiry max-pain strike** as the opex pin magnet
    - Open questions
 
 ## Interpretation heuristics
@@ -72,3 +83,7 @@ in `term_structure`.
   filter DTE ≥ 1.
 - A flipped term structure can normalize the day after earnings — don't
   trade backwardation if earnings already passed within 24h.
+- Max pain is a **static-OI** estimate ("OI unchanged to expiry," per the tool's
+  own `caveat`) — it migrates as OI builds, so the further the expiry, the softer
+  the magnet. Quote the near-expiry strike for tradeable gravity; treat far-dated
+  max pain as indicative only.

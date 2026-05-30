@@ -65,10 +65,12 @@ Must cite at least 3 distinct upstream datapoints with proper tags:
 ### Levels to watch
 
 Source every level from a specific upstream phase. The minimum set:
-- support (phase-2 price level or phase-3 OI cluster)
-- resistance (phase-2 / phase-3)
+- support (phase-2 price level, or phase-3 `oi-by-strike` `put_wall_support`)
+- resistance (phase-2, or phase-3 `oi-by-strike` `call_wall_resistance`)
 - gamma flip (phase-4 `today_gamma_flip` if available, else phase-4 ZGL)
-- largest pin (phase-3 `pin_risk` if within OPEX week)
+- pin magnet (phase-4 `max-pain` near-expiry strike; or phase-3 `pin_risk` if
+  within OPEX week). Use the native max-pain value — do NOT assert a pin level by
+  eye (cf. the 2026-05-30 max-pain fabrication, `docs/audit/2026-05-30`).
 - **price-context color (D8, advisory):** if phase-5 carried the `fz` read,
   mention RSI and **52-week proximity** in the levels/risks prose (e.g. "entering
   at the 52-week high with RSI 79 — chase risk; prefer the fade entry"). Tag
