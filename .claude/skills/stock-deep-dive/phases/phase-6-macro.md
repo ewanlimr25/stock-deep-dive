@@ -78,7 +78,11 @@ curl -sSL "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCS
   | jq '.observations[] | {date, value}'
 ```
 
-Run these series in parallel (independent calls; ~12 series total):
+Run these series in parallel (independent **read-only** calls; ~12 series total).
+These are data fetches only — no MD write in the batch (SKILL.md rule 0). Note the
+harness is fail-fast: if one curl errors, its siblings are CANCELLED, not 403'd — a
+`Cancelled:` result is NOT a "paid, skipped" endpoint, so re-run the cancelled series
+(individually if needed) before recording any as unavailable.
 
 | Series | What to extract |
 |--------|-----------------|

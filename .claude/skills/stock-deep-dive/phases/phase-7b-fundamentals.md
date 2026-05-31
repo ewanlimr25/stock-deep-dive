@@ -49,7 +49,13 @@ Finnhub has been observed returning rows past the requested window. When an
 as-of date is supplied, drop any `period`/`year-month` later than it — quoting
 a future earnings print is look-ahead contamination.
 
-### Endpoints (run in parallel; each may independently 403 → mark "paid, skipped")
+### Endpoints (run in parallel — read-only fetches only, no MD write in the batch; SKILL.md rule 0)
+
+Each endpoint may independently 403 → mark "paid, skipped". **But the harness is
+fail-fast:** if one curl errors, its sibling calls are CANCELLED (`Cancelled: parallel
+tool call …`), which is NOT a 403 — do not mark a cancelled endpoint "paid, skipped";
+re-run it individually before recording it unavailable. Read every endpoint's output
+*before* writing `phase-7b-fundamentals.md`.
 
 | # | Endpoint | curl | What to extract |
 |---|----------|------|-----------------|
