@@ -38,6 +38,11 @@ in `term_structure`.
   `put_call_oi_ratio` is a downward pull that a short-gamma break can chase toward.
   Cross-check the near-expiry max-pain strike against phase-3's `oi-by-strike`
   walls and `term-structure` OPEX cliff — they should roughly agree.
+- **Quote the tool's own regime label, don't re-derive it.** `gex` returns
+  `regime`/`regime_description` and `zero_gamma_level`; `iv-term-structure` returns
+  `structure`; `term-skew` returns `interpretation`. Read those fields verbatim; use
+  `per_strike` only to cross-check the label, not to recompute the regime by hand
+  (re-derivation is a mis-read surface).
 
 ## Output sections
 

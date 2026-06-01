@@ -46,7 +46,11 @@ fz groups --by sector --view valuation --agent   # per-sector P/E, Fwd P/E, PEG,
 ```
 
 Use it to cross-check the UW `sector_flow` direction (is `<SYMBOL>`'s sector green
-on breadth and where does its P/E sit vs peers?). **Advisory only** — it never sets
+on breadth and where does its P/E sit vs peers?). Note `fz breadth --group sector
+--agent` returns a **single aggregate object** (`advancers`/`decliners`/`pct_green`/
+`top_mover`), not a per-sector table — use `fz groups --by sector --view valuation`
+(rows keyed by `Name`) for `<SYMBOL>`'s specific sector P/E and Change. **Advisory
+only** — it never sets
 the macro bias or sizes. Tag `[MACRO:sector_breadth fz EOD]`,
 `[MACRO:group_valuation fz EOD]`.
 
@@ -78,7 +82,11 @@ curl -sSL "https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCS
   | jq '.observations[] | {date, value}'
 ```
 
-Run these series in parallel (independent calls; ~12 series total):
+Run these series in parallel (independent **read-only** calls; ~12 series total).
+These are data fetches only — no MD write in the batch (SKILL.md rule 0). Note the
+harness is fail-fast: if one curl errors, its siblings are CANCELLED, not 403'd — a
+`Cancelled:` result is NOT a "paid, skipped" endpoint, so re-run the cancelled series
+(individually if needed) before recording any as unavailable.
 
 | Series | What to extract |
 |--------|-----------------|

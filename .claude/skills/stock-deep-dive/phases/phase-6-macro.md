@@ -46,7 +46,11 @@ fz groups --by sector --view valuation --agent   # per-sector P/E, Fwd P/E, PEG,
 ```
 
 Use it to cross-check the UW `sector_flow` direction (is `<SYMBOL>`'s sector green
-on breadth and where does its P/E sit vs peers?). **Advisory only** — it never sets
+on breadth and where does its P/E sit vs peers?). Note `fz breadth --group sector
+--agent` returns a **single aggregate object** (`advancers`/`decliners`/`pct_green`/
+`top_mover`), not a per-sector table — use `fz groups --by sector --view valuation`
+(rows keyed by `Name`) for `<SYMBOL>`'s specific sector P/E and Change. **Advisory
+only** — it never sets
 the macro bias or sizes. Tag `[MACRO:sector_breadth fz EOD]`,
 `[MACRO:group_valuation fz EOD]`.
 

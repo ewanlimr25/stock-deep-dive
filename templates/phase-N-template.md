@@ -28,13 +28,19 @@ name and value, never paraphrase a number.}}
 
 ## Tool calls (audit trail)
 
-| Command | Result summary |
-|---------|----------------|
-| `uw <group> <leaf> --symbol NVDA … --json` | {{1 line}} |
+| Command (+ args) | Key value(s) ← `jq` path | Rows used |
+|------------------|--------------------------|-----------|
+| `uw <group> <leaf> --symbol NVDA … --json` | {{e.g. net_flow=+$1.2M ← `.uw_screener.bullish_premium - .uw_screener.bearish_premium`}} | {{whole-tape / top-N}} |
 
 ## Tool errors
 
 {{Empty if none. Otherwise: tool name + args + exact error text.}}
+
+## DATA NOTE / CORRECTION
+
+{{Empty if the first read stood. If any value here was re-read or corrected after
+the first draft (e.g. under a slow/degraded harness), record: the field, the wrong
+value, the corrected value, and the `jq` path it was re-verified against.}}
 
 ## Verdict for downstream phases
 

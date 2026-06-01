@@ -21,7 +21,7 @@ For the two ask/bid sweep reads, call `uw options-flow sweeps` once per `--side`
 | `uw hot-chains smart-money-flow --direction bullish\|bearish --top-n 10 --min-volume 500 --json` | Ask vs bid imbalance (run both directions) |
 | `uw hot-chains sweep-persistence --days 5 --top-n 20 --symbol <S> --json` | Multi-day sweep campaigns |
 | `uw hot-chains sweep-ratio --top-n 15 --min-volume 500 --min-sweep-ratio 0.3 --json` | Aggressive-sweep ratio |
-| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | **Whole-tape aggregate** — the `uw_screener` block: `call_premium`, `put_premium`, `bullish_premium`, `bearish_premium`, `net_flow`, `put_call_ratio`, ask vs bid volume across the ENTIRE tape |
+| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | **Whole-tape aggregate** — the `uw_screener` block: `call_premium`, `put_premium`, `bullish_premium`, `bearish_premium`, `put_call_ratio`, `call_volume`, `put_volume`, `implied_move`/`implied_move_perc`, `iv_rank`. **No `net_flow` field here — derive `net_flow = bullish_premium − bearish_premium`** (or read the real `net_flow` from `screener bullish-bearish` `.results[]`). The block carries `call_volume`/`put_volume`, **not** ask/bid volume — for ask-vs-bid use the `sweeps` / `smart-money-flow` tools above |
 
 ## Whole-tape aggregate first (do NOT read direction off top-N alone)
 
@@ -30,8 +30,10 @@ The ranked tools above return the **top-N prints — the tip of the iceberg** (a
 read "clean bullish" while the whole tape was near-balanced). **Before interpreting
 the top prints, state the whole-tape aggregate** from `insights_deep_dive`'s
 `uw_screener` block (the same screener data phase-7 / phase-0.5 use):
-- call vs put premium, `bullish_premium` vs `bearish_premium`, `net_flow`,
-  ask-side vs bid-side volume, P/C ratio.
+- call vs put premium, `bullish_premium` vs `bearish_premium`, **derived
+  `net_flow = bullish_premium − bearish_premium`** (the block has no `net_flow` key),
+  `call_volume` vs `put_volume`, P/C ratio (`put_call_ratio`). Ask-vs-bid is
+  per-contract in `sweeps`/`smart-money-flow`, not in this whole-tape block.
 
 Then read the top-N prints *against* that aggregate: a single huge ask-side LEAP on
 top of a near-balanced tape is one print, not a one-sided tape — say so. Carry
@@ -59,7 +61,7 @@ magnitude and cap this phase's downstream conviction (phases 1–2 capped at `+`
 2. **Key signals** — bulleted top-5 with `[FLOW:<tool>]` citations.
 3. **Detailed findings**
    - ### Whole-tape aggregate (call vs put premium, bullish vs bearish premium,
-     net_flow, ask vs bid volume, P/C) — `[FLOW:insights_deep_dive]`; the top-N
+     derived net_flow, call vs put volume, P/C) — `[FLOW:insights_deep_dive]`; the top-N
      below is read against this
    - ### Sweeps (ask vs bid, premium, persistence)
    - ### New positioning (unusual vol, vol/OI ratio)

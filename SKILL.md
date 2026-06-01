@@ -69,8 +69,8 @@ research/<SYMBOL>/<YYYY-MM-DD>/
 | 0.5 | `phase-0.5-context.md` | `uw screener` + `uw insights deep-dive` (universe/sector rank, self-history) → `[CTX:]` | `phases/phase-0.5-context.md` |
 | 1 | `phase-1-flow.md` | `uw options-flow` + `uw hot-chains` + whole-tape aggregate (`uw insights deep-dive`) | `phases/phase-1-flow.md` |
 | 2 | `phase-2-dark-pool.md` | `uw dark-pool` | `phases/phase-2-dark-pool.md` |
-| 3 | `phase-3-positioning.md` | `uw oi` | `phases/phase-3-positioning.md` |
-| 4 | `phase-4-structure.md` | `uw options-structure` | `phases/phase-4-structure.md` |
+| 3 | `phase-3-positioning.md` | `uw oi` (incl. `oi-by-strike` walls + `term-structure` OPEX cliffs) | `phases/phase-3-positioning.md` |
+| 4 | `phase-4-structure.md` | `uw options-structure` (incl. `max-pain` opex-gravity) | `phases/phase-4-structure.md` |
 | 5 | `phase-5-historical.md` | `uw historical` (emits signal win-rate for sizing) | `phases/phase-5-historical.md` |
 | 6 | `phase-6-macro.md` | `uw risk market-regime` + `options-flow sector-flow-persistence` + `risk portfolio-correlation` → FRED → WebSearch | `phases/phase-6-macro.md` |
 | 7 | `phase-7-insights.md` | `uw insights` composite | `phases/phase-7-insights.md` |
@@ -93,6 +93,35 @@ genuinely unusual or a busy name's normal day.
 
 ## Orchestration rules
 
+0. **Execution discipline — one phase at a time, run → read → write (CARDINAL).**
+   Phases are sequential and data-dependent; the orchestrator MUST NOT race ahead.
+   - Finish a phase completely — its tool calls AND its `phase-N-*.md` write — before
+     issuing any tool call for the next phase.
+   - **Within a phase: run the data command(s) → READ the actual returned values →
+     THEN write the MD with those exact numbers.** Never put a phase-MD `Write`/`Edit`
+     in the same tool batch as the command whose output it quotes. A number written
+     before its source output has returned and been read is fabrication — full stop.
+   - Batch tool calls in one message ONLY when every call is read-only AND mutually
+     independent (e.g. a few `uw … --help` probes, or independent reads you will all
+     inspect before writing anything). The **only** sanctioned parallel batch in this
+     skill is phase 8's five sub-agents (independent read-only fan-out; you read all
+     five verdicts before writing `phase-8-agent-views.md`).
+   - **JSON-validity gate (degraded-harness guard).** Every `uw`/`fz`/`curl` read
+     MUST be piped through `jq` (or narrowed with `--select`) and the result MUST
+     parse. If `jq` errors or the buffer is truncated/partial, treat it as a TOOL
+     ERROR — surface it verbatim under `## Tool errors`, re-run the single command,
+     and **never transcribe a number from an unparsed or streamed buffer.** A value
+     that has not round-tripped through `jq` is not a datapoint yet. Every number
+     written to a phase MD must trace to an explicit `jq` path on validated JSON,
+     recorded in that phase's `## Tool calls` audit row — use the field-path map
+     `lib/uw-json-paths.md` (it pins the two phantom-field traps: deep-dive has no
+     `net_flow`; block-stratified has no `sell_ratio`).
+   - The harness is **fail-fast**: if any call in a parallel batch errors, the
+     remaining sibling calls are CANCELLED (`Cancelled: parallel tool call …`). Treat
+     a cancelled batch as "nothing in it ran" — re-verify disk state (`ls` the
+     research dir) before continuing, and never assume a cancelled `Write` persisted.
+   (Hardened 2026-05-31 after a batched-write run pre-filled phase MDs with unread
+   numbers; the harness cancellation is the only reason nothing false persisted.)
 1. **Phase 0 → phase 0.5 → sequential phases 1–7c**, then **parallel phase 8**
    (5 agents), then **phase 8b** (bull/bear debate), then sequential phases
    9–10. Phase 0.5 runs right after intake so every later phase inherits the
@@ -167,10 +196,24 @@ Read each phase file in `phases/` in order and follow the embedded
 instructions exactly. Each phase file is self-contained: tool list, output
 template, validation checklist.
 
+**Process one phase fully before starting the next** (see Orchestration rule 0).
+Each phase is a strict three-step cycle — do not collapse or pipeline these:
+
+1. **READ** the `phases/phase-N-*.md` instructions.
+2. **RUN** that phase's data commands and **READ the actual output** (foreground;
+   wait for results). Surface any tool error verbatim per rule 3.
+3. **WRITE** `research/<SYMBOL>/<DATE>/phase-N-*.md` using the values you just read —
+   never values you expect to get. Then, and only then, move to phase N+1.
+
+Do not pre-write a phase MD, do not batch a phase's `Write` with its data commands,
+and do not start phase N+1's tool calls until phase N's MD is on disk. The single
+exception is phase 8 (five independent sub-agents fanned out in one message, then all
+verdicts read before the MD is written).
+
 When invoked, the orchestrator should:
 
-1. Read `phases/phase-0-intake.md` and execute it.
-2. For each subsequent phase, read the file under `phases/` and execute.
+1. Read `phases/phase-0-intake.md` and execute the READ→RUN→WRITE cycle.
+2. For each subsequent phase, repeat the cycle — one phase at a time, in order.
 3. After phase 10, surface the trade blueprint path + audit score to the user.
 
 Disclaimer to include in every `phase-9-trade-plan.md`: *"For research and

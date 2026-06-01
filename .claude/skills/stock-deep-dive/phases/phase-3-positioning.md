@@ -35,6 +35,11 @@ fractional `oi_change` field is the ratio, not the delta).
 - **`uw oi term-structure` is the OPEX-cliff lens** — the expiry with the largest
   `pct_of_total_oi` is the gravity well; cross-check it against phase-4 max-pain
   and phase-6's catalyst calendar.
+- `biggest-increases` rows have **no `side` or `expiry` column** — both are encoded
+  in `option_symbol` (OPRA: `AAPL260619C00200000` → 2026-06-19, Call, strike 200).
+  Parse them from `option_symbol`; do not infer side from `net_oi` or guess the
+  expiry. (`oi-by-strike`/`term-structure` already give clean strike/expiry columns
+  — prefer them for the wall/cliff map.)
 - If today is > 7 calendar days from OPEX, `uw oi pin-risk` will likely return
   empty — record that and skip pin commentary.
 - **Float-normalize the OI build (D2, advisory).** If phase-0 captured `Shs Float`

@@ -26,6 +26,12 @@ All take `--symbol` (the CLI unifies what the old MCP split between `symbol` and
   **Caveat:** `--days` anchors its window to the *latest available date*, not to
   `--date`; on a re-run after a new session lands the window slides. Cross-check
   the returned cluster premiums against phase-0's available-dates list.
+- **`block-stratified` buy/sell lives nested per tier**, not as a row column: the
+  buy fraction is `.results[].<tier>.buy_ratio` (e.g. `.results[0].mega.buy_ratio`),
+  with `buy_volume`/`sell_volume`/`total_premium` alongside. **There is no
+  `sell_ratio` field** — derive `sell_ratio = 1 − buy_ratio` (or
+  `sell_volume/(buy_volume+sell_volume)`). Extract e.g.
+  `… --json | jq '.results[] | {ticker, mega_buy: .mega.buy_ratio}'`.
 - Cross-reference `uw dark-pool extended-hours` against any overnight news in
   phase-6 to attribute (or rule out) news-driven prints.
 - **Float-normalize block size (D2, advisory).** If phase-0 captured `Shs Float`
@@ -59,9 +65,10 @@ All take `--symbol` (the CLI unifies what the old MCP split between `symbol` and
 
 ## Interpretation heuristics
 
-- **Accumulation:** mega-tier buy_ratio ≥ 0.55 AND price levels cluster ABOVE
-  current spot (institutions paying up).
-- **Distribution:** mega-tier sell_ratio ≥ 0.55 AND clusters BELOW spot.
+- **Accumulation:** mega-tier `buy_ratio` ≥ 0.55 (`.results[].mega.buy_ratio`) AND
+  price levels cluster ABOVE current spot (institutions paying up).
+- **Distribution:** mega-tier `buy_ratio` ≤ 0.45 (i.e. derived `sell_ratio` ≥ 0.55 —
+  there is no `sell_ratio` field) AND clusters BELOW spot.
 - **Pin formation:** multiple medium-tier prints at the same strike within
   OPEX week — cross-reference with phase-3 `oi_pin_risk`.
 - **Hedging:** large block premium concentrated in pre/post-market right
@@ -70,7 +77,8 @@ All take `--symbol` (the CLI unifies what the old MCP split between `symbol` and
 ## Common pitfalls
 
 - Dark pool buy/sell classification is probabilistic (NBBO-based). Treat
-  ratios > 0.7 as high-confidence, 0.55–0.7 as suggestive only.
+  ratios > 0.7 as high-confidence, 0.55–0.7 as suggestive only. These thresholds
+  are on `buy_ratio`; for a sell read use `1 − buy_ratio` symmetrically.
 - Index ETFs and mega-caps print dark pool blocks all day every day — the
   signal is in CHANGE versus their ticker-summary baseline.
 - Extended-hours prints can be index rebalancing or ETF creation/redemption,

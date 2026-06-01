@@ -34,6 +34,11 @@ All take `--symbol <S>` (except `signal-backtest`, which is market-wide) and
   the conviction bin (`rubrics/sizing-rubric.md` §"Choosing the Kelly `p`").
   If the tool returns `{"note":"no backtest results","total_signals":0}`,
   record `win_rate_source=null` so phase-9 falls back to the conviction bin.
+  `win_rate` and `total_signals` are **top-level** fields (not per-row), and the
+  tool is **market-wide** (no `--symbol`) — so `p` is the base rate of that signal
+  class across the tape, not a `<SYMBOL>`-specific rate; say so in the handoff
+  block. The empty stub occasionally appears even when a populated result is
+  expected — re-run once before recording `win_rate_source=null`.
 - `uw historical trend` and `uw historical oi-trend` are the workhorses — run both.
 - **`fz` price-context cross-check (D8, advisory).** If `fz_available=yes`
   (phase-0), pull a non-UW read of where price sits in its own range:
@@ -48,12 +53,17 @@ All take `--symbol <S>` (except `signal-backtest`, which is market-wide) and
 
 The data behind these tools is **not contiguous**: there is a **21-session hole
 (2026-03-28 → 2026-04-24)** between two clusters (2026-03-13…03-27 and
-2026-04-27…05-22) — see phase-0's available-local-dates list. The `uw historical`
+2026-04-27…<latest>) — see phase-0's available-local-dates list. The late cluster's
+end advances as new sessions land (05-22 at the 2026-05-25 audit, 05-29 as of
+2026-06-01); read the exact bounds from phase-0's list, never hardcode them. The `uw historical`
 commands read the same `~/Documents/Stocks` files the escape hatch does, so:
 - When a `--days` / `--lookback-days` window **crosses the hole**, report the
   **actual number of sessions present**, not the calendar span, and never annualize
   or fit a "30-day trend" across the gap. Quote N explicitly (e.g. "30d trend over
-  the **19 sessions actually present**, gap 03-28→04-24 excluded").
+  the **19 sessions actually present**, gap 03-28→04-24 excluded"). Prefer the
+  tool's **own** session count over the calendar span: `iv-percentile-zscore.dates_used`,
+  `trend.days_analyzed` + `trend.date_range`, and the length of `oi-trend` /
+  `gex-time-series` series give the actual N — quote THAT.
 - If a `uw historical` series looks suspiciously smooth across late-Mar/Apr,
   **suspect the gap** — cross-check against phase-0's date list (or `lib/duckdb-cuts.md
   § gap`). If the CLI silently interpolates across the hole, surface that as a
@@ -62,7 +72,8 @@ commands read the same `~/Documents/Stocks` files the escape hatch does, so:
   regardless of the calendar window requested.
 - **Latest-anchor caveat (not as-of reproducible).** The trailing commands that
   take no `--date` (`iv-percentile-zscore`, `pc-ratio-zscore`, `oi-trend`,
-  `cumulative-premium-flow`, `signal-backtest`) and `vrp`'s realised-vol leg
+  `cumulative-premium-flow`, `gex-time-series`, `trend`, `signal-backtest`) and
+  `vrp`'s realised-vol leg
   anchor their window to the **latest available date**, not to the run's as-of
   date. A re-run after a new session lands (e.g. an earnings day) shifts every
   trailing read — IV30d, z-scores, build-day counts, win-rates all move. This is

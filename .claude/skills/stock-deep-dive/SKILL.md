@@ -106,6 +106,16 @@ genuinely unusual or a busy name's normal day.
      inspect before writing anything). The **only** sanctioned parallel batch in this
      skill is phase 8's five sub-agents (independent read-only fan-out; you read all
      five verdicts before writing `phase-8-agent-views.md`).
+   - **JSON-validity gate (degraded-harness guard).** Every `uw`/`fz`/`curl` read
+     MUST be piped through `jq` (or narrowed with `--select`) and the result MUST
+     parse. If `jq` errors or the buffer is truncated/partial, treat it as a TOOL
+     ERROR — surface it verbatim under `## Tool errors`, re-run the single command,
+     and **never transcribe a number from an unparsed or streamed buffer.** A value
+     that has not round-tripped through `jq` is not a datapoint yet. Every number
+     written to a phase MD must trace to an explicit `jq` path on validated JSON,
+     recorded in that phase's `## Tool calls` audit row — use the field-path map
+     `lib/uw-json-paths.md` (it pins the two phantom-field traps: deep-dive has no
+     `net_flow`; block-stratified has no `sell_ratio`).
    - The harness is **fail-fast**: if any call in a parallel batch errors, the
      remaining sibling calls are CANCELLED (`Cancelled: parallel tool call …`). Treat
      a cancelled batch as "nothing in it ran" — re-verify disk state (`ls` the

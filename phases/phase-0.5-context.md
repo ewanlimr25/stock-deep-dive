@@ -30,7 +30,7 @@ top of that metric (record "outside top-N on <metric>"). All commands take `--js
 | `uw screener bullish-bearish --direction bearish --top-n 50 [--date D] --json` | Same for net bearish premium |
 | `uw screener volume-vs-average --min-volume-ratio 2 --top-n 50 [--date D] --json` | Is today's option volume unusual vs the name's 30-day average |
 | `uw screener iv-rank --mode high\|low --top-n 50 [--date D] --json` | Where the name's IV rank sits in the universe |
-| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | The name's own `uw_screener` block — bullish/bearish/call/put premium, `net_flow`, `iv_rank`, `implied_move`, P/C (the absolute numbers behind the rank) |
+| `uw insights deep-dive --symbol <SYMBOL> [--date D] --json` | The name's own `uw_screener` block — bullish/bearish/call/put premium, `put_call_ratio`, `iv_rank`, `implied_move`/`implied_move_perc` (the absolute numbers behind the rank). **`net_flow` is NOT in this block** — read it from `screener bullish-bearish` `.results[]` (row where `ticker == <SYMBOL>`) or derive `bullish_premium − bearish_premium` |
 
 ## Optional precise percentile (DuckDB escape hatch — `lib/duckdb-cuts.md` §C)
 

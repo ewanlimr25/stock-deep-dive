@@ -36,7 +36,8 @@ DISAGREE only when one of the upstream phases was thin or wrong. Emit
    - ### Deep dive snapshot (PE, market cap, short %, IV rank, key options
      metrics, dark pool premium, OI signature) — **also surface the
      `uw_screener` directional aggregates explicitly: `bullish_premium` vs
-     `bearish_premium`, `net_flow`, `call_premium` vs `put_premium`,
+     `bearish_premium` (**derive `net_flow = bullish_premium − bearish_premium`;
+     deep-dive has no `net_flow` key**), `call_premium` vs `put_premium`,
      `implied_move`/`implied_move_perc` (phase-9 N4 sizes structures to this),
      P/C ratio.** These are whole-tape figures; reconcile against phase-1's
      aggregate and phase-0.5's `[CTX:]` rank.
