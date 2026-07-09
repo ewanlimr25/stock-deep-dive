@@ -25,6 +25,30 @@ ln -s ~/Development/stock-deep-dive .claude/skills/stock-deep-dive
 
 Then in any Claude Code session: `/stock-deep-dive NVDA` (or any US ticker).
 
+## Related skills (this repo)
+
+Two companion skills build the recommendation + learning loop on top of the deep
+dive (see `.claude/skills/`):
+
+- **`/trade-plan <TICKER>`** — turns the deep dive into an actionable, two-sided
+  trade plan: a clear direction with reasons it should work AND reasons it may
+  fail, chart **levels to watch** and forming **patterns** (flags, head-and-
+  shoulders, triangles, Elliott-wave count) from a price-structure engine the
+  flow substrate lacks, an upcoming-**events** calendar, an explicit **gap audit**
+  (what's missing + how to source it), and **≥1 pure stock long/short plan plus
+  ≥1 options plan with a target date and target price**. It **reuses** the most
+  recent `research/<TICKER>/<DATE>/` deep dive and writes to
+  `trade-plans/<TICKER>/<DATE>/`.
+- **`/trade-plan-eval <TICKER> <DATE>`** — after you take a trade, marks the plan
+  to market (path-aware WIN/LOSS/R), grades the **reasoning** (not just the
+  result), scores Brier calibration, and appends lessons to
+  `trade-plans/_eval/reasoning-ledger.md` that `/trade-plan` reads on its next run
+  — so the recommendations improve with use.
+
+The new price-structure layer adds one optional dependency on top of the deep
+dive's stack: `python3 -c "import yfinance, pandas, numpy"` (for OHLCV +
+technicals; the UW Stock-Screener parquet is the offline fallback).
+
 ## Requirements
 
 - Unusual Whales MCP server (`uw-pp`) configured and authenticated.

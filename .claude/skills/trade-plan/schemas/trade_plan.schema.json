@@ -1,0 +1,230 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://stock-deep-dive/schemas/trade_plan.schema.json",
+  "title": "TradePlan",
+  "description": "Machine-resolvable trade-plan envelope written to trade-plans/<TICKER>/<DATE>/trade-plan.json. Builds on the stock-deep-dive decision.json (flow/positioning/structure) and adds a price-structure/pattern layer, an explicit reasons-for / reasons-against case, a pure long/short stock plan, and >=1 options plan with a target date and target price. Consumed by the trade-plan-eval skill to mark plans to market and improve the reasoning ledger.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "ticker", "date", "generated", "bias", "conviction", "horizon",
+    "spot_reference", "thesis", "reasons_for", "reasons_against",
+    "levels", "patterns", "events", "invalidation", "sizing",
+    "stock_plan", "options_plans", "gap_audit", "sources",
+    "citations", "paths", "disclaimer"
+  ],
+  "properties": {
+    "ticker": { "type": "string", "pattern": "^[A-Z][A-Z0-9.]{0,5}$" },
+    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "description": "As-of date" },
+    "generated": { "type": "string", "description": "ISO-8601 timestamp the plan was written" },
+    "bias": { "enum": ["LONG", "SHORT", "NEUTRAL", "RANGE"] },
+    "conviction": { "enum": [0.55, 0.65, 0.75, 0.85, 0.95], "description": "M-01 conviction bin, post-gates" },
+    "horizon": { "enum": ["intraday", "1-5d", "1-4w", "1-3m", "3-12m"] },
+    "spot_reference": { "type": "number" },
+    "thesis": { "type": "string", "minLength": 1, "description": "<=3 sentences, >=3 tagged citations" },
+    "reasons_for": {
+      "type": "array", "minItems": 2,
+      "description": "Why the trade should work (goal #3). Each a tagged, falsifiable claim.",
+      "items": { "type": "string" }
+    },
+    "reasons_against": {
+      "type": "array", "minItems": 2,
+      "description": "Why the trade may fail (goal #3). The honest bear case for a long (and vice-versa).",
+      "items": { "type": "string" }
+    },
+    "levels": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Chart + dealer levels to watch (goal #4).",
+      "properties": {
+        "support": { "type": ["number", "null"] },
+        "resistance": { "type": ["number", "null"] },
+        "gamma_flip": { "type": ["number", "null"] },
+        "largest_pin": { "type": ["number", "null"] },
+        "moving_averages": { "type": "array", "items": { "type": "object" } },
+        "fib_levels": { "type": ["object", "null"] },
+        "key_levels": {
+          "type": "array",
+          "description": "Ranked level ladder, each tagged with its source.",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["level", "role", "source"],
+            "properties": {
+              "level": { "type": "number" },
+              "role": { "type": "string", "description": "support|resistance|trigger|target|stop|pin|flip" },
+              "source": { "type": "string", "description": "e.g. [CHART:swing_low], [DP:price_levels], [STRUCT:gex]" },
+              "note": { "type": ["string", "null"] }
+            }
+          }
+        }
+      }
+    },
+    "patterns": {
+      "type": "array",
+      "description": "Detected chart patterns (goal #5). Empty array allowed when none clear.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pattern", "confidence"],
+        "properties": {
+          "pattern": { "type": "string", "description": "e.g. bull_flag, head_and_shoulders, double_bottom, ascending_triangle, cup_and_handle, elliott_impulse" },
+          "direction": { "type": ["string", "null"], "enum": ["bullish", "bearish", "neutral", null] },
+          "confidence": { "enum": ["none", "low", "medium", "high"] },
+          "measured_target": { "type": ["number", "null"] },
+          "invalidation": { "type": ["number", "null"] },
+          "note": { "type": ["string", "null"] },
+          "source": { "type": ["string", "null"], "description": "[CHART:<detector>] or analyst-identified" }
+        }
+      }
+    },
+    "events": {
+      "type": "array",
+      "description": "Upcoming events that move the tape (goal #4): earnings, FOMC, CPI, OPEX, sector catalysts.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["date", "event", "impact"],
+        "properties": {
+          "date": { "type": "string" },
+          "event": { "type": "string" },
+          "impact": { "enum": ["+", "-", "?"] },
+          "source": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "invalidation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["price", "signal", "macro"],
+      "properties": {
+        "price": { "type": "string" },
+        "signal": { "type": "string" },
+        "macro": { "type": "string" }
+      }
+    },
+    "sizing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p", "payoff_b", "raw_kelly", "fraction", "cap_pct", "final_size_pct", "win_rate_source"],
+      "properties": {
+        "p_raw": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "p": { "type": "number", "minimum": 0, "maximum": 1 },
+        "win_rate_n": { "type": ["integer", "null"], "minimum": 0 },
+        "win_rate_source": { "enum": ["backtest", "fallback_bin", "null"] },
+        "payoff_b": { "type": "number", "exclusiveMinimum": 0 },
+        "raw_kelly": { "type": "number" },
+        "fraction": { "type": "number", "exclusiveMinimum": 0, "maximum": 1 },
+        "cap_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "final_size_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "deviation_reason": { "type": ["string", "null"] }
+      }
+    },
+    "stock_plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The pure long/short (shares) plan (goal #8 -- at least one).",
+      "required": ["direction", "entry", "stop", "targets", "thesis_one_liner"],
+      "properties": {
+        "direction": { "enum": ["long", "short", "stand_aside"] },
+        "entry": { "type": ["number", "string"], "description": "trigger price or zone" },
+        "entry_trigger": { "type": ["string", "null"] },
+        "stop": { "type": ["number", "string"] },
+        "targets": {
+          "type": "array", "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["price"],
+            "properties": {
+              "price": { "type": "number" },
+              "rationale": { "type": ["string", "null"] },
+              "take_pct": { "type": ["number", "null"], "description": "% of position to scale out" }
+            }
+          }
+        },
+        "r_multiple_to_t1": { "type": ["number", "null"], "description": "reward:risk to first target" },
+        "size_pct_book": { "type": ["number", "null"] },
+        "thesis_one_liner": { "type": "string" }
+      }
+    },
+    "options_plans": {
+      "type": "array",
+      "minItems": 1,
+      "description": "At least one options plan, each WITH a target date and target price (goal #8).",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["kind", "structure", "strikes", "expiry", "target_date", "target_price", "max_loss"],
+        "properties": {
+          "kind": { "enum": ["directional", "defined_risk"] },
+          "structure": { "type": "string", "description": "e.g. 'call debit spread', 'long put', 'iron condor'" },
+          "strikes": { "type": "string" },
+          "expiry": { "type": "string", "description": "option expiry YYYY-MM-DD" },
+          "target_date": { "type": "string", "description": "date by which the target is expected (goal #8)" },
+          "target_price": { "type": "number", "description": "underlying price target (goal #8)" },
+          "debit_credit": { "type": ["number", "string", "null"] },
+          "breakeven": { "type": ["number", "string", "null"] },
+          "max_loss": { "type": ["number", "string"] },
+          "est_payoff_at_target": { "type": ["number", "string", "null"] },
+          "size_pct_book": { "type": ["number", "null"] },
+          "note": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "gap_audit": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Goal #1/#2: what critical info is present vs missing, and how to source the gaps.",
+      "required": ["completeness", "have", "missing"],
+      "properties": {
+        "completeness": { "type": "number", "minimum": 0, "maximum": 100, "description": "% of the required-input checklist satisfied" },
+        "have": { "type": "array", "items": { "type": "string" } },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["item", "severity", "how_to_source"],
+            "properties": {
+              "item": { "type": "string" },
+              "severity": { "enum": ["critical", "important", "nice_to_have"] },
+              "how_to_source": { "type": "string" }
+            }
+          }
+        },
+        "verdict": { "enum": ["SUFFICIENT", "USABLE_WITH_GAPS", "INSUFFICIENT"] }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Provenance: which deep-dive run was reused and what data feeds were live.",
+      "properties": {
+        "deep_dive_reused": { "type": ["string", "null"], "description": "research/<TICKER>/<DATE>/ path reused, or null" },
+        "deep_dive_age_days": { "type": ["integer", "null"] },
+        "chart_source": { "type": ["string", "null"], "description": "yfinance | screener_parquet | none" },
+        "flow_source": { "type": ["string", "null"], "description": "deep_dive | live_uw | none" },
+        "ledger_lessons_applied": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "description": "Reused stock-deep-dive risk gates (optional; carried from the deep-dive decision.json).",
+      "additionalProperties": true
+    },
+    "confluence_score": { "type": ["number", "null"], "minimum": 0, "maximum": 100 },
+    "key_risks": { "type": "array", "maxItems": 6, "items": { "type": "string" } },
+    "citations": { "type": "array", "minItems": 3, "items": { "type": "string" } },
+    "paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plan"],
+      "properties": {
+        "plan": { "type": "string" },
+        "chart_json": { "type": ["string", "null"] },
+        "eval": { "type": ["string", "null"] }
+      }
+    },
+    "disclaimer": { "type": "string" }
+  }
+}

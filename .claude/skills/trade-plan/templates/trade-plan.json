@@ -1,0 +1,128 @@
+{
+  "ticker": "NVDA",
+  "date": "2026-06-18",
+  "generated": "2026-06-18T17:40:00Z",
+  "bias": "LONG",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 210.69,
+  "thesis": "Institutional dark-pool accumulation [DP:largest] and a positive DEX regime [STRUCT:dex] line up with price holding the rising 50-day and an ascending-triangle base [CHART:triangle], arguing for a measured long into the 2026-07-17 OPEX, sized to the empirical bullish_flow win-rate not the narrative.",
+  "reasons_for": [
+    "Net call premium $42M with ask-side sweeps [FLOW:top_premium_trades]",
+    "Price reclaimed and is holding the 50-day SMA 209.31 [CHART:sma50]; structure higher-low at 199.34 [CHART:swing_low]",
+    "Ascending triangle with flat highs ~212 and rising lows -> upside break bias [CHART:triangle]"
+  ],
+  "reasons_against": [
+    "60-day market structure still printing lower-highs/lower-lows [CHART:market_structure] -- trend not confirmed up",
+    "MACD histogram negative -0.96 [CHART:macd] -- momentum not yet aligned",
+    "Earnings on 2026-08-27 sits beyond the swing; an OPEX pin at 210 could cap the move [STRUCT:max_pain]"
+  ],
+  "levels": {
+    "support": 199.34,
+    "resistance": 212.71,
+    "gamma_flip": 205.0,
+    "largest_pin": 210.0,
+    "moving_averages": [{ "name": "sma50", "level": 209.31 }, { "name": "sma200", "level": 189.9 }],
+    "fib_levels": { "0.382": 208.94, "0.5": 200.4, "0.618": 191.86 },
+    "key_levels": [
+      { "level": 212.71, "role": "trigger", "source": "[CHART:swing_high]", "note": "break confirms triangle" },
+      { "level": 199.34, "role": "stop", "source": "[CHART:swing_low]", "note": "higher-low; invalidation shelf" },
+      { "level": 195.61, "role": "support", "source": "[CHART:cluster]", "note": "5-touch zone" },
+      { "level": 235.74, "role": "target", "source": "[CHART:high_52w]", "note": "measured-move objective" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "ascending_triangle", "direction": "bullish", "confidence": "low", "measured_target": 224.0, "invalidation": 199.34, "note": "flat ~212 highs, rising lows", "source": "[CHART:triangle]" },
+    { "pattern": "elliott_impulse", "direction": "bearish", "confidence": "low", "measured_target": 184.95, "invalidation": 236.54, "note": "working count, 2/3 rules (wave-4 overlap)", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-07-17", "event": "monthly OPEX", "impact": "?", "source": "[STRUCT:max_pain]" },
+    { "date": "2026-08-27", "event": "earnings AMC (est.)", "impact": "?", "source": "[FUND:next_earnings]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes below 199.34 (the higher-low) [CHART:swing_low]",
+    "signal": "DEX flips negative while spot holds [STRUCT:dex]",
+    "macro": "hawkish FOMC / hot CPI re-rates growth lower [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 0.58, "p": 0.58, "win_rate_n": 14, "win_rate_source": "backtest",
+    "payoff_b": 2.0, "raw_kelly": 0.37, "fraction": 0.25, "cap_pct": 5.0,
+    "final_size_pct": 1.85, "deviation_reason": null
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 212.9,
+    "entry_trigger": "break and hold above 212.71 swing high on >1.2x avg volume",
+    "stop": 199.3,
+    "targets": [
+      { "price": 224.0, "rationale": "triangle measured move", "take_pct": 50 },
+      { "price": 235.7, "rationale": "52-week high retest", "take_pct": 50 }
+    ],
+    "r_multiple_to_t1": 0.82,
+    "size_pct_book": 1.85,
+    "thesis_one_liner": "Long the ascending-triangle break with flow + DP confirmation; stop under the higher-low."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "210/225",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-15",
+      "target_price": 224.0,
+      "debit_credit": 5.2,
+      "breakeven": 215.2,
+      "est_payoff_at_target": 9.8,
+      "max_loss": 5.2,
+      "size_pct_book": 1.85,
+      "note": "strikes anchored to the 210 pin and 225 measured move; expiry avoids earnings"
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put credit spread",
+      "strikes": "197.5/190",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-17",
+      "target_price": 210.0,
+      "debit_credit": -2.1,
+      "breakeven": 195.4,
+      "est_payoff_at_target": 2.1,
+      "max_loss": 5.4,
+      "size_pct_book": 1.0,
+      "note": "sells the 199 invalidation shelf; collects theta if the base holds"
+    }
+  ],
+  "gap_audit": {
+    "completeness": 90,
+    "have": ["options flow", "dark pool", "OI/positioning", "dealer GEX/DEX", "historical win-rate", "macro/sector", "fundamentals", "OHLCV chart + patterns", "event calendar"],
+    "missing": [
+      { "item": "live intraday tape for precise trigger timing", "severity": "nice_to_have", "how_to_source": "uw options-flow + intraday yfinance on the day of entry" },
+      { "item": "confirmed earnings date", "severity": "important", "how_to_source": "finnhub_enrich.py / fz quote -- estimate used until confirmed" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/NVDA/2026-05-29/",
+    "deep_dive_age_days": 20,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": ["L-0001: do not size triangles at full until the break holds 2 closes"]
+  },
+  "gates": {
+    "fundamentals": "CONFIRM", "sentiment": "CONFIRM", "crowd_state": "BALANCED",
+    "correlation_cluster": null, "sector_rotation": "aligned", "debate_disconfirmed": false
+  },
+  "confluence_score": 68,
+  "key_risks": [
+    "trend not yet confirmed up (LH-LL on the 60d)",
+    "OPEX pin at 210 caps the swing",
+    "deep-dive flow is 20 days stale -- refresh before sizing up"
+  ],
+  "citations": [
+    "[DP:largest] $96M block accumulation print (research/NVDA/2026-05-29/phase-2-dark-pool.md)",
+    "[CHART:triangle] ascending triangle, flat highs ~212.71, rising lows from 199.34",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.58 (n=14)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

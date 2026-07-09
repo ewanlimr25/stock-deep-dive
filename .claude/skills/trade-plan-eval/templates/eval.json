@@ -1,0 +1,73 @@
+{
+  "ticker": "NVDA",
+  "plan_date": "2026-06-18",
+  "review_date": "2026-07-10",
+  "generated": "2026-07-10T16:00:00Z",
+  "plan_path": "trade-plans/NVDA/2026-06-18/trade-plan.json",
+  "trade_taken": {
+    "vehicle": "option",
+    "direction": "long",
+    "entry": 5.2,
+    "entry_date": "2026-06-23",
+    "stop": 199.3,
+    "targets": [224.0, 235.7],
+    "structure": "210/225 call debit spread exp 2026-07-17",
+    "size_pct_book": 1.85,
+    "matched_plan": true
+  },
+  "outcome": {
+    "status": "WIN",
+    "r_achieved": 0.82,
+    "mfe_R": 1.4,
+    "mae_R": 0.35,
+    "first_target_date": "2026-07-08",
+    "stop_hit_date": null,
+    "invalidation_price_hit": false,
+    "source": "yfinance"
+  },
+  "reasoning_review": {
+    "direction_call": "RIGHT",
+    "flow_chart_agreement_call": "RIGHT",
+    "pattern_call": "PLAYED_OUT",
+    "level_quality": "GOOD",
+    "sizing_review": "APPROPRIATE",
+    "components": [
+      { "claim": "ascending triangle breaks up", "side": "for", "verdict": "RIGHT", "note": "broke 212.71 on 1.4x vol 2026-06-26" },
+      { "claim": "dark-pool accumulation continues", "side": "for", "verdict": "RIGHT", "note": "DP buy-ratio stayed > 0.55" },
+      { "claim": "60d structure still LH-LL", "side": "against", "verdict": "WRONG", "note": "structure flipped to HH-HL after the break" },
+      { "claim": "OPEX pin at 210 caps the move", "side": "against", "verdict": "WRONG", "note": "pin migrated up with spot" }
+    ]
+  },
+  "calibration": {
+    "conviction": 0.65,
+    "outcome_bit": 1,
+    "brier": 0.1225,
+    "verdict": "WELL_CALIBRATED"
+  },
+  "attribution": [
+    { "lane": "chart_pattern", "effect": "decisive_right", "note": "triangle break led the move" },
+    { "lane": "dark_pool", "effect": "decisive_right", "note": "accumulation confirmed direction" },
+    { "lane": "chart_trend", "effect": "minor", "note": "trend lagged the break" }
+  ],
+  "lessons": [
+    {
+      "id": "L-0004",
+      "status": "CANDIDATE",
+      "scope": ["sector:semis", "setup:flow-leads", "pattern:triangle"],
+      "lesson": "When DP accumulation confirms a flat-highs triangle, the break tends to hold; the FLOW-LEADS conviction cut may be too harsh -- revisit after one more marked trade.",
+      "applies_to": "A3 conviction modifier"
+    }
+  ],
+  "proposed_rubric_edits": [
+    {
+      "file": ".claude/skills/trade-plan/rubrics/direction-rubric.md",
+      "change": "Consider softening the FLOW-LEADS -1 bin to 0 when dark-pool buy-ratio > 0.55 confirms the pattern direction.",
+      "rationale": "1 marked win so far; needs >=2 before promoting L-0004 to ACTIVE."
+    }
+  ],
+  "paths": {
+    "eval_md": "eval-2026-07-10.md",
+    "ledger": "trade-plans/_eval/reasoning-ledger.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice."
+}
