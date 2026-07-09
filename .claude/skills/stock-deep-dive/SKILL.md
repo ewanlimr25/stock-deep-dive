@@ -1,6 +1,8 @@
 ---
 name: stock-deep-dive
 description: End-to-end single-equity deep dive that synthesizes options flow, dark pool prints, dealer positioning, historical context, macro regime, and multi-agent analyst views into an actionable trade blueprint for a US-listed ticker. Use when the user asks for a deep dive, full workup, trade plan, or institutional-grade research on one specific stock or ETF.
+model: opus
+effort: high
 ---
 
 # Stock Deep Dive
