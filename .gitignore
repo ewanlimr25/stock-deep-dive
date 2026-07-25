@@ -23,3 +23,7 @@ node_modules/
 # Secrets — never commit. API keys live here (auto-sourced by phase-6/7b).
 .env
 .claude/settings.local.json
+
+# Machine-local Claude runtime state — holds a sessionId/pid/process-start of
+# whichever machine last held the lock, so it is never portable or shareable.
+.claude/scheduled_tasks.lock
