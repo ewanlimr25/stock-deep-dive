@@ -69,10 +69,10 @@ by outcomes, not just opinions.
   zero-gamma-level *reclaim* squeezes UP. Respect the veto and the bear's
   strongest unrefuted point; do not even carry defined-risk bearish premium into
   an undated bullish catalyst.
-- evidence: trade-plans/HOOD/2026-06-05 (LOSS −1R; HOOD reclaimed 87.45 ZGL and ran +31% to 108.15; the bear's named SpaceX-IPO risk fired)
+- evidence: trade-plans/HOOD/2026-06-05 (LOSS −1R; HOOD reclaimed 87.45 ZGL and ran +31% to 108.15; the bear's named SpaceX-IPO risk fired). 21D-window re-mark 2026-07-18 confirms no vindication — faded to 99.96 but stayed ~+21% above the 82.47 entry, never threatened the 80/77.5 targets.
 - applies_to: A3 conviction modifier + A4 sizing
-- added: 2026-06-21 by trade-plan-eval (HOOD 2026-06-05 → 2026-06-18)
-- note: promote to ACTIVE after one more marked trade with the same pattern.
+- added: 2026-06-21 by trade-plan-eval (HOOD 2026-06-05 → 2026-06-18); reconfirmed 2026-07-18 (→ 21D window)
+- note: still CANDIDATE — the 2026-07-18 re-mark is the SAME trade at a later window, not a distinct second trade. Promote to ACTIVE only after another name shows the pattern.
 
 ## Retired
 
