@@ -1,0 +1,100 @@
+{
+  "ticker": "HOOD",
+  "date": "2026-06-15",
+  "generated": "2026-06-16T13:55:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 98.12,
+  "thesis": "Genuine but late-cycle institutional accumulation (dark-pool buy/sell 1.7, mega buy_ratio 1.0 [DP:block_stratified]) on a long-gamma dealer-buy floor [STRUCT:gex], but capped by a four-way $100 ceiling (gamma wall +$18.17M [STRUCT:gex], call-wall OI +98,818 [OI:oi_by_strike], analyst target $102.91 [FUND:recom fz]) just +2% above spot while the matching bullish_flow signal backtests only 28.6% (n=7) [HIST:signal_backtest] into a +28%/RSI-65 extended move; desk 3-of-4 RANGE [AGENT:phase-8] and debate disconfirmed a fresh long (bull 0.55/bear 0.65 [DEBATE]) — capped $92-100 range, not a chase.",
+  "entries": {
+    "primary": { "price": 92.5, "trigger": "tag of DP support / $95 gamma-wall hold then accumulate long (defined-risk)", "source": "[DP:price_levels][STRUCT:gex]" },
+    "aggressive": { "price": 100.53, "trigger": "confirmed daily close above on elevated volume (gamma flip above the wall -> dealer chase)", "source": "[STRUCT:today_gamma_flip][OI:oi_by_strike]" },
+    "fade": { "price": 100.0, "trigger": "rejection at the $100 call/gamma wall -> sell the rip (range top counter-trade)", "source": "[OI:oi_by_strike][DP:price_levels]" }
+  },
+  "levels": { "support": 92.5, "resistance": 100.0, "gamma_flip": 25.91, "largest_pin": 85.0 },
+  "invalidation": {
+    "price": "two daily closes below 92.0 (loses DP support shelf, breaks accumulation structure -> opens $85 max-pain); two daily closes above 100.53 ends the range thesis (breakout-long)",
+    "signal": "institutional_accumulation flips to distribution (buy/sell < 1.0) OR GEX flips negative on daily refresh [STRUCT:gex][INSIGHT:institutional_accumulation]",
+    "macro": "hawkish FOMC surprise 2026-06-17 (dots/presser more restrictive than the 99.6%-priced hold) OR UW regime flip to RISK-OFF [MACRO:FOMC_2026-06-17]"
+  },
+  "sizing": {
+    "p_raw": 0.286,
+    "p": 0.286,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.5,
+    "raw_kelly": -1.14,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "95/102",
+      "expiry": "2026-07-17",
+      "debit_credit": 3.3,
+      "breakeven": 98.3,
+      "max_loss": 3.3,
+      "note": "bullish lean, cheap-vol-aligned (VRP -0.10); $95 gamma support / $102 ~ $100 wall + analyst target; 7/17 skips the 6/18 FOMC+OPEX binary. ENTER ON $92-93 PULLBACK, not at $98 (negative-Kelly at spot). Directional long final_size = 0% at spot; this is the conditional/pullback expression sized <=1% max-loss."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "92/88P + 100/104C",
+      "expiry": "2026-07-02",
+      "debit_credit": -1.3,
+      "breakeven": 90.7,
+      "max_loss": 2.7,
+      "note": "range/pin expression; short strikes at $100 wall and $92 DP support; prefer to leg in AFTER 6/18 quad-witch. Caveat: short premium into high realized vol (73%) + event cluster; starter-size, defined-risk cap bounds loss; second breakeven ~101.30."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 32,
+    "iv_rank": 32.4,
+    "self_pctile_net_dir": 84.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 4.65,
+    "front_expiry_abs": 4.55,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:SectorFlow_2026-06-15] Technology net inflow +$7.78B, persistence 1.0", "[MACRO:PAYEMS_2026-05] steady labor (unemployment 4.3%, NFP +172k)"],
+    "headwinds": ["[MACRO:MarketRegime_2026-06-15] TRANSITIONAL, breadth 37.1% bullish (reduce size)", "[MACRO:CPIAUCSL_2026-05] sticky CPI 4.3% YoY", "high beta 2.34 into FOMC 6/17 + quad-witch 6/18 cluster"]
+  },
+  "catalysts": [
+    { "date": "2026-06-17", "event": "FOMC decision (99.6% no-change priced)", "impact": "?" },
+    { "date": "2026-06-18", "event": "June quad-witch OPEX (Juneteenth-shifted)", "impact": "?" },
+    { "date": "2026-08-05", "event": "HOOD Q2 earnings (out of 30d window)", "impact": "+" }
+  ],
+  "key_risks": [
+    "Capped upside: $100 four-way ceiling only +2% away vs analyst target +5% ($102.91); poor risk/reward for a fresh long at $98",
+    "bullish_flow backtest 28.6% (n=7) into a +28%/RSI-65 extended move; distribution-into-strength risk on a euphoric one-off SpaceX-IPO catalyst",
+    "Negative vanna + max-pain $85 + beta 2.34 in a TRANSITIONAL tape: an IV pop into FOMC/OPEX forces dealer selling and a fast gap toward $85"
+  ],
+  "citations": [
+    "[DP:block_stratified] mega buy_ratio 1.0 / block 0.85 / large 0.581 (accumulation)",
+    "[STRUCT:gex] $100 gamma wall +$18.17M, regime POSITIVE, ZGL ~$26",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.286 (n=7)",
+    "[OI:oi_by_strike] $100 call_wall_resistance net_oi +98,818",
+    "[DEBATE] disconfirmed true, bull 0.55 / bear 0.65"
+  ],
+  "confluence_score": 58,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

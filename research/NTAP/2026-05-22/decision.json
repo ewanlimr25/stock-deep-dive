@@ -1,0 +1,101 @@
+{
+  "ticker": "NTAP",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 139.36,
+  "thesis": "NTAP ripped +12.4% on 5/22 on a genuine Google-Cloud-AI catalyst into 5/28 earnings, but the tape is SELLING the rally: the marquee print is the 145C 6/18 sold-on-bid $2.86M [FLOW:sweeps], net call+put premium negative [FLOW:aggressor_ex0dte DUCKDB], OI static [OI:biggest_increases], flow net-bearish through a +41.6% rally [INSIGHT:price_vs_flow]. With IV rank 100 / VRP +13.3 [HIST:vrp] and price above the entire analyst target range ($88-137) [SENT:analyst_targets], the edge is selling rich premium with a downside skew, defined-risk only — the cleaner fade is post-print since a beat can gap it through the 145 wall first.",
+  "entries": {
+    "primary": { "price": 143.0, "trigger": "sell defined-risk premium at/below the 145 gamma-wall cap; richer if it tags 143-145", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 145.0, "trigger": "tag of the 145 wall / overwrite strike — sell the call side into strength", "source": "[FLOW:sweeps]" },
+    "fade": { "price": ">145 sustained", "trigger": "two closes >145 on rising net-call-buying + fresh OI — stand down the fade, the $1.51M LEAP-call bull tell is in control", "source": "[FLOW:delta_notional DUCKDB]" }
+  },
+  "levels": { "support": 125.0, "resistance": 145.0, "gamma_flip": 115.41, "largest_pin": 145.0 },
+  "invalidation": {
+    "price": "two daily closes above 145 (gamma wall + above highest analyst target $137)",
+    "signal": "cumulative premium flow turns net-bullish 3 consecutive sessions, reversing the -$1.75M divergence [HIST:cumulative_premium_flow], or conviction_matrix flips to DIRECTIONAL_LONG with a real OI build [INSIGHT:conviction_matrix]",
+    "macro": "clean 5/28 earnings beat that holds NTAP above the +10.6% implied move (~$154) and validates the AI narrative [MACRO:NTAP_earnings]"
+  },
+  "sizing": {
+    "p_raw": 0.60,
+    "p": 0.60,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.85,
+    "raw_kelly": 0.135,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear call spread (fade skew)",
+      "strikes": "145C/155C",
+      "expiry": "2026-06-18",
+      "debit_credit": 3.2,
+      "breakeven": 148.2,
+      "max_loss": 6.8,
+      "note": "sells the 145 gamma wall + overwrite strike into IV rank 100; credit so the post-earnings vol crush works for you"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (primary recommendation)",
+      "strikes": "120/125P - 150/155C",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.3,
+      "breakeven": "122.7 / 152.3",
+      "max_loss": 2.7,
+      "note": "short strikes ~ the +/-10.6% implied-move edges; harvests VRP +13.3 / IV rank 100 if NTAP pins in 122.7-152.3 — but 60% vol-realisation means starter size only"
+    }
+  ],
+  "gates": {
+    "fundamentals": "NA",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 100.0,
+    "self_pctile_net_dir": 36.7
+  },
+  "expected_move": {
+    "front_expiry_pct": 10.64,
+    "front_expiry_abs": 14.82,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_flow_persistence] Tech net flow +$6.19B, persistence 1.0 (aligned to a long, adverse to this fade)", "[MACRO:NTAP_news_2026-05-22] genuine Google Cloud AI / Red Hat / Iterate.ai catalyst"],
+    "headwinds": ["[MACRO:NTAP_analysts_2026-05-22] spot $139.36 above bull-case $125 and all targets; JPMorgan downgrade to Neutral $110", "[MACRO:MarketRegime_2026-05-22] TRANSITIONAL regime — half size, defined-risk"]
+  },
+  "catalysts": [
+    { "date": "2026-05-28", "event": "NTAP fiscal Q4 earnings AMC (Street EPS $2.27, guide rev $1.87B)", "impact": "?" },
+    { "date": "2026-05-27", "event": "peer HPQ earnings (sector read-through)", "impact": "?" }
+  ],
+  "key_risks": [
+    "5/28 beat validating the AI narrative gaps NTAP through 145 / above the +10.6% move, squeezing the fade (phase-8b strongest_bear_point)",
+    "Tech sector persistent inflow (+$6.19B, persist 1.0) is a continuation tailwind, adverse to the fade",
+    "60% vol-realisation (N=10) means the move usually materialises -> adverse to a naked range-sell; defined-risk only",
+    "low short interest (~4% float) / EASY borrow -> no squeeze fuel, but momentum can still run on a beat",
+    "fundamentals blind spot (no Finnhub key); carry FCF -20% YoY + price above bull-case $125"
+  ],
+  "citations": [
+    "[FLOW:sweeps] 145C 6/18 sold-on-bid $2,858,466 / 4,851 ctr — premium harvest not accumulation",
+    "[SENT:analyst_targets] spot $139.36 above entire target range $88-137; consensus $115-118; JPM Neutral $110",
+    "[HIST:vrp] VRP +0.1332 (IV30 57.6% vs realised 44.2%) PREMIUM_SELLING; IV rank 100",
+    "[STRUCT:vanna_charm] net vanna -817 -> post-earnings crush forces dealer de-hedge selling",
+    "[INSIGHT:price_vs_flow] DIVERGENCE: price +41.6% vs net-bearish flow"
+  ],
+  "confluence_score": 66,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

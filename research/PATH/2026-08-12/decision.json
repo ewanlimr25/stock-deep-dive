@@ -1,0 +1,110 @@
+{
+  "ticker": "PATH",
+  "date": "2026-08-12",
+  "generated": "2026-08-13T04:05:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 15.26,
+  "thesis": "PATH sits at $15.26 after a +32.2% six-week rally built on a rare 29-of-30-session OI-build streak inside an unbroken long-gamma dealer regime [HIST:oi_trend][STRUCT:gex], but today's price-vs-flow reading shows an outright divergence (price +32% vs. today's bearish flow) [INSIGHT:price_vs_flow] right as phase-7b's fundamentals gate vetoes the long on a fresh earnings miss and an insider-sentiment reading at its most bearish level ahead of the 2026-09-03 print [FUND:insider_MSPR]. With market-regime's own guidance explicitly recommending 'iron condors in range' [MACRO:MarketRegime_2026-08-12] and phase-8's desk landing 4-of-5 NEUTRAL with zero LONG verdicts, the actionable read here is defined-risk and range-bound, not a chase of either direction.",
+  "entries": {
+    "primary": { "price": 15.26, "trigger": "sell the condor at spot — no unusual flow to time against (BUSY_NAME_NORMAL_DAY)", "source": "[CTX:unusual_verdict]" },
+    "aggressive": { "price": 15.88, "trigger": "wait for a retest of the $16.00 call-wall zone to sell the call side at richer premium", "source": "[OI:oi_by_strike]" },
+    "fade": { "price": 16.50, "trigger": "2 daily closes above the condor's short-call strike — cover that leg, consider a small long call spread toward $18.00 instead of fighting a confirmed breakout", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 14.86, "resistance": 16.00, "gamma_flip": 13.80, "largest_pin": 11.00 },
+  "invalidation": {
+    "price": "two daily closes below 13.89 or two daily closes above 16.50",
+    "signal": "dealer gamma regime flips NEGATIVE while spot holds inside range [STRUCT:gex]; or institutional-accumulation flips to sustained distribution [INSIGHT:institutional_accumulation]",
+    "macro": "hawkish FOMC surprise 2026-09-15/16 [MACRO:FOMC_2026-07-29]; or market-regime flips TRANSITIONAL -> clean RISK-OFF [MACRO:MarketRegime_2026-08-12]"
+  },
+  "sizing": {
+    "p_raw": 0.55,
+    "p": 0.55,
+    "win_rate_n": 0,
+    "win_rate_source": null,
+    "payoff_b": 1.097,
+    "raw_kelly": 0.1395,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "15/13.50",
+      "expiry": "2026-09-18",
+      "debit_credit": 0.75,
+      "breakeven": 14.25,
+      "max_loss": 0.75,
+      "note": "illustrative only, sized to 0% (fundamentals-vetoed, watch-only) per phase-7b VETO gate; spans the 2026-09-03 earnings date deliberately to express the insider/earnings-miss thesis"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "14.50P/13.50P + 16.50C/18.00C",
+      "expiry": "2026-08-28",
+      "debit_credit": -0.80,
+      "breakeven": 15.70,
+      "max_loss": 0.70,
+      "note": "primary recommendation, sized 1.0%; expires before 2026-09-03 earnings to avoid binary gap risk; strikes sourced from phase-2 price levels and phase-3 oi-by-strike walls"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 14.0,
+    "iv_rank": 63.16,
+    "self_pctile_net_dir": 47.1
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.29,
+    "front_expiry_abs": 0.50,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence_2026-08-12] Technology net_flow +$3.92B, 5/5-day inflow persistence",
+      "[MACRO:DFF_2026-08-11] Fed funds 3.63%, well below prior-cycle peak (~5.5%)",
+      "[MACRO:ISM_Mfg_2026-07] ISM Manufacturing 55.6, strongest since May 2022"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-08-12] market-regime=TRANSITIONAL, explicit half-size guidance",
+      "[MACRO:MarketRegime_2026-08-12] Technology rotation-delta shows money flowing OUT (-$34.0M); PATH peers (PANW, PLTR) bearish today",
+      "[MACRO:CPIAUCSL_2026-07] CPI YoY +3.30%/core +2.47%, PCE YoY +3.67%/core +3.29% above target; 3 hawkish FOMC dissents 2026-07-29",
+      "[MACRO:PAYEMS_2026-07] payrolls -23K MoM, softening labor momentum"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-09-03", "event": "PATH Q2 FY2027 earnings (postmarket)", "impact": "?" },
+    { "date": "2026-09-15", "event": "FOMC meeting (dot plot)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Insider MSPR at the maximum-bearish reading (-100) in the most recent available month, directly ahead of the 2026-09-03 earnings date [FUND:insider_MSPR]",
+    "Short interest (31.10% of float, 2.3x-13x every named peer) rose through the +32% rally rather than covering it -- not a short-covering-confirmed move [SENT:short_interest_trend]",
+    "Most recent quarter missed EPS by -7.86%, breaking a 3-quarter beat streak [FUND:earnings_surprise]",
+    "Debate disconfirmed (bear_residual 0.75 >= bull_residual 0.65) -- the adversarial pass did not clear a long thesis [DEBATE:bear_residual]"
+  ],
+  "citations": [
+    "[HIST:oi_trend] 29 of 30 sessions net OI-building, total_net_oi_change=+318,061",
+    "[STRUCT:gex] dealer regime POSITIVE (long gamma), zero regime flips across the 30-session rally",
+    "[FUND:insider_MSPR] insider MSPR at -100 (max bearish) in the most recent available month (July 2026)",
+    "[INSIGHT:price_vs_flow] DIVERGENCE: price up 32.1% but options flow bearish (net flow -$44,378)",
+    "[MACRO:MarketRegime_2026-08-12] TRANSITIONAL, explicit iron-condors-in-range guidance",
+    "[DEBATE:bear_residual] bear_residual 0.75 >= bull_residual 0.65, disconfirmed=true"
+  ],
+  "confluence_score": 59,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

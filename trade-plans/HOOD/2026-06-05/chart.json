@@ -1,0 +1,303 @@
+{
+  "available": true,
+  "ticker": "HOOD",
+  "as_of": "2026-06-05",
+  "source": "yfinance",
+  "source_note": "373 daily sessions via yfinance",
+  "indicators": {
+    "spot": 82.47,
+    "sessions": 373,
+    "sma20": 80.47,
+    "sma50": 78.25,
+    "sma200": 103.29,
+    "ema9": 84.22,
+    "ema21": 81.77,
+    "ma_stack": "mixed",
+    "dist_to_sma50_pct": 5.39,
+    "dist_to_sma200_pct": -20.16,
+    "rsi14": 51.45,
+    "rsi_state": "neutral",
+    "atr14": 5.47,
+    "atr_pct": 7.11,
+    "macd_hist": 0.718,
+    "macd_state": "bullish",
+    "bb_upper": 92.49,
+    "bb_lower": 68.44,
+    "vol_last": 35905100.0,
+    "vol_avg20": 26700345.0,
+    "vol_vs_avg": 1.34,
+    "high_52w": 152.46,
+    "low_52w": 65.16,
+    "pct_off_52w_high": -45.91,
+    "pct_above_52w_low": 26.57
+  },
+  "trend": {
+    "regression_slope": 0.1992,
+    "slope_pct_per_day": 0.24,
+    "direction": "up",
+    "market_structure": "range_or_transition",
+    "lookback_sessions": 60
+  },
+  "recent_pivots": [
+    {
+      "i": 331,
+      "date": "2026-04-08",
+      "price": 77.87,
+      "kind": "high"
+    },
+    {
+      "i": 334,
+      "date": "2026-04-13",
+      "price": 67.8,
+      "kind": "low"
+    },
+    {
+      "i": 338,
+      "date": "2026-04-17",
+      "price": 93.32,
+      "kind": "high"
+    },
+    {
+      "i": 346,
+      "date": "2026-04-29",
+      "price": 69.93,
+      "kind": "low"
+    },
+    {
+      "i": 353,
+      "date": "2026-05-08",
+      "price": 74.25,
+      "kind": "low"
+    },
+    {
+      "i": 357,
+      "date": "2026-05-14",
+      "price": 81.93,
+      "kind": "high"
+    },
+    {
+      "i": 360,
+      "date": "2026-05-19",
+      "price": 73.18,
+      "kind": "low"
+    },
+    {
+      "i": 367,
+      "date": "2026-05-29",
+      "price": 94.4,
+      "kind": "high"
+    }
+  ],
+  "support_resistance": [
+    {
+      "level": 120.73,
+      "touches": 4,
+      "kind": "resistance",
+      "dist_pct": 46.39,
+      "last_touch": "2026-01-14"
+    },
+    {
+      "level": 71.89,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -12.83,
+      "last_touch": "2026-04-01"
+    },
+    {
+      "level": 93.69,
+      "touches": 3,
+      "kind": "resistance",
+      "dist_pct": 13.61,
+      "last_touch": "2026-05-29"
+    },
+    {
+      "level": 67.28,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -18.42,
+      "last_touch": "2026-04-13"
+    },
+    {
+      "level": 63.02,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -23.58,
+      "last_touch": "2026-03-30"
+    },
+    {
+      "level": 113.8,
+      "touches": 3,
+      "kind": "resistance",
+      "dist_pct": 37.99,
+      "last_touch": "2026-01-08"
+    },
+    {
+      "level": 43.54,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -47.21,
+      "last_touch": "2025-04-02"
+    },
+    {
+      "level": 123.47,
+      "touches": 3,
+      "kind": "resistance",
+      "dist_pct": 49.72,
+      "last_touch": "2026-01-06"
+    }
+  ],
+  "fibonacci": {
+    "available": true,
+    "swing_high": 125.65,
+    "swing_low": 63.51,
+    "swing_direction": "down",
+    "retracements": {
+      "0.236": 78.18,
+      "0.382": 87.25,
+      "0.500": 94.58,
+      "0.618": 101.91,
+      "0.786": 112.35
+    },
+    "extensions": {
+      "1.272": 46.61,
+      "1.618": 25.12
+    }
+  },
+  "patterns": {
+    "flag": {
+      "detected": false
+    },
+    "head_shoulders": {
+      "detected": false
+    },
+    "double": {
+      "detected": true,
+      "type": "double_bottom",
+      "confidence": "medium",
+      "support": 73.72,
+      "neckline": 81.93,
+      "measured_target": 90.68,
+      "invalidation": 73.18,
+      "note": "bullish; confirmed on a close above the intervening peak"
+    },
+    "triangle": {
+      "detected": true,
+      "type": "symmetrical_triangle",
+      "confidence": "low",
+      "bias": "neutral",
+      "upper_trendline_slope": -0.0464,
+      "lower_trendline_slope": 0.2321,
+      "note": "trade the break; converging trendlines"
+    },
+    "cup_handle": {
+      "detected": false
+    },
+    "elliott_wave": {
+      "detected": false,
+      "note": "pivot sequence not cleanly alternating"
+    }
+  },
+  "patterns_detected": [
+    {
+      "pattern": "double",
+      "detected": true,
+      "type": "double_bottom",
+      "confidence": "medium",
+      "support": 73.72,
+      "neckline": 81.93,
+      "measured_target": 90.68,
+      "invalidation": 73.18,
+      "note": "bullish; confirmed on a close above the intervening peak"
+    },
+    {
+      "pattern": "triangle",
+      "detected": true,
+      "type": "symmetrical_triangle",
+      "confidence": "low",
+      "bias": "neutral",
+      "upper_trendline_slope": -0.0464,
+      "lower_trendline_slope": 0.2321,
+      "note": "trade the break; converging trendlines"
+    }
+  ],
+  "levels_to_watch": {
+    "spot": 82.47,
+    "nearest_support": 71.89,
+    "nearest_resistance": 120.73,
+    "supports": [
+      {
+        "level": 71.89,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -12.83,
+        "last_touch": "2026-04-01"
+      },
+      {
+        "level": 67.28,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -18.42,
+        "last_touch": "2026-04-13"
+      },
+      {
+        "level": 63.02,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -23.58,
+        "last_touch": "2026-03-30"
+      }
+    ],
+    "resistances": [
+      {
+        "level": 120.73,
+        "touches": 4,
+        "kind": "resistance",
+        "dist_pct": 46.39,
+        "last_touch": "2026-01-14"
+      },
+      {
+        "level": 93.69,
+        "touches": 3,
+        "kind": "resistance",
+        "dist_pct": 13.61,
+        "last_touch": "2026-05-29"
+      },
+      {
+        "level": 113.8,
+        "touches": 3,
+        "kind": "resistance",
+        "dist_pct": 37.99,
+        "last_touch": "2026-01-08"
+      }
+    ],
+    "moving_averages": [
+      {
+        "name": "sma50",
+        "level": 78.25
+      },
+      {
+        "name": "sma200",
+        "level": 103.29
+      },
+      {
+        "name": "ema21",
+        "level": 81.77
+      }
+    ],
+    "fib_levels": {
+      "0.236": 78.18,
+      "0.382": 87.25,
+      "0.500": 94.58,
+      "0.618": 101.91,
+      "0.786": 112.35
+    }
+  },
+  "stops": {
+    "available": true,
+    "atr": 5.47,
+    "long_stop_1atr": 77.0,
+    "long_stop_1_5atr": 74.27,
+    "short_stop_1atr": 87.94,
+    "short_stop_1_5atr": 90.67
+  }
+}

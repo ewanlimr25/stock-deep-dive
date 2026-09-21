@@ -1,0 +1,109 @@
+{
+  "ticker": "NVDA",
+  "date": "2026-05-29",
+  "generated": "2026-05-30T15:55:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 211.14,
+  "thesis": "Live institutional tape is distributing (dark-pool mega-tier buy_ratio 0.003, $10.4B sold at the 211.14 close [DP]; UW composite DIRECTIONAL_SHORT [INSIGHT]), but the underlying is elite and peer-cheap (rev +71%, EPS +110%, fwd PE 17, lowest P/E in its AI peer group, strong-buy $307 target [FUND]) which vetoes a directional short into a sector seeing durable inflow (Tech persistence 1/1, $11.6B [MACRO]). With dealers long gamma pinning 210-220 [STRUCT], a 1-point toss-up debate [DEBATE], and 4/4 desk agents NEUTRAL/RANGE [AGENT], this is a range-bound name with 210 as the single decisive level, not a directional trade.",
+  "entries": {
+    "primary": { "price": "207-214", "trigger": "spot holding inside the positive-gamma band; best fill on a rip to 214-216 or dip to 207-208", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": "215-217", "trigger": "rejection at the 215-216 zero-gamma ceiling where calls were written and faded", "source": "[STRUCT:gex]/[FLOW]" },
+    "fade": { "price": "<210 (short) / >216 (long)", "trigger": "sustained loss of 210 negative-gamma trapdoor flips directional short; reclaim/hold 216 with call OI building flips long", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 210.0, "resistance": 220.0, "gamma_flip": 215.5, "largest_pin": 200.0 },
+  "invalidation": {
+    "price": "Sustained close below 210 invalidates the range to the downside (flip to 210/200 put spread); close above 220 on rising call OI invalidates to the upside (mean-reversion long).",
+    "signal": "Dark-pool mega-tier buy_ratio flipping >0.50 for 2 sessions (distribution->accumulation), OR 215-225 calls flipping from written to ask-side bought (net_ask_bid positive) [DP/OI].",
+    "macro": "UW market-regime leaving TRANSITIONAL for a clean RISK-ON/RISK-OFF, or Tech sector-flow persistence dropping below 1 (inflow stalling) [MACRO]."
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.50,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.41,
+    "raw_kelly": 0.0,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear put spread (conditional / watch-only)",
+      "strikes": "210/200",
+      "expiry": "2026-06-18",
+      "debit_credit": 3.2,
+      "breakeven": 206.8,
+      "max_loss": 3.2,
+      "note": "Put on ONLY after a sustained loss of 210 (negative-gamma trapdoor); 7b fundamental VETO blocks an unconditional short. Strikes anchored to 210 gamma hinge + 200 put-build/negative-gamma level (not a max-pain figure; max pain was not computed this run)."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (primary)",
+      "strikes": "200/205 - 220/225",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.45,
+      "breakeven": "203.55 / 221.45",
+      "max_loss": 3.55,
+      "note": "Collects the dealer positive-gamma pin band 205-220; wings near the +-1sigma 20-DTE expected-move edges (191-231). Regime-prescribed ('iron condors in range'). VRP FAIR so no vol edge — a gamma-pin range bet, sized 1.0%."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 15,
+    "iv_rank": 40.65,
+    "self_pctile_net_dir": 60.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.45,
+    "front_expiry_abs": 0.95,
+    "source": "[CTX:implied_move] 1-day; Jun-18 20-DTE IV-scaled +-9.4%/+-$19.8"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology persistence 1/1, INFLOW $11.6B (5 sessions)",
+      "[MACRO:CPILFESL] Core CPI 2.74% YoY (disinflation)",
+      "[MACRO:DFF] Fed easing 3.62% + [MACRO:T10Y2Y] 2s10s +0.46 un-inverted"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime] TRANSITIONAL, 36.3% breadth, half-size/defined-risk",
+      "[MACRO:PAYEMS] payrolls softening +115k",
+      "[FUND] beta 2.23 amplifies any SPY downdraft"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-05", "event": "weekly OPEX (0DTE/weekly OI)", "impact": "?" },
+    { "date": "2026-06-18", "event": "June monthly OPEX (OPEX/gamma pull to 195-200 neg-gamma/put-build; not max-pain)", "impact": "-" },
+    { "date": "2026-08-26", "event": "NVDA earnings (outside structures)", "impact": "?" }
+  ],
+  "key_risks": [
+    "210 is a single point of failure: break flips dealer gamma negative into a trend short",
+    "VRP FAIR — the iron condor has no vol edge, pure gamma-pin range bet",
+    "small backtest N=8 / 50% win-rate — effectively no measured signal edge",
+    "the $10.4B 'distribution' is largely one closing-cross block — may be index/rebalance, not informed selling"
+  ],
+  "citations": [
+    "[DP:block-stratified] mega-tier buy_ratio 0.003 (49.1M sold, $10.4B at the 211.14 close)",
+    "[FUND:valuation] fwd PE 17, rev +71%/EPS +110% YoY, cheapest P/E in AI peer group, strong-buy $307 target; tier_adjustment VETO",
+    "[MACRO:sector_flow_persistence] Technology persistence 1/1, INFLOW $11.6B",
+    "[STRUCT:gex] positive-gamma pin 215-230, 210 negative-gamma trapdoor, zero-gamma ~215-216",
+    "[DEBATE] Bull 17 / Bear 16, 1-point toss-up -> directional disconfirmed"
+  ],
+  "confluence_score": 44,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

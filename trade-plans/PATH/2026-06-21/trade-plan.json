@@ -1,0 +1,167 @@
+{
+  "ticker": "PATH",
+  "date": "2026-06-21",
+  "generated": "2026-06-21T22:32:42Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 10.27,
+  "thesis": "PATH is pinned in a $10-$11 range where the chart H&S neckline (10.07) and the dealer $10 gamma-flip/put-wall agree the $10 line decides everything [CHART:head_shoulders][STRUCT:gex], while the only bull lane -- a 5-session ask-side sweep campaign [FLOW:sweep_persistence] -- backtests just 37.5% (n=8) [HIST:signal_backtest] and the dark pool won't confirm it (large-tier buy_ratio 0.48) [DP:block_stratified]. Flow points up, chart points down (DIVERGENT) -> no position until a level breaks: a confirmed close <$10 arms a short-gamma slide to $9.20, a reclaim of $11 squeezes the 31.78% short float.",
+  "reasons_for": [
+    "Chart bearish confluence: price below sma20/50/200, bearish MACD, and a medium bearish H&S whose neckline 10.07 = the $10 gamma flip [CHART:head_shoulders][STRUCT:gex]",
+    "Short gamma below spot ($10 strike gex -8.69M): a close under $10 self-reinforces toward the $9.20 52w-low shelf [STRUCT:gex]",
+    "The lone bull signal has no edge: bullish_flow backtests 37.5% (n=8, avg -0.51%) [HIST:signal_backtest]",
+    "Macro headwind: hawkish FOMC dot-flip + TRANSITIONAL half-size regime; PATH not in the +$9.36B Tech inflow [MACRO:FOMC_2026-06-17]"
+  ],
+  "reasons_against": [
+    "DIVERGENT flow vs chart (top steelman, L-0002): a persistent ask-side bull sweep campaign, consistency 1.0, $2.27M, leans the other way [FLOW:sweep_persistence]",
+    "Squeeze fuel: 31.78% short float, DTC 3.78, CROWDED_SHORT -- in a short-gamma book a reclaim of $10->$11 squeezes UP, not down (L-0004) [SENT:short_float]",
+    "No distribution to confirm a short: DP large-tier buy_ratio 0.48 is balanced, not selling [DP:block_stratified]",
+    "Poor short R:R from here: spot only +9.5% above the 52w low and basing into a symmetrical triangle [CHART:support_resistance]"
+  ],
+  "levels": {
+    "support": 10.07,
+    "resistance": 11.29,
+    "gamma_flip": 10.0,
+    "largest_pin": 11.0,
+    "moving_averages": [
+      { "name": "sma50", "level": 10.69 },
+      { "name": "sma200", "level": 13.01 },
+      { "name": "ema21", "level": 10.85 }
+    ],
+    "fib_levels": { "0.236": 11.26, "0.382": 12.54, "0.5": 13.57, "0.618": 14.6 },
+    "key_levels": [
+      { "level": 11.29, "role": "trigger", "source": "[STRUCT:max_pain]", "note": "reclaim & hold >$11 = bull squeeze armed; heaviest resistance (6 touches) + fib 0.236 + $11 pin" },
+      { "level": 12.0, "role": "resistance", "source": "[OI]", "note": "call wall / upside cap" },
+      { "level": 10.69, "role": "resistance", "source": "[CHART:sma50]", "note": "interim cap; clusters with chart 10.48 and DP supply 10.79" },
+      { "level": 10.07, "role": "trigger", "source": "[CHART:head_shoulders]", "note": "the decisive line: H&S neckline + $10 gamma flip + put wall + DP support 10.23" },
+      { "level": 10.0, "role": "flip", "source": "[STRUCT:gex]", "note": "gamma flip / put wall; two closes below = short-gamma breakdown" },
+      { "level": 9.2, "role": "target", "source": "[CHART:support]", "note": "52w-low shelf, primary bear objective" },
+      { "level": 6.94, "role": "target", "source": "[CHART:head_shoulders]", "note": "H&S measured-move tail; not base case" },
+      { "level": 10.65, "role": "stop", "source": "[CHART:stops]", "note": "short stop ~1 ATR above breakdown entry" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "head_and_shoulders", "direction": "bearish", "confidence": "medium", "measured_target": 6.94, "invalidation": 13.2, "note": "neckline 10.07; confirms on daily close <10.07; interim target 9.20-9.45; squeeze caveat L-0004", "source": "[CHART:head_shoulders]" },
+    { "pattern": "symmetrical_triangle", "direction": "neutral", "confidence": "low", "measured_target": null, "invalidation": null, "note": "converging trendlines; $10 and $11 are the lines; trade the volume-confirmed break", "source": "[CHART:triangle]" },
+    { "pattern": "elliott_working_count", "direction": "bearish", "confidence": "none", "measured_target": 10.2, "invalidation": null, "note": "rules 1/3 -> discard as a directional input", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "?", "source": "[MACRO:CPI]" },
+    { "date": "2026-07-17", "event": "July monthly OPEX (3rd Fri)", "impact": "?", "source": "[OI:OPEX]" },
+    { "date": "2026-07-28", "event": "FOMC (hike risk live)", "impact": "-", "source": "[MACRO:FOMC]" },
+    { "date": "2026-09-03", "event": "UiPath Q2 FY2027 earnings (outside window)", "impact": "?", "source": "[FUND:next_earnings_date]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes below 10.00 (H&S neckline + gamma flip) confirm the bear tilt -> target 9.20-9.45; conversely a reclaim & hold above 11.00 kills the bear tilt and arms the squeeze [CHART:head_shoulders][STRUCT:gex]",
+    "signal": "DP large-tier buy_ratio <0.45 (distribution -> confirms short) OR sweep-persistence consistency <0.6 (bull pillar gone) OR cumulative premium net bearish 3 consecutive sessions [DP:block_stratified][FLOW:sweep_persistence]",
+    "macro": "hawkish surprise at June CPI (7/15) or FOMC (7/28) vs consensus, or RISK-OFF regime flip on Iran/energy [MACRO:FOMC_2026-06-17]"
+  },
+  "sizing": {
+    "p_raw": 0.375,
+    "p": 0.375,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.7,
+    "raw_kelly": 0.144,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": "DIVERGENT flow vs chart + watch-only edge ceiling (L-0002): size 0% until a level breaks on confirmation; planned starter <=1.5% on a confirmed trigger, scaling only on a second hold."
+  },
+  "stock_plan": {
+    "direction": "short",
+    "entry": 9.95,
+    "entry_trigger": "two consecutive daily closes below 10.00 (H&S neckline + gamma flip) on >1.2x avg volume [CHART:head_shoulders][STRUCT:gex]",
+    "stop": 10.65,
+    "targets": [
+      { "price": 9.2, "rationale": "52w-low shelf (low_52w 9.38)", "take_pct": 50 },
+      { "price": 8.5, "rationale": "toward H&S measured tail", "take_pct": 30 },
+      { "price": 7.0, "rationale": "H&S measured move ~6.94", "take_pct": 20 }
+    ],
+    "r_multiple_to_t1": 1.07,
+    "size_pct_book": 0.0,
+    "thesis_one_liner": "Short ONLY on a confirmed close below the $10 neckline/gamma-flip; short gamma carries it to $9.20. No position until the break -- stand down if it reclaims $11 (squeeze)."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "put debit spread (deploy only on a confirmed close <$10)",
+      "strikes": "10P/9P",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-15",
+      "target_price": 9.2,
+      "debit_credit": 0.35,
+      "breakeven": 9.65,
+      "est_payoff_at_target": 0.45,
+      "max_loss": 0.35,
+      "size_pct_book": 0.0,
+      "note": "cheap IV (iv_rank 34.55) favors a debit; $1-wide spread caps cost so the squeeze tail can't hurt; expiry before FOMC 7/28; target ~5x a single front-expiry implied move (2.06%) -> trigger-gated, never naked. Starter <=1% on the confirmed break."
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "long strangle (owns either break on cheap IV; do NOT sell premium two-sided here)",
+      "strikes": "9.5P/11C",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-15",
+      "target_price": 9.2,
+      "debit_credit": 0.55,
+      "breakeven": "8.95 / 11.55",
+      "est_payoff_at_target": 0.45,
+      "max_loss": 0.55,
+      "size_pct_book": 0.0,
+      "note": "the aligned defined-risk structure given short gamma + 32% SI squeeze fuel; bull-leg objective $11.30 on a squeeze. CAVEAT: breakevens outside the implied move and no catalyst until CPI 7/15 -> keep tiny (<=0.5%) or stand aside; bleeds theta if PATH sits in the range."
+    }
+  ],
+  "gap_audit": {
+    "completeness": 94,
+    "have": [
+      "options flow", "dark pool", "OI/positioning", "dealer GEX/ZGL",
+      "historical win-rate", "macro/sector", "fundamentals", "sentiment/short-interest",
+      "OHLCV chart + patterns", "implied move", "event calendar"
+    ],
+    "missing": [
+      { "item": "high-confidence pattern confirm (volume + flow on the break)", "severity": "nice_to_have", "how_to_source": "manual read on the breakout day; engine caps at medium" },
+      { "item": "live intraday tape for precise trigger timing", "severity": "nice_to_have", "how_to_source": "uw options-flow sweeps --symbol PATH + intraday yfinance on entry day" },
+      { "item": "DP re-confirm at the $10 test", "severity": "nice_to_have", "how_to_source": "uw dark-pool block-stratified --symbol PATH (buy_ratio <0.45 confirms short / >0.60 confirms long)" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/PATH/2026-06-18/",
+    "deep_dive_age_days": 1,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0002: DIVERGENT flow/chart -> NEUTRAL/0.55, defined-risk only; divergence logged as #1 reason_against",
+      "L-0004: short-gamma + ~32% SI + bull sweep -> reclaim squeezes up; bear plan trigger-gated & defined-risk, never naked bearish premium",
+      "L-0001: low-confidence symmetrical triangle -> require volume-confirmed break, starter until two closes hold"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "confluence_score": 33,
+  "key_risks": [
+    "DIVERGENT flow/chart -- not a clean directional trade either way",
+    "Reclaim of $11 squeezes the 31.78% short float UP (L-0004 trap)",
+    "Short-gamma break of $10 self-reinforces lower (cuts both ways)",
+    "No catalyst inside the 1-4w window -> option premium bleeds theta",
+    "Hawkish FOMC + TRANSITIONAL half-size regime headwind for beaten-down software"
+  ],
+  "citations": [
+    "[HIST:signal_backtest] bullish_flow win_rate 0.375 (n=8, avg -0.51%) -- research/PATH/2026-06-18/phase-5-historical.md",
+    "[DP:block_stratified] large-tier buy_ratio 0.48 (non-confirmation) -- research/PATH/2026-06-18/phase-2-dark-pool.md",
+    "[STRUCT:gex] near-spot short gamma, $10 strike gex -8.69M, gamma flip $10 -- research/PATH/2026-06-18/phase-4-structure.md",
+    "[FLOW:sweep_persistence] bull campaign consistency 1.0, 5/5 sessions, $2.27M -- research/PATH/2026-06-18/phase-1-flow.md",
+    "[CHART:head_shoulders] bearish H&S, neckline 10.07, target 6.94 -- trade-plans/PATH/2026-06-21/chart.json",
+    "[SENT:short_float] 31.78% short float, DTC 3.78 -- research/PATH/2026-06-18/phase-7c-sentiment.md"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

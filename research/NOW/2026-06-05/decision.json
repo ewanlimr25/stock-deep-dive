@@ -1,0 +1,115 @@
+{
+  "ticker": "NOW",
+  "date": "2026-06-05",
+  "generated": "2026-06-06T14:05:00-04:00",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 112.45,
+  "thesis": "Spot 2.5% above ZGL 109.7 with no put wall until 100/90 [STRUCT:gex][OI:oi_by_strike], under ~$200M trapped DP supply at 117.9-119.36 [DP:price_levels] and a $377.9M 5/5-session bearish sweep campaign [FLOW:sweep_persistence]; but the marginal bear is 6-sigma late [HIST:pc_ratio_zscore], the largest 'bearish' print was a $20.7M SOLD put [FLOW:sweeps], fundamentals beat-and-raised with a $50B buyback [FUND:guidance], and the desk plurality is non-directional [AGENT:phase-8] in a TRANSITIONAL half-size regime [MACRO:MarketRegime_2026-06-05]. Trade the edges of 109.7-120 only, defined-risk only; short the break toward the 6/18 magnet at 108 [STRUCT:max_pain].",
+  "entries": {
+    "primary": { "price": 109.5, "trigger": "daily close below ZGL 109.7 with no same-session reclaim -> enter bear put spread", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 118.5, "trigger": "rejected bounce into the 117.9-119.36 DP supply shelf (failed retest)", "source": "[DP:price_levels]" },
+    "fade": { "price": 120.5, "trigger": "two closes reclaiming the 120 call wall + 6/12 max-pain -> flip to call debit spread toward 125/130", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 110.0, "resistance": 119.36, "gamma_flip": 109.7, "largest_pin": 108.0 },
+  "invalidation": {
+    "price": "RANGE read: two daily closes above 120.00 [OI:oi_by_strike]; triggered put spread: hard stop on daily close above 113.00 [STRUCT:gex per_strike]",
+    "signal": "Jul-17 135P OI -8,000 next snapshot (block was a CLOSE = hedge monetization) [OI:term_structure]; OR institutional-accumulation flips ACCUMULATION with buy/sell >1.0 above VWAP 110-112 [INSIGHT:institutional_accumulation]; OR cumulative premium flow net-bullish 3 consecutive sessions [HIST:cumulative_premium_flow]",
+    "macro": "cool May CPI (~2026-06-10) + dovish FOMC 2026-06-16/17 collapsing the 43% Dec-hike odds [MACRO:FedWatch_2026-06-05]; or UW regime flips RISK-ON [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.71,
+    "raw_kelly": 0.658,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear put debit spread (TRIGGER-CONDITIONAL; fundamentals-vetoed, carry only)",
+      "strikes": "110/100",
+      "expiry": "2026-07-17",
+      "debit_credit": 4.0,
+      "breakeven": 106.0,
+      "max_loss": 4.0,
+      "note": "strikes = two-sided 110 strike and the 100 put wall [OI:oi_by_strike]; expiry contains the 6/18 OPEX magnet 108 and FOMC, expires before 7/22 earnings; enter ONLY on the 109.7 trigger; debit illustrative - reprice at entry"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (RANGE expression, no-trigger carry)",
+      "strikes": "95/100/125/130",
+      "expiry": "2026-07-17",
+      "debit_credit": -2.7,
+      "breakeven": 97.3,
+      "max_loss": 2.3,
+      "note": "short strikes = 100 put wall and 125 call wall/GEX shelf [OI:oi_by_strike][STRUCT:gex]; upper breakeven 127.70; short premium against PREMIUM_BUYING VRP [HIST:vrp] - starter only, skip if front IV >80%"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "PATH @ 0.759 (live same-date RANGE blueprint)",
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 47,
+    "iv_rank": 79.23,
+    "self_pctile_net_dir": 10.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 10.4,
+    "front_expiry_abs": 11.65,
+    "source": "[STRUCT:iv_term_structure] 6/12 avg_iv 74.8% x sqrt(7/365); screener implied_move_perc 0.38% rejected as unit-suspect [CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:NOW_catalysts] $50B buyback authorization announced 2026-05-29",
+      "[MACRO:NOW_catalysts] Huang agentic-AI endorsement (GTC Taipei 5/31) underpins sector narrative",
+      "[MACRO:ISM_Svcs_2026-05] ISM Services 54.5 - healthy enterprise demand"
+    ],
+    "headwinds": [
+      "[MACRO:FedWatch_2026-06-05] Dec-hike odds 43% (from 26%) + [MACRO:CPIAUCSL_2026-04] CPI +3.78% YoY",
+      "[MACRO:MarketRegime_2026-06-05] TRANSITIONAL regime, VIX 21.51 (+40%), 'half position sizes'",
+      "[MACRO:DGS10] 10y 4.47% vs 66.9x GAAP multiple",
+      "[MACRO:sector_flow_persistence] tech inflow decelerating -71% over 5 sessions",
+      "[MACRO:UMich_2026-05] consumer sentiment 44.8 record low"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release (approx.)", "impact": "?" },
+    { "date": "2026-06-12", "event": "weekly OPEX, max-pain 120", "impact": "+" },
+    { "date": "2026-06-16", "event": "FOMC (June 16-17, ~98.7% hold; tone risk)", "impact": "?" },
+    { "date": "2026-06-18", "event": "NOW monthly OPEX - 20.9% of OI rolls, max-pain 108", "impact": "-" },
+    { "date": "2026-07-22", "event": "earnings (outside 30d; structures expire 7/17 by design)", "impact": "?" }
+  ],
+  "key_risks": [
+    "shorting into a 6-sigma P/C extreme + $50B buyback = sharp bounce-squeeze risk (7c)",
+    "fundamentals VETO: beat-and-raise +22% growth - bearish flow is profit-taking, not informed selling (7b)",
+    "below 109.7 the short-gamma air pocket cuts both ways - 9 GEX flips in 30 sessions preceded vol expansion in BOTH directions (8b strongest points)",
+    "NOW/PATH 0.759 cluster: a hard NOW trend day breaks the concurrent PATH RANGE book simultaneously"
+  ],
+  "citations": [
+    "[STRUCT:gex] ZGL 109.7, total_gex +6,878,457; 112 strike -$5,325,467",
+    "[OI:oi_by_strike] 120 call wall net +19,858; no put wall until 100/90",
+    "[DP:price_levels] 119.36 cluster $148,352,419 (5-day)",
+    "[HIST:pc_ratio_zscore] z +6.093 BEARISH_EXTREME (0.80 vs mean 0.33)",
+    "[FLOW:sweep_persistence] bearish 5/5 sessions, $377,864,816, consistency 1.0",
+    "[FUND:guidance] FY26 subscription guide raised to $15,735-15,775M; tier_adjustment VETO",
+    "[DEBATE:bear_residual] 0.65 vs bull 0.65 -> disconfirmed=true"
+  ],
+  "confluence_score": 58,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

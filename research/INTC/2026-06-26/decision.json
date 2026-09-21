@@ -1,0 +1,109 @@
+{
+  "ticker": "INTC",
+  "date": "2026-06-26",
+  "generated": "2026-06-27T14:33:48Z",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 128.3,
+  "thesis": "INTC is a +247.75% YTD parabola (only loss-maker in its peer group, 29-33% above the $102.70 analyst target [FUND:peer_pe fz]) where the tape turned against price: a price-vs-flow bearish DIVERGENCE (+10.7% price / -$50.9M flow) [INSIGHT:price_vs_flow], a 5/5-session bearish sweep campaign [FLOW:sweep_persistence], and ~73% bearish new OI led by a Jul-17 $130 put +11,442 [OI:biggest_increases] into a hawkish-Fed / tech-outflow macro [MACRO:sector_rotation] -- but the directional short is fundamentally VETOED (4/4 earnings beats, insiders buying, long-gamma pin), so this is a watch-only bias expressed only as a small defined-risk spread to the $120 pin, flat before the Jul-23 print.",
+  "entries": {
+    "primary": { "price": 131.0, "trigger": "rejection at the $130 call wall / gamma lid -- sell into strength", "source": "[OI:oi_by_strike]" },
+    "aggressive": { "price": 127.5, "trigger": "break/close below the $128 negative-gamma notch + loss of the $128.32 DP shelf", "source": "[STRUCT:gex]" },
+    "fade": { "price": 133.0, "trigger": "reclaim of $133 -- counter-trade small toward the $140.94 supply", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 120.0, "resistance": 130.0, "gamma_flip": 27.26, "largest_pin": 125.0 },
+  "invalidation": {
+    "price": "two daily closes above 133.0 (clears the $130 call wall/gamma lid + $132-133 DP supply band) [OI:oi_by_strike][DP:price_levels]",
+    "signal": "conviction-matrix flips COVERED_CALL -> DIRECTIONAL_LONG, OR cumulative premium flow net-bullish 3 consecutive sessions, OR the 5/5 bearish sweep persistence breaks [INSIGHT:conviction_matrix][HIST:cumulative_premium_flow]",
+    "macro": "dovish June-CPI surprise (~Jul-14/15) or semis sector flips to net inflow [MACRO:CPIAUCSL_2026-05][MACRO:sector_rotation]; AND hard rule: holding through Jul-23 earnings is itself invalidation [FUND:earnings_surprise]"
+  },
+  "sizing": {
+    "p_raw": 0.667,
+    "p": 0.667,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.77,
+    "raw_kelly": 0.48,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear put debit spread",
+      "strikes": "128/120",
+      "expiry": "2026-07-17",
+      "debit_credit": 4.0,
+      "breakeven": 124.0,
+      "max_loss": 4.0,
+      "note": "long the ATM neg-gamma notch, short the $120 gamma-pin/max-pain target; spread caps the 94% IV vega tax; expires before Jul-23 earnings; carry only, max-loss <=0.5% of book (7b VETO)"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call credit spread",
+      "strikes": "135/140",
+      "expiry": "2026-07-17",
+      "debit_credit": -1.5,
+      "breakeven": 136.5,
+      "max_loss": 3.5,
+      "note": "sells the $135 call wall / $140 supply into the VRP +5.95 PREMIUM_SELLING regime; highest-probability expression given the long-gamma pin; expires before earnings; carry only, max-loss <=0.5% of book"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 5,
+    "iv_rank": 94.1,
+    "self_pctile_net_dir": 7.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 22.0,
+    "front_expiry_abs": 28.2,
+    "source": "[CTX:implied_move] IV-derived to Jul-17 (94% ATM IV); phase-0.5 0DTE residual 0.65% discarded in phase-4"
+  },
+  "macro": {
+    "net": "net tailwind for the short (gated)",
+    "tailwinds": [
+      "[MACRO:sector_rotation] Technology #1 directional outflow -$637.8M",
+      "[MACRO:FOMC_2026-06-17] hawkish Fed pivot (dots->3.8%, hike bias)",
+      "[MACRO:CPIAUCSL_2026-05] CPI +4.27% YoY pressures high-multiple tech",
+      "[MACRO:semis_selloff] $1.3T June semis selloff, memory crisis, smartphone -13%"
+    ],
+    "headwinds": [
+      "[MACRO:AI_demand] AI secular boom intact (Deloitte +26%/$975B 2026)",
+      "[FUND:earnings_surprise] 4/4 EPS beats + Q2 guide beat (squeeze risk)"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "?" },
+    { "date": "2026-07-17", "event": "monthly OPEX (structure expiry)", "impact": "-" },
+    { "date": "2026-07-23", "event": "INTC Q2 earnings AMC (DO NOT hold through)", "impact": "?" },
+    { "date": "2026-07-29", "event": "FOMC", "impact": "?" }
+  ],
+  "key_risks": [
+    "Squeeze: 4/4 EPS beats, +45.76% fwd EPS, insiders buying, Pelosi $6M buy / AI headlines, and a +29% V-bounce off $99 can lift the crowded long (strongest_bear_point, phase-8b)",
+    "Long-gamma pin (ZGL $27.26, +5.34M/$120 + +4.16M/$130 gamma pins) muffles the downside -- price may pin $128-130 and bleed the debit-spread theta at 94% IV",
+    "Counter-trend fade of a +248% momentum name with SI only 3.39% (no trapped shorts) -- the move down must come from longs selling, not a squeeze"
+  ],
+  "citations": [
+    "[INSIGHT:price_vs_flow] bearish DIVERGENCE: price +10.7%/30d vs net flow -$50.9M",
+    "[OI:biggest_increases] Jul-17 $130 put +11,442 OI (ratio 4.11); ~73% bearish new OI",
+    "[MACRO:sector_rotation] Technology #1 directional outflow -$637.8M",
+    "[FUND:peer_pe fz] only loss-maker in peer group, +247.75% YTD, 29-33% above analyst targets",
+    "[FLOW:sweep_persistence] 5/5-session bearish sweep campaign, $925.2M, consistency 1.0"
+  ],
+  "confluence_score": 55,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

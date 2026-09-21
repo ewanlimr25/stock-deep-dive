@@ -1,0 +1,100 @@
+{
+  "ticker": "BABA",
+  "date": "2026-07-23",
+  "generated": "2026-07-24T12:20:00Z",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 114.99,
+  "thesis": "A 5-session bearish sweep campaign (consistency 1.0, $76.5M) [FLOW:sweep_persistence] with net call SELLING (call_bid 49,758 > call_ask 36,425) [INSIGHT:conviction_matrix] into a short-gamma regime (spot below ZGL $119.71) [STRUCT:gex], over a 0/4 earnings-miss streak (latest -89.5%) [FUND:earnings_surprise] a 43-buy-vs-1-sell Street [SENT:recommendation] hasn't downgraded — but capped and disconfirmed (+$625M standing 90d bull flow [HIST:cumulative_premium_flow], max-pain pin $114-115 [STRUCT:max_pain], bear_residual 0.65 >= bull_residual 0.65 [DEBATE:disconfirmed]). A very small, defined-risk FADE of $119-120 toward $110-112, not a directional short.",
+  "entries": {
+    "primary": { "price": 118.5, "trigger": "rally/rejection into ZGL + $120 gamma/OI call wall", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 115.5, "trigger": "tag of $115.55 DP shelf then reject on a lower-high", "source": "[DP:price_levels]" },
+    "fade": { "price": 120.5, "trigger": "reclaim & hold > $120 flips dealers long-gamma — stand aside / counter", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 114.97, "resistance": 119.71, "gamma_flip": 119.71, "largest_pin": 115.0 },
+  "invalidation": {
+    "price": "two daily closes above 120.0 (reclaim of ZGL + $120 gamma/OI wall)",
+    "signal": "GEX/DEX flips positive on daily refresh (spot reclaims ZGL) or cumulative premium flow net-bullish 3 consecutive sessions [STRUCT:gex]",
+    "macro": "dovish risk-on FOMC surprise 2026-07-29 or US-China tariff/AI-sanction de-escalation [MACRO:FOMC_2026-07-29]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.8,
+    "raw_kelly": 0.66,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "115/110",
+      "expiry": "2026-08-14",
+      "debit_credit": 1.7,
+      "breakeven": 113.3,
+      "max_loss": 1.7,
+      "note": "long the fade to the $110 put wall; expiry set inside a possible mid-Aug earnings print to avoid the binary + IV crush"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "120/125 call + 110/105 put",
+      "expiry": "2026-08-14",
+      "debit_credit": -1.6,
+      "breakeven": 121.6,
+      "max_loss": 3.4,
+      "note": "monetizes the $112-120 structural cage + complacent call skew + $114-115 max-pain pin; regime-endorsed iron condor; wings ~0.4-sigma so structure-over-vol bet, size tiny"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (universe pctile 1.5 - bearish extreme)",
+    "iv_rank": 61.16,
+    "self_pctile_net_dir": 43.7
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.56,
+    "front_expiry_abs": 1.78,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:ChinaRisk] structural AI-cloud revenue +40% (long-term, not near-term)", "[MACRO:DFF_2026-07-22] Fed funds easing to 3.63%"],
+    "headwinds": ["[MACRO:MarketRegime_2026-07-23] TRANSITIONAL/CHOPPY - half size, defined-risk, iron condors", "[MACRO:SectorFlow_2026-07-23] Consumer Cyclical outflow -$3.04B today", "[MACRO:ChinaRisk] US-China tariff + DoD-blacklist + outbound-reg overhang", "[MACRO:DGS10_2026-07-22] 10y at 4.67% pressures EM/growth"]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC decision (no dot plot)", "impact": "?" },
+    { "date": "2026-08-15", "event": "BABA FQ1-2027 earnings (UNVERIFIED - UW says 2026-09-04; June quarter historically mid-August)", "impact": "-" }
+  ],
+  "key_risks": [
+    "Defended-name bounce / mean-reversion: crowded-long Street (43 buy vs 1 sell) + +$625M 90d bull flow on a cheap -40%-off-high, low-SI (1.69%) name with no forced-capitulation mechanic",
+    "Max-pain pin at $114-115 fights the fade; ~3% reward is a low-R chop trade in a CHOPPY regime",
+    "FOMC 2026-07-29 (6 days out) dovish risk-on surprise; unverified earnings date makes any event structure a guess"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] 5-session bearish sweep, consistency 1.0, $76.53M",
+    "[STRUCT:gex] short-gamma regime, ZGL $119.71, spot below",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.875 (n=8) -> capped p 0.75",
+    "[FUND:earnings_surprise] 0/4 beat-rate, latest -89.5%",
+    "[SENT:recommendation] Street 43 buy vs 1 sell, improving",
+    "[DEBATE:disconfirmed] bear_residual 0.65 >= bull_residual 0.65"
+  ],
+  "confluence_score": 50,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

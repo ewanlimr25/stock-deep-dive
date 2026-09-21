@@ -1,0 +1,114 @@
+{
+  "ticker": "PATH",
+  "date": "2026-06-05",
+  "generated": "2026-06-06T13:05:00-04:00",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 11.24,
+  "thesis": "Range, not a trade: $11 put wall (net_oi -12,197) vs $12/$13 call walls [OI:oi_by_strike], Jun-18 OPEX (15.9% of chain OI) max-pain $11 [STRUCT:max_pain], long-gamma dealers (+$4.45M) [STRUCT:gex]; the directional long is dead on arrival with bullish_flow 0-for-8 [HIST:signal_backtest] in a TRANSITIONAL regime with Tech the worst sector (-$807.6M) [MACRO:MarketRegime_2026-06-05 UW]; desk 4-of-4 RANGE/NEUTRAL [AGENT:all]. Express the range defined-risk at the walls, 0% directional, pre-written squeeze plan on a $12.20 reclaim (31% SI, easy borrow) [SENT:short_float fz].",
+  "entries": {
+    "primary": { "price": 11.95, "trigger": "rejection inside 11.83-12.06 DP supply band / $12 call wall -> open Jun-18 iron condor", "source": "[DP:price_levels][OI:oi_by_strike]" },
+    "aggressive": { "price": 11.12, "trigger": "retest of 11.11-11.14 flush zone holding above 11.00 -> enter condor floor-side", "source": "[DP:largest]" },
+    "fade": { "price": 12.2, "trigger": "daily reclaim + hold > 12.20 on rel-vol > 2x -> flip to Sep 10/15 call debit spread (squeeze re-arm)", "source": "[OI:oi_by_strike][SENT:short_float fz]" }
+  },
+  "levels": { "support": 11.0, "resistance": 12.0, "gamma_flip": 7.57, "largest_pin": 11.0 },
+  "invalidation": {
+    "price": "two daily closes below 11.00 (or intraday break of 10.95 without same-day reclaim) -> close condor 100%; symmetric upside: daily close above 13.00 on volume -> condor closed, Plan B armed",
+    "signal": "<=45DTE GEX regime flips NEGATIVE on daily refresh (cushion already 28.6M->4.4M) [STRUCT:gex][HIST:gex_time_series]; or insights institutional-accumulation flips to DISTRIBUTION while spot < 11.50 [INSIGHT:institutional_accumulation]",
+    "macro": "hawkish surprise at May CPI (~2026-06-10) or FOMC 2026-06-16/17 (easing bias removed; Apr vote already split 8-4) [MACRO:FOMC_2026-04-29]; or UW market-regime deteriorates from TRANSITIONAL to risk-off [MACRO:MarketRegime UW]"
+  },
+  "sizing": {
+    "p_raw": 0.0,
+    "p": 0.0,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.5,
+    "raw_kelly": -0.4,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "9/10P-13/14C",
+      "expiry": "2026-06-18",
+      "debit_credit": "-0.30 to -0.40 (credit, indicative)",
+      "breakeven": "9.65 / 13.35 (at est. credit)",
+      "max_loss": "0.60-0.70 per spread; total budget <= 0.5% book risk",
+      "note": "PRIMARY EXPRESSION (carry, not directional). Short strikes on the all-expiry walls ($10 put wall net -16,616 / $13 call wall +25,228); Jun-18 = 15.9% OPEX cliff, max-pain 11. VRP only FAIR + IV %ile 12.8 -> no vol edge, hence starter-cut budget."
+    },
+    {
+      "kind": "directional",
+      "type": "call debit spread (conditional Plan B; 0% at inception)",
+      "strikes": "10/15",
+      "expiry": "2026-09-18",
+      "debit_credit": 1.74,
+      "breakeven": 11.74,
+      "max_loss": "1.74 debit; <= 0.5% book risk if and when triggered (never alongside the condor)",
+      "note": "Engaged ONLY on fade-entry trigger (daily hold > 12.20, rel-vol > 2x). Strikes = the institutional Sep cluster (10C $472,648 / 15C $253,238 ask-side [FLOW:sweeps]); observed leg prices 10C ~2.53 / 15C ~0.79. Spans 09-03 earnings; spread caps vega; 31.49% SI is the accelerant."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 40.03,
+    "self_pctile_net_dir": 64.1
+  },
+  "expected_move": {
+    "front_expiry_pct": 2.238,
+    "front_expiry_abs": 0.2521,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:PATH-Q1FY27_2026-05-28] first GAAP-profitable quarter, raised FY27 guide, $500M buyback ($243.8M deployed in Q1)",
+      "[MACRO:ISM-Mfg_2026-06-01] ISM Mfg 54.0 / Services 54.5 - real activity holding"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-06-05 UW] TRANSITIONAL, breadth 29.4% bullish, 'half position sizes'",
+      "[MACRO:sector-flow-persistence_2026-06-05 UW] Technology -$807.6M worst sector; call-tilt decelerating 13.1B->3.8B",
+      "[MACRO:CPIAUCSL_2026-04 FRED] CPI +3.78% YoY re-accelerating (Hormuz energy shock); 2y +27bp/30d [MACRO:DGS2_2026-06-04 FRED]",
+      "[MACRO:UMich_2026-05-22] consumer sentiment record-low 44.8"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI (approx. date)", "impact": "?" },
+    { "date": "2026-06-12", "event": "UMich June prelim + PATH weekly OPEX (max-pain $12)", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC + SEP (06-16/17)", "impact": "?" },
+    { "date": "2026-06-18", "event": "PATH Jun monthly OPEX - 15.9% of chain OI, max-pain $11", "impact": "?" },
+    { "date": "2026-06-26", "event": "Russell reconstitution (approx.)", "impact": "?" },
+    { "date": "2026-09-03", "event": "PATH earnings (outside 30d; inside Sep structure)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Phase-8b strongest bear point: $11 floor is a -$7.52M negative-GEX pocket with no DP memory below, 6x-decayed gamma cushion, biggest put sponsor 89%-closed - a hawkish CPI/FOMC breaks it",
+    "Easy borrow (0.29%) lets shorts press costlessly; the failed 06-01 squeeze shows they are winning",
+    "Analyst revision momentum negative (RBC $12, BMO $13 post-beat) - street converging targets toward spot",
+    "VRP only FAIR with IV %ile 12.8 - no edge selling vol; condor is gravity-harvesting, not vol-edge",
+    "31.49% SI: violent upside tail if $12-$13 reclaims - never short the range edge naked"
+  ],
+  "citations": [
+    "[OI:oi_by_strike] <=30DTE put wall $11 net_oi -12,197; call walls $12 +13,105 / $13 +23,495",
+    "[STRUCT:max_pain] 06/18 max-pain 11.0 (dist -2.09%, P/C 0.356); 06/12 max-pain 12.0",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.0%, total_signals 8",
+    "[MACRO:MarketRegime_2026-06-05 UW] TRANSITIONAL; Technology -$807,616,415 worst sector",
+    "[AGENT:all] 4-of-4 RANGE/NEUTRAL, avg conviction 2.0",
+    "[SENT:short_float fz semi-monthly] Short Float 31.15%, DTC 3.72, borrow EASY 0.29%"
+  ],
+  "confluence_score": 65,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

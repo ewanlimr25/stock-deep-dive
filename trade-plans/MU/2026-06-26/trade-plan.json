@@ -1,0 +1,162 @@
+{
+  "ticker": "MU",
+  "date": "2026-06-26",
+  "generated": "2026-06-26T13:30:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-3m",
+  "spot_reference": 1213.56,
+  "thesis": "MU is the #1 single-name net-bullish premium in the universe (+$279M, calls 2.79x [FLOW:insights_deep_dive]) and the cheap-on-forward (fwd P/E 8.4, 4/4 beats [FUND:fwd_pe]) leader of a confirmed memory supercycle with a clean uptrend and no call wall above spot [CHART:trend]. But spot is the worst location -- the ATH, riding the upper Bollinger, +188% over the 200-MA, while the dark pool is distributive (mega buy_ratio 0.47 [DP:block_stratified]) and dealers are long-gamma with max-pain pulling to 1040 [STRUCT:max_pain]. Structural long, but the edge is a pullback to the $1,134 shelf (or a confirmed close > 1255) -- token size at spot.",
+  "reasons_for": [
+    "#1 universe net-bullish premium +$279M, calls 2.79x, self-pctile 98.1, price-and-flow aligned [FLOW:insights_deep_dive]",
+    "Cheap-on-forward supercycle leader: fwd P/E 8.4, PEG 0.05, 4/4 beats; DRAM +90% QoQ, HBM sold-out 2026 [FUND:fwd_pe][MACRO:memory_cycle_2026]",
+    "Clean uptrend with no overhead supply: HH-HL, bullish MA stack, no call wall above spot -> blue sky over 1255 toward fib-1.272 = 1516 [CHART:trend][OI:oi_by_strike]",
+    "Structural dealer bid: DEX +$30.5B (net short calls -> must buy underlying) [STRUCT:dex]"
+  ],
+  "reasons_against": [
+    "Distribution-into-strength (top steelman): dark pool balanced/distributive at mega buy_ratio 0.47 while retail/lit chase a +325%-YTD parabola at the ATH with almost no short cushion (SI 3.71%/0.81d) -- smart money is NOT confirming the chase [DP:block_stratified][SENT]",
+    "Worst location / negative near-term R:R: ATH (0% off high), upper Bollinger, +188% over 200-MA; long-gamma + vanna-selling + max-pain 1040 cap upside near-term [CHART:bb_upper][STRUCT:vanna_charm][STRUCT:max_pain]",
+    "Peak-cycle value-trap optic: fwd P/E 8.4 is the cyclical-top signature; a DRAM/HBM contract rollover re-rates fast [FUND:fwd_pe][MACRO:memory_cycle_2026]",
+    "Crowded + regime risk + bear won the debate: CROWDED_LONG, regime TRANSITIONAL (breadth 35.4%, leadership = MU itself), debate bear 0.65 > 0.60 bull [SENT][MACRO:MarketRegime][DEBATE]"
+  ],
+  "levels": {
+    "support": 1134.0,
+    "resistance": 1255.0,
+    "gamma_flip": null,
+    "largest_pin": 1040.0,
+    "moving_averages": [
+      { "name": "sma20", "level": 1024.97 },
+      { "name": "ema21", "level": 1004.63 },
+      { "name": "sma50", "level": 788.62 },
+      { "name": "sma200", "level": 420.85 }
+    ],
+    "fib_levels": { "0.236": 1028.41, "0.382": 888.23, "0.5": 774.93, "1.272": 1516.16 },
+    "key_levels": [
+      { "level": 1516.16, "role": "target", "source": "[CHART:fib_1.272]", "note": "measured continuation -- only if 1255 breaks" },
+      { "level": 1350.0, "role": "target", "source": "[CHART:measured]", "note": "secondary objective / call-spread cap" },
+      { "level": 1255.0, "role": "trigger", "source": "[CHART:fib_swing_high]", "note": "break/hold on >1.2x vol = blue-sky long trigger" },
+      { "level": 1213.56, "role": "resistance", "source": "[CHART:high_52w]", "note": "spot = ATH + upper Bollinger 1212.18" },
+      { "level": 1200.0, "role": "resistance", "source": "[OI:oi_by_strike]", "note": "call-heavy battleground, net +37,364" },
+      { "level": 1134.0, "role": "support", "source": "[DP:price_levels]", "note": "primary pullback-buy shelf (dark pool)" },
+      { "level": 1032.0, "role": "support", "source": "[STRUCT:max_pain]", "note": "1024-1040 chart-dealer confluence: sma20 1025 / fib0.236 1028 / max-pain 1040" },
+      { "level": 1052.0, "role": "stop", "source": "[HIST:trend]", "note": "two daily closes below = parabola round-trip" },
+      { "level": 1040.0, "role": "pin", "source": "[STRUCT:max_pain]", "note": "downward gravity (soft); no gamma-flip near spot (long-gamma across range)" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "parabolic_stage2_uptrend", "direction": "bullish", "confidence": "medium", "measured_target": 1516.16, "invalidation": 1052.0, "note": "HH-HL, bullish MA stack, riding upper band; continuation on close >1255", "source": "[CHART:trend]" },
+    { "pattern": "double_top", "direction": "bearish", "confidence": "none", "measured_target": null, "invalidation": 1255.0, "note": "engine did NOT confirm -- a single new ATH, not two tested tops; discretionary resistance zone only, not a tradeable reversal", "source": "[CHART:patterns]" },
+    { "pattern": "elliott_wave", "direction": null, "confidence": "none", "measured_target": null, "invalidation": null, "note": "no valid count -- pivots not cleanly alternating", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "?", "source": "[MACRO]" },
+    { "date": "2026-07-17", "event": "July monthly OPEX (17.27% of OI, put-heavy)", "impact": "-", "source": "[OI:opex_concentration]" },
+    { "date": "2026-07-29", "event": "FOMC + rate decision (easing-cut watch)", "impact": "?", "source": "[MACRO:DFF]" },
+    { "date": "2026-09-22", "event": "MU earnings", "impact": "?", "source": "[FUND:next_earnings]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes below 1052 (6-23 pivot / shelf failure) confirm the parabola round-trip [HIST:trend]",
+    "signal": "dark-pool mega buy_ratio <= 0.45 (distribution) OR cumulative premium net-bearish 3 consecutive sessions [DP:block_stratified][HIST]",
+    "macro": "DRAM/HBM contract-price rollover or hyperscaler capex cut re-rates the fwd-8.4 multiple [MACRO:memory_cycle_2026]; or hawkish FOMC ~Jul 29 flips regime risk-off [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 0.60,
+    "p": 0.60,
+    "win_rate_n": 5,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.44,
+    "raw_kelly": 0.322,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.3,
+    "deviation_reason": null
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 1134.0,
+    "entry_trigger": "pullback to the $1,134 dark-pool shelf, go long on first hold/reclaim (higher-low + reclaim candle), not a falling-knife market buy. Aggressive alt: daily close > 1255 on >1.2x avg vol (L-0001: starter, add only after two closes hold).",
+    "stop": 1050.0,
+    "targets": [
+      { "price": 1255.0, "rationale": "ATH / breakout line", "take_pct": 50 },
+      { "price": 1350.0, "rationale": "continuation / call-spread cap", "take_pct": 30 },
+      { "price": 1516.16, "rationale": "fib-1.272 extension (runner)", "take_pct": 20 }
+    ],
+    "r_multiple_to_t1": 1.44,
+    "size_pct_book": 0.3,
+    "thesis_one_liner": "Long the memory-supercycle leader on the $1,134 pullback -- token into a crowded ATH; the conviction is the pullback, not the chase."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "1150/1350",
+      "expiry": "2026-09-18",
+      "target_date": "2026-09-12",
+      "target_price": 1350.0,
+      "debit_credit": 60.0,
+      "breakeven": 1210.0,
+      "est_payoff_at_target": 140.0,
+      "max_loss": 60.0,
+      "size_pct_book": 0.3,
+      "note": "Enter on the $1,134 pullback (long 1150 just above the shelf). Expires 4 days before 9-22 earnings -- captures the cycle + pre-earnings IV ramp, avoids the print. Debit-structured per VRP PREMIUM_BUYING (RV 122% > IV 91%). 1350 is a 3-month objective (~+11%), not a front-expiry move; T1 checkpoint 1255."
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put credit spread",
+      "strikes": "1100/1000",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-17",
+      "target_price": 1100.0,
+      "debit_credit": -22.0,
+      "breakeven": 1078.0,
+      "est_payoff_at_target": 22.0,
+      "max_loss": 78.0,
+      "size_pct_book": 0.15,
+      "note": "Bullish-leaning income: short 1100 (-9.4%, below the 1134 shelf), long 1000 on the OI put_wall_support. Less preferred than B1 -- RV>IV means selling cheap vol, keep small. A one-sigma front-expiry gap (-3.9% -> ~1166) does not breach 1100, but cumulative drift by 7-17 can; size as a probe. Break < 1100 IS the primary invalidation."
+    }
+  ],
+  "gap_audit": {
+    "completeness": 100,
+    "have": ["options flow", "dark pool", "OI/positioning", "dealer GEX/DEX/vanna", "historical win-rate", "macro/sector", "fundamentals", "sentiment/crowd", "OHLCV chart + patterns", "event calendar", "implied move", "earnings date"],
+    "missing": [
+      { "item": "today's (06-26) intraday tape for precise trigger timing", "severity": "nice_to_have", "how_to_source": "uw options-flow sweeps --symbol MU; uw insights deep-dive --symbol MU --json" },
+      { "item": "live spot vs the 1213 ATH on the day of entry", "severity": "nice_to_have", "how_to_source": "fz quote MU; re-run chart_engine.py --ticker MU --date 2026-06-26 intraday" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/MU/2026-06-25/",
+    "deep_dive_age_days": 1,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0001: 1255 breakout uses close-confirmation + starter until two closes hold",
+      "L-0002: flow & chart-trend aligned (not divergent) -> timing-divergence logged as top reason_against, spot kept token",
+      "L-0004: respect CROWDED_LONG + CAUTION gates + bear's distribution point -> no full size at spot"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "confluence_score": 44,
+  "key_risks": [
+    "Distribution-into-strength: balanced dark pool (mega 0.47) + lit chasing a +325% parabola with no short cushion",
+    "Worst location: ATH + upper band + long-gamma/vanna-selling/max-pain-1040 cap near-term upside",
+    "Peak-cycle value-trap: fwd P/E 8.4 re-rates fast on a DRAM/HBM rollover",
+    "Crowded long + regime TRANSITIONAL + bear won the debate (0.65 > 0.60)"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net +$279M, call premium 2.79x put, self-pctile 98.1 (research/MU/2026-06-25/phase-1-flow.md)",
+    "[DP:block_stratified] mega buy_ratio 0.47 balanced/distributive (research/MU/2026-06-25/phase-2-dark-pool.md)",
+    "[STRUCT:max_pain] max-pain 1040 (-14.5%); GEX positive, DEX +$30.5B (research/MU/2026-06-25/phase-4-structure.md)",
+    "[CHART:high_52w] spot 1213.56 = ATH, upper band 1212.18, ATR14 95.41 (chart.json)",
+    "[HIST:signal_backtest] bullish_flow win-rate 0.60 (n=5) (research/MU/2026-06-25/phase-5-historical.md)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

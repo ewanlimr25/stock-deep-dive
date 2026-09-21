@@ -1,0 +1,103 @@
+{
+  "ticker": "PDD",
+  "date": "2026-05-26",
+  "generated": "2026-05-26T21:30:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 96.58,
+  "thesis": "PDD enters the 5/27 Q1 print as a coin-flip on direction with rich, crush-prone vol: 5/29 weekly IV 98.3% vs ~42% back-month [STRUCT:iv_term_structure], VRP +0.072 [HIST:vrp]. Genuine DP block buying (100% buy, $17.09M [DP:block_stratified]) is offset by a fundamental VETO (EPS -13.2% TTM, China retail +0.2% [FUND:epsGrowthTTMYoy, MACRO:ChinaRetail_2026-04]) and a debate that disconfirmed both directions (0.55/0.55 [DEBATE:bull_residual]). Only surviving edge: sell the overpriced event move with defined risk, put-skewed for the -$8.63M short-gamma accelerant at 95 [STRUCT:gex]. Directional exposure is watch-only.",
+  "entries": {
+    "primary": { "price": 96.58, "trigger": "sell the 98.3% front-week IV into the print (vol-harvest entry, pre-5/27 open)", "source": "[STRUCT:iv_term_structure]" },
+    "aggressive": { "price": 97.79, "trigger": "leg the call side in on a push to the DP pivot (sell strength)", "source": "[DP:price_levels]" },
+    "fade": { "price": "break <95 post-print", "trigger": "flip to directional bear put spread IF Q1 misses + 95 breaks/holds", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 94.52, "resistance": 104.0, "gamma_flip": null, "largest_pin": null },
+  "invalidation": {
+    "price": "5/27 gap beyond IC short strikes 90/104 = defined max loss; for plan-B short, two daily closes above 102",
+    "signal": "dark-pool accumulation flips to distribution (insights_institutional_accumulation buy/sell <1.0) OR GEX flips positive and vanna bid engages >104 [STRUCT:vanna_charm]",
+    "macro": "clean Temu/margin beat or China-stimulus surprise in the 5/27 print, or dovish 6/16 FOMC bidding EM/China risk [MACRO:FOMC_2026-04-29]"
+  },
+  "sizing": {
+    "p_raw": null,
+    "p": 0.55,
+    "win_rate_n": 0,
+    "win_rate_source": "fallback_bin",
+    "payoff_b": 0.79,
+    "raw_kelly": -0.02,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear put debit spread (WATCH-ONLY / 0% — directional VETO'd by 7b + 8b disconfirm)",
+      "strikes": "95/88",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.5,
+      "breakeven": 92.5,
+      "max_loss": 2.5,
+      "note": "Down-skew on post-event tenor (6/18 IV 49% vs 5/29 98%). DO NOT pre-position; arm only if Q1 misses AND spot breaks/holds <95 (gamma accelerant -$8.63M). 0% size."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put-skewed iron condor (recommended; fundamentals-vetoed carry only; starter)",
+      "strikes": "90/85P + 104/109C",
+      "expiry": "2026-05-29",
+      "debit_credit": -2.2,
+      "breakeven": "87.80 / 106.20",
+      "max_loss": 2.8,
+      "note": "Harvest 98% front-week IV crush; close day after 5/27 print. Shorts at ~1.2-1.35x the +/-5.69% implied move (N4). Tail = FUTU/TIGR-style >13% gap blows a wing for defined $2.80 max loss; starter size (0.5%) for that reason."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 76.5,
+    "self_pctile_net_dir": 77.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 5.69,
+    "front_expiry_abs": 5.50,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:DTWEXBGS] soft broad USD ~119 (mild EM support)", "[MACRO:USChinaTariff_2025-11] tariff truce extended to 2026-11-10"],
+    "headwinds": ["[MACRO:ChinaRetail_2026-04] China April retail +0.2% YoY, weakest since Dec 2022", "[MACRO:TemuTariffs_2026] de-minimis removed / 25-57% tariffs + EU DSA", "[MACRO:MarketRegime_2026-05-26] regime TRANSITIONAL, half-size"]
+  },
+  "catalysts": [
+    { "date": "2026-05-27", "event": "PDD Q1 earnings (EPS ~$2.44, rev ~$16.0B)", "impact": "?" },
+    { "date": "2026-06-16", "event": "FOMC (likely hold 3.5-3.75%)", "impact": "?" },
+    { "date": "2026-06-18", "event": "monthly OPEX (PDD heaviest standing OI)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Binary print into short gamma: a >13% gap (cf. China peers FUTU -13%/TIGR -14%) blows through IC wings for defined max loss [STRUCT:gex, HIST:signal_backtest]",
+    "DP block accumulation may be directional, not collared: a clean Q1 beat fires the vanna squeeze >104 (strongest_bear_point) [DP:block_stratified, STRUCT:vanna_charm]",
+    "Downside cascade <95 (-$8.63M net gex) if Q1 misses into the China-consumption headwind [STRUCT:gex]",
+    "Crowded long (77% sell-side buy, rising) + no short-interest cushion (~2.8%) → downgrade risk on a miss [SENT:revision_trend, SENT:short_interest]",
+    "China consumption collapse (April retail +0.2%) + Temu de-minimis/tariff impairment compress the model [MACRO:ChinaRetail_2026-04]"
+  ],
+  "citations": [
+    "[STRUCT:iv_term_structure] 5/29 front IV 98.3% vs back ~42% (backwardation) — the vol-harvest edge",
+    "[DP:block_stratified] block tier 100% buy, $17.09M, sell_volume 0",
+    "[FUND:epsGrowthTTMYoy] EPS growth -13.2% TTM (the fundamental VETO)",
+    "[HIST:vrp] VRP +0.0716 PREMIUM_SELLING",
+    "[STRUCT:gex] FULLY_NEGATIVE -$12.8M, -$8.63M at strike 95",
+    "[DEBATE:bull_residual] debate disconfirmed 0.55/0.55"
+  ],
+  "confluence_score": 50,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

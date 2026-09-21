@@ -1,0 +1,161 @@
+{
+  "ticker": "FSLR",
+  "date": "2026-06-21",
+  "generated": "2026-06-21T19:36:40Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 257.7,
+  "thesis": "Dealer structure stays mechanically supportive -- POSITIVE GEX, ZGL $70.31, DEX +$666M, and the $250 gamma magnet (+$4.33M) sits on a chart confluence floor [STRUCT:gex + CHART:fib_0.5] -- while bullish positioning is intact 23 days on (max-pain pins $260, P/C OI 5->19) ahead of the still-pending binary Section 232 polysilicon decision that favors FSLR [OI:max_pain + MACRO:Sec232]. But the easy money is made: the name blew off +73% to $320.95 then dumped 22% and now trades below its 9/21 EMAs with bearish MACD in a range_or_transition [CHART:swing_high], the bullish_flow edge is a poor 26.3% [HIST:signal_backtest], and front IV is 82.7% -- so this is a starter-size, defined-risk lean off the floor, not a conviction chase.",
+  "reasons_for": [
+    "Dealer structure supports the floor (fresh 6/18): POSITIVE GEX, ZGL $70.31, DEX +$666M dealers BUY; $250 magnet +$4.33M = largest cluster on the chart floor [STRUCT:gex] -- falsifiable: GEX flips NEGATIVE / ZGL crosses up through ~$200",
+    "Bullish positioning intact, not unwound: max-pain pins $260 across 7/02-7/31, P/C OI 5.06->19.1 call-heavy, two-tenor $280C build still standing [OI:max_pain] -- falsifiable: P/C OI < 1 / call OI bleeds",
+    "Live idiosyncratic binary: Section 232 polysilicon decision pending by end-June, FSLR CdTe near-pure beneficiary, 82.7% front IV prices a real event [MACRO:Sec232 + STRUCT:iv_term] -- falsifiable: 'no tariff' headline",
+    "Primary trend still up: spot > sma50 236.68 > sma200 233.30, +79% off the 52w low [CHART:sma200]"
+  ],
+  "reasons_against": [
+    "TOP/steelman: post-parabolic exhaustion + FLOW-CHART divergence -- +73% to $320.95 then -22%, now below ema9/21/sma20 with bearish MACD in range_or_transition; the chart has NOT confirmed the flow and the deep-dive LONG already captured the catalyst move (L-0002) [CHART:trend] -- trigger: rejection at $260/$266 or 2 closes < $248",
+    "Crowded long + fresh credible bear: P/C OI to 19, sell-side PTs chased to $300-330, Bernstein initiated Underperform 6/16 right here [SENT] -- falsifiable: heavy-volume break of $248",
+    "Binary + brutal vega: front IV 82.7% means long premium overpays and gets vol-crushed on resolution even if direction is right; 'no tariff' removes the asymmetry -> same-day exit [STRUCT:iv_term]",
+    "Poor calibrated edge + regime headwind: bullish_flow 26.3% win / -1.26% avg-20d, macro TRANSITIONAL with Tech outflow [HIST:signal_backtest] -> size tiny"
+  ],
+  "levels": {
+    "support": 250.0,
+    "resistance": 278.0,
+    "gamma_flip": 70.31,
+    "largest_pin": 260.0,
+    "moving_averages": [
+      { "name": "sma50", "level": 236.68 },
+      { "name": "sma200", "level": 233.3 },
+      { "name": "ema21", "level": 265.25 }
+    ],
+    "fib_levels": { "0.382": 268.25, "0.5": 251.97, "0.618": 235.69 },
+    "key_levels": [
+      { "level": 320.95, "role": "resistance", "source": "[CHART:swing_high]", "note": "parabolic 52w high; fib 1.272 ext 358.48" },
+      { "level": 278.0, "role": "resistance", "source": "[CHART:sma20]", "note": "ceiling band 278-288: sma20 + Jun-12 high 279.18 + S/R 280.41 + $280 gamma + fib 0.236 288.39" },
+      { "level": 266.0, "role": "trigger", "source": "[CHART:ema9]", "note": "reclaim line: close >266 on >1.2x vol = momentum-long confirm" },
+      { "level": 260.0, "role": "pin", "source": "[STRUCT:max_pain]", "note": "$260 gamma +$3.38M + max-pain pin" },
+      { "level": 250.0, "role": "support", "source": "[STRUCT:gex]", "note": "make-or-break floor: $250 gamma +$4.33M + swing low 248.66 + fib 0.5 251.97 + S/R 248.24/251.62" },
+      { "level": 241.0, "role": "stop", "source": "[CHART:stops]", "note": "1-ATR 241.36 + S/R 241.86; 2 closes < 248 = exit" },
+      { "level": 234.5, "role": "support", "source": "[CHART:fib_0.618]", "note": "deep shelf: fib 0.618 235.69 + sma50 236.68 + S/R 234.07 + old $230 put wall" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "elliott_impulse", "direction": "bearish", "confidence": "none", "measured_target": 259.96, "invalidation": 279.18, "note": "working count 1/3 rules -- NOT tradeable; weakly hints downside exhaustion near the $250-260 floor; yields to the flow/structure long lean", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-06-26", "event": "weekly expiry carrying 82.7% event IV (implied catalyst timing)", "impact": "?", "source": "[STRUCT:iv_term]" },
+    { "date": "2026-06-30", "event": "Section 232 polysilicon decision window edge (binary, asymmetric for FSLR)", "impact": "+", "source": "[MACRO:Sec232]" },
+    { "date": "2026-07-04", "event": "FEOC deadline for 10% bonus ITC (FSLR FEOC-clean)", "impact": "+", "source": "[MACRO:FEOC]" },
+    { "date": "2026-07-17", "event": "July monthly OPEX", "impact": "?", "source": "[STRUCT:max_pain]" },
+    { "date": "2026-07-30", "event": "FSLR Q2-2026 earnings (corroborated by 7/31 IV bump 76.9%) -- exit before", "impact": "?", "source": "[FUND:next_earnings]" }
+  ],
+  "invalidation": {
+    "price": "two consecutive daily closes below 248 -- breaks the $250 gamma magnet + swing low 248.66 + fib 0.5 floor; opens 234/230 [CHART:support + STRUCT:gex]",
+    "signal": "GEX flips NEGATIVE or ZGL crosses up through ~200; OR dark-pool accumulation -> distribution; OR P/C OI collapses < 1 [STRUCT:gex + OI:max_pain]",
+    "macro": "Section 232 'no tariff / no action' -> exit same-day (asymmetry gone); OR regime flips to RISK-OFF [MACRO:Sec232]"
+  },
+  "sizing": {
+    "p_raw": 0.263,
+    "p": 0.263,
+    "win_rate_n": 19,
+    "win_rate_source": "backtest",
+    "payoff_b": 3.111,
+    "raw_kelly": 0.0261,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": "248-252 floor (use 250)",
+    "entry_trigger": "buy a tag of the 248-252 floor that holds (closes back > 250); do NOT chase. Add only on a close > 266 on >1.2x avg volume (EMA reclaim, L-0001)",
+    "stop": 241.0,
+    "targets": [
+      { "price": 260.0, "rationale": "$260 gamma pin / max-pain", "take_pct": 50 },
+      { "price": 278.0, "rationale": "ceiling band / measured retest", "take_pct": 50 }
+    ],
+    "r_multiple_to_t1": 1.11,
+    "size_pct_book": 0.5,
+    "thesis_one_liner": "Small long off the $250 dealer-magnet floor with a $241 stop; scale only on a $266 reclaim -- asymmetry, not conviction."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "260/280",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-10",
+      "target_price": 278.0,
+      "debit_credit": 7.0,
+      "breakeven": 267.0,
+      "est_payoff_at_target": 10.0,
+      "max_loss": 7.0,
+      "size_pct_book": 0.5,
+      "note": "brackets the $260 pin -> $280 magnet; short $280 leg cuts ~40% premium and caps vega at the old LEAP target; expiry after Sec 232 window, before ~7/30 earnings. If Sec 232 prints 'no tariff', close same day."
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put credit spread",
+      "strikes": "245/235",
+      "expiry": "2026-07-17",
+      "target_date": "2026-07-17",
+      "target_price": 250.0,
+      "debit_credit": -4.3,
+      "breakeven": 240.7,
+      "est_payoff_at_target": 4.3,
+      "max_loss": 5.7,
+      "size_pct_book": 1.0,
+      "note": "strikes below the $248-252 floor and the $245 neg-gamma; breakeven 240.70 aligns with the $241 stop / sma50; harvests the 82.7% IV with defined risk + positive theta. Binary gap risk: a Sec 232 'no tariff' gap toward 235 ~= max loss -- close on the headline. Add 280/290 call credit spread for an iron condor if read as pure range."
+    }
+  ],
+  "gap_audit": {
+    "completeness": 65,
+    "have": ["dealer structure GEX/DEX/ZGL (fresh 6/18)", "OI/positioning max-pain + P/C OI (fresh)", "implied move / IV term (fresh)", "OHLCV chart + patterns", "fundamentals (no veto)", "event calendar", "reused flow campaign (stale)", "reused dark pool (stale)", "reused historical backtest", "reused macro"],
+    "missing": [
+      { "item": "Section 232 resolution (binary, imminent)", "severity": "important", "how_to_source": "WebSearch / regulations.gov / pv-tech.org daily through end-June" },
+      { "item": "today's live sweep tape (A1)", "severity": "important", "how_to_source": "uw options-flow sweeps --symbol FSLR; uw insights deep-dive --symbol FSLR" },
+      { "item": "macro regime refresh (C1)", "severity": "important", "how_to_source": "uw risk market-regime" },
+      { "item": "dark-pool / backtest / short-interest refresh", "severity": "nice_to_have", "how_to_source": "uw dark-pool block-stratified; uw historical signal-backtest; fz quote FSLR" }
+    ],
+    "verdict": "USABLE_WITH_GAPS"
+  },
+  "sources": {
+    "deep_dive_reused": "research/FSLR/2026-05-18/",
+    "deep_dive_age_days": 34,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0003: stale flow (>10 td) -> cut conviction, treat flow as context, refresh before sizing up",
+      "L-0001: do not size the break at full until it holds -- starter + >266 reclaim trigger",
+      "L-0002: divergent flow-chart -> defined-risk/temper, logged as top reason_against"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "Tech + solar-policy + Sec232 binary triple-stack",
+    "sector_rotation": "TRANSITIONAL (Tech outflow)",
+    "debate_disconfirmed": false
+  },
+  "confluence_score": 58,
+  "key_risks": [
+    "Empirical bullish_flow edge is poor (26.3% win-rate) -> starter size only",
+    "FLOW-CHART divergence: bullish flow vs post-blow-off range, price below the 9/21 EMAs",
+    "Binary Section 232 outcome + 82.7% front IV -> vol-crush / gap risk both ways",
+    "Crowded long (P/C OI to 19, PTs chased to $330) + Bernstein Underperform 6/16",
+    "Reused flow narrative ~23 trading days stale -- refresh before sizing up"
+  ],
+  "citations": [
+    "[STRUCT:gex] $250 net_gex +$4,331,683 (largest magnet); ZGL $70.31; regime POSITIVE -- live 2026-06-18 (trade-plans/FSLR/2026-06-21/_live/gex.json)",
+    "[OI:max_pain] max-pain pins $260 across 7/02-7/31; P/C OI 5.06->19.1 call-heavy -- live 2026-06-18 (_live/maxpain.json)",
+    "[CHART:swing_high] parabolic blow-off $320.95 on 2026-06-03 then -22% to $248.66 (chart.json)",
+    "[HIST:signal_backtest] bullish_flow win-rate 26.3% / -1.26% avg-20d, n=19 (research/FSLR/2026-05-18/phase-5-historical.md)",
+    "[STRUCT:iv_term] front-end IV 82.7% (6/26) decaying to ~66% LEAPs -- binary event premium -- live 2026-06-18 (_live/ivterm.json)",
+    "[MACRO:Sec232] Section 232 polysilicon decision pending 'by end of month'; FSLR CdTe near-pure beneficiary (WebSearch:pv-tech.org)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

@@ -1,0 +1,111 @@
+{
+  "ticker": "GOOG",
+  "date": "2026-06-22",
+  "generated": "2026-06-22T20:30:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 348.78,
+  "thesis": "GOOG printed a fresh 30-day low (-12% from $397) and flipped out of 21 sessions of long-gamma into a short-gamma vol-expansion regime (total_gex -3.84M, ZGL null) [STRUCT:gex][HIST:gex_time_series] — where the only constructive micro-signals (a hollow mega-tier DP buy 0.764 inside a 0.562-NEUTRAL whole book [DP:block_stratified], call OI building into the $362-371 overhead supply [DP:price_levels]) lack the edge to fight an idiosyncratic catalyst cluster (Gemini AI co-lead to OpenAI, capex/FCF -47%, antitrust) into a hawkish Fed [MACRO:Alphabet_2026-06-22]. Desk returned 0 LONG, debate disconfirmed (bear 0.75 vs bull 0.55), bullish_flow backtest 50% (n=8) — no directional edge. WATCH-ONLY default; if expressed, a defined-risk RANGE trade ($340-365) with the downside as the fatter tail, sized to starter after four gates fired.",
+  "entries": {
+    "primary": { "price": 340.0, "trigger": "break & hold below $340 put wall / worst -GEX strike -> downside continuation; enter put debit spread", "source": "[OI:oi_by_strike][STRUCT:gex]" },
+    "aggressive": { "price": 363.0, "trigger": "rejection at $362-365 DP supply / 7/17 max-pain -> fade the bounce", "source": "[DP:price_levels][STRUCT:max_pain]" },
+    "fade": { "price": 362.0, "trigger": "two daily closes above $362 on volume -> overhead supply reclaimed, thesis flips; small tactical long only with whole-book DP buy_ratio >0.62", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 340.0, "resistance": 367.46, "gamma_flip": null, "largest_pin": 360.0 },
+  "invalidation": {
+    "price": "two daily closes above $362 (DP supply shelf reclaimed) negates the downside lean; range invalidates on two closes outside $335-367 [DP:price_levels]",
+    "signal": "GEX flips back POSITIVE (long-gamma re-flip) while spot holds [STRUCT:gex], OR whole-book DP buy_ratio >0.62 for 2 sessions (clear accumulation) [INSIGHT:institutional_accumulation]",
+    "macro": "dovish CPI ~2026-07-15 or AI-narrative reversal that re-rates the multiple up [MACRO:CPIAUCSL_2026-05][MACRO:Alphabet_2026-06-22]"
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.50,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.5,
+    "raw_kelly": 0.30,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "345/330",
+      "expiry": "2026-07-17",
+      "debit_credit": 4.2,
+      "breakeven": 340.8,
+      "max_loss": 4.2,
+      "note": "long vol (regime-appropriate in short-gamma); strikes at the $340/$330 put walls; expires BEFORE 7/22 earnings to avoid the binary/IV crush. b=2.5."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "325/335P + 365/375C",
+      "expiry": "2026-07-17",
+      "debit_credit": -3.0,
+      "breakeven": "332 / 368",
+      "max_loss": 7.0,
+      "note": "RANGE scenario only. CAVEAT: short-vol into a vol-expansion regime (risk-monitor flagged) and VRP is FAIR (no premium edge) — regime-inappropriate; size minimal, put debit spread or WATCH-ONLY preferred. Short strikes at $335 put wall and $365 max-pain/supply."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "#13 net-bearish (outside top-50 bullish)",
+    "iv_rank": 39.78,
+    "self_pctile_net_dir": 10.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 2.63,
+    "front_expiry_abs": 9.18,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:SPY_2026-06-22] no broad risk-off — SPY near highs (744, above 50sma), VIX 17.28 falling",
+      "[FUND:peer_pe fz] relative-strength/quality leader (+11% YTD vs peers -15% to -43%), strong-buy target $433.76 (+24%)"
+    ],
+    "headwinds": [
+      "[MACRO:Alphabet_2026-06-22] AI-talent exodus + capex $180-190B / FCF -47% + antitrust",
+      "[MACRO:FOMC_2026-06-17] dot plot flipped to a HIKE; sticky inflation CPI ~4.2%",
+      "[MACRO:sector_flow_2026-06-22] Comm Services #1 net-directional outflow -$118M"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-15", "event": "CPI (June) release", "impact": "?" },
+    { "date": "2026-07-17", "event": "July monthly OPEX (19.94% OI cliff, call-heavy)", "impact": "?" },
+    { "date": "2026-07-22", "event": "Alphabet Q2 earnings (negative-skew binary)", "impact": "-" },
+    { "date": "2026-07-28", "event": "FOMC", "impact": "?" }
+  ],
+  "key_risks": [
+    "Short-gamma flip at a fresh 30-day low (total_gex -3.84M) -> vol expansion; break of $340 accelerates toward $330 [STRUCT:gex]",
+    "Long/bounce buys into a $1.57B overhead supply shelf $362-371; accumulation is hollow (mega 0.764 = 14 trades, whole-book 0.562 NEUTRAL) [DP:price_levels][DP:block_stratified]",
+    "Idiosyncratic catalyst cluster live (Gemini co-lead to OpenAI, capex/FCF -47%, antitrust) + hawkish Fed (dot plot to hike) [MACRO:Alphabet_2026-06-22]",
+    "Analysts crowded-long (0 sells into -14%) -> downgrade-capitulation risk into 7/22 earnings [SENT:recommendation]",
+    "No directional edge (bullish_flow backtest 50%, n=8; composite MIXED 6.2%) — a regime/structure trade, not a conviction trade [HIST:signal_backtest]"
+  ],
+  "citations": [
+    "[STRUCT:gex] short-gamma FULLY_NEGATIVE, total_gex -3.84M, ZGL null",
+    "[HIST:gex_time_series] first long->short-gamma flip in 21 sessions at a fresh 30-day low ($397->$348.78)",
+    "[DP:block_stratified] mega buy_ratio 0.764 but whole-book 0.562 NEUTRAL (14 trades)",
+    "[MACRO:Alphabet_2026-06-22] AI-talent exodus + capex $180-190B / FCF -47% + antitrust",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.50 (n=8)",
+    "[DEBATE:disconfirmed] bear 0.75 vs bull 0.55, disconfirmed=true"
+  ],
+  "confluence_score": 47,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

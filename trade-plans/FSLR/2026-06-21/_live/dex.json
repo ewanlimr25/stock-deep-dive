@@ -1,0 +1,11 @@
+{
+  "call_dex": 986312113,
+  "dte_max": 45,
+  "interpretation": "Public is net call-long → dealers net short calls → dealer hedge is to BUY underlying.",
+  "net_dex": 666351973,
+  "note": "DEX = Σ(delta × OI × 100 × spot). Sign reflects public positioning; dealer hedge is the inverse.",
+  "put_dex": -319960139,
+  "source": "/Users/ewan/Documents/Stocks/All Options/bot-eod-report-2026-06-18.parquet",
+  "spot": 257.13,
+  "symbol": "FSLR"
+}

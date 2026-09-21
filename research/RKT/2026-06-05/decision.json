@@ -1,0 +1,116 @@
+{
+  "ticker": "RKT",
+  "date": "2026-06-05",
+  "generated": "2026-06-06T18:50:00-04:00",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 12.65,
+  "thesis": "Fundamentals-vetoed tactical short into the 2026-06-30 L-1 unlock: distribution-shaped tape (calls net-sold 12,773 bid vs 8,042 ask ex-0DTE [FLOW:aggressor_ex0dte DUCKDB]) under a price with no dark-pool shelf below $12.65 [DP:price_levels], a dealer gamma cushion down 97% in five sessions [HIST:gex_time_series], and rising mortgage rates [MACRO:Mortgage30Y_2026-06-05]; desk split 2-2 [AGENT], 4/4 earnings beats force a naked-short VETO [FUND:earnings_surprises], and the debate disconfirmed (0.65 vs 0.65) [DEBATE:bear_residual] — defined-risk put-spread carry only at starter size.",
+  "entries": {
+    "primary": { "price": 12.85, "trigger": "rejection inside the $12.94-12.96 DP supply band (~$135M) on a dead-cat bounce", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 12.62, "trigger": "first hourly close below the $12.65 close-shelf (6.4M sh) confirming shelf failure", "source": "[DP:price_levels]" },
+    "fade": { "price": 13.55, "trigger": "reclaim-and-hold above $13.50 gamma flip - flip LONG for the vanna squeeze toward $14/$14.5 max-pain", "source": "[STRUCT:gex] [STRUCT:max_pain]" }
+  },
+  "levels": { "support": 12.38, "resistance": 12.94, "gamma_flip": 13.5, "largest_pin": 14.5 },
+  "invalidation": {
+    "price": "two consecutive daily closes above $13.26 (top of the $163M DP band [DP:price_levels]); early warning: reclaim-and-hold of $13.50 gamma flip [STRUCT:gex]",
+    "signal": "cumulative premium flow net bullish 3 consecutive sessions [HIST:cumulative_premium_flow], or ex-cross DP buy ratio >= 0.55 two sessions running [DP:block_stratified]",
+    "macro": "dovish FOMC 2026-06-16/17 or soft May CPI (~06-10) compressing VIX from 21.51 - falling IV arms the dealer vanna squeeze [STRUCT:vanna_charm] [MACRO:FOMC_2026-06-16]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.17,
+    "raw_kelly": 0.536,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (fundamentals-vetoed, carry only)",
+      "strikes": "12.5/11",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.58,
+      "breakeven": 11.92,
+      "max_loss": 0.58,
+      "note": "long 12.5 sits on the -0.82M GEX shelf; expiry clears CPI/FOMC/unlock, beats 07-30 earnings; debit estimated off the as-of IV surface (illustrative, not a quote); total debit <= 1.0% of book risk"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call credit spread (cap-harvest)",
+      "strikes": "14.5/16",
+      "expiry": "2026-07-17",
+      "debit_credit": -0.25,
+      "breakeven": 14.75,
+      "max_loss": 1.25,
+      "note": "sells the most-corroborated wall: Jun-18 max-pain 14.5 + 1.75M GEX wall + 20,045-contract call wall + fresh 3,460-lot short-call line; tension: sells premium into VRP -0.0852 - edge is the wall, not the vol; keep small"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 29.9622,
+    "self_pctile_net_dir": 38.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.198,
+    "front_expiry_abs": 0.1514,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:Mortgage30Y_2026-06-05] 30y mortgage 6.588-6.69% rising off the 6.09% 2026 low",
+      "[MACRO:CPIAUCSL_2026-04] CPI +3.78% YoY re-accelerating (energy shock)",
+      "[MACRO:UMich_2026-05-22] consumer sentiment record-low 44.8",
+      "[MACRO:MarketRegime_2026-06-05] TRANSITIONAL regime, VIX 21.51 +40% d/d",
+      "[MACRO:RKT_L1_unlock_2026-06-30] Class L-1 transfer-restriction expiry = supply overhang"
+    ],
+    "headwinds": [
+      "[MACRO:DFF_2026-06-04] Fed already at 3.62% with cut optionality",
+      "[MACRO:PAYEMS_2026-05] solid labor +172k MoM",
+      "[MACRO:group_valuation fz EOD] Financial sector cheap (17.4x / 14.1x fwd) and resilient (-0.39% vs Tech -6.11%)"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release (est.)", "impact": "?" },
+    { "date": "2026-06-16", "event": "FOMC (Warsh) + SEP, through 06-17", "impact": "?" },
+    { "date": "2026-06-18", "event": "monthly OPEX - 23.77% of RKT OI, $14.5 max-pain", "impact": "?" },
+    { "date": "2026-06-26", "event": "May PCE release (est.)", "impact": "?" },
+    { "date": "2026-06-30", "event": "Class L-1 transfer-restriction expiry (share unlock)", "impact": "-" }
+  ],
+  "key_risks": [
+    "Squeeze: 7.48% SI / 2.86 DTC + improving revisions (SB 4->6) + armed vanna setup - fires on VIX compression post-CPI/FOMC",
+    "Improving business (4/4 beats, Q1 NI $297M, OCF $1.86B) means the bearish flow may be macro hedging, not informed distribution",
+    "Entry 2.18% above the 52-week low - the documented runway is nearly exhausted; below $12.38 is unmeasured",
+    "Three binaries inside the window (CPI, FOMC, unlock) vs a +/-1.2% front-expiry implied move, on a beta-2.24 name in a half-size regime",
+    "Kelly p rests on n=8 market-wide backtest - statistically weak edge"
+  ],
+  "citations": [
+    "[FLOW:aggressor_ex0dte DUCKDB] calls 8,042 ask vs 12,773 bid; puts 7,706 ask vs 3,119 bid (ex-0-1DTE)",
+    "[DP:price_levels] no DP cluster below $12.65; $12.94-12.96 ~$135M and $13.17-13.26 ~$163M overhead",
+    "[HIST:gex_time_series] total GEX 47,609,090 -> 1,333,718 in 5 sessions (-97%)",
+    "[MACRO:Mortgage30Y_2026-06-05] 30y 6.588%/6.69% rising from 6.09% low",
+    "[HIST:signal_backtest] bearish_flow win_rate 87.5% (n=8, market-wide) -> capped p 0.75",
+    "[FUND:earnings_surprises] 4/4 EPS beats (+25.6% to +50.5%)",
+    "[DEBATE:bear_residual] 0.65 vs bull 0.65 -> disconfirmed"
+  ],
+  "confluence_score": 51,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

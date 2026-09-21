@@ -1,0 +1,133 @@
+{
+  "ticker": "PATH",
+  "plan_date": "2026-06-21",
+  "review_date": "2026-08-08",
+  "generated": "2026-08-08T00:00:00Z",
+  "plan_path": "trade-plans/PATH/2026-06-21/trade-plan.json",
+  "trade_taken": {
+    "vehicle": "none",
+    "direction": "short",
+    "entry": 9.95,
+    "entry_date": null,
+    "stop": 10.65,
+    "targets": [9.2, 8.5, 7.0],
+    "structure": "NO TRADE - the plan was watch-only at 0% size, conditional on two consecutive daily closes below 10.00. That trigger never armed.",
+    "size_pct_book": 0.0,
+    "matched_plan": true
+  },
+  "outcome": {
+    "status": "INCONCLUSIVE",
+    "r_achieved": 0.0,
+    "mfe_R": null,
+    "mae_R": null,
+    "first_target_date": null,
+    "stop_hit_date": null,
+    "invalidation_price_hit": false,
+    "source": "yfinance"
+  },
+  "reasoning_review": {
+    "direction_call": "UNRESOLVED",
+    "flow_chart_agreement_call": "RIGHT",
+    "pattern_call": "UNCONFIRMED",
+    "level_quality": "GOOD",
+    "sizing_review": "APPROPRIATE",
+    "components": [
+      {
+        "claim": "The $10 line decides everything: H&S neckline 10.07 and the dealer gamma-flip/put-wall agree",
+        "side": "for",
+        "verdict": "RIGHT",
+        "note": "The $10 line did decide it - but upward. Only one close printed below 10.00 (9.93) in the entire 33-session window; the level held as support and price left it for good."
+      },
+      {
+        "claim": "The only bull lane - a 5-session ask-side sweep campaign - backtests just 37.5% (n=8) and the dark pool will not confirm it (large-tier buy_ratio 0.48)",
+        "side": "for",
+        "verdict": "WRONG",
+        "note": "The dark pool confirmed emphatically three weeks later: the 2026-07-09 mega block (54.6M sh / $644M, buy_ratio 1.000) and sustained large-tier buying (0.672 at review). Reading a 0.48 buy_ratio as refusal-to-confirm was premature, not wrong-in-principle."
+      },
+      {
+        "claim": "Flow points up, chart points down (DIVERGENT) -> no position until a level breaks",
+        "side": "for",
+        "verdict": "RIGHT",
+        "note": "The decisive call of the plan. Flow was right and chart was wrong; standing down converted a would-be catastrophic short into a zero. Price went 10.27 -> 15.05 (+46.5%)."
+      },
+      {
+        "claim": "H&S measured move targets ~6.94 with the 52w-low shelf at 9.20 en route",
+        "side": "against",
+        "verdict": "WRONG",
+        "note": "The head-and-shoulders never confirmed. Low of the window was 9.87/9.93 - the neckline was tested twice and defended both times. The pattern engine reports no H&S at review."
+      },
+      {
+        "claim": "A reclaim of $11 squeezes the 31.78% short float - stand down if it reclaims $11",
+        "side": "against",
+        "verdict": "RIGHT",
+        "note": "The single most valuable line in the plan. PATH closed above 11.00 on 2026-07-01 and never looked back, running to 15.05. The kill-switch fired early and correctly."
+      }
+    ]
+  },
+  "calibration": {
+    "conviction": 0.55,
+    "outcome_bit": null,
+    "brier": null,
+    "verdict": "NA"
+  },
+  "attribution": [
+    {
+      "lane": "dark_pool",
+      "effect": "decisive_wrong",
+      "note": "The 0.48 large-tier buy_ratio was read as non-confirmation of the bull case; three weeks later the same lane produced a $644M ask-side block. The lane was not wrong - the snapshot was too early to conclude from."
+    },
+    {
+      "lane": "sentiment",
+      "effect": "decisive_right",
+      "note": "31.78% short float was correctly flagged as the reason a short could not be sized - and it is what powered the +46.5% move."
+    },
+    {
+      "lane": "chart_pattern",
+      "effect": "decisive_wrong",
+      "note": "The H&S read pointed down and never confirmed; the neckline held twice and became the base of the rally."
+    },
+    {
+      "lane": "dealer_structure",
+      "effect": "minor",
+      "note": "The $10 gamma-flip/put-wall was correctly identified as the pivot; it resolved as support rather than as the short trigger."
+    },
+    {
+      "lane": "historical",
+      "effect": "minor",
+      "note": "The 37.5% (n=8) sweep backtest justified refusing the long, but n=8 is too thin to have carried that weight."
+    }
+  ],
+  "lessons": [
+    {
+      "id": "L-0002",
+      "status": "ACTIVE",
+      "scope": ["setup:divergent"],
+      "lesson": "When flow and chart point opposite ways, default to NEUTRAL/RANGE or a defined-risk fade only - never a full directional size. Log the divergence as the top reason_against.",
+      "applies_to": "A3 bias + conviction"
+    },
+    {
+      "id": "L-0008",
+      "status": "CANDIDATE",
+      "scope": ["setup:divergent", "lane:dark-pool", "gate:confirmation"],
+      "lesson": "A mid-range dark-pool large-tier buy_ratio (0.45-0.55) is 'not yet decided', not 'refuses to confirm'. Do not treat it as evidence for the bear side of a DIVERGENT read; hold it as unresolved and re-check before the next plan, because an institution mid-build prints near 0.50 until the day it does not.",
+      "applies_to": "A3 flow-chart agreement + reason weighting"
+    }
+  ],
+  "proposed_rubric_edits": [
+    {
+      "file": ".claude/skills/trade-plan/rubrics/direction-rubric.md",
+      "change": "Distinguish 'disconfirming' from 'undecided' dark-pool evidence: a large-tier buy_ratio in [0.45, 0.55] should count as NEUTRAL for both sides rather than as non-confirmation of the bull case, and should trigger a re-check date rather than a conviction cut.",
+      "rationale": "PATH 2026-06-21 read a 0.48 large-tier buy_ratio as the dark pool refusing to confirm the bull lane. Eighteen calendar days later the same lane printed a $644M block at buy_ratio 1.000 and the name ran +46.5%. The 0.48 was an institution mid-build, not a refusal."
+    },
+    {
+      "file": ".claude/skills/stock-deep-dive/rubrics/sizing-rubric.md",
+      "change": "Set a minimum-N floor on signal_backtest win rates used for Kelly p: below N=20, blend toward the conviction-bin fallback rather than adopting the empirical rate outright, and state the blend in deviation_reason.",
+      "rationale": "PATH 2026-06-21 used p=0.375 from n=8 to justify the bear tilt. n=8 carries a confidence interval spanning roughly 0.10-0.75 - it cannot distinguish a 37.5% edge from a 65% one."
+    }
+  ],
+  "paths": {
+    "eval_md": "eval-2026-08-08.md",
+    "ledger": "trade-plans/_eval/reasoning-ledger.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice."
+}

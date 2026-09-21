@@ -1,0 +1,100 @@
+{
+  "ticker": "PATH",
+  "date": "2026-07-17",
+  "generated": "2026-07-18T00:00:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 12.13,
+  "thesis": "Genuine institutional accumulation (dark-pool large tier 65.7% buy [DP:block_stratified], OI building 11 consecutive days +337k [HIST:oi_trend]) into a dealer-caged $11.88-$13 range where the upside is triple-capped at $13 (call wall + +6.03M peak GEX + analyst PTs) [STRUCT:gex][OI:oi_by_strike] with no catalyst until Sep-3; the empirical bullish_flow edge is negative (14.3%, n=7 [HIST:signal_backtest]) and the debate disconfirmed the long (bull 0.55/bear 0.65 [DEBATE:]), so the tradeable edge is harvesting the rich-IV range (VRP +0.289 [HIST:vrp]), not chasing direction.",
+  "entries": {
+    "primary": { "price": 11.95, "trigger": "tag of the $11.88-$12.01 DP demand shelf that holds", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 12.13, "trigger": "initiate range condor at spot with $11-$13 defined", "source": "[STRUCT:gex]" },
+    "fade": { "price": 13.05, "trigger": "close above $13.05 on rising volume — cap breaks, flip to $12.5/$14 call-debit breakout", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 11.88, "resistance": 13.00, "gamma_flip": 6.78, "largest_pin": 11.5 },
+  "invalidation": {
+    "price": "two daily closes below 11.85 (loses DP shelf) OR two daily closes above 13.10 (breaks call-wall cap)",
+    "signal": "GEX flips negative on daily refresh OR dark-pool accumulation reverses to distribution [INSIGHT:institutional_accumulation]",
+    "macro": "hawkish FOMC surprise 2026-07-29 OR VIX closes >20 with regime flipping RISK-OFF [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 0.143,
+    "p": 0.143,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.75,
+    "raw_kelly": -0.169,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "12.5/14",
+      "expiry": "2026-09-18",
+      "debit_credit": 0.55,
+      "breakeven": 13.05,
+      "max_loss": 0.55,
+      "note": "small breakout flyer; only the Sep-3 earnings catalyst breaks the $13 cap; spread mitigates IV crush (rich VRP); earnings-exposed by design; starter size only"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "sell 11P/buy 10.5P + sell 13C/buy 13.5C",
+      "expiry": "2026-08-21",
+      "debit_credit": -0.25,
+      "breakeven": "10.75 and 13.25",
+      "max_loss": 0.25,
+      "note": "RECOMMENDED expression; rich-IV range harvest (VRP +0.289) + long-gamma pin $12-$13; pre-earnings (Aug 21 < Sep 3); short strikes inside the IV move so sized small"
+    }
+  ],
+  "gates": {
+    "fundamentals": "NA",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "QUIET",
+    "universe_rank_net_dir": null,
+    "iv_rank": 44.5,
+    "self_pctile_net_dir": null
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.13,
+    "front_expiry_abs": 0.14,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_flow_persistence] Technology #1 sector inflow +$1.17B, persistence 0.8", "[SENT:short_float] ~28% float short = squeeze optionality on a $13 break"],
+    "headwinds": ["[MACRO:MarketRegime] TRANSITIONAL regime — half position sizes", "[MACRO:FOMC] hawkish Fed, ~63% Sept-hike odds", "[MACRO:VIX] VIX 18.77 +12% d/d rising"]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC (non-SEP, hold expected)", "impact": "?" },
+    { "date": "2026-08-12", "event": "July CPI", "impact": "?" },
+    { "date": "2026-09-03", "event": "PATH Q2 earnings — only catalyst that breaks the $13 cap", "impact": "?" }
+  ],
+  "key_risks": [
+    "Capped upside (~7% to a triple-walled $13) vs un-cushioned downside ($11.88 to $10) with no catalyst until Sep-3 — negative asymmetry [STRUCT:gex][OI:oi_by_strike]",
+    "COMPLACENT skew while VIX +20% w/w — cheap protection means uncushioned downside if the range snaps [STRUCT:term_skew][MACRO:VIX]",
+    "Empirical bullish_flow edge negative (14.3%, n=7) and rich VRP penalizes long premium [HIST:signal_backtest][HIST:vrp]"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool large tier 65.7% buy ($258M, 2222 prints)",
+    "[HIST:oi_trend] OI building 11 consecutive days, +337,036 net",
+    "[STRUCT:gex] GEX POSITIVE, peak +6.03M at $13, ZGL $6.78",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.143 (n=7)",
+    "[DEBATE:] disconfirmed, bull 0.55 / bear 0.65"
+  ],
+  "confluence_score": 46,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

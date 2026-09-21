@@ -1,0 +1,99 @@
+{
+  "ticker": "SHOP",
+  "date": "2026-07-17",
+  "generated": "2026-07-19T00:00:00Z",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 123.56,
+  "thesis": "Short-gamma pocket with -$12.8M GEX at 123 [STRUCT:gex] and max-pain magnets at 117-121 [STRUCT:max_pain], plus a confirmed price-vs-flow divergence (price +6.5% vs flow -$1.08M) [INSIGHT:price_vs_flow] and 74%-sell block-tier dark pool [DP:block_stratified], set up a small defined-risk tactical fade toward 117 — but only on a confirmed break of 123, since the day was a BUSY_NAME_NORMAL_DAY [CTX] and the debate disconfirmed the thesis.",
+  "entries": {
+    "primary": { "price": 122.9, "trigger": "confirmed break/acceptance below the 123 GEX pivot", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 124.85, "trigger": "rejection at the 125 call wall / DP cluster — fade the rally", "source": "[DP:price_levels]" },
+    "fade": { "price": 117.2, "trigger": "117 max-pain fills and holds with block DP buy_ratio >0.55 — cover/reverse", "source": "[STRUCT:max_pain]" }
+  },
+  "levels": { "support": 117.0, "resistance": 125.0, "gamma_flip": 134.98, "largest_pin": 121.0 },
+  "invalidation": {
+    "price": "daily close back above 125 (hard stop 125.5); OR failure to break 123 within 2-3 sessions",
+    "signal": "block-tier dark-pool buy_ratio flips >0.55, OR sweep-persistence dominant_direction turns bullish, OR price-vs-flow divergence closes [DP:block_stratified][INSIGHT:price_vs_flow]",
+    "macro": "broad risk-ON leg (VIX <15, SPY reclaims 20/50 SMA) or bullish SHOP upgrade; flat before FOMC 2026-07-29 and earnings 2026-08-05 regardless [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.85,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 3.25,
+    "raw_kelly": 0.804,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "123/117",
+      "expiry": "2026-07-24",
+      "debit_credit": 2.2,
+      "breakeven": 120.8,
+      "max_loss": 2.2,
+      "note": "buy 123 put / sell 117 put; anchored to the 123 GEX pivot and 117 put-wall/max-pain; enter only after the 123 break; width ~= 1x the +/-6% expected move"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call spread",
+      "strikes": "126/130",
+      "expiry": "2026-07-24",
+      "debit_credit": -1.1,
+      "breakeven": 127.1,
+      "max_loss": 2.9,
+      "note": "sell 126 / buy 130; monetizes rich IV (VRP +0.31 premium-selling) and the 125-130 call-wall/dealer-sell zone; pays even in a 116-121 stalemate"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "SHOP/PATH @ 0.707",
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-60 (1.8 pctile, net-bearish tail)",
+    "iv_rank": 85.6,
+    "self_pctile_net_dir": 32.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 6.0,
+    "front_expiry_abs": 7.4,
+    "source": "RV30-derived (screener implied_move_perc unreliable, phase-4)"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:CPIAUCSL_2026-06] disinflation, CPI -0.42% MoM", "[MACRO:sector_flow] Technology #1 durable inflow, persistence 0.8 (adverse to the short)"],
+    "headwinds": ["[MACRO:MarketRegime] TRANSITIONAL/CHOPPY, half position sizes, VIX 15.6->18.8", "[MACRO:group_valuation fz] SHOP P/S ~13x vs sector 7.5x"]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC (no SEP)", "impact": "?" },
+    { "date": "2026-08-05", "event": "SHOP Q2 earnings BMO", "impact": "?" }
+  ],
+  "key_risks": [
+    "No catalyst before 7/24 + durable Tech inflow (persistence 0.8) => fade depends on a 123 break a 32nd-pctile flow day may not supply; likely 116-121 stalemate that decays to theta loss",
+    "CROWDED_LONG (78% analyst buy) with re-rate/squeeze risk on any bullish surprise into the Aug-5 print",
+    "SHOP/PATH 0.707 cluster — a same-direction PATH short doubles the real exposure"
+  ],
+  "citations": [
+    "[STRUCT:gex] dealers short gamma, 123 = -$12.8M GEX, ZGL 134.98",
+    "[STRUCT:max_pain] near-term max pain 117 (7/17) / 121 (7/24)",
+    "[INSIGHT:price_vs_flow] confirmed divergence, price +6.5% vs flow -$1.08M",
+    "[DP:block_stratified] block-tier buy_ratio 0.257 (74% sell)",
+    "[HIST:signal_backtest] bearish_flow win_rate 1.00 (n=10, -5.22% avg)"
+  ],
+  "confluence_score": 54,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

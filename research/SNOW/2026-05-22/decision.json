@@ -1,0 +1,106 @@
+{
+  "ticker": "SNOW",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T17:50:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 172.16,
+  "thesis": "SNOW is size-unusual but direction-neutral, pinned at the $172.5 gamma wall [STRUCT:gex] into a 5/27 earnings binary priced at ±13.3% [STRUCT:gex DUCKDB]; the smart-money tape refuses to confirm the +32% run-up (net flow bearish [INSIGHT:price_vs_flow], earnings-week signed delta -$15M [FLOW:delta_notional DUCKDB], only a capped 185/200 bull call spread [OI:biggest_increases]). With a crowded long [SENT:revision_trend] into a priced-for-perfection name [FUND:psTTM] and negative-vanna IV crush forcing dealer selling on a miss [STRUCT:vanna_charm], this is a no-directional-edge, two-tailed, defined-risk event traded small.",
+  "entries": {
+    "primary": { "price": 172.5, "trigger": "establish structure while pinned at the gamma wall pre-print", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 174.5, "trigger": "pre-print pop into thin DP resistance — cheaper put spread", "source": "[DP:price_levels]" },
+    "fade": { "price": 185.0, "trigger": "gap-and-hold above 185 post-print kills the downside thesis — flip to breakout", "source": "[OI:biggest_increases]" }
+  },
+  "levels": { "support": 170.8, "resistance": 185.0, "gamma_flip": 172.5, "largest_pin": null },
+  "invalidation": {
+    "price": "gap-and-hold above 185 post-print, or two daily closes above 174.29 pre-print (downside thesis); post-print close outside the 149-195 cone (range thesis)",
+    "signal": "conviction_matrix flips DIRECTIONAL_LONG, or dark-pool buy_ratio >0.65 accumulation, or cumulative premium flow net-bullish 3 sessions [INSIGHT:institutional_accumulation]",
+    "macro": "UW regime flips TRANSITIONAL -> RISK-ON [MACRO:MarketRegime_2026-05-22]"
+  },
+  "sizing": {
+    "p_raw": 0.923,
+    "p": 0.55,
+    "win_rate_n": 13,
+    "win_rate_source": "null",
+    "payoff_b": 2.33,
+    "raw_kelly": 0.357,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "165/150",
+      "expiry": "2026-05-29",
+      "debit_credit": 4.5,
+      "breakeven": 160.5,
+      "max_loss": 4.5,
+      "note": "downside-asymmetry tail; spread neutralizes most of the 123% front-IV crush vs a naked put; short 150 leg at the -13% expected-move floor"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "150/140 put + 195/205 call",
+      "expiry": "2026-05-29",
+      "debit_credit": -3.0,
+      "breakeven": 147.0,
+      "max_loss": 7.0,
+      "note": "neutral IV-crush harvest, short strikes at +/-13% expected-move edges; LOWER probability given 71.4% vol-realisation [HIST:signal_backtest] — keep minimal"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": null,
+    "iv_rank": 86.76,
+    "self_pctile_net_dir": 33.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 13.3,
+    "front_expiry_abs": 23.35,
+    "source": "[STRUCT:gex DUCKDB] 5/29 ATM straddle 172.5C 11.42 + 172.5P 11.93"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology largest + accelerating inflow $6.19B persistence 1.0",
+      "[MACRO:DFF_2026-05-21] Fed funds eased to 3.62%"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-05-22] TRANSITIONAL regime, 38.1% breadth -> half size",
+      "[MACRO:DGS10_2026-05-21] 10y at 4.57% caps multiple expansion"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-05-27", "event": "SNOW Q1 earnings postmarket (±13.3% expected move)", "impact": "?" },
+    { "date": "2026-05-28", "event": "NTAP earnings (data-infra peer read-through)", "impact": "?" }
+  ],
+  "key_risks": [
+    "5th straight beat-and-raise gaps SNOW through the 185 wall toward 200, running over the downside/range structures [OI:biggest_increases][FUND:earnings_surprise]",
+    "negative-vanna IV crush + complacent skew (no put bid) overshoots a gap-down past 150 [STRUCT:vanna_charm][STRUCT:term_skew]",
+    "crowded long (86% analyst buy) unwinds violently on any disappointment with no smart-money bid underneath [SENT:revision_trend]"
+  ],
+  "citations": [
+    "[STRUCT:gex DUCKDB] 5/29 ATM straddle $23.35 -> ±13.3% expected move",
+    "[INSIGHT:price_vs_flow] price +31.7% but options flow bearish (net -$902,406)",
+    "[FLOW:delta_notional DUCKDB] earnings-week 2-7DTE signed delta-notional -$15M",
+    "[OI:biggest_increases] 5/29 185C OI +5,046 ask-bought $2.17M, capped by 200C writing",
+    "[STRUCT:vanna_charm] net vanna -2,294 -> post-earnings IV crush forces dealer selling",
+    "[SENT:revision_trend] ~86% analyst buy (50/58), stable"
+  ],
+  "confluence_score": 46,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

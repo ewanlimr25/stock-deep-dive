@@ -1,0 +1,135 @@
+{
+  "ticker": "HOOD",
+  "date": "2026-06-05",
+  "generated": "2026-06-05T18:00:00Z",
+  "bias": "SHORT",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 82.47,
+  "thesis": "Flow and dealer structure are bearish -- a 5-session $317.8M bearish sweep campaign [FLOW:sweep_persistence] into a short-gamma book (spot 6.5% below the 87.45 ZGL [STRUCT:gex]) with a 2026-06-18 max-pain gravity at 80 on 21.4% of chain OI [STRUCT:max_pain] -- but the chart will NOT confirm the short (a medium-confidence double bottom and a range, RSI 51 [CHART:double]) and fundamentals VETO the direction, so this is WATCH-ONLY with a defined-risk carry only.",
+  "reasons_for": [
+    "5-session bearish sweep campaign $317.8M, consistency 1.0 [FLOW:sweep_persistence]",
+    "Short-gamma book: spot 82.47 sits 6.5% below the 87.45 zero-gamma level [STRUCT:gex], so dealer hedging amplifies downside, with 2026-06-18 max-pain gravity at the 80 pin (21.4% of chain OI) [STRUCT:max_pain]",
+    "Price is below the falling 200-day 103.29 [CHART:sma200]"
+  ],
+  "reasons_against": [
+    "FUNDAMENTALS VETO -- business quality contradicts the short; the lit bearish flow may be hedging, not a directional bet [FUND:tier_adjustment]",
+    "Bear's strongest unrefuted point: a SpaceX-IPO-access headline gaps HOOD above 85 [SENT:company_news][DEBATE:strongest_bear_point] -- the catalyst that breaks the short",
+    "Short-gamma cuts both ways: a reclaim-and-hold of the 87.45 ZGL flips dealers to buying / squeeze [STRUCT:gex]",
+    "Chart does NOT confirm: a medium-confidence double bottom and a range/transition structure, RSI 51 [CHART:market_structure] -- flow and chart are DIVERGENT"
+  ],
+  "levels": {
+    "support": 80.0,
+    "resistance": 85.0,
+    "gamma_flip": 87.45,
+    "largest_pin": 80.0,
+    "moving_averages": [{ "name": "sma50", "level": 78.25 }, { "name": "sma200", "level": 103.29 }],
+    "fib_levels": null,
+    "key_levels": [
+      { "level": 85.0, "role": "stop", "source": "[OI:oi_by_strike]", "note": "call-wall shelf + DP clusters 84.50/86.24; two closes above = thesis broken" },
+      { "level": 87.45, "role": "flip", "source": "[STRUCT:gex]", "note": "zero-gamma level; reclaim-and-hold flips dealers to buyers" },
+      { "level": 80.0, "role": "target", "source": "[STRUCT:max_pain]", "note": "6/18 max-pain pin / first target" },
+      { "level": 77.5, "role": "target", "source": "[CHART:atr14]", "note": "~1 ATR extension below the pin" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "double_bottom", "direction": "bullish", "confidence": "medium", "measured_target": null, "invalidation": null, "note": "bullish -- argues AGAINST the short; a reason the chart won't confirm", "source": "[CHART:double]" },
+    { "pattern": "symmetrical_triangle", "direction": "neutral", "confidence": "low", "measured_target": null, "invalidation": null, "note": "coiling; trade the break, not the bias", "source": "[CHART:triangle]" }
+  ],
+  "events": [
+    { "date": "2026-06-17", "event": "FOMC (hawkish risk)", "impact": "?", "source": "[MACRO:FOMC_2026-06-17]" },
+    { "date": "2026-06-18", "event": "June OPEX / max-pain gravity at 80 (21.4% of OI)", "impact": "?", "source": "[OI:term_structure]" },
+    { "date": "2026-06-30", "event": "SpaceX-IPO-access headline risk (live, undated)", "impact": "+", "source": "[SENT:company_news]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes above 85.00, or a single intraday reclaim-and-hold of the 87.45 ZGL [STRUCT:gex] -- hard stop, close 100%",
+    "signal": "daily net options flow bullish >= +$5M for 2 sessions [HIST:cumulative_premium_flow], or DP block buy_ratio >= 0.60, or conviction-matrix flips DIRECTIONAL_LONG [INSIGHT:conviction_matrix]",
+    "macro": "dovish FOMC surprise, or a confirmed SpaceX-IPO-access headline gapping HOOD above 85 [DEBATE:strongest_bear_point]"
+  },
+  "sizing": {
+    "p_raw": 0.875, "p": 0.75, "win_rate_n": 8, "win_rate_source": "backtest",
+    "payoff_b": 1.0, "raw_kelly": 0.5, "fraction": 0.25, "cap_pct": 5.0,
+    "final_size_pct": 0.0, "deviation_reason": null
+  },
+  "stock_plan": {
+    "direction": "short",
+    "entry": 82.47,
+    "entry_trigger": "WATCH-ONLY -- no directional size (fundamentals VETO + DIVERGENT flow/chart). Would only consider on a daily close below the 80 pin with flow still bearish AND the SpaceX-IPO risk off the table.",
+    "stop": 85.05,
+    "targets": [
+      { "price": 80.0, "rationale": "6/18 max-pain pin", "take_pct": 60 },
+      { "price": 77.5, "rationale": "~1 ATR extension", "take_pct": 40 }
+    ],
+    "r_multiple_to_t1": 0.96,
+    "size_pct_book": 0.0,
+    "thesis_one_liner": "Watch-only short: flow/structure bearish but fundamentals VETO + a live bullish catalyst (SpaceX IPO) above 85 -- do not short into that."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "bear put debit spread (fundamentals-vetoed, carry only)",
+      "strikes": "84/80",
+      "expiry": "2026-06-18",
+      "target_date": "2026-06-18",
+      "target_price": 80.0,
+      "debit_credit": 2.2,
+      "breakeven": 81.8,
+      "max_loss": 2.2,
+      "est_payoff_at_target": 1.8,
+      "size_pct_book": 0.0,
+      "note": "defined-risk only; the VETO bars directional size -- listed for completeness, not for entry"
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "call credit spread",
+      "strikes": "86/90",
+      "expiry": "2026-06-18",
+      "target_date": "2026-06-18",
+      "target_price": 80.0,
+      "debit_credit": -1.4,
+      "breakeven": 87.4,
+      "max_loss": 2.6,
+      "size_pct_book": 0.3,
+      "note": "short strike 86 at the call wall; max loss if the SpaceX/ZGL-reclaim squeeze fires -- size starter"
+    }
+  ],
+  "gap_audit": {
+    "completeness": 94,
+    "have": ["flow (sweeps 5/5)", "dark pool", "OI/positioning + max-pain", "dealer GEX/ZGL", "historical win-rate", "macro", "fundamentals (VETO)", "sentiment", "debate", "OHLCV chart + patterns", "event calendar"],
+    "missing": [
+      { "item": "confirmation the short is real (a close below the 80 pin)", "severity": "important", "how_to_source": "wait for the 6/18 OPEX resolution; re-pull `uw oi term-structure` + price" },
+      { "item": "timing/likelihood of the SpaceX-IPO-access headline", "severity": "critical", "how_to_source": "WebSearch + `finnhub_enrich.py` company-news monitor -- this is the thesis-killer" }
+    ],
+    "verdict": "USABLE_WITH_GAPS"
+  },
+  "sources": {
+    "deep_dive_reused": "research/HOOD/2026-06-05/",
+    "deep_dive_age_days": 0,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": ["L-0002: flow↔chart DIVERGENT -> not a directional trade; watch-only / defined-risk fade only"]
+  },
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "confluence_score": null,
+  "key_risks": [
+    "SpaceX-IPO-access headline gaps HOOD above 85 (the bear's named thesis-killer)",
+    "short-gamma squeeze on a reclaim of the 87.45 ZGL",
+    "fundamentals VETO -- bearish flow may be hedging not directional",
+    "flow/chart DIVERGENT -- low-quality directional setup"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] HOOD bearish sweeps 5/5 sessions, $317.8M (research/HOOD/2026-06-05/phase-1-flow.md)",
+    "[STRUCT:gex] spot 82.47 is 6.5% below the 87.45 zero-gamma level (research/HOOD/2026-06-05/phase-4-structure.md)",
+    "[CHART:double] medium-confidence double bottom + range, RSI 51 -- chart will not confirm the short (chart.json)",
+    "[FUND:tier_adjustment] fundamentals VETO on the directional short (research/HOOD/2026-06-05/phase-7b-fundamentals.md)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": "eval-2026-06-18.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

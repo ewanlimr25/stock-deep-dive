@@ -1,0 +1,100 @@
+{
+  "ticker": "PATH",
+  "date": "2026-05-29",
+  "generated": "2026-05-29T20:30:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 11.72,
+  "thesis": "Cheap, profitable, net-cash software laggard (fwd PE 13.1 [FUND:peer_pe fz]) that just raised FY guidance and printed its first GAAP profit (2026-05-28), being accumulated at the floor (dark-pool block tier 100% buy [DP:block-stratified]) but hard-capped at $12-13 by the largest gamma wall +$11.4M [STRUCT:gex] = consensus fair-value $13.47; with a 50%/n=8 backtest [HIST:signal-backtest], BUSY_NAME tape, and a disconfirmed debate [DEBATE:], the trade is a small defined-risk $11-13 range skewed slightly long, with 31% short float + dealer-short-call DEX [STRUCT:dex] as a cheap convex option if $13 breaks.",
+  "entries": {
+    "primary": { "price": 11.7, "trigger": "hold of the $11.65-11.80 dark-pool value shelf where block money paid up", "source": "[DP:largest]" },
+    "aggressive": { "price": 11.1, "trigger": "tag of the $11 gamma pivot / lower DP shelf and reclaim", "source": "[STRUCT:gex]" },
+    "fade": { "price": 13.0, "trigger": "rejection at the $13 wall / consensus target - sell the rip", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 11.65, "resistance": 12.0, "gamma_flip": 11.0, "largest_pin": 13.0 },
+  "invalidation": {
+    "price": "two daily closes below 11.00 (negative-gamma cascade) OR sustained close above 13.00 (range broken to upside, roll to momentum long)",
+    "signal": "DEX flips so dealers no longer net short calls, or dark-pool block tier turns net seller [STRUCT:dex][DP:block-stratified]",
+    "macro": "regime flips to RISK_OFF or 10y breaks above 4.70% [MACRO:DGS10_2026-05-28 FRED]"
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.50,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.78,
+    "raw_kelly": 0.22,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "12/14",
+      "expiry": "2026-06-18",
+      "debit_credit": 0.36,
+      "breakeven": 12.36,
+      "max_loss": 0.36,
+      "note": "cheap convex bet on the >$13 squeeze-break tail; long $12 leg on 8.8th-pctile IV, $12 = largest gamma wall + June OI 13235"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "11P/13C short, 10P/14C long",
+      "expiry": "2026-06-18",
+      "debit_credit": -0.47,
+      "breakeven": "10.53 / 13.47",
+      "max_loss": 0.53,
+      "note": "regime-prescribed (iron condors in range) + monetizes VRP +15.8; upper breakeven 13.47 = consensus target; profits across the $10.5-13.5 box the desk converged on"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (universe pctile 93.3)",
+    "iv_rank": 43.3,
+    "self_pctile_net_dir": 73.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.63,
+    "front_expiry_abs": 0.19,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:SectorFlowPersistence_2026-05-29 UW] Tech sector flow leadership persistence 1/1", "[MACRO:DFF_2026-05-28 FRED] easing cycle, fed funds 3.62% + un-inverted 2s10s"],
+    "headwinds": ["[MACRO:MarketRegime_2026-05-29 UW] TRANSITIONAL half-size, weak breadth 36% bullish", "[MACRO:PCEPILFE_2026-04 FRED] core PCE 3.29% + 10y 4.45% cap duration tailwind"]
+  },
+  "catalysts": [
+    { "date": "2026-05-28", "event": "Q1 FY2027 earnings (PASSED) - EPS miss, guidance raised, first GAAP profit", "impact": "+" },
+    { "date": "2026-06-15", "event": "May CPI release (approx)", "impact": "?" },
+    { "date": "2026-09-03", "event": "next PATH earnings (outside window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "easy borrow (0.29%) removes forced-cover pressure; squeeze needs a >$13 catalyst the calendar lacks until September",
+    "$12 gamma wall coincides with consensus fair-value $13.47 and cut PTs - flow structure AND fundamentals cap upside at $13 [STRUCT:gex][SENT:recom fz]",
+    "$11 gamma pivot is a binary short-gamma cliff into $9-10 with complacent skew underpricing the tail"
+  ],
+  "citations": [
+    "[DP:block-stratified] dark-pool block tier 100% buy (buy_ratio 1.0, 769K sh / $8.96M)",
+    "[STRUCT:gex] +$28.6M positive GEX, largest wall $12 (+$11.4M), $11 pivot",
+    "[HIST:signal-backtest] bullish_flow win_rate 0.50 (n=8)",
+    "[FUND:peer_pe fz] fwd PE 13.1, only profitable name vs FROG/GTLB/S/ZS",
+    "[DEBATE:] disconfirmed, bull 0.60 / bear 0.62"
+  ],
+  "confluence_score": 59,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

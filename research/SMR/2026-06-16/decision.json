@@ -1,0 +1,106 @@
+{
+  "ticker": "SMR",
+  "date": "2026-06-16",
+  "generated": "2026-06-17T12:24:34Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 9.89,
+  "thesis": "Genuinely bearish tape — dark-pool DISTRIBUTION (buy_ratio 0.384, $4.63M sells vs $1.72M buys [DP:block_stratified]) under a net-bearish whole-tape (net_flow -$159,229 [FLOW:insights_deep_dive]) and a -16.8% 30d downtrend [HIST:trend], UW DIRECTIONAL_SHORT [INSIGHT:conviction_matrix] — but NOT a tradeable short: the bearish signal backtests 28.6% (n=7) [HIST:signal_backtest], the short is crowded (18.12% float [SENT:short_float fz]) into an FOMC binary one day out [MACRO:FOMC_2026-06-17] + a live Japan $25B SMR squeeze catalyst on a funded balance sheet, and phase-8b disconfirmed (bear 0.65 >= bull 0.55). Net: RANGE / fade-the-rip, watch-only at spot.",
+  "entries": {
+    "primary": { "price": "watch-only", "trigger": "Stand aside through FOMC 06-17 — negative-edge short (p=0.286), crowded, binary one day out", "source": "[HIST:signal_backtest]" },
+    "aggressive": { "price": 10.75, "trigger": "Fade the rip — rejection at DP supply $10.64-$10.95 post-FOMC, no fresh ask-side call sweeps", "source": "[DP:price_levels]" },
+    "fade": { "price": 10.95, "trigger": "Counter / plan B — two closes above $10.95 on ask-side call sweeps = squeeze real, bearish lean dead", "source": "[STRUCT:term_skew]" }
+  },
+  "levels": { "support": 9.48, "resistance": 10.64, "gamma_flip": 7.5, "largest_pin": 12.0 },
+  "invalidation": {
+    "price": "Two daily closes above $10.95 (top of DP supply band) [DP:price_levels], or any reclaim-and-hold of the $10 gamma wall on rising volume [STRUCT:today_gamma_flip]",
+    "signal": "Dark-pool DISTRIBUTION reverses to accumulation (buy_ratio > 0.55) [INSIGHT:institutional_accumulation], or fresh ask-side call sweeps appear (none on as-of) [FLOW:sweeps]",
+    "macro": "Dovish FOMC surprise 06-17 or a Japan $25B SMR-pledge follow-through gap beyond the +/-5.68% implied move [MACRO:FOMC_2026-06-17][MACRO:Japan_SMR_pledge]"
+  },
+  "sizing": {
+    "p_raw": 0.286,
+    "p": 0.286,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.85,
+    "raw_kelly": -0.099,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "long put",
+      "strikes": "10",
+      "expiry": "2026-07-17",
+      "debit_credit": 1.05,
+      "breakeven": 8.95,
+      "max_loss": 1.05,
+      "note": "Illustrative debit (IV30d ~92%, 0th pctile). Long-vol convexity into 307% realized vol; 07-17 sidesteps the 06-18 FOMC/OPEX pin. Deploy ONLY on a rip into $10.64-$10.95 — watch-only at spot."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear put debit spread",
+      "strikes": "10/8",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.70,
+      "breakeven": 9.30,
+      "max_loss": 0.70,
+      "note": "Illustrative. Cheaper, floored max-loss; targets the $9 put-wall / $8.85 52W-low zone. Starter (<=0.75% max-loss) only on the fade-the-rip trigger. Iron condor / credit fade REJECTED — VRP -2.15 forbids selling premium."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 26.68,
+    "self_pctile_net_dir": 45.7
+  },
+  "expected_move": {
+    "front_expiry_pct": 5.68,
+    "front_expiry_abs": 0.56,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:CPIAUCSL_2026-05 FRED] sticky inflation 4.17% YoY keeps rates high, pressures pre-revenue small-cap",
+      "[MACRO:MarketRegime_2026-06-16 UW] Industrials options outflow -$318M; TRANSITIONAL regime (half size / defined-risk)"
+    ],
+    "headwinds": [
+      "[MACRO:FOMC_2026-06-17] FOMC binary one day out — dovish surprise = squeeze",
+      "[MACRO:Japan_SMR_pledge] live Japan $25B US-SMR pledge — squeeze fuel; sector +1.14% on price, Street target $15.64"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-17", "event": "FOMC decision + dot plot (Warsh's first)", "impact": "?" },
+    { "date": "2026-06-17", "event": "Japan $25B US-SMR pledge follow-through", "impact": "+" },
+    { "date": "2026-08-06", "event": "Q2 2026 earnings (est., unconfirmed; outside 30d)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Crowded short (18.12% float) into FOMC 06-17 + live Japan $25B pledge on a funded balance sheet = headline-gap squeeze (beta 2.27, realized vol 307%) [SENT:short_float fz]",
+    "Bearish setup backtests 28.6% (n=7) — negative historical edge; analyst Street moderate-buy, target $15.64/+58% [HIST:signal_backtest]",
+    "Fortress balance sheet (~$1B cash, current ratio 29.4) = no solvency catalyst; sector laggard (-30% YTD vs BE +223%) = catch-up-squeeze risk [FUND:currentRatio]"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool buy_ratio 0.384, $4.63M sells vs $1.72M buys",
+    "[HIST:signal_backtest] bearish_flow win_rate 28.6% (n=7)",
+    "[MACRO:FOMC_2026-06-17] FOMC decision one day after as-of, hawkish dot-plot risk",
+    "[INSIGHT:conviction_matrix] DIRECTIONAL_SHORT at 13.7% confidence",
+    "[SENT:short_float fz] 18.12% float short, days-to-cover 1.85, borrow EASY 0.42%"
+  ],
+  "confluence_score": 55,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

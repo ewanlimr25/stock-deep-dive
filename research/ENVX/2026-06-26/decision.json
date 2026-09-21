@@ -1,0 +1,99 @@
+{
+  "ticker": "ENVX",
+  "date": "2026-06-26",
+  "generated": "2026-06-27T14:47:39Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 5.95,
+  "thesis": "A single ask-side campaign bought $871,964 of $6-strike October calls (84% ask) [FLOW:sweeps] into a 26%-short-float, hard-to-borrow, covering name [SENT:short_float] — latent squeeze fuel — but the empirical edge is negative: the bullish_flow backtest wins 20% (n=5) [HIST:signal_backtest], dealers are long-gamma 30/30 sessions with July max-pain pinned at $6.00 [STRUCT:max_pain], the desk went 0-for-4 directional [AGENT:phase-8], and the debate was disconfirmed (bear 0.75 >= bull 0.55) [DEBATE:residuals]. Watch, not a trade: directional risk skipped, token defined-risk squeeze carry only.",
+  "entries": {
+    "primary": { "price": 5.95, "trigger": "hold of the $5.95 DP value area / $6 max-pain pin — carry only", "source": "[STRUCT:max_pain]" },
+    "aggressive": { "price": 5.50, "trigger": "tag-and-reclaim of the $5.50 put-wall / gamma-flip", "source": "[STRUCT:today_gamma_flip]" },
+    "fade": { "price": 6.33, "trigger": "rejection at the $6.28-6.33 DP supply shelf — put-debit counter-trade", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 5.50, "resistance": 6.33, "gamma_flip": 5.50, "largest_pin": 6.00 },
+  "invalidation": {
+    "price": "two daily closes below 5.50 (kills long) OR above 6.33 on rising IV (kills range/short)",
+    "signal": "tomorrow's OI does not confirm the $6-Oct build (sweep was a one-off) [OI:biggest_increases], or conviction_matrix flips DIRECTIONAL_LONG->HEDGED_LONG [INSIGHT:conviction_matrix]",
+    "macro": "SPY regime breaks further RISK-OFF (beta 2.31) [MACRO:MarketRegime], or hawkish late-July CPI/FOMC lifts the 10y"
+  },
+  "sizing": {
+    "p_raw": 0.20,
+    "p": 0.20,
+    "win_rate_n": 5,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.33,
+    "raw_kelly": -0.143,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "6/8",
+      "expiry": "2026-10-16",
+      "debit_credit": 0.80,
+      "breakeven": 6.80,
+      "max_loss": 0.80,
+      "note": "carry-only token; long $6 (the flow strike, ~$1.29 real) / short $8 (call-OI wall); squeeze lottery into Aug-12; max loss = debit, so an earnings gap cannot exceed it"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put debit spread",
+      "strikes": "5.5/4.5",
+      "expiry": "2026-10-16",
+      "debit_credit": 0.40,
+      "breakeven": 5.10,
+      "max_loss": 0.40,
+      "note": "trend-continuation hedge below the $5.50 gamma-flip toward the $4.61 52w-low; debit (VRP -0.17 says buy, not sell); pairs with the call spread as cheap long-optionality on the range break"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 96,
+    "iv_rank": 42.5,
+    "self_pctile_net_dir": 94.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 2.42,
+    "front_expiry_abs": 0.14,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "net headwind",
+    "tailwinds": ["[HIST:vrp] VRP -0.17 PREMIUM_BUYING — cheap vol favors the debit legs", "[MACRO:T10Y2Y] curve normal +0.31; soft labor (UNRATE 4.3%, PAYEMS +172K)"],
+    "headwinds": ["[MACRO:sector_flow] Industrials net -$61.6M out, persistence 1.0 (adverse rotation)", "[MACRO:MarketRegime] TRANSITIONAL/CHOPPY, breadth 38%, half-size", "[MACRO:DGS10] 10y 4.40% pressures a cash-burning long-duration name"]
+  },
+  "catalysts": [
+    { "date": "2026-07-17", "event": "July monthly OPEX (max-pain $6 magnet)", "impact": "?" },
+    { "date": "2026-08-12", "event": "ENVX Q2 earnings (UW 07-30 likely stale; the squeeze trigger)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Long-gamma pin (GEX +30/30) + July max-pain $6 cap the breakout the $6 calls need, with no catalyst until ~Aug-12",
+    "20% backtest (n=5) + 90d net-bearish premium flow (-$2.0M) + full downtrend below all SMAs — counter-trend long has no edge",
+    "26% short float is double-edged: squeeze fuel up, but 49M shares of conviction the stock falls; cheap VRP means the range can break violently either way"
+  ],
+  "citations": [
+    "[FLOW:sweeps] $6-Oct call ask-sweep $871,964 / 6,738 ct / 84.2% ask",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.20 (n=5), avg move -0.05%",
+    "[STRUCT:max_pain] July-OPEX max-pain $6.00 + long-gamma 30/30 sessions",
+    "[SENT:short_float] 26.00% SI, 49.12M shares, 7.45 DTC, HTB",
+    "[DEBATE:residuals] disconfirmed, bear 0.75 >= bull 0.55"
+  ],
+  "confluence_score": 51,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

@@ -1,0 +1,168 @@
+{
+  "ticker": "ENPH",
+  "date": "2026-07-29",
+  "generated": "2026-07-30T04:12:00Z",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 35.07,
+  "thesis": "Directionally short with ZERO size — a watch, not a position. Structure is unambiguously bearish: net_gex negative at every strike 25-36.5 with spot below the 36-37 flip band and the 35 strike tagged resistance_wall (gex -323,628) [STRUCT:gex][STRUCT:today_gamma_flip]; net_dex -$65,123,664 = 1.41% of float whose own interpretation is 'dealer hedge is to SELL underlying' [STRUCT:dex]; total_gex negative 26 consecutive sessions through a -24.7% decline [HIST:gex_time_series]; large-tier dark-pool sell_ratio 0.610 on 188 trades with the close 3.3% below the 36.27 dark-pool VWAP [DP:block_stratified][INSIGHT:institutional_accumulation]; UW composite DIRECTIONAL_SHORT, 'institutional bear bet' [INSIGHT:conviction_matrix]. But size is zero on four independently sufficient grounds: (1) 7c VETO — short float 17.94% and RISING from 17.55% through the print (~22.9M shares) against seven analyst targets averaging $43.07 / median $45 (+22.8%/+28.3%) with every rating maintained and zero strongSell [SENT:short_float fz semi-monthly][SENT:company_news]; (2) no survivable stop — ATR 3.24 = 9.2% of spot exceeds the 5.58% front implied move [HIST:rsi fz][CTX:implied_move]; (3) nobody with size is pressing it — net_flow -$479,813 is 5.8x below the bearish top-50 cutoff, signal-confluence 3/6 (minimum in a 500-name set, shared with 348 others), confidence_pct 24, total_premium at the 26.6th self percentile and vol_x 1.178 on the session after a binary event [FLOW:insights_deep_dive][INSIGHT:signal_confluence][CTX:self_pctile DUCKDB]; (4) entry is the worst tick — period_low 34.96 set today with the close $0.11 above, RSI 31.60, price -30.49% below SMA50, and five phase-8 agents returning zero LONG votes and no conviction above 2 [INSIGHT:price_vs_flow][HIST:rsi fz][AGENT:risk-monitor]. Q2 was a small revenue beat with EPS $0.46 IN LINE after a published CORRECTION, and the Q3 guide straddles the $304.253M consensus [SENT:company_news]. Not a distress thesis: current ratio 3.799, $930.6M liquid, ~7.2% annualized FCF yield, Forward P/E 15.82 [FUND:financials_reported].",
+  "entries": {
+    "primary": {
+      "price": 34.9,
+      "trigger": "confirmed daily close below the 34.96 30-day low on above-average volume — no institutional dark-pool shelf exists beneath spot and dealer gamma is negative through 32-36",
+      "source": "[DP:price_levels][INSIGHT:price_vs_flow][STRUCT:gex]"
+    },
+    "aggressive": {
+      "price": 35.07,
+      "trigger": "at-market today — EXPLICITLY DISCOURAGED: bottom tick of the 30-day range, RSI 31.60, into a 7c sentiment VETO",
+      "source": "[SENT:tier_adjustment]"
+    },
+    "fade": {
+      "price": 36.4,
+      "trigger": "failed rally into the 36.27 dark-pool VWAP / 36-37 gamma flip band — better risk-reward than chasing the low, and where supply sits",
+      "source": "[INSIGHT:institutional_accumulation][STRUCT:today_gamma_flip]"
+    }
+  },
+  "levels": {
+    "support": 34.96,
+    "resistance": 36.27,
+    "gamma_flip": 36.0,
+    "largest_pin": 36.0
+  },
+  "invalidation": {
+    "price": "two consecutive daily closes above 37.00 (reclaims atm_flip_strike 36 and the observed 36.5->37 net_gex sign change, flipping the dealer regime to long gamma); secondary: a close above 38.25 reclaiming the trapped-buyer zone. Thesis ACTIVATES on a daily close below 34.96 on above-average volume [STRUCT:gex][DP:largest]",
+    "signal": "conviction-matrix flips off DIRECTIONAL_SHORT to MIXED/HEDGED_LONG, OR total_gex turns positive ending the 26-session negative run, OR institutional-accumulation flips to accumulation / auction-stripped large-tier buy_ratio rises above 0.55 from 0.390, OR cumulative premium flow turns net positive 3 consecutive sessions [INSIGHT:conviction_matrix][STRUCT:gex][INSIGHT:institutional_accumulation]",
+    "macro": "dovish surprise on nonfarm payrolls ~2026-08-07 (June printed +57k vs +129k prior) or CPI ~2026-08-12, relieving the DGS10 4.61% (+23bp/30d) bear steepener; PLUS a non-price condition — a VIX reversal toward collapse re-arms the +1,327 vanna bid and kills the thesis independent of price [MACRO:PAYEMS_2026-06 FRED][MACRO:DGS10_2026-07-28 FRED][MACRO:VIX_2026-07-29 UW]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.55,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.333,
+    "raw_kelly": 0.3571,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (PRIMARY directional expression — TRIGGERED ONLY, carry-only, sentiment-vetoed, final_size_pct 0.0 today)",
+      "strikes": "35/30",
+      "expiry": "2026-08-21",
+      "debit_credit": 1.86,
+      "breakeven": 33.14,
+      "max_loss": 1.86,
+      "note": "Real EOD NBBO: buy P35 mid 2.71 (bid 2.55/ask 2.87, IV 0.795, delta -0.454, OI 4,031); sell P30 mid 0.85 (bid 0.80/ask 0.90, IV 0.832, delta -0.196, OI 2,963). Worst fill 2.07. Max profit 3.14, reward:risk 1.69:1, net delta -0.258, dte 23. Both legs on real OI walls = the most liquid downside structure. Expires AT the 2026-08-21 OPEX cliff (15.69% of total OI, 46,288 contracts) and deliberately BEFORE the 09-18 expiry where 8,970 written P35 puts become a mechanical assignment bid. Spread rather than outright put because vrp +0.1267 (regime PREMIUM_SELLING) argues against paying 80% implied naked."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call spread (ALTERNATIVE, credit, carry-only, sentiment-vetoed)",
+      "strikes": "37/40",
+      "expiry": "2026-08-21",
+      "debit_credit": -1.33,
+      "breakeven": 38.33,
+      "max_loss": 1.67,
+      "note": "Real EOD NBBO: sell C37 bid 2.64 (delta 0.519, OI 49); buy C40 ask 1.31 (delta 0.303, OI 866). Reward:risk 0.80:1, net delta -0.216, dte 23. Profits from nothing happening — no company catalyst until 2026-10-27 and the vol curve is flat at 82-87% beyond dte 23. Sells the 37 invalidation level; the 38.33 breakeven sits above the entire 37.48-38.25 trapped-buyer supply zone. LIQUIDITY CAVEAT: the C37 leg has only 49 OI and a 26-cent spread — assume worse-than-mid fills. This is why it is the alternative, not the primary."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "VETO",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": null,
+    "iv_rank": 47.05,
+    "self_pctile_net_dir": 34.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 5.58,
+    "front_expiry_abs": 1.96,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:SectorFlowPersistence_2026-07-29 UW] Technology sector flow trend INFLOW with persistence_score 1.0 (5/5 sessions) — adverse to this short; qualified as decaying 71% (767M->223M), mega-cap concentrated, and ENPH ranks 477th of 538 in that sector",
+      "[FUND:financials_reported] fortress balance sheet — current ratio 3.799, $930.6M cash+securities, ~net-cash-neutral, $83.0M quarterly FCF (~7.2% annualized yield), Forward P/E 15.82",
+      "[SENT:company_news] seven analyst targets average $43.07 / median $45 (+22.8%/+28.3% above spot), every rating maintained, zero strongSell across four months"
+    ],
+    "headwinds": [
+      "[MACRO:VIX_2026-07-29 UW] VIX 18.21->20.66 (+13.5% d/d, +23.5%/10d) INVALIDATES phase-4's vanna-squeeze trigger ('if VIX collapses'), leaving negative gamma and $65.1M of dealer selling unopposed",
+      "[MACRO:DGS10_2026-07-28 FRED] 10y 4.38->4.61 (+23bp/30d) bear steepener with FOMC on a fifth consecutive hold at 3.50-3.75%, 9-3 with three hawkish dissents — residential solar is a financed $20,000+ purchase",
+      "[MACRO:ResiSolar2026 WebSearch:spokesman.com] 30% residential ITC sunset already in force, new AD/CVD tariffs on cells from India/Indonesia/Laos, and ENPH itself guides -22% US residential additions for 2026",
+      "[MACRO:MarketRegime_2026-07-29 UW] regime TRANSITIONAL 'reduce position size, wait for clarity', trend CHOPPY, bullish_pct 32.5%, SPY below both 20d and 50d SMA, guidance 'Half position sizes. Favor defined-risk strategies'"
+    ]
+  },
+  "catalysts": [
+    {
+      "date": "2026-07-31",
+      "event": "front-week expiry (dte 2) — 26,693 OI but 11,177 of its 19,447 calls sit 21-57% OTM and worthless; today_total_gex has INVERTED to -406,622 vs the +1,047,168 carried from the 07-27 run; ENPH absent from pin-risk top-25 so there is NO pin. Do not expect expiry support at 35",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-07",
+      "event": "nonfarm payrolls (July) — June printed +57k vs +129k prior; the most plausible dovish trigger and the macro invalidation for this thesis",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-12",
+      "event": "CPI (July) — core 2.81% / headline 3.73%; a hot print entrenches the hawkish 9-3 hold",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-21",
+      "event": "monthly OPEX — the tradeable cliff at 15.69% of total OI (46,288 contracts); put-dominated near the money (40 -> 7,839 puts, 35 -> 4,031, 30 -> 2,963). Structure A expires here. A 35 break here EXCEEDS the +/-5.58% front implied move given negative gamma 25-36.5",
+      "impact": "?"
+    },
+    {
+      "date": "2026-09-18",
+      "event": "the 8,970 written P35 puts (0.70% of float) become assignment purchases — a mechanical bid; Structure A deliberately expires before this",
+      "impact": "?"
+    },
+    {
+      "date": "2026-10-27",
+      "event": "ENPH Q3 earnings — the next company-specific catalyst, ~13 weeks out. The absence of any catalyst before it is why iv_rank sits at the 15.6th self percentile and the vol curve is flat at 82-87% beyond dte 23",
+      "impact": "?"
+    }
+  ],
+  "key_risks": [
+    "The 8,970 written Sept-18 P35 puts (0.70% of float) become a mechanical assignment BID at the 09-18 expiry — a squeeze requiring no accumulation, no good news and no fundamental change; Structure A deliberately expires before it [AGENT:accumulation-hunter][DEBATE:disconfirmation]",
+    "Shorting into consensus upside on a crowded and still-growing short base: 17.94% of float (~22.9M shares) up from 17.55%, seven targets averaging $43.07 with every rating maintained and zero strongSell, and borrow cost UNMEASURED so a short's true carry and fragility cannot be priced [SENT:short_float fz semi-monthly][SENT:company_news]",
+    "No survivable stop and cost without catalyst: ATR 3.24 = 9.2% of spot exceeds the 5.58% front implied move, while any long-premium expression pays 80-85% implied against 67% realised (vrp +0.1267, PREMIUM_SELLING) on a curve flat at 82-87% with no company catalyst for ~13 weeks [HIST:rsi fz][HIST:vrp]",
+    "This is a leveraged solar-beta bet, not idiosyncratic (ENPH/TAN rho 0.846, ENPH/SEDG 0.819, Beta 1.65-1.69), and a VIX reversal alone rescues the bull case independent of ENPH news by re-arming the +1,327 vanna bid [MACRO:PortfolioCorrelation_2026-07-29 UW][AGENT:risk-monitor]",
+    "Oversold does not mean-revert in a 26-session short-gamma regime — cuts both ways (RSI 31.60 is not a buy signal, but it warns against an over-tight short stop); plus two known blind spots: borrow/HTB not obtainable and the balance sheet is ~4 months stale (Q2 10-Q post-dates the as-of date) [HIST:gex_time_series][FUND:financials_reported]"
+  ],
+  "citations": [
+    "[STRUCT:gex] net_gex negative at EVERY strike 25-36.5 (40: -1,165,778 / 35: -977,948 / 30: -471,049); atm_flip_strike 36; spot 35.07 below the flip band; regime label FULLY_NEGATIVE is factually wrong (25 of 50 strikes positive) so the per-strike distribution is quoted instead",
+    "[STRUCT:dex] net_dex -$65,123,664 = 1.41% of the 127.77M float (up from 0.83% at the 07-27 run); interpretation verbatim: 'Public is net put-long -> dealers net short puts -> dealer hedge is to SELL underlying'",
+    "[HIST:gex_time_series] total_gex negative 26 consecutive sessions (2026-06-23 -> 07-29) while spot fell 47.94 -> 36.08 = -24.7%",
+    "[DP:block_stratified] large-tier buy_ratio 0.390 -> derived sell_ratio 0.610 on 188 trades / $32,667,158, auction-artifact-free; auction-stripped top-25 recount agrees at 69.7% below mid",
+    "[INSIGHT:institutional_accumulation] signal DISTRIBUTION; dark-pool vwap 36.27 vs a 35.07 close = price closed 3.3% BELOW where institutional size cleared",
+    "[INSIGHT:conviction_matrix] scenario DIRECTIONAL_SHORT, confidence_pct 24, explanation 'Dark pool selling + put buying - institutional bear bet'; its options_flow block (8,285/8,284/7,236/4,613) vendor-confirms phase-1's DuckDB whole-tape ask/bid cut digit for digit",
+    "[FLOW:ask_bid_split DUCKDB] whole-tape put_volume_ask_side 7,236 vs put_volume_bid_side 4,613 = 1.569x puts bought, with calls dead-even at 1.000; net aggressive direction -2,622 contracts, ~90% of volume classified",
+    "[OI:biggest_increases] ENPH280121P00030000 +2,000 OI, prev_total_premium $2,837,716 at 92% ask-side (2,908 vs 253), dte 541, inferred_direction bearish — ~6x the day's entire net option flow, and opened on 07-28 BEFORE the postmarket print",
+    "[OI:smart_positioning] premium-weighted OI builds 5.4:1 bearish ($2,910,482 vs $535,495); position-rolls returned ZERO rows",
+    "[SENT:short_float fz semi-monthly] Short Float 17.94% of float, UP from 17.55% through the print; Short Ratio only 3.05 days (2.63 via WebSearch) so squeeze fuel is weak; 5th of 18 solar names and tied with SEDG's 17.97% = a sector condition, not an ENPH setup",
+    "[SENT:company_news] six analyst price-target CUTS on 2026-07-29 and zero raises (Oppenheimer $56, TD Cowen $48, RBC $47, Mizuho $45, Wells Fargo $44, BMO $37, GLJ Sell $24.47) — mean $43.07 / median $45 = +22.8%/+28.3% above spot, every rating maintained; and 'CORRECTION: Q2 Adj. EPS $0.46, Inline' retracting the initial beat headline",
+    "[HIST:signal_backtest] bearish_flow win_rate '100.0%' on total_signals 9, avg_move_pct -14.59 — DISCARDED as the Kelly p: self-disclaimed 'In-sample backtest - not a robust live edge', N=9 below the 10-firing floor, market-wide with ENPH ABSENT from the 9-signal sample (TSLA/WOLF/AMD/GLD/MU/SNDK/SOXL/BE), and all 9 signals from just two dates. p falls back to the conviction bin per rubric Step 1",
+    "[DEBATE:disconfirmation] bear_residual 0.75 >= bull_residual 0.65 -> disconfirmed true -> conviction bin down-shifted 0.65 -> 0.55 and one size step cut",
+    "[CTX:self_pctile DUCKDB] total_premium at the 26.6th percentile of ENPH's own 65 contiguous sessions and vol_x 1.178 — on the session after a binary earnings event; unusual_verdict BUSY_NAME_NORMAL_DAY caps phases 1-2 at '+'",
+    "[MACRO:VIX_2026-07-29 UW] VIX 18.21 -> 20.66 (+13.5% d/d; 16.73 -> 20.66, +23.5%/10d) with SPY iv_rank 17.59 -> 40.54 — invalidates the vanna-squeeze trigger 'if VIX collapses'"
+  ],
+  "confluence_score": 62,
+  "recommended_bin": 0.65,
+  "paths": {
+    "plan": "phase-9-trade-plan.md",
+    "audit": "phase-10-audit.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

@@ -1,0 +1,109 @@
+{
+  "ticker": "INTC",
+  "date": "2026-06-15",
+  "generated": "2026-06-16T01:24:55Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 127.86,
+  "thesis": "INTC is a euphoric +246.5%-YTD foundry re-rate whose tape stopped confirming price — net_flow flat -$1.16M [FLOW:insights_deep_dive] with an outright price-vs-flow DIVERGENCE [INSIGHT:price_vs_flow]. Positive-gamma, mean-reverting, pinned under a +$15.3M gamma wall at $130 [STRUCT:gex] = a RANGE ($124.57 dip-bid to $130 cap), the unanimous desk read (3 RANGE + 1 NEUTRAL) [AGENT:desk]. Real foundry catalyst + 5-day bullish sweep persistence [FLOW:sweep_persistence] keep me from shorting; two CAUTION gates + a disconfirmed debate keep me from chasing — let FOMC 6/17 resolve the $130 break.",
+  "entries": {
+    "primary": { "price": 124.57, "trigger": "tag of dark-pool dip-bid shelf + dealer (DEX) buying on weakness", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 118.0, "trigger": "flush into $120-116.96 lower DP shelf / put-wall without a flow flip", "source": "[OI:oi_by_strike]" },
+    "fade": { "price": 129.5, "trigger": "rejection at the $130 gamma pin / call wall — counter-trade the rip", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 124.57, "resistance": 130.0, "gamma_flip": 13.44, "largest_pin": 111.0 },
+  "invalidation": {
+    "price": "two daily closes below 120 (buy-the-dip wrong); or two daily closes above 132 on volume (range breaks upward to momentum long)",
+    "signal": "GEX/DEX flips POSITIVE->short-gamma on phase-4 refresh [STRUCT:gex]; or dark-pool mega buy_ratio reverses <0.45 (accumulation->distribution) [DP:block_stratified]",
+    "macro": "FOMC 6/17 surprise — hawkish de-rates the euphoric semi cohort, dovish breaks $130 to a momentum long [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.2,
+    "raw_kelly": 0.542,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "125/135",
+      "expiry": "2026-07-17",
+      "debit_credit": 5.0,
+      "breakeven": 130.0,
+      "max_loss": 5.0,
+      "note": "buy-the-dip only at ~$124.57; long premium (VRP -0.085 PREMIUM_BUYING); Jul17 avoids the 7/23 earnings IV crush; strikes anchor $124.57 DP shelf and $135 BofA target between the $130 cap and $150 magnet"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call credit spread",
+      "strikes": "132/140",
+      "expiry": "2026-07-17",
+      "debit_credit": -2.3,
+      "breakeven": 134.3,
+      "max_loss": 5.7,
+      "note": "fade-the-rip into the $130 gamma cap, sold on a tag of $129-130; VRP-negative says keep it tight — a volume-backed break >$132 (dovish FOMC) runs it"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (net_call-put 99.2 pctile vs bull-bear 2.3 pctile — conflicted)",
+    "iv_rank": 82.0,
+    "self_pctile_net_dir": 60.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 6.17,
+    "front_expiry_abs": 7.87,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow] Technology #1 sector inflow +$7.78B, persistence 1.0/5d",
+      "[MACRO:INTC_BofA] BofA upgrade to $135 + Google-TPU/Nvidia backup-foundry wins"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime] regime TRANSITIONAL — half position sizes, defined-risk; breadth 37% bullish",
+      "[MACRO:DGS10] 10y 4.48% pressures the ~83x fwd P/E multiple",
+      "[MACRO:FOMC] FOMC 6/17 inside OPEX — 2-way binary"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-16/17", "event": "FOMC (statement 6/17 2pm ET)", "impact": "?" },
+    { "date": "2026-06-18/19", "event": "Monthly OPEX (26.8% of INTC OI)", "impact": "?" },
+    { "date": "2026-07-23", "event": "INTC Q2 earnings", "impact": "?" }
+  ],
+  "key_risks": [
+    "Distribution-into-strength: every fair-value anchor (target $99.98, max-pain $110-112, 200-SMA -137%) sits below spot; flow not confirming price",
+    "FOMC 6/17 inside OPEX + negative vanna (post-OPEX IV crush) can unpin INTC and the euphoric semi cohort (MU +281%, MRVL +263% YTD) together",
+    "Stretched valuation: unprofitable TTM (net margin -5.9%), 11.9x sales, ~83x fwd P/E, insiders not buying at $128",
+    "Crowded long + complacent call-skew; no squeeze fuel (SI 3.18%, 1.05 dtc) so upside needs continued real buying"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net_flow -$1.16M flat (bull $229.9M ~= bear $231.0M)",
+    "[STRUCT:gex] regime POSITIVE, largest gamma pin $130 (+$15.3M net_gex)",
+    "[INSIGHT:price_vs_flow] DIVERGENCE — price +33.5% but net flow bearish",
+    "[HIST:perf fz] +246.5% YTD, analyst target $99.98 (-22%)",
+    "[FLOW:sweep_persistence] 5-day bullish sweep persistence $1.23B, consistency 1.0",
+    "[DEBATE] disconfirmed — bull_residual 0.55 vs bear_residual 0.65"
+  ],
+  "confluence_score": 68,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

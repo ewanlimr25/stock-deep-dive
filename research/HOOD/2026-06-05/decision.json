@@ -1,0 +1,114 @@
+{
+  "ticker": "HOOD",
+  "date": "2026-06-05",
+  "generated": "2026-06-07T14:15:00-04:00",
+  "bias": "SHORT",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 82.47,
+  "thesis": "Five-session bearish sweep campaign ($317.8M, consistency 1.0 [FLOW:sweep_persistence]) into a short-gamma book (spot 6.5% below ZGL 87.45 [STRUCT:gex]) with Jun-18 max-pain gravity at 80 on 21.39% of chain OI [STRUCT:max_pain][OI:term_structure], macro headwind (TRANSITIONAL regime, hike repricing [MACRO:MarketRegime_2026-06-05 UW][MACRO:PAYEMS_2026-05 FRED]) and an 87.5% (N=8) bearish_flow base rate [HIST:signal_backtest] — but fundamentals VETO the naked short (Malka ~$36M dip-buy at 80.39-83.45, +41.5% revenue franchise [FUND:insider_transactions][FUND:metric]); defined-risk carry only, targeting the drift from ~82.5 into the 80 magnet by Jun-18 OPEX.",
+  "entries": {
+    "primary": { "price": 82.75, "trigger": "rejection at Jun-12 max-pain 83 / DP shelf 82.85 (zone 82.50-83.00)", "source": "[STRUCT:max_pain][DP:price_levels]" },
+    "aggressive": { "price": 84.75, "trigger": "fade relief pop into the 85 call wall / DP 84.50 cluster (zone 84.50-85.00)", "source": "[OI:oi_by_strike][DP:price_levels]" },
+    "fade": { "price": 87.45, "trigger": "reclaim-and-hold of ZGL flips dealers long-gamma; counter-trade long toward the 90 wall", "source": "[STRUCT:gex][OI:oi_by_strike]" }
+  },
+  "levels": { "support": 80.0, "resistance": 85.0, "gamma_flip": 87.45, "largest_pin": 80.0 },
+  "invalidation": {
+    "price": "two daily closes above 85.00 (call-wall shelf [OI:oi_by_strike] + DP 84.50/86.24 clusters [DP:largest]), or single intraday reclaim-and-hold of 87.45 (ZGL [STRUCT:gex]); exit = hard stop, close 100%",
+    "signal": "daily net options flow bullish >= +$5M for 2 consecutive sessions [HIST:cumulative_premium_flow], or DP block-tier buy_ratio >= 0.60 on any session [DP:block_stratified], or conviction-matrix flips to DIRECTIONAL_LONG [INSIGHT:conviction_matrix]",
+    "macro": "dovish FOMC surprise 2026-06-17 [MACRO:FOMC_2026-06-17], or confirmed SpaceX-IPO-access headline gapping HOOD above 85 [SENT:company_news][DEBATE:strongest_bear_point]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.0,
+    "raw_kelly": 0.5,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear put debit spread (fundamentals-vetoed, carry only)",
+      "strikes": "84/80",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.2,
+      "breakeven": 81.8,
+      "max_loss": 2.2,
+      "note": "short wing 80 = Jun-18 max-pain magnet + GEX shelf; long wing 84 at the DP shelf; debit indicative off 78.3% Jun-18 IV — VRP -0.0858 PREMIUM_BUYING regime and COMPLACENT skew (25d puts 67.4% vs calls 71.7%) make the put side the cheap instrument; premium at risk <= 1.25% of book"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call credit spread",
+      "strikes": "86/90",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.4,
+      "breakeven": 87.4,
+      "max_loss": 2.6,
+      "note": "short strike 86 = call wall (net_oi +16,953 <=30DTE); breakeven 87.40 sits at the 87.45 ZGL; alternative to (not alongside) the put spread, same <= 1.25% budget"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 33,
+    "iv_rank": 49.59,
+    "self_pctile_net_dir": 7.7
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.727,
+    "front_expiry_abs": 0.6,
+    "source": "[CTX:implied_move_pct] — caveat: realized daily swings ran +/-6% in the as-of week [HIST:trend]; structures sized to the realized band"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:PAYEMS_2026-05 FRED] payrolls +172k vs ~80k est -> hike repricing (~70% by Dec)",
+      "[MACRO:VIX_2026-06-05 UW] VIX 15.40 -> 21.51 on the as-of day",
+      "[MACRO:sector_flow UW] Tech-cohort outflow -$807.6M; 5-session tilt deceleration -71%",
+      "[MACRO:PCEPILFE_2026-04 FRED] core PCE +3.29% YoY - sticky",
+      "[MACRO:UMich_2026-05 WebSearch] record-low consumer sentiment 44.8"
+    ],
+    "headwinds": [
+      "[MACRO:analyst WebSearch:marketbeat.com] DB PT raise 88->98 on the as-of day",
+      "[SENT:company_news] SpaceX-IPO-access catalyst window (gap-up risk)",
+      "[MACRO:sector_flow UW] Financials tilt mildly bid +$150.7M if HOOD re-couples",
+      "[MACRO:MarketRegime UW] TRANSITIONAL is wait-for-clarity, not RISK-OFF"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release (approx date)", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC + Warsh presser (T-1 to OPEX)", "impact": "?" },
+    { "date": "2026-06-18", "event": "Jun OPEX - 21.39% of HOOD OI, max-pain 80", "impact": "+" },
+    { "date": "2026-06-15", "event": "SpaceX IPO access window via HOOD (date fluid, mid-June)", "impact": "-" },
+    { "date": "2026-07-29", "event": "Q2 earnings (outside structure expiry)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Disclosed ~$36M insider buying (Malka/Ribbit) at 80.39-83.45 sits inside the short's profit zone while a SpaceX-IPO-access headline can gap a 4.96%-SI name any day [DEBATE:strongest_bear_point]",
+    "The bearish premium is mostly sold calls (24/25 bid-side sweep lines) - possibly covered-call income after +29% May, which caps upside without forcing downside [FLOW:sweeps][SENT:cohort_split DUCKDB]",
+    "FOMC 6/17 is a live-hike binary T-1 before the OPEX the whole trade leans on - dovish surprise unwinds the drift instantly [MACRO:FOMC_2026-06-17]"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] 5/5 sessions bearish-dominant, consistency 1.0, total_sweep_premium $317,794,122",
+    "[STRUCT:max_pain] Jun-18 max_pain_strike 80, distance_pct -3.0, total_oi 391,214",
+    "[HIST:signal_backtest] bearish_flow win_rate 87.5%, total_signals 8, avg_move_pct -2.73",
+    "[MACRO:MarketRegime_2026-06-05 UW] TRANSITIONAL - reduce position size; breadth 29.4% bullish",
+    "[FUND:insider_transactions] Malka 249,000 sh @ 80.3944 (05-28) + 181,000 @ 83.4467 (06-03)",
+    "[DEBATE:strongest_bear_point] insider buying in profit zone + SpaceX gap risk; residuals 0.65 vs 0.55"
+  ],
+  "confluence_score": 66,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

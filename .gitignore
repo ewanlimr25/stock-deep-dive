@@ -1,14 +1,6 @@
-research/*
-!research/.gitkeep
-
-# Trade plans + evals — personal trade data, kept local (mirrors research/).
-# The reasoning ledger IS versioned: it is the learning store the skills improve.
-trade-plans/*
-!trade-plans/.gitkeep
-!trade-plans/_eval/
-trade-plans/_eval/*
-!trade-plans/_eval/.gitkeep
-!trade-plans/_eval/reasoning-ledger.md
+# research/ (deep-dive runs) and trade-plans/ (plans + evals) are versioned as of
+# 2026-09-20: they are the record the replacement engine's ledger is seeded from
+# (see findings/stock-deep-dive, DECISIONS.md D8 and D14).
 
 # Audit deep-dives — kept local, not committed.
 docs/audit/

@@ -1,0 +1,97 @@
+{
+  "ticker": "FSLR",
+  "date": "2026-07-20",
+  "generated": "2026-07-20T21:30:00Z",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 206.0,
+  "thesis": "A 5-session persistent bearish sweep campaign (consistency 1.0, $16.3M) [FLOW:sweep_persistence] riding a FULLY_NEGATIVE short-gamma book with DEX -$226M [STRUCT:gex][STRUCT:dex] into the tail of a -26.4% downtrend at its period low $203.77 [HIST:trend] is a real but low-conviction, two-sided earnings coin-flip that fights a cheap 12.3x-forward compounder [FUND:valuation] and a live vanna-squeeze bid if $200 holds [STRUCT:vanna_charm]; the debate came back disconfirmed [DEBATE], so trade small and defined-risk only.",
+  "entries": {
+    "primary": { "price": 205.0, "trigger": "daily close below the $205.31 DP shelf ($200 is the short-gamma acceleration strike)", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 211.0, "trigger": "rejection at the $211.99 DP pivot — fade the pre-earnings bounce", "source": "[DP:price_levels]" },
+    "fade": { "price": 220.0, "trigger": "daily close above $220 = vanna squeeze confirmed — flip long, target $230", "source": "[STRUCT:vanna_charm]" }
+  },
+  "levels": { "support": 205.31, "resistance": 220.0, "gamma_flip": 200.0, "largest_pin": 220.0 },
+  "invalidation": {
+    "price": "daily close >$212 (partial, cut half) or >$220 (full — vanna squeeze)",
+    "signal": "bearish sweep persistence breaks (consistency <0.6 or flow flips ask-side call buying) or GEX flips POSITIVE [STRUCT:gex]",
+    "macro": "strong 07-30 earnings/guidance beat or favorable solar-policy catalyst (FEOC/45X, tariff escalation) [MACRO:SolarPolicy]"
+  },
+  "sizing": {
+    "p_raw": 0.90,
+    "p": 0.85,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.14,
+    "raw_kelly": 0.78,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "205/190",
+      "expiry": "2026-08-21",
+      "debit_credit": 5.5,
+      "breakeven": 199.5,
+      "max_loss": 5.5,
+      "note": "short $190 leg offsets vega into IV rank 99 / VRP +0.19; $190 = neg-gamma trough; earnings-safe (debit = whole risk)"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call credit spread",
+      "strikes": "220/230",
+      "expiry": "2026-08-21",
+      "debit_credit": -3.0,
+      "breakeven": 223.0,
+      "max_loss": 7.0,
+      "note": "sells rich upside vol at the $220 vanna cap below the $240 call wall; profits if FSLR stays <$220"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 45,
+    "iv_rank": 99.1,
+    "self_pctile_net_dir": 15.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 5.31,
+    "front_expiry_abs": 10.89,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_rotation] Technology #1 outflow sector -$133.9M, persistence 0.8", "[MACRO:MarketRegime] TRANSITIONAL/CHOPPY, 34% bullish, half-size guidance"],
+    "headwinds": ["[MACRO:SolarPolicy] >100% China tariff wall + FEOC/CdTe 45X advantage could drive an earnings beat", "[MACRO:DGS10] rates stable (3.63% on hold) — no fresh tightening to press solar"]
+  },
+  "catalysts": [
+    { "date": "2026-07-30", "event": "FSLR Q2 earnings AMC (cons EPS $2.85, -10% YoY)", "impact": "?" },
+    { "date": "2026-08-13", "event": "CPI (Jul) release", "impact": "?" }
+  ],
+  "key_risks": [
+    "Vanna-squeeze bid: if $200 holds through earnings, dealers covering short puts buy underlying hard into $215-220 [STRUCT:vanna_charm]",
+    "Cheap (12.3x fwd) + 27% growth + D/E 0.03 + solar-policy tailwind = strong mean-reversion/squeeze risk against the short [FUND:valuation]",
+    "Much of the bearish flow is call-selling/vol-harvest and FSLR is absent from both confluence top-40 — thin, unconfirmed edge [INSIGHT:signal_confluence]"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] 5-session persistent bearish sweep campaign, consistency 1.0, $16.3M",
+    "[STRUCT:dex] net DEX -$226M, dealers hedge by selling underlying; [STRUCT:gex] FULLY_NEGATIVE short gamma",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.90 (n=10); [HIST:trend] -26.4% 30-session downtrend"
+  ],
+  "confluence_score": 45,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

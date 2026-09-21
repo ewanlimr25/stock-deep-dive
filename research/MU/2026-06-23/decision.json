@@ -1,0 +1,101 @@
+{
+  "ticker": "MU",
+  "date": "2026-06-23",
+  "generated": "2026-06-23T21:30:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 1051.77,
+  "thesis": "MU prints postmarket 2026-06-24 as the market's #1 net-bearish premium name [CTX:universe_rank_net_dir] yet on a balanced two-sided tape (net flow only -$145.2M, PCR 1.013 [FLOW:insights_deep_dive]) over exceptional accelerating fundamentals (EPS +412% YoY, 100% beat rate, PEG 0.287 [FUND:earnings_surprise]) — no directional edge, only a volatility event. The dealer book flipped to short gamma today with ZGL 1495.2 far above spot [STRUCT:gex], so the priced +/-10.91% move [CTX:implied_move_pct] will trend not pin, and all five desk agents reject a side [AGENT:phase-8]. The only trade is a small, defined-risk expression of the certain post-print IV crush — not a long or a short.",
+  "entries": {
+    "primary": { "price": 1050.0, "trigger": "establish defined-risk condor into the close, price holding the max-pain pivot zone $1043-1058", "source": "[STRUCT:max_pain]" },
+    "aggressive": { "price": 1031.0, "trigger": "dip to DP support shelf pre-print, leg the bullish call spread (fundamentals dip-buy)", "source": "[DP:price_levels]" },
+    "fade": { "price": 1000.0, "trigger": "break of put-wall POST-PRINT only with short-gamma acceleration -> momentum-short toward $950 (no pre-print short, 7b VETO)", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 1043.19, "resistance": 1133.99, "gamma_flip": 1495.2, "largest_pin": 1050.0 },
+  "invalidation": {
+    "price": "post-print MU gaps and HOLDS outside the +/-10.91% band ($937-$1166); for the call spread, a close below $1000 put-wall kills the bullish leg",
+    "signal": "post-print dark-pool flips to intraday mega-distribution (mega buy_ratio < 0.40) OR DEX flips negative as price breaks $1000 [STRUCT:dex]",
+    "macro": "semis/AI-capex risk-off accelerates — Tech extends -3.94% while SPY breaks its 50-DMA $732 [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 0.889,
+    "p": 0.75,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.47,
+    "raw_kelly": -0.24,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bull call debit spread (OPTIONAL/small — fundamentals-aligned, only if leaning long on a beat)",
+      "strikes": "1080/1200",
+      "expiry": "2026-07-17",
+      "debit_credit": 50.0,
+      "breakeven": 1130.0,
+      "max_loss": 50.0,
+      "note": "short leg = $1200 call-wall [OI:oi_by_strike]; spread not naked call to blunt IV-100 crush; illustrative debit, no live quote; base recommendation is NEUTRAL"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (BASE recommendation — short the IV-100 crush, range-bound)",
+      "strikes": "905/935P + 1170/1200C",
+      "expiry": "2026-06-26",
+      "debit_credit": -11.0,
+      "breakeven": "924 / 1181",
+      "max_loss": 19.0,
+      "note": "short 935P/1170C just outside the $937/$1166 expected-move band; long 905P/1200C define risk; 06-26 = 19.4%-OI gravity expiry; max-loss sized <= ~1.0% book risk; half/starter — move can exceed +/-10.9%"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 1,
+    "iv_rank": 100.0,
+    "self_pctile_net_dir": 0.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 10.91,
+    "front_expiry_abs": 114.7,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:sector_flow_persistence] Tech 5-day net inflow persistence 0.8", "[MACRO:CPILFESL] core CPI +2.82% YoY benign", "[MACRO:T10Y2Y] 2s10s +0.34 normal curve"],
+    "headwinds": ["[MACRO:MarketRegime] TRANSITIONAL — half size, defined-risk, iron condors", "[MACRO:group_valuation fz] Tech -3.94% today", "[MACRO:sector_flow] semis net directional outflow -$546.7M", "[MACRO:DGS10] 10y 4.51% valuation drag"]
+  },
+  "catalysts": [
+    { "date": "2026-06-24", "event": "MU fiscal-Q3 earnings (postmarket, ±10.91% priced)", "impact": "?" },
+    { "date": "2026-06-26", "event": "post-earnings weekly OPEX (max-pain $1050, 19.4% OI, PCR 2.13)", "impact": "?" }
+  ],
+  "key_risks": [
+    "short-gamma band-breach: a name that realized -11.9% on a normal pre-print day with ZGL 1495 >> spot can pierce condor short strikes — implied ±10.9% is a floor not a ceiling [STRUCT:gex]",
+    "insider MSPR -77 to -100 all year = distribution into the +268% run [FUND:insider_mspr]",
+    "AI-capex/memory-selloff narrative could carry the whole semis complex regardless of MU's number [SENT:company_news]"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net flow -$145.2M, PCR 1.013",
+    "[STRUCT:gex] GEX NEGATIVE, ZGL 1495.2 >> spot 1053.58",
+    "[STRUCT:max_pain] 06-26 max-pain $1050 (-0.13%)",
+    "[FUND:earnings_surprise] 100% beat rate (4/4), EPS +412% YoY, PEG 0.287",
+    "[CTX:implied_move_pct] ±10.91% expected move",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.889 (n=9)",
+    "[AGENT:phase-8] 5-of-5 reject a direction; earnings-scout RANGE conv 4"
+  ],
+  "confluence_score": 38,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

@@ -1,0 +1,109 @@
+{
+  "ticker": "AAPL",
+  "date": "2026-05-27",
+  "generated": "2026-05-28T04:10:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 310.85,
+  "thesis": "AAPL's bullish tape is a busy-name mirage — net flow only +$17.4M at 0.53 call ask-frac [FLOW:insights_deep_dive], the 7/2 310C is a 49.5/50.5 spread, and the dark-pool buy skew is a 23-second closing-cross artifact [DP:extended_hours] — while dealers are long gamma with a +$109M wall pinning spot at 310 [STRUCT:gex]. Overbought (RSI 78.85) at the 52W high after +24% [HIST:rsi fz] with insiders selling (MSPR -100) into a crowded-long, 0.95%-SI tape, inside a TRANSITIONAL reduce-size/range regime [MACRO:MarketRegime_2026-05-27]. Not a directional long — a range-to-fade-strength setup; harvest the 310 pin with defined risk, do not chase.",
+  "entries": {
+    "primary": { "price": 310.85, "trigger": "initiate the iron condor with spot within +/-1% of the 310 gamma magnet (long-gamma pins it)", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 315.0, "trigger": "leg into the call side (short 317.5/322.5) on a tag of the 315 gamma wall that fails to break on vol_x>1.2", "source": "[STRUCT:gex]" },
+    "fade": { "price": 304.99, "trigger": "if price pulls into the $304.99 DP support cluster and holds, residual bullish flow + tech inflow support a bounce-to-pin long — counter-trade", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 305.0, "resistance": 315.0, "gamma_flip": 297.0, "largest_pin": 310.0 },
+  "invalidation": {
+    "price": "two daily closes outside the 302-320 range; intraday break below ~297 (ZGL) with no reclaim is a hard kill",
+    "signal": "GEX regime flips POSITIVE->NEGATIVE on daily refresh (spot loses 297), or institutional-accumulation flips to DISTRIBUTION [STRUCT:gex]",
+    "macro": "hawkish May-CPI (~2026-06-10) or hawkish FOMC (~2026-06-17) vs consensus, or UW regime flip to RISK-OFF [MACRO:CPIAUCSL_2026-04]"
+  },
+  "sizing": {
+    "p_raw": 0.857,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.5,
+    "raw_kelly": 0.583,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (fade-to-pin, small/token)",
+      "strikes": "312.5/305",
+      "expiry": "2026-06-12",
+      "debit_credit": 2.3,
+      "breakeven": 310.2,
+      "max_loss": 2.3,
+      "note": "expresses fade-strength lean as defined-risk directional; ~0.5% book; NOT the recommended primary (bias RANGE); 6/12 avoids the 7/30 earnings"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (RECOMMENDED primary — pin harvest)",
+      "strikes": "300/305 - 317.5/322.5",
+      "expiry": "2026-06-12",
+      "debit_credit": -1.3,
+      "breakeven": "303.7 / 318.8",
+      "max_loss": 3.7,
+      "note": "sells the 305-317.5 range around the 310 +$109M gamma wall; front expected move only +/-1.19% inside the shorts; ~1.0% book max-loss; cheap IV = thin credit"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "AAPL-NVDA @ 0.736",
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 9,
+    "iv_rank": 32.05,
+    "self_pctile_net_dir": 71.9
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.19,
+    "front_expiry_abs": 3.69,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology persistent inflow, persistence 1.0 ($4.3B->$8.5B/5d)",
+      "[MACRO:MarketRegime_2026-05-27] SPY uptrend +4.93% 30d, above 20/50 SMA"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-05-27] TRANSITIONAL regime, weak breadth 37.1% bullish",
+      "[MACRO:CPIAUCSL_2026-04] CPI re-accelerating 3.78% YoY (+0.64% MoM), hawkish 8-4 Fed",
+      "[MACRO:DGS10_2026-05-26] 10y at 4.50% — duration drag on a 37.6x-PE name"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC (next meeting)", "impact": "?" },
+    { "date": "2026-07-30", "event": "AAPL Q3 earnings (OUTSIDE window; structures expire 6/12)", "impact": "?" }
+  ],
+  "key_risks": [
+    "CROWDED_LONG: RSI 79, ~0.95% short interest, complacent skew — no bears to fuel a flush, fade can bleed time vs the pin",
+    "Distribution-into-strength: insiders selling (MSPR -100) into retail 0DTE call demand",
+    "Long-gamma pin at 310 suppresses any directional move; IV 6th percentile poorly compensates the condor credit",
+    "AAPL-NVDA 0.736 correlation cluster — concurrent NVDA long would be one undiversified tech-beta bet",
+    "Upside break: a close >315 on vol_x>1.2 flips range to breakout (the bear's own ceiling)"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net flow +$17.4M, call ask-frac 0.53",
+    "[STRUCT:gex] dealers long gamma, dominant +$109M wall at 310, ZGL ~297",
+    "[HIST:rsi fz] RSI 78.85, -0.31% from 52W high, +24% window",
+    "[DP:extended_hours] DP mega buy 0.867 is a 23-sec closing-cross artifact, rank 14",
+    "[MACRO:portfolio_correlation DUCKDB] AAPL-NVDA 0.736 cluster"
+  ],
+  "confluence_score": 60,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

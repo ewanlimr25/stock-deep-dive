@@ -1,0 +1,143 @@
+{
+  "ticker": "NBIS",
+  "date": "2026-06-17",
+  "generated": "2026-06-17T18:00:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 280.91,
+  "thesis": "The only clean long is mechanical: Nasdaq-100 forced inclusion effective 2026-06-22 [MACRO:NDX_inclusion_2026-06-22] on a 5/5-session $722.4M bullish sweep campaign [FLOW:sweep_persistence] into a chart that is making new 52-week highs with a bullish MA stack [CHART:ma_stack] -- but the underlying is being distributed into that strength (mega-tier dark pool 93.6% sell [DP:block_stratified], insider MSPR -100 [FUND:MSPR]) and the firing signal is edge-negative [HIST:signal_backtest], so this is a defined-risk, event-gated starter only.",
+  "reasons_for": [
+    "Mechanical forced bid: Nasdaq-100 inclusion effective 2026-06-22 is valuation-agnostic buying [MACRO:NDX_inclusion_2026-06-22], riding a 5/5-session $722.4M bullish sweep campaign [FLOW:sweep_persistence] with a dealer dip-bid DEX +$2.88bn [STRUCT:dex]",
+    "Price structure is intact-bullish: bullish MA stack 280.91 > 50d 193.96 > 200d 123.94 [CHART:ma_stack], uptrend higher-highs/higher-lows [CHART:market_structure], spot has cleared the 2026-06-02 swing high 278.84 into new 52-week highs [CHART:swing_high]",
+    "Technology sector 5-day net inflow, persistence 0.8 [MACRO:sector_flow_persistence]"
+  ],
+  "reasons_against": [
+    "Distribution into strength -- the lit bullish flow is partly exit liquidity: mega-tier dark pool buy_ratio 0.064 (93.6% sell) [DP:block_stratified], insider MSPR -100 with a ~1.04M-share May sale [FUND:MSPR]",
+    "Edge-negative signal: bullish_flow backtests 37.5% (n=8, avg move -0.58%) [HIST:signal_backtest] -- history is against the long",
+    "Sell-the-news + vanna vol-crush: 2026-06-22 is the LAST identifiable forced bid; IV rank 91 [CTX:iv_rank] means a negative-vanna crush post-OPEX can flip the dealer dip-bid to selling [STRUCT:vanna]; price is parabolic +127% vs the 200d [CHART:dist_to_sma200_pct]",
+    "Crowded long and the bull/bear debate was disconfirmed [DEBATE:bear_residual]"
+  ],
+  "levels": {
+    "support": 267.5,
+    "resistance": 300.0,
+    "gamma_flip": null,
+    "largest_pin": 267.5,
+    "moving_averages": [
+      { "name": "sma20", "level": 233.76 },
+      { "name": "sma50", "level": 193.96 },
+      { "name": "sma200", "level": 123.94 }
+    ],
+    "fib_levels": { "0.236": 244.97, "0.382": 212.21, "0.5": 185.72 },
+    "key_levels": [
+      { "level": 278.84, "role": "trigger", "source": "[CHART:swing_high]", "note": "2026-06-02 swing high; hold above = breakout intact" },
+      { "level": 300.0, "role": "resistance", "source": "[OI:oi_by_strike]", "note": "$300 call wall = first target / short-strike anchor" },
+      { "level": 267.5, "role": "support", "source": "[STRUCT:max_pain]", "note": "OPEX pin + deep-dive support; close below = thesis broken" },
+      { "level": 256.62, "role": "stop", "source": "[CHART:atr14]", "note": "1x ATR(24.29) below spot" },
+      { "level": 200.3, "role": "support", "source": "[CHART:swing_low]", "note": "2026-06-09 swing low; higher-timeframe invalidation" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "double_bottom", "direction": "bullish", "confidence": "low", "measured_target": null, "invalidation": 198.31, "note": "the 198-200 base that launched the parabola -- already played out, NOT a fresh entry", "source": "[CHART:double]" },
+    { "pattern": "elliott_impulse", "direction": "neutral", "confidence": "none", "measured_target": null, "invalidation": null, "note": "engine count is internally inconsistent (impulse-up label but projection 244 below spot); 2/3 rules, wave-4 overlap -- discarded, yields to flow+structure", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-06-18", "event": "June OPEX (26.7% of OI on this expiry); positive-gamma pin + vanna unwind", "impact": "?", "source": "[OI:opex_concentration]" },
+    { "date": "2026-06-22", "event": "Nasdaq-100 inclusion effective -- forced buying, then sell-the-news risk", "impact": "+", "source": "[MACRO:NDX_inclusion_2026-06-22]" },
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "-", "source": "[MACRO:CPI]" },
+    { "date": "2026-08-06", "event": "NBIS earnings (beyond this horizon)", "impact": "?", "source": "[FUND:next_earnings]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes below the 267.5 pin/support [STRUCT:max_pain]; a close below 256.62 (1 ATR) negates the event long outright [CHART:atr14]",
+    "signal": "the 5/5 bullish sweep campaign drops out of top sweeps OR DEX dip-bid flips negative as mega-DP selling accelerates post-inclusion [STRUCT:dex]",
+    "macro": "hot June CPI on 2026-07-15 / hawkish re-assertion, or sell-the-news after the 2026-06-22 inclusion [MACRO:CPI]"
+  },
+  "sizing": {
+    "p_raw": 0.375, "p": 0.375, "win_rate_n": 8, "win_rate_source": "backtest",
+    "payoff_b": 1.73, "raw_kelly": 0.014, "fraction": 0.25, "cap_pct": 5.0,
+    "final_size_pct": 0.3, "deviation_reason": null
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 281.0,
+    "entry_trigger": "only on a hold above the 278.84 breakout into the 2026-06-22 inclusion; do NOT chase if it loses 267.5; this is an event trade, not a trend entry",
+    "stop": 267.4,
+    "targets": [
+      { "price": 300.0, "rationale": "$300 call wall / round number", "take_pct": 70 },
+      { "price": 310.0, "rationale": "extension if inclusion buying overshoots", "take_pct": 30 }
+    ],
+    "r_multiple_to_t1": 1.4,
+    "size_pct_book": 0.3,
+    "thesis_one_liner": "Tiny, event-gated long for the 6/22 forced-inclusion bid; stop under the 267.5 pin; take most off at the 300 wall before the sell-the-news/vanna-crush risk."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "290/300",
+      "expiry": "2026-06-26",
+      "target_date": "2026-06-22",
+      "target_price": 300.0,
+      "debit_credit": 3.5,
+      "breakeven": 293.5,
+      "max_loss": 3.5,
+      "est_payoff_at_target": 6.5,
+      "size_pct_book": 0.3,
+      "note": "tiny event-box on the 6/22 inclusion; short strike at the $300 call wall caps the rich IV (rank 91); max loss = debit"
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "iron condor",
+      "strikes": "255/265 put + 300/310 call",
+      "expiry": "2026-06-26",
+      "target_date": "2026-06-26",
+      "target_price": 280.0,
+      "debit_credit": -3.3,
+      "breakeven": "261.70 / 303.30",
+      "est_payoff_at_target": 3.3,
+      "max_loss": 6.7,
+      "size_pct_book": 0.5,
+      "note": "the higher-EV expression here: harvest IV rank 91 in the positive-gamma mean-reversion zone; wings beyond the expected move (+/-4.86%, $13.66)"
+    }
+  ],
+  "gap_audit": {
+    "completeness": 92,
+    "have": ["options flow (sweeps 5/5)", "dark pool (block-stratified)", "OI/positioning", "dealer GEX/DEX/vanna", "historical signal-backtest", "macro + sector rotation", "fundamentals (MSPR)", "sentiment/crowd", "bull/bear debate", "OHLCV chart + patterns", "event calendar", "expected move + IV rank"],
+    "missing": [
+      { "item": "reused gamma_flip level is 34.64 -- implausible for a $280 stock (scale/data artifact)", "severity": "important", "how_to_source": "re-run `uw options-structure gex --symbol NBIS --dte-max 45 --json` to get the real zero-gamma level before trusting any gamma-flip trigger" },
+      { "item": "live intraday tape for 6/22 inclusion timing", "severity": "nice_to_have", "how_to_source": "`uw options-flow sweeps --symbol NBIS` + intraday yfinance on the event day" },
+      { "item": "live borrow/HTB to size the squeeze risk", "severity": "nice_to_have", "how_to_source": "`fz quote NBIS --agent` (semi-monthly SI) + broker borrow-fee" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/NBIS/2026-06-17/",
+    "deep_dive_age_days": 0,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": ["L-0001: event/momentum long sized starter; defined-risk preferred until the inclusion bid confirms and holds the 278.84 breakout"]
+  },
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "confluence_score": null,
+  "key_risks": [
+    "distribution-into-strength: lit bullish flow is partly exit liquidity for insiders + mega-DP 93.6% sell",
+    "6/22 inclusion is the last identifiable forced bid; sell-the-news + hawkish macro re-assert after",
+    "negative-vanna vol-crush (IV rank 91) flips the dealer dip-bid to selling post-OPEX",
+    "edge-negative signal (37.5% win, n=8) into a parabolic +127%-vs-200d extension"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] NBIS top sweeps 5/5 sessions, consistency 1, $722.4M (research/NBIS/2026-06-17/phase-1-flow.md)",
+    "[DP:block_stratified] mega-tier dark pool buy_ratio 0.064 (93.6% sell), $158.5M (research/NBIS/2026-06-17/phase-2-dark-pool.md)",
+    "[CHART:ma_stack] bullish stack 280.91 > 50d 193.96 > 200d 123.94, 0.0% off the 52-week high (chart.json)",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.375 (n=8), avg move -0.58% (research/NBIS/2026-06-17/phase-5-historical.md)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

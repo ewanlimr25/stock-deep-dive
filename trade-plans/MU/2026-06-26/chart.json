@@ -1,0 +1,246 @@
+{
+  "available": true,
+  "ticker": "MU",
+  "as_of": "2026-06-26",
+  "source": "yfinance",
+  "source_note": "372 daily sessions via yfinance",
+  "indicators": {
+    "spot": 1213.56,
+    "sessions": 372,
+    "sma20": 1024.97,
+    "sma50": 788.62,
+    "sma200": 420.85,
+    "ema9": 1089.35,
+    "ema21": 1004.63,
+    "ma_stack": "bullish_stack",
+    "dist_to_sma50_pct": 53.88,
+    "dist_to_sma200_pct": 188.36,
+    "rsi14": 64.54,
+    "rsi_state": "neutral",
+    "atr14": 95.41,
+    "atr_pct": 8.53,
+    "macd_hist": 2.571,
+    "macd_state": "bullish",
+    "bb_upper": 1212.18,
+    "bb_lower": 837.76,
+    "vol_last": 82143900.0,
+    "vol_avg20": 56300260.0,
+    "vol_vs_avg": 1.46,
+    "high_52w": 1213.56,
+    "low_52w": 104.88,
+    "pct_off_52w_high": 0.0,
+    "pct_above_52w_low": 1057.09
+  },
+  "trend": {
+    "regression_slope": 14.315,
+    "slope_pct_per_day": 1.19,
+    "direction": "up",
+    "market_structure": "uptrend_HH_HL",
+    "lookback_sessions": 60
+  },
+  "recent_pivots": [
+    {
+      "i": 296,
+      "date": "2026-03-09",
+      "price": 357.67,
+      "kind": "low"
+    },
+    {
+      "i": 303,
+      "date": "2026-03-18",
+      "price": 471.34,
+      "kind": "high"
+    },
+    {
+      "i": 312,
+      "date": "2026-03-31",
+      "price": 311.49,
+      "kind": "low"
+    },
+    {
+      "i": 325,
+      "date": "2026-04-20",
+      "price": 435.9,
+      "kind": "low"
+    },
+    {
+      "i": 340,
+      "date": "2026-05-11",
+      "price": 818.67,
+      "kind": "high"
+    },
+    {
+      "i": 346,
+      "date": "2026-05-19",
+      "price": 652.21,
+      "kind": "low"
+    },
+    {
+      "i": 356,
+      "date": "2026-06-03",
+      "price": 1089.29,
+      "kind": "high"
+    },
+    {
+      "i": 360,
+      "date": "2026-06-09",
+      "price": 854.35,
+      "kind": "low"
+    }
+  ],
+  "support_resistance": [
+    {
+      "level": 437.19,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -63.97,
+      "last_touch": "2026-04-20"
+    },
+    {
+      "level": 114.2,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -90.59,
+      "last_touch": "2025-09-02"
+    },
+    {
+      "level": 107.58,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -91.13,
+      "last_touch": "2025-07-22"
+    },
+    {
+      "level": 258.82,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -78.67,
+      "last_touch": "2025-11-17"
+    },
+    {
+      "level": 222.51,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -81.66,
+      "last_touch": "2025-12-17"
+    },
+    {
+      "level": 216.07,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -82.19,
+      "last_touch": "2025-11-04"
+    },
+    {
+      "level": 192.5,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -84.14,
+      "last_touch": "2025-11-21"
+    },
+    {
+      "level": 129.22,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -89.35,
+      "last_touch": "2025-08-13"
+    }
+  ],
+  "fibonacci": {
+    "available": true,
+    "swing_high": 1255.0,
+    "swing_low": 294.86,
+    "swing_direction": "up",
+    "retracements": {
+      "0.236": 1028.41,
+      "0.382": 888.23,
+      "0.500": 774.93,
+      "0.618": 661.63,
+      "0.786": 500.33
+    },
+    "extensions": {
+      "1.272": 1516.16,
+      "1.618": 1848.37
+    }
+  },
+  "patterns": {
+    "flag": {
+      "detected": false
+    },
+    "head_shoulders": {
+      "detected": false
+    },
+    "double": {
+      "detected": false
+    },
+    "triangle": {
+      "detected": false
+    },
+    "cup_handle": {
+      "detected": false
+    },
+    "elliott_wave": {
+      "detected": false,
+      "note": "pivot sequence not cleanly alternating"
+    }
+  },
+  "patterns_detected": [],
+  "levels_to_watch": {
+    "spot": 1213.56,
+    "nearest_support": 437.19,
+    "nearest_resistance": null,
+    "supports": [
+      {
+        "level": 437.19,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -63.97,
+        "last_touch": "2026-04-20"
+      },
+      {
+        "level": 114.2,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -90.59,
+        "last_touch": "2025-09-02"
+      },
+      {
+        "level": 107.58,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -91.13,
+        "last_touch": "2025-07-22"
+      }
+    ],
+    "resistances": [],
+    "moving_averages": [
+      {
+        "name": "sma50",
+        "level": 788.62
+      },
+      {
+        "name": "sma200",
+        "level": 420.85
+      },
+      {
+        "name": "ema21",
+        "level": 1004.63
+      }
+    ],
+    "fib_levels": {
+      "0.236": 1028.41,
+      "0.382": 888.23,
+      "0.500": 774.93,
+      "0.618": 661.63,
+      "0.786": 500.33
+    }
+  },
+  "stops": {
+    "available": true,
+    "atr": 95.41,
+    "long_stop_1atr": 1118.15,
+    "long_stop_1_5atr": 1070.44,
+    "short_stop_1atr": 1308.97,
+    "short_stop_1_5atr": 1356.67
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "ticker": "NOW",
+  "date": "2026-07-17",
+  "generated": "2026-07-19T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 103.24,
+  "thesis": "No directional edge into 7/22: bullish_flow win-rate 14.3% (n=7, avg -7.38%) [HIST:signal_backtest], delta-neutral tape (-$89k) with Jan-2027 puts sold at bid [FLOW:top_premium_trades], and UW composite reads COVERED_CALL 'DP buying + call selling, capping upside' [INSIGHT:conviction_matrix]. The real edge is short-vol (IV pctile 98.5, VRP +18.9) into a ~+/-11% event, but decelerating earnings (+13.4->-0.3% miss), an 89%-Buy crowd on a -51% name, and a disconfirmed debate (bear 0.70 >= bull 0.60) argue stand-aside / minimal defined-risk that sells the tails and owns the cheap downside.",
+  "entries": {
+    "primary": { "price": 104.5, "trigger": "sell into a tag of the negative-gamma pocket / max-pain, vol richest and upside capped by the $110 wall", "source": "[STRUCT:gex per_strike]" },
+    "aggressive": { "price": 110.5, "trigger": "rejection at the $110 call wall on a failed rally", "source": "[OI:oi_by_strike dte<=30]" },
+    "fade": { "price": 95.5, "trigger": "break of $100 pin tags $95 put support, fade the oversold flush", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 100.0, "resistance": 110.0, "gamma_flip": 101.21, "largest_pin": 104.0 },
+  "invalidation": {
+    "price": "two daily closes above 105 (range breaks up toward 110) or below 100 (loses positive-GEX pin, short-gamma accelerates)",
+    "signal": "GEX flips FULLY_NEGATIVE on phase-4 daily refresh (as at the June $92 lows) [HIST:gex_time_series]",
+    "macro": "2026-07-22 earnings gap >+/-11% beyond the priced move [STRUCT:iv_term_structure]"
+  },
+  "sizing": {
+    "p_raw": 0.143,
+    "p": 0.143,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.58,
+    "raw_kelly": -0.40,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "100/90",
+      "expiry": "2026-08-21",
+      "debit_credit": 3.88,
+      "breakeven": 96.12,
+      "max_loss": 3.88,
+      "note": "bearish, owns the complacent downside skew for a decelerating-earnings miss; spread caps vega vs the IV crush"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "85/90 put wing + 115/120 call wing",
+      "expiry": "2026-08-21",
+      "debit_credit": -2.54,
+      "breakeven": "87.46 / 117.54",
+      "max_loss": 2.46,
+      "note": "short strikes outside the ~+/-11% implied move; monetizes the IV rank 98.5 crush post-7/22, VRP +18.9 edge"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "NOW/PATH 0.798",
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 63,
+    "iv_rank": 96.9,
+    "self_pctile_net_dir": 64.7
+  },
+  "expected_move": {
+    "front_expiry_pct": 11.0,
+    "front_expiry_abs": 11.36,
+    "source": "[STRUCT:iv_term_structure] 7/24 ATM IV 114% + [CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:sector_flow_persistence] Technology inflow +$1.17B persistence 0.80 (sector-level, not reaching NOW)", "[MACRO:CPILFESL_2026-06] Core CPI easing to 2.5%"],
+    "headwinds": ["[MACRO:MarketRegime_2026-07-17] TRANSITIONAL/CHOPPY, half size, defined-risk", "[MACRO:DGS10_2026-07-16] 10y 4.57% pressures the 60x multiple", "[MACRO:portfolio_correlation] NOW/PATH 0.798 cluster"]
+  },
+  "catalysts": [
+    { "date": "2026-07-22", "event": "ServiceNow Q2 FY26 earnings AMC", "impact": "?" },
+    { "date": "2026-07-28", "event": "FOMC (approx)", "impact": "?" },
+    { "date": "2026-08-12", "event": "July CPI (approx)", "impact": "?" }
+  ],
+  "key_risks": [
+    "7/22 miss into an 89%-Buy consensus triggers a downgrade cascade GEX short-gamma amplifies; complacent skew leaves it under-hedged [SENT:recommendation][STRUCT:term_skew]",
+    "a beat-and-raise squeezes the oversold -51% name up through $105 to the $110 wall, hurting the put spread [OI:oi_by_strike]",
+    "NOW/PATH 0.798 cluster - holding both is one concentrated enterprise-automation bet [MACRO:portfolio_correlation]"
+  ],
+  "citations": [
+    "[HIST:signal_backtest] bullish_flow win_rate 0.143 (n=7, avg -7.38%)",
+    "[STRUCT:iv_term_structure] earnings implied ~+/-11%, VRP +18.9, IV pctile 98.5",
+    "[INSIGHT:conviction_matrix] COVERED_CALL - DP buying + call selling, capping upside",
+    "[DEBATE:disconfirmed] bull 0.60 vs bear 0.70",
+    "[MACRO:portfolio_correlation] NOW/PATH 0.798 cluster"
+  ],
+  "confluence_score": 48,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

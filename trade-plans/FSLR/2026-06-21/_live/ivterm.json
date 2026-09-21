@@ -1,0 +1,114 @@
+{
+  "expiry_count": 15,
+  "kink_expiry": null,
+  "source": "/Users/ewan/Documents/Stocks/All Options/bot-eod-report-2026-06-18.parquet",
+  "structure": "CONTANGO",
+  "symbol": "FSLR",
+  "term_structure": [
+    {
+      "avg_iv": 0.1781,
+      "avg_iv_pct": "17.8%",
+      "contract_count": 1080,
+      "dte_approx": -3,
+      "expiry": "2026-06-18"
+    },
+    {
+      "avg_iv": 0.8273,
+      "avg_iv_pct": "82.7%",
+      "contract_count": 672,
+      "dte_approx": 5,
+      "expiry": "2026-06-26"
+    },
+    {
+      "avg_iv": 0.8273,
+      "avg_iv_pct": "82.7%",
+      "contract_count": 410,
+      "dte_approx": 11,
+      "expiry": "2026-07-02"
+    },
+    {
+      "avg_iv": 0.7548,
+      "avg_iv_pct": "75.5%",
+      "contract_count": 355,
+      "dte_approx": 19,
+      "expiry": "2026-07-10"
+    },
+    {
+      "avg_iv": 0.7503,
+      "avg_iv_pct": "75.0%",
+      "contract_count": 636,
+      "dte_approx": 26,
+      "expiry": "2026-07-17"
+    },
+    {
+      "avg_iv": 0.7222,
+      "avg_iv_pct": "72.2%",
+      "contract_count": 74,
+      "dte_approx": 33,
+      "expiry": "2026-07-24"
+    },
+    {
+      "avg_iv": 0.7688,
+      "avg_iv_pct": "76.9%",
+      "contract_count": 42,
+      "dte_approx": 40,
+      "expiry": "2026-07-31"
+    },
+    {
+      "avg_iv": 0.7316,
+      "avg_iv_pct": "73.2%",
+      "contract_count": 260,
+      "dte_approx": 61,
+      "expiry": "2026-08-21"
+    },
+    {
+      "avg_iv": 0.7244,
+      "avg_iv_pct": "72.4%",
+      "contract_count": 156,
+      "dte_approx": 89,
+      "expiry": "2026-09-18"
+    },
+    {
+      "avg_iv": 0.6689,
+      "avg_iv_pct": "66.9%",
+      "contract_count": 39,
+      "dte_approx": 180,
+      "expiry": "2026-12-18"
+    },
+    {
+      "avg_iv": 0.6897,
+      "avg_iv_pct": "69.0%",
+      "contract_count": 76,
+      "dte_approx": 208,
+      "expiry": "2027-01-15"
+    },
+    {
+      "avg_iv": 0.6822,
+      "avg_iv_pct": "68.2%",
+      "contract_count": 22,
+      "dte_approx": 271,
+      "expiry": "2027-03-19"
+    },
+    {
+      "avg_iv": 0.6678,
+      "avg_iv_pct": "66.8%",
+      "contract_count": 16,
+      "dte_approx": 361,
+      "expiry": "2027-06-17"
+    },
+    {
+      "avg_iv": 0.6251,
+      "avg_iv_pct": "62.5%",
+      "contract_count": 176,
+      "dte_approx": 579,
+      "expiry": "2028-01-21"
+    },
+    {
+      "avg_iv": 0.5806,
+      "avg_iv_pct": "58.1%",
+      "contract_count": 3,
+      "dte_approx": 726,
+      "expiry": "2028-06-16"
+    }
+  ]
+}

@@ -1,0 +1,100 @@
+{
+  "ticker": "ADBE",
+  "date": "2026-05-29",
+  "generated": "2026-05-30T20:22:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 259.21,
+  "thesis": "ADBE's most net-bullish options day in 35 sessions (net +$12.27M, P/C 0.468 [FLOW:insights_deep_dive], 99.6th universe pctile [CTX:universe_pctile DUCKDB]) on the cheapest large-cap software multiple (P/E 15.1, PEG 0.79 [FUND:peer_pe fz]) in a sector smart money is persistently rotating into [MACRO:sector_flow_persistence UW] is a real bullish lean — but it is isolated (auction-contaminated DP, written OI), richly priced (IV-rank 100, VRP +0.162), backtests 0.50 (n=8) [HIST:signal_backtest], pins toward 250 below spot [STRUCT:max_pain], and both quality gates fired CAUTION with the debate disconfirmed, so the directional long is token/watch-only and the higher-EV expression is selling the rich pre-earnings vol defined-risk or waiting for the 6/11 print.",
+  "entries": {
+    "primary": { "price": 251.0, "trigger": "pullback into the 250 max-pain pin holding above the 245 DP/put-wall shelf (buy the dip in long-gamma)", "source": "[STRUCT:max_pain]" },
+    "aggressive": { "price": 245.5, "trigger": "tag of the 245 put wall + DP shelf with same-day reclaim", "source": "[DP:price_levels]" },
+    "fade": { "price": 262.0, "trigger": "rejection at the 260 call wall / 265 period high — counter-trade the range top", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 245.0, "resistance": 260.0, "gamma_flip": 140.0, "largest_pin": 250.0 },
+  "invalidation": {
+    "price": "two daily closes below 238 (loses the DP 238-245 shelf)",
+    "signal": "DEX flips negative while spot holds [STRUCT:dex], or cumulative premium flow net-bearish 3 sessions [HIST:cumulative_premium_flow], or institutional-accumulation flips to DISTRIBUTION",
+    "macro": "guide-down at 6/11 earnings, hot May CPI ~6/10, or hawkish FOMC 6/16-17 [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.50,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.08,
+    "raw_kelly": 0.26,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.3,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "260/280",
+      "expiry": "2026-07-17",
+      "debit_credit": 6.5,
+      "breakeven": 266.5,
+      "max_loss": 6.5,
+      "note": "token size only (~0.3% book); 260 call wall to 280 next wall; spread caps IV-100 vega bleed through the 6/11 crush vs a naked call"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "245/235",
+      "expiry": "2026-06-05",
+      "debit_credit": -1.5,
+      "breakeven": 243.5,
+      "max_loss": 8.5,
+      "note": "desk-preferred: sells IV-rank-100/VRP+0.162 premium, 245 = put wall + DP shelf + 6/5 max-pain, EXPIRES 6/5 before the 6/11 earnings binary"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 23,
+    "iv_rank": 100.0,
+    "self_pctile_net_dir": 100.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.295,
+    "front_expiry_abs": 0.766,
+    "source": "[CTX:implied_move] front 6/5 weekly (pre-earnings; 6/12 expiry prices the event at 71.4% IV, ~+/-8% illustrative)"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_flow_persistence UW] Tech net flow +$11.6B, 5-session persistence 1.0", "[FUND:peer_pe fz] cheapest large-cap software multiple P/E 15.1 PEG 0.79"],
+    "headwinds": ["[MACRO:CPIAUCSL_2026-04 FRED] CPI +3.78% YoY above target", "[MACRO:MarketRegime_2026-05-29 UW] TRANSITIONAL regime, breadth 36% bullish"]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release (est)", "impact": "?" },
+    { "date": "2026-06-11", "event": "ADBE Q2 earnings AMC (est ~5.83)", "impact": "?" },
+    { "date": "2026-06-16", "event": "FOMC (dot plot)", "impact": "?" }
+  ],
+  "key_risks": [
+    "bullish flow is isolated — paying IV-100 for a 0.50-win-rate signal into a binary the Street is downgrading [DEBATE:bear_residual]",
+    "insiders selling (MSPR Apr -40.53) + Street revisions deteriorating (buy-side 28->21) [FUND:mspr_2026-04][SENT:revision_trend]",
+    "long-gamma max-pain pins toward 250 below spot; post-earnings IV-crush vanna unwind adds selling [STRUCT:max_pain]"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net call premium +$12.27M, P/C 0.468",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.50 (n=8)",
+    "[STRUCT:max_pain] 6/12 max pain 250 / 6/5 245, below spot",
+    "[FUND:peer_pe fz] P/E 15.1, PEG 0.79 (cheapest software peer)",
+    "[MACRO:sector_flow_persistence UW] Tech +$11.6B, persistence 1.0"
+  ],
+  "confluence_score": 43,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

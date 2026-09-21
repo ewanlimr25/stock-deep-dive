@@ -1,0 +1,261 @@
+{
+  "available": true,
+  "ticker": "INTC",
+  "as_of": "2026-06-27",
+  "source": "yfinance",
+  "source_note": "373 daily sessions via yfinance",
+  "indicators": {
+    "spot": 128.32,
+    "sessions": 373,
+    "sma20": 119.42,
+    "sma50": 108.39,
+    "sma200": 58.23,
+    "ema9": 128.46,
+    "ema21": 122.09,
+    "ma_stack": "bullish_stack",
+    "dist_to_sma50_pct": 18.39,
+    "dist_to_sma200_pct": 120.36,
+    "rsi14": 56.78,
+    "rsi_state": "neutral",
+    "atr14": 9.97,
+    "atr_pct": 8.42,
+    "macd_hist": 0.481,
+    "macd_state": "bullish",
+    "bb_upper": 142.37,
+    "bb_lower": 96.47,
+    "vol_last": 99247000.0,
+    "vol_avg20": 136326165.0,
+    "vol_vs_avg": 0.73,
+    "high_52w": 140.94,
+    "low_52w": 19.31,
+    "pct_off_52w_high": -8.95,
+    "pct_above_52w_low": 564.53
+  },
+  "trend": {
+    "regression_slope": 1.3458,
+    "slope_pct_per_day": 1.06,
+    "direction": "up",
+    "market_structure": "range_or_transition",
+    "lookback_sessions": 60
+  },
+  "recent_pivots": [
+    {
+      "i": 308,
+      "date": "2026-03-25",
+      "price": 47.85,
+      "kind": "high"
+    },
+    {
+      "i": 311,
+      "date": "2026-03-30",
+      "price": 40.63,
+      "kind": "low"
+    },
+    {
+      "i": 324,
+      "date": "2026-04-17",
+      "price": 70.33,
+      "kind": "high"
+    },
+    {
+      "i": 340,
+      "date": "2026-05-11",
+      "price": 132.75,
+      "kind": "high"
+    },
+    {
+      "i": 346,
+      "date": "2026-05-19",
+      "price": 102.4,
+      "kind": "low"
+    },
+    {
+      "i": 353,
+      "date": "2026-05-29",
+      "price": 126.64,
+      "kind": "high"
+    },
+    {
+      "i": 358,
+      "date": "2026-06-05",
+      "price": 98.33,
+      "kind": "low"
+    },
+    {
+      "i": 368,
+      "date": "2026-06-22",
+      "price": 141.45,
+      "kind": "high"
+    }
+  ],
+  "support_resistance": [
+    {
+      "level": 23.95,
+      "touches": 4,
+      "kind": "support",
+      "dist_pct": -81.33,
+      "last_touch": "2025-09-12"
+    },
+    {
+      "level": 42.55,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -66.84,
+      "last_touch": "2026-02-20"
+    },
+    {
+      "level": 36.54,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -71.53,
+      "last_touch": "2025-11-20"
+    },
+    {
+      "level": 35.87,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -72.04,
+      "last_touch": "2025-12-18"
+    },
+    {
+      "level": 22.37,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -82.57,
+      "last_touch": "2025-07-16"
+    },
+    {
+      "level": 18.83,
+      "touches": 3,
+      "kind": "support",
+      "dist_pct": -85.33,
+      "last_touch": "2025-08-01"
+    },
+    {
+      "level": 41.89,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -67.36,
+      "last_touch": "2026-03-09"
+    },
+    {
+      "level": 38.6,
+      "touches": 2,
+      "kind": "support",
+      "dist_pct": -69.92,
+      "last_touch": "2025-10-20"
+    }
+  ],
+  "fibonacci": {
+    "available": true,
+    "swing_high": 141.45,
+    "swing_low": 38.95,
+    "swing_direction": "up",
+    "retracements": {
+      "0.236": 117.26,
+      "0.382": 102.29,
+      "0.500": 90.2,
+      "0.618": 78.1,
+      "0.786": 60.88
+    },
+    "extensions": {
+      "1.272": 169.33,
+      "1.618": 204.79
+    }
+  },
+  "patterns": {
+    "flag": {
+      "detected": false
+    },
+    "head_shoulders": {
+      "detected": false
+    },
+    "double": {
+      "detected": false
+    },
+    "triangle": {
+      "detected": false
+    },
+    "cup_handle": {
+      "detected": false
+    },
+    "elliott_wave": {
+      "detected": false,
+      "note": "pivot sequence not cleanly alternating"
+    }
+  },
+  "patterns_detected": [],
+  "levels_to_watch": {
+    "spot": 128.32,
+    "nearest_support": 23.95,
+    "nearest_resistance": 132.75,
+    "supports": [
+      {
+        "level": 23.95,
+        "touches": 4,
+        "kind": "support",
+        "dist_pct": -81.33,
+        "last_touch": "2025-09-12"
+      },
+      {
+        "level": 42.55,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -66.84,
+        "last_touch": "2026-02-20"
+      },
+      {
+        "level": 36.54,
+        "touches": 3,
+        "kind": "support",
+        "dist_pct": -71.53,
+        "last_touch": "2025-11-20"
+      }
+    ],
+    "resistances": [
+      {
+        "level": 132.75,
+        "touches": 1,
+        "kind": "resistance",
+        "dist_pct": 3.45,
+        "last_touch": "2026-05-11"
+      },
+      {
+        "level": 141.45,
+        "touches": 1,
+        "kind": "resistance",
+        "dist_pct": 10.23,
+        "last_touch": "2026-06-22"
+      }
+    ],
+    "moving_averages": [
+      {
+        "name": "sma50",
+        "level": 108.39
+      },
+      {
+        "name": "sma200",
+        "level": 58.23
+      },
+      {
+        "name": "ema21",
+        "level": 122.09
+      }
+    ],
+    "fib_levels": {
+      "0.236": 117.26,
+      "0.382": 102.29,
+      "0.500": 90.2,
+      "0.618": 78.1,
+      "0.786": 60.88
+    }
+  },
+  "stops": {
+    "available": true,
+    "atr": 9.97,
+    "long_stop_1atr": 118.35,
+    "long_stop_1_5atr": 113.36,
+    "short_stop_1atr": 138.29,
+    "short_stop_1_5atr": 143.28
+  }
+}

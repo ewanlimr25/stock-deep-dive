@@ -1,0 +1,213 @@
+{
+  "dte_max": 45,
+  "note": "GEX most meaningful for index products (SPY, QQQ) and large-cap single stocks with deep OI.",
+  "per_strike": [
+    {
+      "net_gex": -8612.15,
+      "strike": 180
+    },
+    {
+      "net_gex": 9696.22,
+      "strike": 185
+    },
+    {
+      "net_gex": 110323.91,
+      "strike": 190
+    },
+    {
+      "net_gex": 25396.86,
+      "strike": 195
+    },
+    {
+      "net_gex": 47254.54,
+      "strike": 200
+    },
+    {
+      "net_gex": -3354.21,
+      "strike": 205
+    },
+    {
+      "net_gex": -87260.83,
+      "strike": 210
+    },
+    {
+      "net_gex": -21581.39,
+      "strike": 215
+    },
+    {
+      "net_gex": 40.37,
+      "strike": 217.5
+    },
+    {
+      "net_gex": -23006.91,
+      "strike": 220
+    },
+    {
+      "net_gex": -452.07,
+      "strike": 222.5
+    },
+    {
+      "net_gex": -5261,
+      "strike": 225
+    },
+    {
+      "net_gex": -1054.26,
+      "strike": 227.5
+    },
+    {
+      "net_gex": -398213.05,
+      "strike": 230
+    },
+    {
+      "net_gex": -7997.06,
+      "strike": 232.5
+    },
+    {
+      "net_gex": -30260.44,
+      "strike": 235
+    },
+    {
+      "net_gex": -41946.93,
+      "strike": 237.5
+    },
+    {
+      "net_gex": -6877.87,
+      "strike": 240
+    },
+    {
+      "net_gex": -13529.61,
+      "strike": 242.5
+    },
+    {
+      "net_gex": -415800.05,
+      "strike": 245
+    },
+    {
+      "net_gex": -30273.04,
+      "strike": 247.5
+    },
+    {
+      "net_gex": 4331683.08,
+      "strike": 250
+    },
+    {
+      "net_gex": -326094.44,
+      "strike": 252.5
+    },
+    {
+      "net_gex": -632347.09,
+      "strike": 255
+    },
+    {
+      "net_gex": -1043995.84,
+      "strike": 257.5
+    },
+    {
+      "net_gex": 3375852.17,
+      "strike": 260
+    },
+    {
+      "net_gex": -5136.87,
+      "strike": 262.5
+    },
+    {
+      "net_gex": -140011.63,
+      "strike": 265
+    },
+    {
+      "net_gex": -41129.92,
+      "strike": 267.5
+    },
+    {
+      "net_gex": 2305650.62,
+      "strike": 270
+    },
+    {
+      "net_gex": -64577.83,
+      "strike": 272.5
+    },
+    {
+      "net_gex": -74823.87,
+      "strike": 275
+    },
+    {
+      "net_gex": 18106.35,
+      "strike": 277.5
+    },
+    {
+      "net_gex": 1131661.33,
+      "strike": 280
+    },
+    {
+      "net_gex": 29193.12,
+      "strike": 282.5
+    },
+    {
+      "net_gex": 84359.3,
+      "strike": 285
+    },
+    {
+      "net_gex": 6937.87,
+      "strike": 287.5
+    },
+    {
+      "net_gex": 603392.81,
+      "strike": 290
+    },
+    {
+      "net_gex": 8614.9,
+      "strike": 292.5
+    },
+    {
+      "net_gex": -14198.29,
+      "strike": 295
+    },
+    {
+      "net_gex": 407081.54,
+      "strike": 300
+    },
+    {
+      "net_gex": 7407.29,
+      "strike": 302.5
+    },
+    {
+      "net_gex": 43380.66,
+      "strike": 305
+    },
+    {
+      "net_gex": 3330.06,
+      "strike": 307.5
+    },
+    {
+      "net_gex": 375949.65,
+      "strike": 310
+    },
+    {
+      "net_gex": 511.88,
+      "strike": 312.5
+    },
+    {
+      "net_gex": 8066.23,
+      "strike": 315
+    },
+    {
+      "net_gex": 495529.52,
+      "strike": 320
+    },
+    {
+      "net_gex": 26133.15,
+      "strike": 325
+    },
+    {
+      "net_gex": 343653.6,
+      "strike": 330
+    }
+  ],
+  "regime": "POSITIVE",
+  "regime_description": "Dealers net long gamma — expect mean-reversion and reduced volatility",
+  "source": "/Users/ewan/Documents/Stocks/All Options/bot-eod-report-2026-06-18.parquet",
+  "symbol": "FSLR",
+  "total_gex": 10728888,
+  "underlying_price": 257.13,
+  "zero_gamma_level": 70.31
+}

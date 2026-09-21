@@ -1,0 +1,110 @@
+{
+  "ticker": "NBIS",
+  "date": "2026-06-17",
+  "generated": "2026-06-18T01:03:34Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 280.91,
+  "thesis": "NBIS is a parabolic AI-infra name whose only clean bull case is mechanical — Nasdaq-100 forced inclusion Jun-22 [MACRO:NDX_inclusion] on a 5/5-session $722.4M bullish sweep campaign [FLOW:sweep_persistence] with a dealer dip-bid (DEX +$2.88bn) [STRUCT:dex] — while the underlying is distributed into that strength (mega-DP 93.6% sell [DP:block_stratified], insider MSPR -100 / ~1.04M-share May sale [FUND:MSPR], price > $255.29 target [FUND:recom fz], edge-negative 37.5% backtest [HIST:signal_backtest]). Net: a tiny, defined-risk, event-boxed long into Jun-22 at best; the higher-quality trade is the post-inclusion fade.",
+  "entries": {
+    "primary": { "price": 280.0, "trigger": "holds the positive-gamma dip-bid and the $278.84 52W-high breakout into Jun-22; defined-risk long only", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 297.93, "trigger": "reclaim of the recent high on rising lit demand -> momentum run at the $300 call wall", "source": "[INSIGHT:price_vs_flow]" },
+    "fade": { "price": 300.0, "trigger": "rejection at the $300 call wall OR post-Jun-22 close below $267.5 -> bearish fade toward $260", "source": "[STRUCT:max_pain]" }
+  },
+  "levels": { "support": 267.5, "resistance": 300.0, "gamma_flip": 34.64, "largest_pin": 267.5 },
+  "invalidation": {
+    "price": "long: two daily closes below $267.5 (06-26 max-pain magnet / loses dealer dip-bid); structural short: two daily closes above $300 (clears call wall)",
+    "signal": "DEX flips from +$2.88bn toward negative on phase-4 refresh [STRUCT:dex], OR institutional-accumulation flips NEUTRAL->distribution, OR negative-vanna vol-crush fires post-OPEX [STRUCT:vanna]",
+    "macro": "incremental hawkish surprise — hot June CPI (~07-15) vs the +4.17% YoY trend or Fed speak reinforcing the hike-biased dots [MACRO:FOMC_2026-06-17]"
+  },
+  "sizing": {
+    "p_raw": 0.375,
+    "p": 0.375,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.73,
+    "raw_kelly": 0.014,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.3,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "290/300",
+      "expiry": "2026-06-26",
+      "debit_credit": 3.5,
+      "breakeven": 293.5,
+      "max_loss": 3.5,
+      "note": "tiny event-box on the Jun-22 inclusion; short strike at the $300 call wall, width inside the 4.86% expected move; flat by/at Jun-22. IV rank 91 -> spread not long premium."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "255/265 put + 300/310 call",
+      "expiry": "2026-06-26",
+      "debit_credit": -3.3,
+      "breakeven": "261.70 / 303.30",
+      "max_loss": 6.7,
+      "note": "harvests rich IV in the positive-gamma mean-reversion regime; brackets the +/-4.86% expected move ($267-295). Tail risk: a Jun-22 gap through $300 tests the call wing."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 20,
+    "iv_rank": 91.3,
+    "self_pctile_net_dir": 87.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 4.86,
+    "front_expiry_abs": 13.66,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:NDX_inclusion_2026-06-22] Nasdaq-100 forced inclusion (valuation-agnostic mechanical bid)",
+      "[MACRO:sector_flow_persistence] Technology 5-day net INFLOW, persistence 0.8"
+    ],
+    "headwinds": [
+      "[MACRO:FOMC_2026-06-17] hawkish FOMC, hike-biased 3.8% dots",
+      "[MACRO:CPIAUCSL_2026-05] CPI +4.17% YoY / Core PCE +3.29% sticky",
+      "[MACRO:DGS10_2026-06-16] rising yields (10y 4.43%, 2y 4.05%) pressure a normalized-P/E-808 name",
+      "[MACRO:MarketRegime_2026-06-17] TRANSITIONAL regime, 38.1% bullish breadth, half-size guidance"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-18", "event": "June OPEX / 26.7%-of-OI expiry; positive-gamma pin + vanna unwind", "impact": "?" },
+    { "date": "2026-06-22", "event": "Nasdaq-100 inclusion effective (forced buying; sell-the-news risk after)", "impact": "+" },
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "-" },
+    { "date": "2026-08-06", "event": "NBIS next earnings (beyond horizon)", "impact": "?" }
+  ],
+  "key_risks": [
+    "distribution-into-strength: lit bullish flow is partly exit liquidity for insiders (MSPR -100) + mega-DP 93.6% sell",
+    "Jun-22 inclusion is the LAST identifiable forced bid; sell-the-news + hawkish macro re-assert after",
+    "negative-vanna vol-crush (IV rank 91) flips the dealer dip-bid to selling post-OPEX",
+    "edge-negative signal (bullish_flow 37.5% win, n=8) + parabolic +127% vs SMA200; high SI but EASY borrow (weak squeeze)"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] NBIS top sweeps 5/5 sessions, consistency 1, $722.4M",
+    "[DP:block_stratified] mega-tier dark pool buy_ratio 0.064 (93.6% sell), $158.5M",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.375 (n=8), avg move -0.58%",
+    "[FUND:MSPR] insider MSPR -100/-100/-34/-100, ~1.04M-share May sale",
+    "[MACRO:NDX_inclusion_2026-06-22] Nasdaq-100 forced inclusion June 22"
+  ],
+  "confluence_score": 32,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

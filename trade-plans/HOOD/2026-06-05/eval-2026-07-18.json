@@ -1,0 +1,83 @@
+{
+  "ticker": "HOOD",
+  "plan_date": "2026-06-05",
+  "review_date": "2026-07-18",
+  "generated": "2026-07-18T16:30:00Z",
+  "plan_path": "trade-plans/HOOD/2026-06-05/trade-plan.json",
+  "trade_taken": {
+    "vehicle": "option",
+    "direction": "short",
+    "entry": "1.40 credit",
+    "entry_date": "2026-06-05",
+    "stop": null,
+    "targets": [80.0],
+    "structure": "86/90 call credit spread exp 2026-06-18 (the only carry allowed under the VETO); expired at max loss",
+    "size_pct_book": 0.3,
+    "matched_plan": true
+  },
+  "outcome": {
+    "status": "LOSS",
+    "r_achieved": -1.0,
+    "mfe_R": -0.13,
+    "mae_R": 1.22,
+    "first_target_date": null,
+    "stop_hit_date": "2026-06-08",
+    "invalidation_price_hit": true,
+    "source": "yfinance"
+  },
+  "reasoning_review": {
+    "direction_call": "WRONG",
+    "flow_chart_agreement_call": "RIGHT",
+    "pattern_call": "PLAYED_OUT",
+    "level_quality": "GOOD",
+    "sizing_review": "APPROPRIATE",
+    "components": [
+      { "claim": "5-session bearish sweep campaign $317.8M", "side": "for", "verdict": "WRONG", "note": "exit/hedging flow, not directional -- price ripped up and never re-approached the 80/77.5 targets even 21D out" },
+      { "claim": "short-gamma below ZGL amplifies downside", "side": "for", "verdict": "WRONG", "note": "price RECLAIMED the 87.45 ZGL and short-gamma squeezed UP; the 21D-window low held ~21% above the 82.47 entry" },
+      { "claim": "fundamentals VETO bars the directional short", "side": "against", "verdict": "RIGHT", "note": "the veto forced 0% directional size -- confirmed correct; a full short would still be deep underwater at the 99.96 close" },
+      { "claim": "SpaceX-IPO-access headline gaps HOOD above 85", "side": "against", "verdict": "RIGHT", "note": "the named thesis-killer fired; HOOD gapped through 85 to a 108.15 peak by 6/18" },
+      { "claim": "flow/chart DIVERGENT -> low-quality short", "side": "against", "verdict": "RIGHT", "note": "the bullish double bottom played out; the divergence gate was the correct read" }
+    ]
+  },
+  "calibration": {
+    "conviction": 0.65,
+    "outcome_bit": 0,
+    "brier": 0.4225,
+    "verdict": "OVERCONFIDENT"
+  },
+  "attribution": [
+    { "lane": "fundamentals", "effect": "decisive_right", "note": "the VETO kept directional size at 0% -- the single best decision" },
+    { "lane": "sentiment", "effect": "decisive_right", "note": "the debate's named SpaceX-IPO risk was the actual catalyst" },
+    { "lane": "chart_pattern", "effect": "decisive_right", "note": "medium double bottom correctly warned the chart wouldn't confirm the short" },
+    { "lane": "flow", "effect": "decisive_wrong", "note": "bearish sweep campaign was misleading exit liquidity" },
+    { "lane": "dealer_structure", "effect": "decisive_wrong", "note": "short-gamma squeezed UP on the ZGL reclaim" }
+  ],
+  "lessons": [
+    {
+      "id": "L-0004",
+      "status": "CANDIDATE",
+      "scope": ["setup:divergent", "setup:fundamentals-veto", "signal:bearish-sweep", "structure:short-gamma"],
+      "lesson": "A persistent bearish sweep in a SHORT-GAMMA name with a live bullish catalyst (e.g. IPO access) + a fundamentals VETO is a trap: a ZGL reclaim squeezes UP. The 21D-window confirmation shows the short was never rehabilitated -- the fade from the 108.15 peak to 99.96 stayed ~21% above entry and never threatened the 80/77.5 targets. Still CANDIDATE: this is the same trade re-marked at a later window, not a distinct second trade; promotion to ACTIVE needs another name showing the pattern.",
+      "applies_to": "A3 conviction + A4 sizing"
+    },
+    {
+      "id": "L-0002",
+      "status": "ACTIVE",
+      "scope": ["setup:divergent"],
+      "lesson": "Reinforced again by the HOOD 21D window (LOSS, still +21% against at review): a DIVERGENT flow<->chart read is not a directional trade. The watch-only / 0% directional decision remains correct.",
+      "applies_to": "A3 bias + conviction"
+    }
+  ],
+  "proposed_rubric_edits": [
+    {
+      "file": ".claude/skills/trade-plan/rubrics/direction-rubric.md",
+      "change": "Add to Step 2: in a short-gamma book, a zero-gamma-level RECLAIM is a squeeze-UP trigger -- treat a short positioned below the ZGL as especially fragile when an undated bullish catalyst is live.",
+      "rationale": "First proposed at the 6/18 review; the 21D window strengthens it -- HOOD reclaimed 87.45, peaked 108.15, and was still 99.96 (+21% above entry) at 7/18, so the short had no longer-horizon vindication. Unchanged and still awaiting the user's decision."
+    }
+  ],
+  "paths": {
+    "eval_md": "eval-2026-07-18.md",
+    "ledger": "trade-plans/_eval/reasoning-ledger.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice."
+}

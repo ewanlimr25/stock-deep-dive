@@ -1,0 +1,110 @@
+{
+  "ticker": "SMH",
+  "date": "2026-05-28",
+  "generated": "2026-05-29T14:20:00Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 599.83,
+  "thesis": "SMH is a hedged melt-up pinned at the top of a parabolic move (96.7% of 52-wk range, +66.6% YTD [HIST:52w_proximity fz]) where dealers are long gamma $595-650 and buy dips (DEX +$3.95bn [STRUCT:dex]) and rich IV begs to be sold (VRP +0.089 PREMIUM_SELLING [HIST:vrp]) while smart money rolls protective puts into strength (net put OI +86,442 vs call +10,858 [OI:biggest_increases DUCKDB]). Desk plurality is RANGE/no-short because shorting semis has lost all rally (bearish_flow 55.6% vs bullish_flow 100% [HIST:signal_backtest]); trade it as a defined-risk premium sale inside the $585-615 dealer range, half-of-half size, respecting $585 as the trapdoor line.",
+  "entries": {
+    "primary": { "price": 600.0, "trigger": "sell the condor while spot pins the $600 long-gamma strike, IV rich, pre-NFP", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 608.0, "trigger": "leg into the call wing on a push toward the 52-wk-high/long-gamma cap (rallies sold by dealers)", "source": "[STRUCT:gex]" },
+    "fade": { "price": 588.0, "trigger": "if spot probes the gamma flip, tighten/close the put wing — do NOT add the credit there", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 567.88, "resistance": 612.3, "gamma_flip": 585.0, "largest_pin": 600.0 },
+  "invalidation": {
+    "price": "two daily closes below 585 (gamma flip) — trapdoor live, close the put wing [STRUCT:gex]",
+    "signal": "DEX flips negative (dealers stop buying dips) on phase-4 refresh, or conviction-matrix flips MIXED->DIRECTIONAL_SHORT [INSIGHT:conviction_matrix]",
+    "macro": "June-5 NFP downside surprise (or hawkish FOMC 06-16/17) gaps SMH through 585, or UW regime flips TRANSITIONAL->RISK-OFF [MACRO:MarketRegime_2026-05-28 UW]"
+  },
+  "sizing": {
+    "p_raw": 0.556,
+    "p": 0.556,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.56,
+    "raw_kelly": 0.382,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (bearish fade)",
+      "strikes": "590/565",
+      "expiry": "2026-06-19",
+      "debit_credit": 4.5,
+      "breakeven": 585.5,
+      "max_loss": 4.5,
+      "note": "minority lean; aligns with bearish_flow + price/flow divergence + smart-money hedge; convex if June-5 flushes the trapdoor to 567; BUYS rich IV (fights VRP) so lower-EV, starter only, press on a $585 break"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (range / premium sale)",
+      "strikes": "567P/585P - 615C/627C",
+      "expiry": "2026-06-19",
+      "debit_credit": -5.0,
+      "breakeven": "580.5 / 620.0",
+      "max_loss": 13.0,
+      "note": "PREFERRED; sells rich IV (rank 84.6, VRP +0.089) both sides of the $585-615 dealer-pinned range; put wing 585/567 is the higher-confidence side (above the $567.88 DP shelf); the regime's own prescription (iron condors in range)"
+    }
+  ],
+  "gates": {
+    "fundamentals": "NA",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 9,
+    "iv_rank": 84.6,
+    "self_pctile_net_dir": 12.1
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.71,
+    "front_expiry_abs": 10.2,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence_2026-05-28 UW] Technology #1 sector inflow, persistence 1.0",
+      "[MACRO:VIXCLS_2026-05-27 FRED] calm VIX 16.3, 2s10s +0.46 normal",
+      "[FUND:peer_pe fz] core semis growth-supported (PEG 0.93)"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-05-28 UW] regime TRANSITIONAL, breadth 40.6%",
+      "[MACRO:semis_top_call_2026-05 WebSearch] SOX +65% YTD, BTIG warns 25-30% correction 'like 1999'",
+      "[MACRO:CPIAUCSL_2026-04 FRED] sticky inflation (CPI 3.95%, Core PCE 3.29%)"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-05", "event": "May NFP jobs report (84%-IV front-end event; 06-05 weekly expiry)", "impact": "?" },
+    { "date": "2026-06-11", "event": "May CPI (approx)", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC rate decision + SEP/dot plot", "impact": "?" },
+    { "date": "2026-06-19", "event": "June monthly OPEX (structure expiry)", "impact": "?" }
+  ],
+  "key_risks": [
+    "June-5 NFP gaps SMH through the $585 gamma flip into the -$16M short-gamma well at $550 — mechanical air-pocket, the one path that takes a premium-seller's max loss [STRUCT:gex]",
+    "Euphoria + persistent Tech inflow squeeze the melt-up higher and bleed/breach the call wing (bullish_flow 100% backtest) [HIST:signal_backtest]",
+    "Second-tier valuation froth (AMD 170x, MU +224% YTD) makes the basket reversal-prone if AI-capex expectations wobble [FUND:peer_pe fz]"
+  ],
+  "citations": [
+    "[STRUCT:dex] DEX +$3.95bn, dealers net short calls -> buy dips",
+    "[HIST:vrp] VRP +0.089, PREMIUM_SELLING (IV 46.2% > RV 37.3%)",
+    "[HIST:signal_backtest] bearish_flow win-rate 0.556 (n=9) vs bullish_flow 100% (n=6)",
+    "[OI:biggest_increases DUCKDB] net put OI +86,442 vs call +10,858; 530P 05-29->06-05 roll",
+    "[STRUCT:gex] long-gamma cushion $595-650, short-gamma well $550 (-$16M), flip ~$585",
+    "[MACRO:MarketRegime_2026-05-28 UW] regime TRANSITIONAL, 'iron condors in range', breadth 40.6%"
+  ],
+  "confluence_score": 60,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

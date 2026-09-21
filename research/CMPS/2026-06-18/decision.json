@@ -1,0 +1,103 @@
+{
+  "ticker": "CMPS",
+  "date": "2026-06-18",
+  "generated": "2026-06-20T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 12.53,
+  "thesis": "The entire bearish case is ONE brand-new Jan-2028 $10 LEAP put bought ask-side ~$647K [FLOW:top_premium_trades], non-persistent (consistency 0.2, 1 session [FLOW:sweep_persistence]) and a +3.83-sigma P/C extreme that on a normally call-heavy name reads as a fade trigger [HIST:pc_ratio_zscore]; against a FULLY_POSITIVE long-gamma pin $12-13 [STRUCT:gex], insider buying + strong-buy consensus that earned a phase-7b fundamental VETO of any short [FUND:tier_adjustment], and a desk that went 0 SHORT / 0 LONG / plurality NEUTRAL. No directional trade: watch the bear's convexity, do not short, do not chase the parabola long.",
+  "entries": {
+    "primary": { "price": 11.54, "trigger": "NO directional entry now; re-engage the (vetoed) bear only on two daily closes below $11.54 WITH P10/lower put OI building", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 13.0, "trigger": "rejection at the $13 call wall / largest-GEX strike — defined-risk short-bias scalp within the pin", "source": "[STRUCT:gex]" },
+    "fade": { "price": 11.84, "trigger": "hold of the $11.84-11.90 DP support shelf -> put-credit-spread fade of the bear", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 11.84, "resistance": 13.0, "gamma_flip": null, "largest_pin": 12.0 },
+  "invalidation": {
+    "price": "two daily closes below $11.54 flips bearish-actionable; a close above $13.00 (call wall) kills any short/range-short",
+    "signal": "P10-or-lower put OI builds materially on 6/19+ (campaign) AND GEX flips negative -> resurrects the directional short [OI:term_structure, STRUCT:gex]",
+    "macro": "negative COMP006 26-week durability/relapse signal before the H2-2026 readout, or a macro shock that breaks the long-gamma pin [MACRO:CMPS_catalyst]"
+  },
+  "sizing": {
+    "p_raw": 0.857,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 5.38,
+    "raw_kelly": 0.704,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (fundamentals-VETOED, carry/watch-only, 0% of book)",
+      "strikes": "10/7 puts",
+      "expiry": "2028-01-21",
+      "debit_credit": 1.17,
+      "breakeven": 8.83,
+      "max_loss": 1.17,
+      "note": "owns the COMP006 durability-binary convexity with defined risk; buy $10p $3.56 / sell $7p $2.39; sized >0 ONLY if the phase-7b VETO clears AND OI confirms a campaign"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (NEUTRAL/range, starter <=1% only)",
+      "strikes": "8/10 put + 15/17 call",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.48,
+      "breakeven": "9.52 / 15.48",
+      "max_loss": 1.52,
+      "note": "expires pre-7/30 earnings; sells the $12-13 pin + positive VRP, BUT 7/17 expected move ~+/-$3.36 (+/-27%, IV ~95%) puts the short strikes inside the move -> ~coin-flip POP; starter only, honest answer is closer to no trade"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "outside top-50 (universe net_dir pctile 3.4, extreme bearish end)",
+    "iv_rank": 20.35,
+    "self_pctile_net_dir": 0.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 4.14,
+    "front_expiry_abs": 0.52,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:FOMC_2026-06-17] hawkish dot to 3.8% + hike bias", "[MACRO:DGS10_2026-06-17] 10y 4.49% rising pressures duration-sensitive biotech"],
+    "headwinds": ["[MACRO:sector_flow_persistence] Healthcare net +$219.6M INFLOW, persistence 0.8 (adverse to a short)", "[MACRO:CMPS_catalyst] both Phase-3 endpoints met"]
+  },
+  "catalysts": [
+    { "date": "2026-07-17", "event": "OPEX cliff (31.21% of OI, call-heavy; max-pain $12)", "impact": "?" },
+    { "date": "2026-07-30", "event": "CMPS earnings (verify)", "impact": "?" },
+    { "date": "2026-H2", "event": "COMP006 26-week durability data (the LEAP put's binary)", "impact": "?" },
+    { "date": "2026-Q4", "event": "NDA submission to FDA", "impact": "?" }
+  ],
+  "key_risks": [
+    "the +3.8-sigma put may be smart-money front-running the COMP006 26-week durability binary (H2 2026) — the risk a watch-only stance accepts",
+    "pre-revenue cash burn (CF/sh -2.58) -> dilution risk before commercialization",
+    "94% absolute IV makes the premium-selling condor treacherous — short strikes sit inside the +/-27% expected move",
+    "beta 2.53 on a parabolic +81.6% YTD name -> outsized drawdown if any catalyst disappoints",
+    "long-gamma pin breaks if P10 put OI builds on 6/19+ and GEX flips negative"
+  ],
+  "citations": [
+    "[FLOW:top_premium_trades] entire bearish skew = ONE Jan-2028 $10 LEAP put, ~$647K ask-side, delta -0.24",
+    "[HIST:pc_ratio_zscore] P/C z-score +3.83 = BEARISH_EXTREME (today 1.36 vs 20-day mean 0.243)",
+    "[FUND:tier_adjustment] phase-7b VETO — insiders buying (MSPR +100) + strong-buy (target $21.72) contradict the short",
+    "[STRUCT:gex] FULLY_POSITIVE GEX, no ZGL, long-gamma pin $12-13",
+    "[INSIGHT:price_vs_flow] DIVERGENCE: price +33.4% vs bearish flow (net -$595,149)"
+  ],
+  "confluence_score": 31,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

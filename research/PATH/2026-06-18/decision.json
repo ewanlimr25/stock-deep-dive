@@ -1,0 +1,102 @@
+{
+  "ticker": "PATH",
+  "date": "2026-06-18",
+  "generated": "2026-06-20T13:33:42Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 10.27,
+  "thesis": "No-edge, counter-trend setup — pass. The firing bullish_flow signal backtests at 37.5% (n=8, avg -0.51%) [HIST:signal_backtest] and the dark pool refuses to confirm it (large-tier buy_ratio 0.48) [DP:block_stratified], while the FOMC 6/17 hawkish flip [MACRO:FOMC_2026-06-17] and the desk's NEUTRAL/RANGE plurality [AGENT:desk] argue against fresh directional risk; the lone bull pillar (5-session sweep persistence, consistency 1.0 [FLOW:sweep_persistence]) plus 31.78% short-float squeeze fuel [SENT:short_float] keep it from being a short, not from being a watch-only pass.",
+  "entries": {
+    "primary": { "price": 11.0, "trigger": "reclaim & hold >$11 (max-pain/call-wall) AND DP buy_ratio >0.60 — wait for flow confirmation", "source": "[STRUCT:max_pain]" },
+    "aggressive": { "price": 10.23, "trigger": "bounce off $10.23 DP support while $10 holds, with a fresh ask-side sweep reload", "source": "[DP:price_levels]" },
+    "fade": { "price": 10.79, "trigger": "rejection at $10.79 DP supply cluster — defined-risk range-fade toward $10", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 10.23, "resistance": 10.79, "gamma_flip": 10.0, "largest_pin": 11.0 },
+  "invalidation": {
+    "price": "two daily closes below 10.00 (put-wall + short-gamma line) -> breakdown toward 9.20 52w low",
+    "signal": "dark pool large-tier buy_ratio <0.45 (distribution) OR sweep-persistence consistency drops <0.6 OR cumulative premium flow net bearish 3 consecutive sessions [INSIGHT:institutional_accumulation]",
+    "macro": "hawkish surprise at June CPI ~2026-07-15 or ~2026-07-28 FOMC vs consensus, or RISK-OFF regime flip on Iran/energy [MACRO:FOMC_2026-06-17]"
+  },
+  "sizing": {
+    "p_raw": 0.375,
+    "p": 0.375,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.7,
+    "raw_kelly": 0.144,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread (illustrative, WATCH-ONLY)",
+      "strikes": "10/12",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.60,
+      "breakeven": 10.60,
+      "max_loss": 0.60,
+      "note": "long leg at $10 put-wall/gamma line, short leg at $12 call wall; cheap IV (pctile 0) favors debit; only deploy on reclaim & hold >$11 with DP confirmation"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "long strangle (vol / two-sided, illustrative)",
+      "strikes": "9.50P/11C",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.70,
+      "breakeven": "8.80 / 11.70",
+      "max_loss": 0.70,
+      "note": "owns the two-sided tail (32% SI squeeze up / short-gamma break to 9.20) on cheap IV + degrading gamma; CAVEAT breakevens far outside the 2.06% implied move and no catalyst until ~Sept -> theta bleed, keep tiny or stand aside"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 34.55,
+    "self_pctile_net_dir": 60.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 2.06,
+    "front_expiry_abs": 0.21,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:sector_flow_persistence] Technology inflow +$9.36B, persistence 0.8 (semis-led; PATH not participating)", "[MACRO:VIX] VIX 16.4 and falling (aids vanna-bid if it holds)"],
+    "headwinds": ["[MACRO:FOMC_2026-06-17] hawkish dot-plot flip, >=1 hike penciled 2026", "[MACRO:MarketRegime_2026-06-18] TRANSITIONAL regime, half position sizes, breadth 38.6%", "[MACRO:CPIAUCSL_2026-05] CPI 4.3% YoY"]
+  },
+  "catalysts": [
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "?" },
+    { "date": "2026-07-28", "event": "FOMC meeting (hike risk live)", "impact": "?" },
+    { "date": "2026-09-08", "event": "UiPath Q2 FY2027 earnings (outside 30d window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Counter-trend long with no smart-money confirmation: bullish_flow backtests 37.5% [HIST:signal_backtest] and DP large-tier buy_ratio 0.48 won't confirm [DP:block_stratified]",
+    "Near-spot short gamma: a break of $10 self-reinforces toward the $9.20 52w low [STRUCT:gex]",
+    "Hawkish FOMC + TRANSITIONAL half-size regime is a duration headwind for beaten-down software [MACRO:FOMC_2026-06-17]",
+    "31.78% short float cuts both ways: squeeze fuel up, but bears have been right (-37% YTD) [SENT:short_float]",
+    "No catalyst until ~Sept earnings -> long-vol/directional structures bleed theta near-term"
+  ],
+  "citations": [
+    "[HIST:signal_backtest] bullish_flow win_rate 0.375 (n=8, avg -0.51%)",
+    "[DP:block_stratified] dominant large-tier buy_ratio 0.48 (dark-pool non-confirmation)",
+    "[FLOW:sweep_persistence] bullish campaign consistency 1.0, 5/5 sessions, $2.27M",
+    "[STRUCT:gex] near-spot short gamma, $10 strike gex -8.69M",
+    "[SENT:short_float fz] 31.78% short float, days-to-cover 3.78"
+  ],
+  "confluence_score": 33,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

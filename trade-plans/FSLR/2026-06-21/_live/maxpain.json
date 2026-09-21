@@ -1,0 +1,86 @@
+{
+  "caveat": "Single-day OI snapshot. Max pain assumes settlement at each candidate strike with current open interest unchanged to expiry.",
+  "dte_max": 60,
+  "results": [
+    {
+      "call_oi": 43386,
+      "distance_pct": -6.88,
+      "dte": 0,
+      "expiry": "2026-06-18",
+      "holder_value_at_max_pain": 19442000,
+      "max_pain_strike": 240,
+      "put_call_oi_ratio": 0.508,
+      "put_oi": 22047,
+      "total_oi": 65433
+    },
+    {
+      "call_oi": 1378,
+      "distance_pct": 2.82,
+      "dte": 8,
+      "expiry": "2026-06-26",
+      "holder_value_at_max_pain": 862250,
+      "max_pain_strike": 265,
+      "put_call_oi_ratio": 5.06,
+      "put_oi": 6973,
+      "total_oi": 8351
+    },
+    {
+      "call_oi": 924,
+      "distance_pct": 0.88,
+      "dte": 14,
+      "expiry": "2026-07-02",
+      "holder_value_at_max_pain": 142000,
+      "max_pain_strike": 260,
+      "put_call_oi_ratio": 1.035,
+      "put_oi": 956,
+      "total_oi": 1880
+    },
+    {
+      "call_oi": 197,
+      "distance_pct": -3,
+      "dte": 22,
+      "expiry": "2026-07-10",
+      "holder_value_at_max_pain": 123500,
+      "max_pain_strike": 250,
+      "put_call_oi_ratio": 7.162,
+      "put_oi": 1411,
+      "total_oi": 1608
+    },
+    {
+      "call_oi": 21736,
+      "distance_pct": 0.88,
+      "dte": 29,
+      "expiry": "2026-07-17",
+      "holder_value_at_max_pain": 11010500,
+      "max_pain_strike": 260,
+      "put_call_oi_ratio": 0.636,
+      "put_oi": 13816,
+      "total_oi": 35552
+    },
+    {
+      "call_oi": 54,
+      "distance_pct": -10.76,
+      "dte": 36,
+      "expiry": "2026-07-24",
+      "holder_value_at_max_pain": 500,
+      "max_pain_strike": 230,
+      "put_call_oi_ratio": 19.13,
+      "put_oi": 1033,
+      "total_oi": 1087
+    },
+    {
+      "call_oi": 32,
+      "distance_pct": 0.88,
+      "dte": 43,
+      "expiry": "2026-07-31",
+      "holder_value_at_max_pain": 13000,
+      "max_pain_strike": 260,
+      "put_call_oi_ratio": 1.094,
+      "put_oi": 35,
+      "total_oi": 67
+    }
+  ],
+  "source": "/Users/ewan/Documents/Stocks/OI changes/chain-oi-changes-2026-06-18.parquet",
+  "spot": 257.74,
+  "symbol": "FSLR"
+}

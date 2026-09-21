@@ -1,0 +1,109 @@
+{
+  "ticker": "CMPS",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T00:00:00Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 11.81,
+  "thesis": "De-risked psychedelics biotech (two positive Phase 3 TRD trials, WH EO, NDA Q4, runway 2028 [MACRO:CMPS_COMP006_2026-02-17]) being accumulated in the dark pool (buy_ratio 0.839 [DP:block_stratified]) and rolled up-and-out in calls (far OI +3,820 [OI:position_rolls]) with cheap vol (VRP -0.71 [HIST:vrp]) — but already priced/crowded at the 52w high with net-selling flow [INSIGHT:price_vs_flow] and dealer-pinned $11-12 [STRUCT:gex]. Near-term RANGE; the trade is a small, defined-risk, cheap-optionality long into the early-Q3 Part-B catalyst, entered on a pullback to the $11 wall, not chased here.",
+  "entries": {
+    "primary": { "price": 11.2, "trigger": "pullback/retest of the $11 gamma wall + nearest DP shelf ($11.00-11.45); buy weakness, don't chase the high", "source": "[STRUCT:gex] [DP:price_levels]" },
+    "aggressive": { "price": 10.7, "trigger": "deeper flush into the heaviest 5-day DP accumulation base ($10.56-10.86), still above the $10 hedge/ZGL", "source": "[DP:price_levels]" },
+    "fade": { "price": 12.2, "trigger": "rejection at DP supply / 52w-high zone — fade back toward $11 if long isn't yet on", "source": "[DP:largest] [FUND:52WeekHigh]" }
+  },
+  "levels": { "support": 11.45, "resistance": 12.2, "gamma_flip": 9.02, "largest_pin": 11.0 },
+  "invalidation": {
+    "price": "two daily closes below $10.00 (breaks the $10.56-$11.45 DP base + $10 put-hedge strike, loses the $11 gamma wall, opens trapdoor to ZGL $9.02)",
+    "signal": "GEX flips NEGATIVE / spot closes below ZGL $9.02 [STRUCT:gex], OR dark-pool ACCUMULATION reverses to DISTRIBUTION (buy_ratio < 0.40) [INSIGHT:institutional_accumulation], OR cumulative premium flow net-bearish 3 consecutive sessions [HIST:cumulative_premium_flow]",
+    "macro": "negative COMP006 Part-B/durability signal or NDA setback [MACRO:catalyst_calendar], OR UW regime flips RISK-OFF with breadth below 38.1% [MACRO:MarketRegime_2026-05-22]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.85,
+    "win_rate_n": 16,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.3,
+    "raw_kelly": 0.785,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": "p=0.85 is the N-capped market-wide bullish_flow backtest (CMPS-specific dark_pool_accumulation was n=0, regime-contaminated); size set by the three fired gates (7c CAUTION, CMPS/RDDT 0.746 cluster, 8b disconfirmed) cutting the 5% Kelly ceiling to ~0.6% — a downward deviation, allowed."
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "long call",
+      "strikes": "12",
+      "expiry": "2026-08-21",
+      "debit_credit": 2.1,
+      "breakeven": 14.1,
+      "max_loss": 2.1,
+      "note": "Long Aug $12 call at the secondary gamma wall + accumulated $12 strike; harvests cheap VRP (-0.71), uncapped to Street $14-18 + short squeeze; expiry straddles early-Q3 Part-B."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call debit spread",
+      "strikes": "12/16",
+      "expiry": "2026-08-21",
+      "debit_credit": 1.2,
+      "breakeven": 13.2,
+      "max_loss": 1.2,
+      "note": "Buy $12 (gamma wall) / sell $16 (Aug OI build + top of Street targets); cheaper, capped-gain version; max loss = pre-paid debit so a Q3 gap cannot exceed stop."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "CMPS/RDDT 0.746 (>=0.70); CMPS/SYM 0.651 soft-watch",
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "outside top-50 (net-dir pctile 4.8 = bottom 5%, net bearish)",
+    "iv_rank": 12.25,
+    "self_pctile_net_dir": 3.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 13.95,
+    "front_expiry_abs": 1.65,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:CMPS_2026] two positive Phase 3 TRD trials + WH EO + FDA priority voucher + NDA Q4 + runway 2028",
+      "[MACRO:DGS10_2026-05-21] Fed easing 3.62% + 10y 4.57% falling + 2s10s +0.43 un-inverted — mild support for long-duration biotech",
+      "[MACRO:SectorFlowPersistence_5d] Healthcare net flow +$494M, persistence 0.80 inflow"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-05-22] regime TRANSITIONAL, SPY breadth only 38.1% bullish — half-size, defined-risk",
+      "[MACRO:corr_2026-05-22] CMPS/RDDT 0.746 cluster — concurrent blueprints overlap as one beta-2.46 bet"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-22", "event": "next 30d catalyst-light (no scheduled binary; supports the pin)", "impact": "?" },
+    { "date": "2026-07-30", "event": "Q2 earnings (cash/runway/NDA update)", "impact": "?" },
+    { "date": "2026-08-15", "event": "COMP006 26-wk Part-B durability data (early Q3, the next real binary)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Crowded-long at 52w high + net-selling flow [INSIGHT:price_vs_flow] with the real catalyst (Q3 Part-B) beyond the 1-4w horizon — chase/profit-taking-pullback risk, no near-term trigger",
+    "Binary Q3 Part-B/NDA downside is unhedged by the crowd (COMPLACENT skew [STRUCT:term_skew]); a miss gaps through $10 to ZGL $9.02 short-gamma trapdoor",
+    "CMPS/RDDT 0.746 cluster — holding both is one beta-2.46 risk-on bet sized as two; they unwind together",
+    "Analyst unanimity (18 buy/2 hold/0 sell) leaves no upgrade headroom — downgrade/sell-the-news is the asymmetric tail"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool large-tier buy_ratio 0.839 (buy/sell 5.22)",
+    "[OI:position_rolls] call roll-up-and-out, far-call OI +3,820 (Jul $12 bought, Jun $11 closed)",
+    "[HIST:vrp] VRP -0.7132 (IV 75% vs realized 146%), premium-buying regime",
+    "[MACRO:CMPS_COMP006_2026-02-17] two positive Phase 3 TRD trials + NDA Q4 + runway 2028",
+    "[INSIGHT:price_vs_flow] DIVERGENCE: price +114% vs net flow -$275.6k",
+    "[DEBATE:] bull_residual 0.65 = bear_residual 0.65 -> disconfirmed"
+  ],
+  "confluence_score": 60,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

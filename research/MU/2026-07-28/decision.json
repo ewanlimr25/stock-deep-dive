@@ -1,0 +1,162 @@
+{
+  "ticker": "MU",
+  "date": "2026-07-28",
+  "generated": "2026-07-29T03:55:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 820.53,
+  "thesis": "Institutions distributed MU into weakness — mega-tier dark-pool buy_ratio 0.803 is a closing-auction artifact that inverts to 0.227 in regular hours with the buy ratio lowest at the lowest prices (0.411 in the $790s) [DP:block_stratified] — inside a FULLY_NEGATIVE gamma regime with zero_gamma_level null where the largest negative-gamma strike ($800, -6,527,065) is also the dominant put wall and the written put strike [STRUCT:gex]. But the tape carries no tradeable direction: net customer delta is -$41M ex-0DTE on a $926.7B cap [FLOW:delta_notional DUCKDB], 75 sessions of cumulative flow net +0.16% of gross with trend_direction MIXED [HIST:cumulative_premium_flow], and realised vol 109.12% exceeds implied 96.04% so every downside structure costs more than the move it targets [HIST:vrp]. Flat: phase-8 returned SHORT 2 / NEUTRAL 2 / LONG 0 at average conviction 2.5, phase-7b VETOes the short on +166.98% revenue growth with 4/4 beats [FUND:revenueGrowthTTMYoy], and the debate closed disconfirmed at 0.65 vs 0.65 [DEBATE:residuals].",
+  "entries": {
+    "primary": {
+      "price": 870.0,
+      "trigger": "daily close above 870 (atm_flip_strike) restores positive dealer gamma and invalidates the bearish lean — trigger to consider a small LONG, not a short",
+      "source": "[STRUCT:today_gamma_flip]"
+    },
+    "aggressive": {
+      "price": 800.0,
+      "trigger": "two daily closes below 800 — four-way convergence strike (largest negative GEX -6,527,065, put wall net -32,711 OI, heaviest DP distribution bin, written put strike) — confirms bearish path toward 750",
+      "source": "[OI:oi_by_strike]"
+    },
+    "fade": {
+      "price": 900.0,
+      "trigger": "rejection at the contested 900 battleground or the 930 max-pain magnet while regular-hours DP buy_ratio stays below 0.45 — sell the rally if distribution persists",
+      "source": "[STRUCT:max_pain]"
+    }
+  },
+  "levels": {
+    "support": 800.0,
+    "resistance": 900.0,
+    "gamma_flip": 870.0,
+    "largest_pin": 930.0
+  },
+  "invalidation": {
+    "price": "two daily closes below 800 establishes the bearish path (objective 750); symmetrically one daily close above 870 (atm_flip_strike) invalidates the bearish lean outright; a move beyond ATR x1.5 = +/-124.70 (below 695.83 or above 945.23) voids this blueprint and requires a fresh run [OI:oi_by_strike] [STRUCT:today_gamma_flip] [HIST:atr fz]",
+    "signal": "regular-hours dark-pool mega buy_ratio above 0.55 for two consecutive sessions kills the distribution thesis (all-session figure must NOT be used); secondary: total_gex turns positive or a zero_gamma_level reappears on the phase-4 daily refresh; tertiary: cumulative premium flow turns net against the lean three sessions running [DP:block_stratified] [STRUCT:gex]",
+    "macro": "FOMC 2026-07-29 14:00 ET (no SEP, Warsh presser 14:30) — dovish collapses the 151-152% front-week IV and likely carries MU toward 870; hawkish is amplified lower through 800 in a FULLY_NEGATIVE book with net_dex -$9.12B. Secondary: confirmation or denial of Apple qualifying CXMT memory, or a dated DRAM contract-price rollover [MACRO:FOMC_2026-07-29] [MACRO:CXMT_2026-07-28]"
+  },
+  "sizing": {
+    "p_raw": 0.8,
+    "p": 0.8,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.4257,
+    "raw_kelly": 0.6597,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "900/800",
+      "expiry": "2026-10-16",
+      "debit_credit": 74.2,
+      "breakeven": 825.8,
+      "max_loss": 74.2,
+      "note": "VETOED — DO NOT PUT ON, size 0%. Bearish expression; both legs observed on today's tape (900P $196.45, 800P $122.25 — phase-1 top-premium-trades). Max profit 25.80, R:R 0.35:1, already ITM at entry. Documented to show why the trade is rejected: at IV 91-92% you risk 74.20 to make 25.80. Width 100 = 12.2% of spot = 1.54x the front-expiry expected move. Fundamentals-vetoed per phase-7b."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "900/800",
+      "expiry": "2026-10-16",
+      "debit_credit": -74.2,
+      "breakeven": 825.8,
+      "max_loss": 25.8,
+      "note": "Carry only, token size, AFTER the FOMC resolves. Inverse of the directional leg: short 900P / long 800P. Max loss 25.80 = 3.1% of spot vs ATR 10.1%; max gain 74.20; R:R 2.88:1. The only expression both gates tolerate — aligns with the phase-7b VETO (do not short a business compounding revenue +166.98% with 4/4 beats). NOT a free carry: requires MU above 825.80 by expiry, i.e. above today's close. Phase-7c would VETO a genuine long. Spread structure largely offsets the 2026-09-22 earnings IV crush embedded in the 1.2188 Oct avg_iv."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 8,
+    "iv_rank": 83.4835,
+    "self_pctile_net_dir": 64.9
+  },
+  "expected_move": {
+    "front_expiry_pct": 7.904,
+    "front_expiry_abs": 64.7944,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:DRAM_pricing_Q1-2026] DRAM in shortage not oversupply — contract prices +93-98% QoQ in Q1 2026; HBM at a 5-8x DDR5 ASP premium, supply-constrained",
+      "[MACRO:CPI_2026-06] June CPI 3.5% YoY headline (-0.4% MoM, largest decline since April 2020), core 2.6% — both below consensus",
+      "[MACRO:PAYEMS_2026-06] payrolls +57k vs 115k consensus, May revised to +129k — dovish-leaning",
+      "[MACRO:CXMT_capacity] CXMT HBM3E mass production not targeted until 2027 — the threat is 18 months from where margins actually are"
+    ],
+    "headwinds": [
+      "[MACRO:CXMT_2026-07-28] CXMT scaling 200k->300k wafers/month toward 17% of global DRAM supply by 2028, with Apple reportedly testing CXMT memory for China-sold devices",
+      "[MACRO:DRAM_inventory_2026-07] faster-than-anticipated enterprise/cloud inventory normalisation — historically the DRAM pricing-cycle peak marker",
+      "[MACRO:MarketRegime_2026-07-28] regime TRANSITIONAL/CHOPPY, SPY below its 20-DMA (746.65) and 50-DMA (744.86), flow breadth 36.9% bullish, guidance 'Half position sizes'",
+      "[MACRO:sector_flow_persistence] Technology net flow collapsed 99% in five sessions ($3.235B -> $34.2M), ranked 7th of 11 despite carrying half the market's premium"
+    ]
+  },
+  "catalysts": [
+    {
+      "date": "2026-07-29",
+      "event": "FOMC decision 14:00 ET + Warsh press conference 14:30, no SEP/dot plot, target 3.50-3.75% — the binary that unlocks the vol path",
+      "impact": "?"
+    },
+    {
+      "date": "2026-07-31",
+      "event": "weekly expiry holding 18.38% of ALL MU open interest (291,008 puts vs 112,250 calls, P/C OI 2.592, max pain 930) — first settlement after the FOMC",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-07",
+      "event": "expiry of the 55P crash-tail build (+24,412 contracts at $0.01) and an unexplained avg_iv hump of 1.3592; July employment report ~same date",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-12",
+      "event": "July CPI release 08:30 ET — confirms or denies June's disinflation",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-21",
+      "event": "monthly OPEX — 13.91% of OI, max pain 940, P/C OI 1.656",
+      "impact": "?"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "MU earnings (outside 30d; corroborated by the FQ3-26 10-Q fiscal calendar and the elevated 2026-10-16 avg_iv of 1.2188)",
+      "impact": "?"
+    }
+  ],
+  "key_risks": [
+    "Inverted risk-reward: the bearish objective (750) is -8.6% from spot but ATR is 83.13 = 10.1% and the front-expiry implied move is +/-7.90% — the forecast move is smaller than one average session of noise, so any survivable stop is wider than the target [HIST:atr fz] [CTX:implied_move] [FUND:VETO]",
+    "Peak-cycle multiple trap: peTTM 18.43 vs peNormalizedAnnual 108.93 and a 5.31x forward P/E mean consensus ALREADY models the earnings decline — 'cheap' here is the market pricing transitory earnings, not a mispricing [FUND:peNormalizedAnnual]",
+    "Crowded long with an empty downgrade pipeline: 51 of 56 analysts at buy-or-better, one sell, zero strong-sells, with the stock 34.62% below its 52-week high — downgrade risk is asymmetric [SENT:recommendation]",
+    "FOMC 2026-07-29 lands on a FULLY_NEGATIVE gamma book (zero_gamma_level null, net_dex -$9.12B) where any surprise is mechanically amplified rather than damped in either direction [STRUCT:gex] [MACRO:FOMC_2026-07-29]",
+    "Today's OI is unobservable: the OI window is 7/27->7/28, so the ~$28.4M of 750/800 put selling done today does not appear until tomorrow's file — the open-vs-close verdict rests on the prior leg of the campaign [OI:biggest_increases DUCKDB]"
+  ],
+  "citations": [
+    "[DP:block_stratified] mega buy_ratio 0.803 all-session inverts to 0.227 regular-hours (3 buys/57,902 sh vs 9 sells/196,620 sh); price-bin buy ratio 0.411 in the $790s vs 0.497 in the $820s",
+    "[FLOW:delta_notional DUCKDB] net customer delta -$178M all-tape, -$41M ex-0DTE on a $926.7B cap; calls net sold -$45.76M, puts net sold -$74.32M; bullish_premium = ask-calls 645.19 + bid-puts 784.17 reconciling to UW's 1,429,357,672 to the dollar",
+    "[HIST:vrp] vrp -0.1308, realised 1.0912 vs iv30d 0.9604, regime PREMIUM_BUYING; iv_percentile 48.65 over 74 actual sessions",
+    "[STRUCT:gex] regime FULLY_NEGATIVE, total_gex -45,676,510, zero_gamma_level null, largest negative strike $800 at -6,527,065",
+    "[MACRO:CXMT_2026-07-28] CXMT 200k->300k wpm toward 17% of global DRAM by 2028, Apple testing CXMT memory, against DRAM contract prices +93-98% QoQ and CXMT HBM3E only in 2027",
+    "[AGENT:phase-8] desk vote SHORT 2 / NEUTRAL 2 / LONG 0, average conviction 2.5; [DEBATE:residuals] bull 0.65 vs bear 0.65 -> disconfirmed true",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.80, total_signals 10, market-wide and in-sample (the Kelly p)",
+    "[FUND:revenueGrowthTTMYoy] revenue +166.98% TTM YoY, EPS +700.71%, gross margin 72.57%, 4/4 beats, peTTM 18.43 vs peNormalizedAnnual 108.93"
+  ],
+  "confluence_score": 51,
+  "recommended_bin": 0.65,
+  "paths": {
+    "plan": "phase-9-trade-plan.md",
+    "audit": "phase-10-audit.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

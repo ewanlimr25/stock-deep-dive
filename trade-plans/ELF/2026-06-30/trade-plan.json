@@ -1,0 +1,165 @@
+{
+  "ticker": "ELF",
+  "date": "2026-06-30",
+  "generated": "2026-07-01T01:39:11Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 74.0,
+  "thesis": "ELF is an insider- and OI-confirmed turnaround -- 25 consecutive OI-build days +127,955 [HIST:oi-trend], June MSPR +44.1 [FUND:insider-sentiment], a $45 Jan-2028 delta-0.85 LEAP [FLOW:sweeps], DP accumulation ladder (large buy_ratio 0.61) [DP:price_levels] -- that the chart CONFIRMS (uptrend HH/HL off 48.82, cup&handle toward ~84 [CHART:market_structure][CHART:cup_handle]). But it has run +34.9%/30d into a long-gamma dealer cap (ZGL $59.97, walls $70/$75, max-pain $59-63 below spot [STRUCT:gex]) and is overbought (RSI 72.7, fib 0.5) with the debate DISCONFIRMED to a range. So this is a REAL but BOUNDED long: a small defined-risk DIP-BUY at $68-71 / $59-65 with capped $75-80 targets -- NOT a chase of $74.",
+  "reasons_for": [
+    "Insider + OI-confirmed turnaround: 25 consecutive OI-build days +127,955, June MSPR +44.1, a $45 Jan-2028 delta-0.85 LEAP -- conviction the bear concedes it cannot short [HIST:oi-trend][FUND:insider-sentiment][FLOW:sweeps]",
+    "DP accumulation ladder: large buy_ratio 0.61; institutions bought into the run at $64-65/$67/$70 [DP:price_levels]",
+    "Long-gamma dealer buffer: ZGL $59.97 -- dealers buy dips, so the $68-71 and $59-65 shelves are defended (favorable for a dip-buy) [STRUCT:gex]",
+    "Chart confirms direction: uptrend HH/HL off 48.82, above rising sma20/50, MACD bullish, cup&handle target ~84 [CHART:market_structure][CHART:cup_handle]",
+    "Squeeze fuel + soft catalyst: 12.7% residual short + haircare rollout (rhode +80% YoY, Raymond James Strong Buy $85 PT) can power a confirmed break of the $75 wall [SENT:short_float][MACRO:ELF_catalyst]",
+    "Sector tailwind: Consumer Defensive persistent INFLOW (persistence 1.0) [MACRO:sector_flow_persistence]"
+  ],
+  "reasons_against": [
+    "STRONGEST STEELMAN: structurally-capped, partly-technical rally -- long-gamma $75 cap + max-pain $59-63 BELOW spot = no upside magnet, and part of +34.9%/30d was short-covering (SI 15.9%->12.7%, non-recurring); the debate disconfirmed to 'buy dips, fade $75, don't chase' [STRUCT:gex][SENT:short_float][DEBATE]",
+    "Extended/overbought entry: RSI 72.7, at fib 0.5 (73.16), BB upper, Elliott wave-5 target met -> chasing $74 is a poor entry with mean-reversion risk (L-0001) [CHART:rsi14][CHART:elliott_wave]",
+    "Valuation: P/E ~166x on trough earnings (net margin 1.6%) -- the multiple bets on margin recovery delivering; a stumble de-rates hard [FUND]",
+    "90d net premium is bearish (-$9.5M) -- the longer-term flow undertone contradicts the recent OI build; watchable: cum-premium net-bearish 3 sessions [HIST:cumulative-premium-flow]",
+    "Regime: TRANSITIONAL + hawkish Fed dots (3.8%) into a high-beta (1.59) name; a hawkish mid-July CPI or a flip to RISK-OFF hits it harder [MACRO:FOMC][MACRO:MarketRegime]",
+    "Cliff-like hard stop: a loss of ZGL $59.97 flips dealers short-gamma -> the buffer becomes an accelerant (amplified downdraft) [STRUCT:gex]"
+  ],
+  "levels": {
+    "support": 70.0,
+    "resistance": 75.0,
+    "gamma_flip": 59.97,
+    "largest_pin": 60.0,
+    "moving_averages": [
+      { "name": "sma50", "level": 59.77 },
+      { "name": "ema21", "level": 63.0 },
+      { "name": "sma200", "level": 84.05 }
+    ],
+    "fib_levels": { "0.236": 60.31, "0.382": 67.42, "0.5": 73.16, "0.618": 78.91, "0.786": 87.09 },
+    "key_levels": [
+      { "level": 84.0, "role": "target", "source": "[CHART:sma200]", "note": "sma200 84.05 = cup target 84.29; stretch objective if $75-80 clears" },
+      { "level": 75.0, "role": "trigger", "source": "[STRUCT:gex]", "note": "$75 gamma wall +681k; cap + aggressive breakout trigger (confirmed close on >1.2x vol, L-0001)" },
+      { "level": 77.82, "role": "resistance", "source": "[CHART:cluster]", "note": "3-touch resistance + fib 0.618 78.91; upper cap toward $80" },
+      { "level": 73.16, "role": "resistance", "source": "[CHART:fib_0.5]", "note": "fib 0.5 half-retrace = spot decision zone; don't chase" },
+      { "level": 70.0, "role": "support", "source": "[STRUCT:gex]", "note": "$70 gamma wall +1.03M + 3-touch 70.84 + cup rim 68.4 + fib 0.382 67.42 -- PRIMARY dip-buy" },
+      { "level": 64.5, "role": "support", "source": "[DP:price_levels]", "note": "$64-65 institutional shelf -- deep dip-buy tranche" },
+      { "level": 59.97, "role": "stop", "source": "[STRUCT:gex]", "note": "ZGL -- loss with no reclaim flips dealers short-gamma (HARD STOP); ~sma50 59.77 + max-pain 59-63 + fib 0.236 60.31" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "cup_and_handle", "direction": "bullish", "confidence": "low", "measured_target": 84.29, "invalidation": 49.57, "note": "rim 68.4 (already reclaimed), target ~= sma200 84.05; confirm by holding above rim on pullbacks / decisive close > $75-77 (L-0001)", "source": "[CHART:cup_handle]" },
+    { "pattern": "elliott_wave", "direction": "bullish", "confidence": "low", "measured_target": 71.57, "invalidation": null, "note": "impulse_up wave-5 pending, 2/3 rules (wave-2 breached wave-1 origin); wave-5 target 71.57 ALREADY MET by spot 74 = up-leg maturing -> exhaustion caution, reinforces don't-chase", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-07-02", "event": "June ISM Mfg/Services + June jobs report", "impact": "?", "source": "[MACRO]" },
+    { "date": "2026-07-14", "event": "June CPI release (hawkish = headwind)", "impact": "?", "source": "[MACRO:CPIAUCSL]" },
+    { "date": "2026-07 (ongoing)", "event": "haircare rollout ramp (TikTok Shop -> Target)", "impact": "+", "source": "[MACRO:ELF_catalyst]" },
+    { "date": "2026-08-05", "event": "ELF Q1 FY2027 earnings (Jul-31 structures expire before it)", "impact": "?", "source": "[FUND:earnings]" }
+  ],
+  "invalidation": {
+    "price": "two daily closes below $70 (first invalidation -> trim tranche 50%); two daily closes below the $64-65 shelf (thesis broken); intraday break of ZGL $59.97 with no reclaim (HARD STOP -- short-gamma flip) [STRUCT:gex][DP:price_levels]",
+    "signal": "cumulative premium flow net-bearish 3 consecutive sessions (already 90d net-bearish -$9.5M) [HIST:cumulative-premium-flow], OR institutional-accumulation flips to distribution [INSIGHT:institutional-accumulation], OR conviction-matrix flips DIRECTIONAL_LONG -> HEDGED_LONG [INSIGHT:conviction-matrix]",
+    "macro": "hawkish CPI surprise ~mid-July above consensus [MACRO:CPIAUCSL], OR market-regime flips TRANSITIONAL -> RISK-OFF [MACRO:MarketRegime], OR July haircare sell-through disappoints [MACRO:ELF_catalyst]"
+  },
+  "sizing": {
+    "p_raw": 0.625,
+    "p": 0.625,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.67,
+    "raw_kelly": 0.40,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": "Positive edge (raw_kelly +0.40 -> fractional 10% -> 5% cap), then reduced to ~0.6% by: TRANSITIONAL regime (half-size, favor defined-risk), sentiment CAUTION (short-covering non-recurring + P/E 166x), debate DISCONFIRMED (bounds to dip-buy/range, capped target), small N=8 (starter), and the extended/overbought entry (dip-buy not chase). Matches deep-dive final_size_pct 0.6."
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 70.0,
+    "entry_trigger": "TRANCHE 1: dip-buy the $68-71 shelf (pullback to the $70 gamma wall / cup rim holding above-mid; dealers buy dips in long-gamma). TRANCHE 2 (deep add): $64-65 institutional shelf. DO NOT chase $74 (RSI 72.7, fib 0.5, wave-5 met). Aggressive breakout-add ONLY on a confirmed daily close above $75 on >1.2x vol + fresh OI (L-0001).",
+    "stop": 66.0,
+    "targets": [
+      { "price": 75.0, "rationale": "$75 gamma wall / first cap (chart resistance 75.85)", "take_pct": 50 },
+      { "price": 80.0, "rationale": "upper cap zone (77.82/79.30 resistance + fib 0.618 78.91)", "take_pct": 30 },
+      { "price": 84.0, "rationale": "sma200 84.05 / cup measured target 84.29 (stretch)", "take_pct": 20 }
+    ],
+    "r_multiple_to_t1": 1.25,
+    "size_pct_book": 0.6,
+    "thesis_one_liner": "Dip-buy the OI/insider-confirmed turnaround at the $68-71 gamma/cup shelf (scale deeper $64-65) -- NOT chase $74; cap targets $75-80 (stretch $84 sma200); stop $66, hard stop on a ZGL $59.97 loss. A real but dealer-capped long, so R is modest (1.25) and the edge is in the entry."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "72/78",
+      "expiry": "2026-07-31",
+      "target_date": "2026-07-24",
+      "target_price": 78.0,
+      "debit_credit": 2.0,
+      "breakeven": 74.0,
+      "est_payoff_at_target": 4.0,
+      "max_loss": 2.0,
+      "size_pct_book": 0.6,
+      "note": "DEFINED-RISK DIRECTIONAL: straddles the $75 gamma/call wall (pin magnet), caps at $78 short of the $80 wall; R ~2:1. Expires 2026-07-31, PRE-earnings (Aug-5) to dodge IV crush. Target $78 = +5.4% (~1.5x the priced +/-3.52% move -- achievable on a haircare-catalyst/squeeze-through the $75 wall, rich if the range holds) [STRUCT:gex][SENT:short_float]"
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put credit spread",
+      "strikes": "65/60",
+      "expiry": "2026-07-31",
+      "target_date": "2026-07-31",
+      "target_price": 70.0,
+      "debit_credit": -1.4,
+      "breakeven": 63.6,
+      "est_payoff_at_target": 1.4,
+      "max_loss": 3.6,
+      "size_pct_book": 0.6,
+      "note": "INCOME / bullish-neutral: sells the $64-65 institutional shelf into VRP +0.081 (premium-selling) + long-gamma buffer; profits on the pin/consolidation the desk expects (full credit if ELF holds >= $65). Short strike $65 is -12% (well outside +/-3.52%). Expires pre-earnings [DP:price_levels][STRUCT:gex]"
+    }
+  ],
+  "gap_audit": {
+    "completeness": 100,
+    "have": ["options flow / LEAP", "dark pool accumulation ladder", "OI 25-day build", "dealer GEX/ZGL", "historical win-rate", "OHLCV chart + patterns (cup&handle, elliott)", "macro / sector rotation", "event calendar", "fundamentals (CONFIRM)", "sentiment / short interest", "implied/expected move + VRP", "earnings date (~Aug-5, cadence-robust > Jul-31 expiry)"],
+    "missing": [
+      { "item": "exact Q1 FY2027 earnings day (Aug-5 vs 6/7)", "severity": "nice_to_have", "how_to_source": "ELF IR / earnings calendar / finnhub_enrich.py --ticker ELF --date 2026-06-30 -- any early-Aug date is safely after the Jul-31 expiry" },
+      { "item": "leverage detail (debt/equity) + cash-flow statements", "severity": "nice_to_have", "how_to_source": "paid-tier Finnhub financials-reported; proxied HAVE (current ratio 2.35, gross margin 70.7%) -- no red flag" },
+      { "item": "live intraday tape for same-day dip-buy trigger timing", "severity": "nice_to_have", "how_to_source": "uw options-flow sweeps --symbol ELF --json + uw options-structure gex --symbol ELF --dte-max 45 --json morning-of" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/ELF/2026-06-30/",
+    "deep_dive_age_days": 0,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0001 (ACTIVE): the aggressive $75 breakout-add is confirmation-gated (decisive close above $75 on >1.2x vol + fresh OI); no anticipatory size on the unconfirmed cup breakout",
+      "L-0002 analog (extended-entry): CONFLUENT but overbought -> dip-buy not chase $74; logged as reason_against"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "confluence_score": 48,
+  "key_risks": [
+    "Long-gamma dealer cap at $75 + max-pain $59-63 below spot: no upside magnet, mean-reversion risk after +34.9%/30d",
+    "Part of the rally was short-covering (SI 15.9%->12.7%) -- non-recurring demand that can exhaust",
+    "P/E ~166x on trough earnings (net margin 1.6%): the multiple is a bet on margin recovery delivering",
+    "ZGL $59.97 -- a loss of $70->$64-65->$60 flips dealers short-gamma into an amplified downdraft",
+    "TRANSITIONAL regime + hawkish Fed dots into a high-beta (1.59) extended name"
+  ],
+  "citations": [
+    "[HIST:oi-trend] OI BUILDING 25 consecutive days, +127,955 net (research/ELF/2026-06-30/phase-3-positioning.md)",
+    "[STRUCT:gex] POSITIVE/long-gamma, ZGL $59.97, gamma walls $70 (+1.03M) / $75 (+681k) (research/ELF/2026-06-30/phase-4-structure.md)",
+    "[FUND:insider-sentiment] June MSPR +44.1 (insiders buying) (research/ELF/2026-06-30/phase-7b-fundamentals.md)",
+    "[DP:price_levels] large buy_ratio 0.61 accumulation ladder $64-65/$67/$70 (research/ELF/2026-06-30/phase-2-dark-pool.md)",
+    "[HIST:signal-backtest] bullish_flow win_rate 0.625 (n=8), raw_kelly +0.40 (research/ELF/2026-06-30/phase-5-historical.md)",
+    "[CHART:cup_handle] cup&handle rim 68.4, target 84.29 ~= sma200 (chart.json)",
+    "[DEBATE] disconfirmed, bull 0.65 = bear 0.65: 'buy dips, fade $75, don't chase' (research/ELF/2026-06-30/phase-8b-debate.md)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

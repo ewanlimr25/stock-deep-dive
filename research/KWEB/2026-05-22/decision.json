@@ -1,0 +1,101 @@
+{
+  "ticker": "KWEB",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T00:00:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 26.91,
+  "thesis": "Low-conviction RANGE, not a directional long: bullish lit call skew (net +$2.65M, P/C 0.25 [FLOW:insights_deep_dive]) is unconfirmed by the share tape — institutions distributed the largest blocks (mega buy_ratio 0.0, block 0.306 [DP:block_stratified]) into a -12% downtrend while 30-31 calls were written/closed (Jun 31C OI -13,668 [OI:decrease_with_volume]). The edge is structural: IV at the 3.33 percentile [HIST:iv_percentile_zscore] with VRP -0.039 [HIST:vrp] = mispriced cheap vol into the China earnings cluster and a fragile post-summit tariff thaw [MACRO:USChina_summit_2026-05-15]. Play cheap defined-risk convexity with a downside lean, capped at $28, flip long only above $29.",
+  "entries": {
+    "primary": { "price": 28.0, "trigger": "rejection at the 5-day DP supply node / gamma-flip approach 27.95-28.10", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 26.88, "trigger": "break-and-hold below today's battleground -> short-gamma flush toward 25-26", "source": "[STRUCT:gex]" },
+    "fade": { "price": 29.0, "trigger": "sustained close >29 flips long: dealer gamma flips long + vanna-squeeze, chase 30-31", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 26.88, "resistance": 28.1, "gamma_flip": 28.5, "largest_pin": null },
+  "invalidation": {
+    "price": "two daily closes above 28.10 (range-high broken); sustained close >29 flips long [DP:price_levels]",
+    "signal": "DEX turns positive / GEX flips spot long-gamma >28.5, or institutional_accumulation flips NEUTRAL->ACCUMULATION [STRUCT:dex] [INSIGHT:institutional_accumulation]",
+    "macro": "signed US-China tariff deal or large China stimulus headline -> risk-on China gap [MACRO:USChina_summit_2026-05-15]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.55,
+    "win_rate_n": 13,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.5,
+    "raw_kelly": 0.25,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "27/24",
+      "expiry": "2026-06-18",
+      "debit_credit": 0.8,
+      "breakeven": 26.2,
+      "max_loss": 0.8,
+      "note": "downside-lean toward the 25-26 Jul put floor; buys vol (IV 3.33 pctile); short strike near -1 sigma of the +/-8.5% monthly expected move"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "long strangle (put-leaning)",
+      "strikes": "25P/29C",
+      "expiry": "2026-06-18",
+      "debit_credit": 1.05,
+      "breakeven": 23.95,
+      "max_loss": 1.05,
+      "note": "direction-agnostic long convexity: front-end IV FLAT 1.037, ~zero event premium priced into 4 China prints while realized>implied; lean put-side for the downside bias, keep the upside-squeeze tail covered"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 55,
+    "iv_rank": 38.9,
+    "self_pctile_net_dir": 83.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.45,
+    "front_expiry_abs": 0.12,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:USChina_summit_2026-05-15] May-15 summit + $30B tariff-reduction framework", "[MACRO:China_policy_2026] consumer stimulus + 15th 5-Yr Plan (AI/digital)", "[HIST:iv_percentile_zscore] IV at 3.33 percentile (cheap convexity)"],
+    "headwinds": ["[MACRO:DTWEXBGS_2026-05-15] firm/rising broad USD 119.3 pressures EM/China", "[MACRO:MarketRegime_2026-05-22] TRANSITIONAL regime, 38.1% breadth", "[SENT:rel_performance] KWEB -17% YTD, laggard of its China category"]
+  },
+  "catalysts": [
+    { "date": "2026-05-29", "event": "China mega-cap earnings cluster begins (PDD/Meituan/JD/NetEase)", "impact": "?" },
+    { "date": "2026-06-18", "event": "June OPEX (30/31 call walls)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Cheap-IV vanna-squeeze on a summit/stimulus/earnings beat breaks >28.5-29, flips short-gamma long, forces a chase to 30-31 against the downside lean [STRUCT:gex] [STRUCT:vanna_charm]",
+    "BABA (top holding) 4 straight earnings misses, latest -89.5% (Mar-26) — China-tech catalyst keeps underdelivering; but a clean beat is the squeeze trigger [FUND:earnings_surprise]",
+    "Short-gamma trend-amplification + Taiwan tail + firm USD = unhedgeable gap risk either direction [STRUCT:dex] [MACRO:DTWEXBGS_2026-05-15]"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net flow +$2.65M, P/C 0.25",
+    "[DP:block_stratified] mega buy_ratio 0.0 / block 0.306 (distribution)",
+    "[OI:decrease_with_volume] Jun 31C OI -13,668 (calls written/closed)",
+    "[HIST:iv_percentile_zscore] IV 3.33 percentile (cheap)",
+    "[HIST:vrp] VRP -0.039 (premium-buying)",
+    "[MACRO:USChina_summit_2026-05-15] summit + tariff framework",
+    "[AGENT:risk-monitor] 5/5 agents non-directional, avg conviction 2.6"
+  ],
+  "confluence_score": 57,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

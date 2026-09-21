@@ -1,0 +1,155 @@
+{
+  "ticker": "ENPH",
+  "date": "2026-07-27",
+  "generated": "2026-07-28T02:55:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 38.01,
+  "thesis": "Bearish but trivially-sized tape (net_flow -$258,731 on a $4.84B cap [FLOW:insights_deep_dive]; 5-of-5 bearish sweep campaign worth only $1,335,255 [FLOW:sweep_persistence]) sits on top of a structurally armed upside squeeze: net_dex -$40.3M = 0.83% of float with net_vanna +913 [STRUCT:vanna_charm], short interest RISING to 17.55% of float [SENT:short_interest], and a flat 25d skew (skew_ratio 1.001, COMPLACENT) [STRUCT:term_skew] - the exact configuration that produced +39% on 2026-02-04 [AGENT:earnings-scout]. Both downside gates fired independently (7b VETO on a 4/4 beat rate into a -11.76pp gross-margin collapse [FUND:earnings_surprises]; 7c VETO on a crowded, rising short base) and the 8b debate then broke the long-vol expression as well (bear_residual 0.65 >= bull_residual 0.65) [DEBATE:disconfirmation]. No directional position into the event: a +/-12.25% implied move [CTX:implied_move_pct] over a surface with zero_gamma_level=null [STRUCT:gex] and no pin means any pre-print stop is taken out by path, not by being wrong [AGENT:risk-monitor].",
+  "entries": {
+    "primary": {
+      "price": 40.0,
+      "trigger": "post-FOMC (after 2026-07-29 14:00 ET) daily close above 40.00 - modal max-pain magnet (8 of 15 expiries) and SMA200 ~40.01 - with call_ask_share > 0.50 confirming demand",
+      "source": "[STRUCT:max_pain]"
+    },
+    "aggressive": {
+      "price": 36.7,
+      "trigger": "post-event flush into the 36.21-36.70 dark-pool shelf that HOLDS (36.70 = most-transacted DP level, 9 trades, $2.48M; 36.21 = 30d low); requires a reclaim close, not a tag",
+      "source": "[DP:price_levels]"
+    },
+    "fade": {
+      "price": 42.5,
+      "trigger": "rejection at the six-method wall - counter-trade the squeeze if it exhausts there",
+      "source": "[OI:oi_by_strike]"
+    }
+  },
+  "levels": {
+    "support": 35.0,
+    "resistance": 42.5,
+    "gamma_flip": null,
+    "largest_pin": 41.0
+  },
+  "invalidation": {
+    "price": "two daily closes below 35.00 (put_wall_support, 4,217 puts vs 10 calls) confirms the crowded short was right; symmetrically a daily close above 42.66 invalidates the neutral/range framing",
+    "signal": "net_vanna flips negative or gex regime exits FULLY_NEGATIVE [STRUCT:vanna_charm][HIST:gex_time_series]; or call_ask_share stays below 0.50 for three sessions post-print (it has been <0.50 in 6 of 6) [FLOW:screener_ask_bid DUCKDB]",
+    "macro": "hawkish FOMC surprise 2026-07-29 14:00 ET (June SEP already lifted median YE-2026 to 3.8% from 3.4%, 9 of 18 projecting a hike) or DGS10 extending materially above 4.69% [MACRO:FOMC_2026-06-17][MACRO:DGS10_2026-07-24]"
+  },
+  "sizing": {
+    "p_raw": 0.556,
+    "p": 0.556,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.49,
+    "raw_kelly": 0.258,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "40/45",
+      "expiry": "2026-08-21",
+      "debit_credit": 1.55,
+      "breakeven": 41.55,
+      "max_loss": 1.55,
+      "note": "CONDITIONAL, post-event only, gated to 0% size by 7b+7c VETO. Actual NBBO: 40C bid 2.78/ask 3.18 (IV 0.997, d 0.458), 45C bid 1.41/ask 1.59 (IV 0.986, d 0.283). Pays ~99% IV on the Aug-21 expiry, NOT the 170.1% front week - the direct answer to phase-8b's winning attack. Width $5.00 > expected move $4.65; breakeven +9.3% sits inside the priced move; expiry past both binaries so no gap can exceed max loss. Strikes anchor to the 40 modal max-pain magnet / SMA200 and the 45 OI cluster."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "35/30",
+      "expiry": "2026-08-21",
+      "debit_credit": -1.63,
+      "breakeven": 33.37,
+      "max_loss": 3.37,
+      "note": "fundamentals-vetoed / sentiment-vetoed, CARRY ONLY, cap <=1.00% of book risk, post-event entry only. Actual NBBO: 35P bid 2.69/ask 2.90, 30P bid 0.90/ask 1.06. Breakeven 33.37 is the exact lower bound of the +/-12.25% implied move (33.36). Sells the wing not the event (vrp +0.2566) and follows documented professional flow - phase-3 shows Aug-21 P35 +473 OI on 655 volume with 582 on the bid. April precedent (-9.1% -> $34.55) finishes ABOVE breakeven; only a print worse than April loses. RISK: short the left tail into a deteriorating business where guidance, not the print, is the event (~$85M of guided revenue is non-recurring safe-harbor)."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "VETO",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": null,
+    "iv_rank": 69.81,
+    "self_pctile_net_dir": 37.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 12.25,
+    "front_expiry_abs": 4.65,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence_2026-07-27] Technology persistence_score 1.0, INFLOW 5/5 sessions - but decayed -85% to $367M and the sector still closed -0.90%",
+      "[MACRO:sector_flow_persistence_2026-07-27] Utilities (solar's nearer neighbour) also persistence 1.0 INFLOW",
+      "[MACRO:CPILFESL_2026-06] core CPI +2.57% YoY near target; headline CPI -0.42% MoM",
+      "[MACRO:DTWEXBGS_2026-07-24] broad dollar -0.58% over 30d, mild support for European revenue"
+    ],
+    "headwinds": [
+      "[MACRO:25D_expiry_2025-12-31] Section 25D repealed effective 2025-12-31; FY installs guided -22%, Q2 interconnections -25%+ YoY; BNEF sees no recovery to 2023 levels within a decade",
+      "[MACRO:DGS10_2026-07-24] 10y +28bp in 30 days to 4.69%; DGS2 +22bp to 4.33% - directly compresses residential-solar financing economics",
+      "[MACRO:FOMC_2026-06-17] June dot plot median YE-2026 3.8% (from 3.4%), 9 of 18 officials projecting a hike",
+      "[MACRO:PCEPILFE_2026-05] core PCE +3.41% YoY, well above target",
+      "[MACRO:MarketRegime_2026-07-27] regime TRANSITIONAL/CHOPPY, breadth 35.2%, SPY below both 20d and 50d SMA, guidance 'half position sizes'",
+      "[MACRO:PAYEMS_2026-06] payroll growth halved +129k -> +57k"
+    ]
+  },
+  "catalysts": [
+    {
+      "date": "2026-07-28",
+      "event": "ENPH Q2 2026 earnings postmarket - consensus $292.2M (-19.6% YoY) / $0.46 (-33.3% YoY); guide $280-310M incl ~$85M safe-harbor; ~3pp tariff GM hit",
+      "impact": "?"
+    },
+    {
+      "date": "2026-07-29",
+      "event": "FOMC statement 14:00 ET (no dot plot) - ENPH trades its earnings gap into the Fed",
+      "impact": "?"
+    },
+    {
+      "date": "2026-07-31",
+      "event": "front-week expiry - positive-gamma island (today_total_gex +1,047,168) expires; IV crush 170.1% -> ~90% completes",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-21",
+      "event": "monthly OPEX - 18.64% of total OI; $40 put wall (7,888), $35 put wall (3,734); both structures expire here",
+      "impact": "?"
+    }
+  ],
+  "key_risks": [
+    "Guidance, not the print, is the event - ~29% of guided Q2 revenue (~$85M) is non-recurring safe-harbor pull-forward and nothing in the setup handicaps the Q3 guide [MACRO:ENPH_Q2-2026_preview]",
+    "The vanna bid is directionally certain but conditional on price - it amplifies upside and is overwhelmed by a downside gap under FULLY_NEGATIVE gamma with zero_gamma_level=null and no pin [STRUCT:vanna_charm][STRUCT:gex]",
+    "The vol evidence base is n=2 and selection-biased (+39% Feb, -9.1% Apr); Oct-2025 and Feb-2025 reactions remain unmeasured [AGENT:earnings-scout]",
+    "Any stop inside the +/-12.25% implied move is taken out by path, not by thesis - two binaries stack in 48 hours [AGENT:risk-monitor]",
+    "Borrow fee / hard-to-borrow status unknown - the cleanest real-time squeeze-pressure gauge is a blind spot [SENT:short_interest]"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] derived net_flow = 1,843,847 - 2,102,578 = -$258,731 (phase-1-flow.md, Whole-tape aggregate)",
+    "[STRUCT:vanna_charm] net_vanna +913 (put_vanna 1,208 / call_vanna -294); net_dex -$40,323,765 = 0.83% of float (phase-4-structure.md)",
+    "[HIST:signal_backtest] bearish_flow win_rate 55.6%, total_signals 9, avg_move_pct 0.48 (phase-5-historical.md)",
+    "[FUND:earnings_surprises] beat rate 4/4, mean surprise +19.24%, estimate bar cut $0.634 -> $0.419 (phase-7b-fundamentals.md)",
+    "[SENT:short_interest] short interest 15.09M -> 16.79M shares = 17.55% of float, days-to-cover 2.63 (phase-7c-sentiment.md)",
+    "[MACRO:25D_expiry_2025-12-31] Section 25D repealed effective 2025-12-31; FY installs guided -22% (phase-6-macro.md)",
+    "[AGENT:earnings-scout] last two earnings reactions +39% (2026-02-04) and -9.1% (2026-04-28) vs a 12.25% implied move (phase-8-agent-views.md)",
+    "[DEBATE:disconfirmation] bull_residual 0.65, bear_residual 0.65, disconfirmed=true (phase-8b-debate.md)",
+    "[CTX:implied_move_pct] implied_move_perc 0.1224573 -> +/-12.25% / +/-$4.65 (phase-0.5-context.md)"
+  ],
+  "confluence_score": 29,
+  "recommended_bin": 0.55,
+  "paths": {
+    "plan": "phase-9-trade-plan.md",
+    "audit": "phase-10-audit.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

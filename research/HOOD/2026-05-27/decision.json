@@ -1,0 +1,108 @@
+{
+  "ticker": "HOOD",
+  "date": "2026-05-27",
+  "generated": "2026-05-28T14:03:50Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 76.23,
+  "thesis": "HOOD's bullish tape is artifact: the dark-pool 'accumulation' is the 16:00 closing auction (94.8% above mid vs 40.8% intraday-offered) [DP:session_split DUCKDB] and the 3.6x call/put premium dissolves into a balanced aggressor split (call ask $17.6M ~ bid $18.9M, net +$1.07M) [FLOW:aggressor_ex0dte DUCKDB]. Structurally capped: spot 76.2 below the 77.85 gamma flip under a +$13.3M/+$12.2M positive-gamma wall at 80/78 with a vanna selling headwind [STRUCT:gex], into a hawkish Fed (hike risk, CPI +3.78%) on a beta-2.27 rich-multiple fintech [MACRO:FOMC_2026-04-29]; all four desk agents RANGE/NEUTRAL and the long disconfirmed in debate (bear 0.85 vs bull 0.55) [DEBATE:bear_residual]. No directional edge; fade strength into 78-80, defined-risk and small.",
+  "entries": {
+    "primary": { "price": 77.9, "trigger": "fade a rally that tags the 77.85-78 gamma flip / OI pin and rejects (no intraday hold above 78)", "source": "[STRUCT:gex]/[OI:pin_risk]" },
+    "aggressive": { "price": 79.75, "trigger": "sell into the written-call wall / +GEX cap at 80", "source": "[OI:biggest_increases]/[STRUCT:gex]" },
+    "fade": { "price": ">78 held", "trigger": "reclaim and HOLD >78 intraday flips gamma to long-gamma, removes the cap -> flatten the fade / flip small long", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 75.76, "resistance": 80.0, "gamma_flip": 77.85, "largest_pin": 78.0 },
+  "invalidation": {
+    "price": "two daily closes above 78.00 (reclaim of the ZGL/gamma flip -> long-gamma, removes the 78-80 cap)",
+    "signal": "GEX flips to a stable POSITIVE/long-gamma regime with spot holding >77.85, OR institutional-accumulation turns to genuine intraday (not closing-auction) buying / cumulative premium flow net-positive 3 consecutive sessions [STRUCT:gex][INSIGHT:institutional_accumulation]",
+    "macro": "a DOVISH CPI (~6/10) or FOMC (6/16-17) surprise that flips the UW regime off TRANSITIONAL toward risk-on [MACRO:FOMC_2026-04-29]"
+  },
+  "sizing": {
+    "p_raw": 0.909,
+    "p": 0.55,
+    "win_rate_n": 11,
+    "win_rate_source": "fallback_bin",
+    "payoff_b": 2.85,
+    "raw_kelly": 0.392,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "75/70",
+      "expiry": "2026-06-12",
+      "debit_credit": 1.3,
+      "breakeven": 73.7,
+      "max_loss": 1.3,
+      "note": "buys cheap downside (IV 15.6th pctile) into the 73.64 DP shelf / 70 -GEX put-floor; defined risk bounds any CPI gap; token size only"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call spread",
+      "strikes": "80/82.5",
+      "expiry": "2026-06-12",
+      "debit_credit": -0.75,
+      "breakeven": 80.75,
+      "max_loss": 1.75,
+      "note": "fades the 78-80 +gamma cap + 80C +3,396 written wall; one-sided (a tight iron condor fails the N4 expected-move check at 59% IV)"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 114,
+    "iv_rank": 23.2,
+    "self_pctile_net_dir": 62.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.29,
+    "front_expiry_abs": 2.51,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:HOOD_catalysts] AI-agent trading launch + SpaceX IPO access + 27.6M accounts (risk-on-appetite dependent)"],
+    "headwinds": [
+      "[MACRO:FOMC_2026-04-29] hawkish Fed, hike risk, 1 cut in 2026",
+      "[MACRO:CPIAUCSL_2026-04] CPI +3.78% YoY re-accelerating (Iran-war)",
+      "[MACRO:DGS10_2026-05-26] 10y 4.50% (+21bp/6wk) pressures rich multiples",
+      "[MACRO:MarketRegime_2026-05-27] TRANSITIONAL regime, breadth 37%, half-size guidance",
+      "[MACRO:sector_rotation] Technology net-directional outflow -$433M"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-05", "event": "May NFP / jobs (est)", "impact": "-" },
+    { "date": "2026-06-10", "event": "May CPI (est) - Iran-war hot-print risk", "impact": "-" },
+    { "date": "2026-06-16", "event": "FOMC", "impact": "-" }
+  ],
+  "key_risks": [
+    "Sustained intraday reclaim >78 flips short-gamma to long-gamma, removes the cap and squeezes the fade [STRUCT:gex]",
+    "Distribution-into-strength could reverse if consecutive-day closing-auction buying at 75.76-76.23 reveals genuine passive accumulation [DP:session_split DUCKDB]",
+    "Cheap IV (15.6 pctile) penalizes premium-selling; beta 2.27 + short-gamma amplifies macro shocks both ways [HIST:iv_percentile_zscore]",
+    "HOOD-AAPL 0.685 soft-watch + 0.84-0.94 tech-beta cluster vs the concurrent AAPL/2026-05-27 blueprint [MACRO:portfolio_correlation DUCKDB]",
+    "Dovish CPI/FOMC surprise removes the macro headwind and undercuts the fade [MACRO:FOMC_2026-04-29]"
+  ],
+  "citations": [
+    "[DP:session_split DUCKDB] intraday DP 40.8% above mid vs closing-auction 94.8% - buying is auction artifact",
+    "[FLOW:aggressor_ex0dte DUCKDB] call ask $17.6M ~ bid $18.9M, net flow +$1.07M trivial",
+    "[STRUCT:gex] ZGL 77.85, +gamma wall 80 (+$13.3M)/78 (+$12.2M), spot 76.2 short-gamma below flip",
+    "[MACRO:FOMC_2026-04-29] hawkish Fed, hike risk, beta 2.27 rich-multiple fintech most exposed",
+    "[DEBATE:bear_residual] bull 0.55 vs bear 0.85, long disconfirmed"
+  ],
+  "confluence_score": 48,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

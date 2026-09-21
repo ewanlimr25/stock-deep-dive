@@ -1,0 +1,100 @@
+{
+  "ticker": "NVDA",
+  "date": "2026-05-27",
+  "generated": "2026-05-28T03:22:00Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 212.6,
+  "thesis": "NVDA is in a dealer-defined, institution-confirmed capped-upside regime: conviction_matrix labels it COVERED_CALL [INSIGHT:conviction_matrix], a 5-session bearish sweep campaign ($4.55B, 5/5) hits calls on the bid [FLOW:sweep_persistence], and a long-gamma GEX wall at 215/217.5/220 (+$146M) caps upside [STRUCT:gex]. With Tech the largest sector outflow today [MACRO:sector_rotation_2026-05-27] but the bearish_flow signal only 37.5% historically [HIST:signal_backtest] and pristine fundamentals, this is a small defined-risk fade of strength into 215-220, not an outright short.",
+  "entries": {
+    "primary": { "price": 215.0, "trigger": "tag of GEX/DP resistance shelf with rejection (fade the rip)", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 212.5, "trigger": "clean break below the 212.5 gamma pivot with no reclaim", "source": "[STRUCT:today_gamma_flip]" },
+    "fade": { "price": 220.5, "trigger": "sustained close above the 220 wall — flip long to the +43.8% analyst target", "source": "[SENT:recom fz]" }
+  },
+  "levels": { "support": 207.5, "resistance": 220.0, "gamma_flip": 212.5, "largest_pin": 220.0 },
+  "invalidation": {
+    "price": "two daily closes above 220.50",
+    "signal": "vanna flips positive on IV expansion OR conviction_matrix flips COVERED_CALL to DIRECTIONAL_LONG [INSIGHT:conviction_matrix]",
+    "macro": "dovish/risk-on surprise at CPI ~2026-06-11 or FOMC ~2026-06-17, or regime flips TRANSITIONAL to RISK-ON [MACRO:MarketRegime_2026-05-27]"
+  },
+  "sizing": {
+    "p_raw": 0.375,
+    "p": 0.375,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.94,
+    "raw_kelly": 0.053,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.75,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "210/200",
+      "expiry": "2026-06-18",
+      "debit_credit": 3.4,
+      "breakeven": 206.6,
+      "max_loss": 3.4,
+      "note": "buy 210p / sell 200p; short leg sits on phase-3 P200 OI floor (50,463); own cheap gamma (IV pctile 25); defined max-loss survives the CPI/FOMC catalyst straddle"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "202.5/207.5p - 217.5/222.5c",
+      "expiry": "2026-06-12",
+      "debit_credit": -1.6,
+      "breakeven": "205.9 / 219.1",
+      "max_loss": 3.4,
+      "note": "sells the RANGE; 217.5 short call above the 215/217.5 GEX wall, 207.5 short put on GEX support; 6/12 expiry closes before FOMC vol risk"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 4,
+    "iv_rank": 30.5,
+    "self_pctile_net_dir": 25.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.94,
+    "front_expiry_abs": 4.12,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:DFF_2026-05-26] Fed funds 3.62% cut from peak supports duration", "[MACRO:DGS10_2026-05-26] 2s10s +0.49% un-inverted, no recession"],
+    "headwinds": ["[MACRO:sector_rotation_2026-05-27] Technology -$433.5M largest sector outflow", "[MACRO:MarketRegime_2026-05-27] breadth only 37.1% bullish, TRANSITIONAL"]
+  },
+  "catalysts": [
+    { "date": "2026-05-29", "event": "weekly OPEX (pin 220)", "impact": "?" },
+    { "date": "2026-06-11", "event": "May CPI release", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC + dot plot", "impact": "?" }
+  ],
+  "key_risks": [
+    "Uniform short-premium positioning + complacent skew (0.987) at IV pctile 25 means a CPI/FOMC vol re-pricing flips vanna to a buy and can gap NVDA UP through 215-220, trapping the fade",
+    "bearish_flow signal historically wins only 37.5% (n=8) - negative-expectancy directional edge, hence starter size",
+    "pristine fundamentals (PEG 0.39, +43.8% analyst target) + NVDA 0.93 correlation to SMH mean any semi-complex bid reverses the thesis fast"
+  ],
+  "citations": [
+    "[INSIGHT:conviction_matrix] scenario COVERED_CALL - yield enhancement capping upside",
+    "[FLOW:sweep_persistence] dominant_direction bearish, consistency 1, 5/5 sessions, $4.55B",
+    "[STRUCT:gex] long-gamma walls 215/217.5/220 = +$146M; K212.5 = -$85.7M flip; ZGL $138.94",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.375 (n=8)",
+    "[MACRO:sector_rotation_2026-05-27] Technology -$433.5M largest sector outflow"
+  ],
+  "confluence_score": 64,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

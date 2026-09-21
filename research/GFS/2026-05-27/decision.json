@@ -1,0 +1,110 @@
+{
+  "ticker": "GFS",
+  "date": "2026-05-27",
+  "generated": "2026-05-28T00:00:00Z",
+  "bias": "SHORT",
+  "conviction": 0.65,
+  "horizon": "1-5d",
+  "spot_reference": 81.11,
+  "thesis": "Mubadala (76% owner) is distributing a $1.91B / 22M-share block (~16.6% of float), marketed $86.30-86.80, settling 05-28 [SENT:insider_block WebSearch:bloomberg.com], into a +132% YTD / +87.5%-above-200DMA name [HIST:52w_proximity fz] on its first -9.7% red day, with dealers short gamma below ZGL $86.37 [STRUCT:gex] and Technology the day's largest net outflow at -$433.5M [MACRO:sector_rotation_2026-05-27 UW]. A defined-risk fade with a quadruple-stacked $86-87 ceiling, not a naked short (phase-7b quality VETO), sized small for the NVDA/AAPL cluster.",
+  "entries": {
+    "primary": { "price": 85.5, "trigger": "rally into the $86-87 stacked ceiling (block price ~ ZGL ~ gamma wall) fails", "source": "[STRUCT:gex] ZGL $86.37 / [SENT:insider_block] block $86.30-86.80" },
+    "aggressive": { "price": 80.0, "trigger": "break & hold below the $80.72 mega-print value area (momentum continuation; poorer R:R)", "source": "[DP:price_levels]" },
+    "fade": { "price": 87.5, "trigger": "reclaim/hold above the ceiling -> cover & flip buy-the-dip on the quality floor", "source": "[FUND:target fz] mean target $79.95 / invalidation" }
+  },
+  "levels": { "support": 78.77, "resistance": 86.37, "gamma_flip": 86.37, "largest_pin": null },
+  "invalidation": {
+    "price": "two daily closes above $87, or an intraday reclaim of ZGL $86.37 that holds into the close [STRUCT:gex]",
+    "signal": "GEX flips POSITIVE / spot above ZGL on phase-4 daily refresh, or dark-pool buy_ratio turns >0.65 accumulative post-settlement, or price-vs-flow divergence resolves bullish [INSIGHT:price_vs_flow]",
+    "macro": "dovish FOMC surprise ~2026-06-16/17 or cool May CPI ~2026-06-10/11 that reverses the tech rotation [MACRO:FOMCminutes_2026-05-20 WebSearch:cnbc.com]"
+  },
+  "sizing": {
+    "p_raw": 0.583,
+    "p": 0.583,
+    "win_rate_n": 12,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.0,
+    "raw_kelly": 0.375,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "80/74",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.3,
+      "breakeven": 77.7,
+      "max_loss": 2.3,
+      "note": "bearish, defined-risk; $74 short strike anchors the phase-2 support shelf; capped loss survives a 13.6% gap; bleeds theta if it chops (phase-8b caveat)"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call credit spread",
+      "strikes": "85/90",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.5,
+      "breakeven": 86.5,
+      "max_loss": 3.5,
+      "note": "desk-preferred (phase-8b): sells the COMPLACENT call skew + rich IV-rank 79; profits while GFS stays below $85; breakeven $86.50 = the ZGL/block ceiling = the invalidation"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": "tech-beta: GFS-NVDA 0.76, GFS-AAPL 0.73",
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 79.1,
+    "self_pctile_net_dir": 21.9
+  },
+  "expected_move": {
+    "front_expiry_pct": 13.6,
+    "front_expiry_abs": 11.03,
+    "source": "[CTX:implied_move_pct]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:GFS_catalyst_2026-05 WebSearch:fool.com] $375M CHIPS quantum award",
+      "[MACRO:DFF_2026-05-26 FRED] fed funds 3.62% off peak / curve normalized",
+      "[FUND:earnings_surprise] 4/4 earnings beats avg +15%"
+    ],
+    "headwinds": [
+      "[MACRO:sector_rotation_2026-05-27 UW] Technology net outflow -$433.5M (largest sector)",
+      "[MACRO:FOMCminutes_2026-05-20 WebSearch:cnbc.com] hawkish FOMC hike-risk tilt",
+      "[MACRO:CPIAUCSL_2026-04 FRED] warm headline CPI +0.64% MoM",
+      "[SENT:insider_block WebSearch:bloomberg.com] Mubadala $1.91B block overhang"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-05-28", "event": "Mubadala $1.91B block settlement (acute supply clears -> bounce risk)", "impact": "?" },
+    { "date": "2026-06-10", "event": "May CPI release", "impact": "-" },
+    { "date": "2026-06-16", "event": "FOMC (hike-risk tilt)", "impact": "-" },
+    { "date": "2026-06-18", "event": "June OPEX", "impact": "?" }
+  ],
+  "key_risks": [
+    "Block settles 05-28 then absorbs -> acute pressure eases -> bounce/squeeze-back toward $86 (DTC 1.94 = no squeeze fuel to extend the down-move) [SENT:short_float fz semi-monthly]",
+    "High-quality underlying (4/4 beats, dividend/buyback floor, mean target $79.95) caps the downside - this is a pullback, not an air-pocket [FUND:earnings_surprise]",
+    "Tech-beta CLUSTER (GFS-NVDA 0.76, GFS-AAPL 0.73, beta 1.80) - GFS is the same trade as concurrent NVDA/AAPL blueprints [MACRO:portfolio_correlation DUCKDB]"
+  ],
+  "citations": [
+    "[SENT:insider_block WebSearch:bloomberg.com] Mubadala $1.91B / 22M-share block, marketed $86.30-86.80, settles 05-28",
+    "[STRUCT:gex] dealers short gamma, ZGL $86.37 > spot $81.04",
+    "[MACRO:sector_rotation_2026-05-27 UW] Technology net outflow -$433.5M (largest sector)",
+    "[HIST:52w_proximity fz] +87.5% above 200-DMA, +132.7% YTD, 12.2% below $92.55 high",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.583 (n=12)"
+  ],
+  "confluence_score": 68,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

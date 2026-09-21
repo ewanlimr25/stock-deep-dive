@@ -1,0 +1,127 @@
+{
+  "ticker": "NBIS",
+  "date": "2026-06-05",
+  "generated": "2026-06-06T22:40:00-04:00",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 227.81,
+  "thesis": "A 99.6th-percentile gross-premium day netted to -$9.6M with delta-flat ex-0DTE tape [FLOW:delta_notional DUCKDB] and balanced dark-pool tiers (0.497-0.523) [DP:block_stratified]; the one persistent signal (5/5-session bearish sweep dominance, $643.6M [FLOW:sweep_persistence]) is double-vetoed by improving fundamentals (4/4 beats, ARR +54% QoQ [FUND:earnings_surprises]) and squeeze-shaped positioning (22.43% short float [SENT:short_float fz], inverted skew, FULLY_NEGATIVE gamma [STRUCT:gex]); with macro a headwind [MACRO:AVGO_guidance_2026-06-03] and four agents at conviction-2 stand-aside [AGENT:all], trade the 205-250 box defined-risk only and rent the backwardated front of the curve.",
+  "entries": {
+    "primary": { "price": 228.0, "trigger": "spot stabilizes above the 220.7 AH-low shelf; enter Jun-12/Jul-17 220 put calendar at the 227.81/230 DP pivot cluster ($226-230)", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 221.0, "trigger": "tag of 220.7-221.0 AH-low prints + 220 put wall with immediate reclaim", "source": "[DP:extended_hours] [OI:oi_by_strike]" },
+    "fade": { "price": 249.5, "trigger": "rejection at the 249.2-251.7 trapped-supply cluster / 250 call wall (net +21,723) - counter-trade short-delta", "source": "[DP:price_levels] [OI:oi_by_strike]" }
+  },
+  "levels": { "support": 220.7, "resistance": 250.0, "gamma_flip": null, "largest_pin": 235.0 },
+  "invalidation": {
+    "price": "two daily closes below 205 (200-205 put shelf + GEX cascade) OR two daily closes above 250 (call wall + $367M trapped DP supply); single close beyond +/-1.5x the ~7%/day band ends the range read same-day",
+    "signal": "sweep-persistence extends to 6+/6 bearish with strikes shifting to <=200 [FLOW:sweep_persistence]; or cumulative premium flow net bearish 3 consecutive sessions [HIST:cumulative_premium_flow]; or any DP tier exits 0.45-0.55 [DP:block_stratified]; or conviction-matrix flips MIXED -> directional [INSIGHT:conviction_matrix]",
+    "macro": "hawkish surprise at Jun-10 CPI or Jun-16/17 FOMC (bear break primary) OR a mega-cap AI-capex positive surprise reversing the AVGO read (squeeze primary) [MACRO:FOMC_calendar] [MACRO:AVGO_guidance_2026-06-03]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.67,
+    "raw_kelly": 0.6,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": "directional size forced to 0% (watch-only) by dual VETO gates (7b fundamentals, 7c sentiment/squeeze); defined-risk carry sleeve capped at 1.0% book max-loss (market-regime half-size + adverse-rotation half-step cut)"
+  },
+  "structures": [
+    {
+      "kind": "defined_risk",
+      "type": "put calendar (sell front event-vol, own back month)",
+      "strikes": "220 (short Jun-12 / long Jul-17)",
+      "expiry": "2026-06-12 / 2026-07-17",
+      "debit_credit": 14.0,
+      "breakeven": "path-dependent; max value spot~220 at Jun-12 expiry; indicative profit zone ~205-240",
+      "max_loss": 14.0,
+      "note": "PRIMARY carry. Monetizes backwardation 1.187 (front 132.1% vs 34d 111.3%) with the hump at Jun-18 (143.6%); short leg expires before FOMC; net-long vol consistent with VRP -0.0841 PREMIUM_BUYING. Strike = 220 put wall / AH-low shelf. Sleeve: <=1.0% book max-loss."
+    },
+    {
+      "kind": "directional",
+      "type": "put debit spread - ARMED, NOT LIVE (double-vetoed; 0% until trigger + 7b/7c re-check)",
+      "strikes": "220/200 (long 220P / short 200P)",
+      "expiry": "2026-06-26",
+      "debit_credit": 7.5,
+      "breakeven": 212.5,
+      "max_loss": 7.5,
+      "note": "Activates only on daily close <220 with sweep-persistence extending bearish; targets the 200-205 shelf (31.4k puts <=30 DTE); b=1.67 feeds the Kelly block. Marked fundamentals-vetoed + sentiment-vetoed."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (conventional alternative, NOT preferred)",
+      "strikes": "190/200/250/260",
+      "expiry": "2026-06-26",
+      "debit_credit": -5.0,
+      "breakeven": "195 / 255",
+      "max_loss": 5.0,
+      "note": "Body (+/-11%) is narrower than the +/-15.7% weekly expected move and VRP is negative - flagged; straddles CPI AND FOMC binaries. If used: half the carry sleeve; roll/close at first short-strike touch."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "VETO",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "#44 on net-bearish screen (outside bullish top-50); universe net-dir pctile 0.8",
+    "iv_rank": 89.97,
+    "self_pctile_net_dir": 10.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 15.7,
+    "front_expiry_abs": 35.8,
+    "source": "derived: IV30d 1.117 x sqrt(5/252) (screener implied_move_perc 0.41% flagged SUSPECT in phase-0.5 DATA NOTE); front-expiry (Jun-12) IV 132.1% implies up to ~18.6%"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:ISM_2026-06-01/03] ISM Mfg 54.0 / Services 54.5 - real activity strong; AI demand intact (ARR +54% QoQ)",
+      "[SENT:company_news 2026-06-02] France/SoftBank AI commitments $61.7bn with Nebius named"
+    ],
+    "headwinds": [
+      "[MACRO:AVGO_guidance_2026-06-03] AVGO AI guide-down ($16bn vs $17.2bn) -> complex-wide derate; NBIS -12.27% was beta",
+      "[MACRO:DGS2_2026-06-04 FRED] 2y 4.05% (+17bp/30d) vs DFF 3.62% on +172k NFP - hike-risk pricing vs a $16-20bn capex funding story",
+      "[MACRO:CPIAUCSL_2026-04 FRED] CPI +3.78% YoY / core PCE +3.29% into the Jun-10 print",
+      "[MACRO:MarketRegime UW] TRANSITIONAL, breadth 29.4% bullish, VIX 16.7->21.5; guidance 'half position sizes'",
+      "[MACRO:sector_flow_persistence UW] rotation adverse: CommSvc -$130M day, gross tilt -51%/5d"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI 8:30 ET", "impact": "-" },
+    { "date": "2026-06-12", "event": "weekly OPEX - max-pain 235 above spot (P/C OI 3.0)", "impact": "+" },
+    { "date": "2026-06-16", "event": "FOMC (+SEP) Jun 16-17 - the Jun-18 IV-hump event", "impact": "?" },
+    { "date": "2026-06-18", "event": "monthly OPEX - 20.9% of total OI rolls off", "impact": "?" },
+    { "date": "2026-06-26", "event": "Jun-26 expiry (max-pain 230); U-Mich June final", "impact": "?" },
+    { "date": "2026-08-06", "event": "NBIS earnings (outside 30d - anchor)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Squeeze tail: 22.43% short float + inverted skew + negative gamma + vanna-buy-on-IV-rise - any AI-capex good news detonates a cover-bid through thin GEX to 250 (April precedent: +38% inside FULLY_NEGATIVE gamma)",
+    "Bear break: the only persistent signal is bearish and OI-confirmed pre-slide (strongest 8b bear point) - 200-205 shelf break cascades through descending GEX nodes",
+    "Funding: $16-20bn capex vs $3-3.4bn revenue into hawkish rates repricing - the fundamental bear case that survives the quality veto",
+    "Negative VRP (realized 120% > implied 112%): short-vol legs (condor, calendar front) are statistically taxed; size to max-loss only",
+    "SI print is ~2 weeks stale; post-crash positioning unknown until next settlement"
+  ],
+  "citations": [
+    "[FLOW:delta_notional DUCKDB] ex-0/1DTE customer delta-notional ~ +$0.000bn (+0.265 -0.365 -0.195 +0.295)",
+    "[DP:block_stratified] tier buy_ratios mega 0.518 / block 0.523 / large 0.497 on $814.46M",
+    "[FLOW:sweep_persistence] 5/5 sessions bearish-dominant, consistency 1.0, $643,611,015",
+    "[FUND:earnings_surprises] 4/4 beats, surprise% +20.2 -> +59.1",
+    "[SENT:short_float fz semi-monthly] 22.43% short float / 45.10M shares / DTC 2.54",
+    "[STRUCT:gex] regime FULLY_NEGATIVE, total_gex -$12,546,295, ZGL null",
+    "[MACRO:AVGO_guidance_2026-06-03] AVGO Q3 AI guide $16bn vs $17.2bn est",
+    "[HIST:signal_backtest] bearish_flow win_rate 87.5% (n=8, in-sample) -> capped p 0.75"
+  ],
+  "confluence_score": 41,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

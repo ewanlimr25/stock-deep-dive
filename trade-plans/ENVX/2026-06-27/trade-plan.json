@@ -1,0 +1,164 @@
+{
+  "ticker": "ENVX",
+  "date": "2026-06-27",
+  "generated": "2026-06-27T16:26:46Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 5.95,
+  "thesis": "ENVX is a $6 battery name pinned by a long-gamma July max-pain magnet (GEX 30/30) [STRUCT:max_pain] where a single bullish $6-Oct call ask-sweep ($871,964, 84% ask) [FLOW:sweeps] into a 26%-short-float HTB covering name [SENT:short_float] sets up a real squeeze tail -- but the directional edge is negative (backtest 20%/n=5, raw Kelly -0.143 [HIST]) and the debate is DISCONFIRMED (bear 0.75 >= bull 0.55) [DEBATE:residuals], while the chart trend is down and a bullish inverse-H&S (neckline 7.40, target 9.41) sits UNCONFIRMED 24% above spot [CHART:head_shoulders]. So this is a DIVERGENT, watch-only RANGE: no directional size, expressed only as cheap two-way defined-risk debit optionality (VRP -0.17 PREMIUM_BUYING) on a violent break of the $5.39-7.40 range.",
+  "reasons_for": [
+    "Long-gamma $6 pin (GEX 30/30, July max-pain $6.00) mechanically pins price -> range not trend; the bull conceded this [STRUCT:max_pain]",
+    "Cheap vol: VRP -0.17 PREMIUM_BUYING + IV rank 42.5, front expected move only +/-2.42% -- the eventual squeeze-or-breakdown is NOT priced, so optionality is underpriced [HIST:vrp][CTX:implied_move]",
+    "Real upside tail: 26% SI / 49.12M sh / 7.45 DTC / HTB + the bullish $6-Oct campaign + inverse-H&S target 9.41 -> a single Aug-12 print can squeeze [SENT:short_float][FLOW:sweeps][CHART:head_shoulders]",
+    "Real downside tail: full downtrend below all SMAs + adverse Industrials rotation + winning shorts pressing -> a break of 5.39/5.50 runs to 4.84/4.61 [CHART:ma_stack][MACRO:sector_flow]",
+    "Both tails dwarf the cost: ATR 10.49% -- when the range breaks it moves multiples of the cheap debit premium [CHART:atr14]"
+  ],
+  "reasons_against": [
+    "STRONGEST STEELMAN: the directional long is DISCONFIRMED and the edge is NEGATIVE -- backtest 20% (raw Kelly -0.143), 90d net-bearish premium -$2.0M, desk 0-for-4; the flow is one lottery ticket, not a campaign [HIST][DEBATE:residuals]",
+    "Theta/pin trap: the $6 pin + no catalyst until ~Aug-12 means BOTH debit legs bleed theta for ~7 weeks while price pins $6 -- the modal outcome is the range holds and both cheap options decay [STRUCT:max_pain]",
+    "The inverse H&S is UNCONFIRMED and at-risk -- price near the 5.39 invalidation, neckline 24% above; it may fail not confirm (L-0001) [CHART:head_shoulders]",
+    "DP is only a weak confirm (buy_ratio 0.629 < 0.70) and the overhead is trapped-long supply, not fresh demand -> thin fuel for the upside tail [DP:price_levels]",
+    "Earnings-date uncertainty (UW 07-30 vs IR-cadence ~Aug-12): if the squeeze trigger is mis-dated the call-debit's theta budget is wrong [FUND:earnings]",
+    "DIVERGENT flow vs chart-trend -- by rule (ledger L-0002) not a directional trade [CHART][FLOW]"
+  ],
+  "levels": {
+    "support": 5.50,
+    "resistance": 7.40,
+    "gamma_flip": 5.50,
+    "largest_pin": 6.00,
+    "moving_averages": [
+      { "name": "ema21", "level": 6.72 },
+      { "name": "sma50", "level": 6.83 },
+      { "name": "sma20", "level": 7.08 },
+      { "name": "sma200", "level": 7.72 }
+    ],
+    "fib_levels": { "0.236": 8.08, "0.382": 7.42, "0.5": 6.88, "0.618": 6.35, "0.786": 5.59 },
+    "key_levels": [
+      { "level": 9.41, "role": "target", "source": "[CHART:head_shoulders]", "note": "inverse-H&S measured target (bull tail); ~swing high 9.15" },
+      { "level": 7.40, "role": "trigger", "source": "[CHART:head_shoulders]", "note": "inverse-H&S neckline + fib 0.382 7.42 + 5-touch resistance; bull-confirmation (sma200 7.72 above)" },
+      { "level": 6.35, "role": "resistance", "source": "[DP:price_levels]", "note": "DP supply $6.28-6.33 + fib 0.618 6.35 + S/R 6.15; near-term lid" },
+      { "level": 6.00, "role": "pin", "source": "[STRUCT:max_pain]", "note": "July max-pain magnet, long-gamma 30/30" },
+      { "level": 5.95, "role": "support", "source": "[DP:price_levels]", "note": "spot = DP value area" },
+      { "level": 5.50, "role": "stop", "source": "[STRUCT:gex]", "note": "gamma-flip/put-wall + fib 0.786 5.59 + S/R 5.57/5.67; decision-line" },
+      { "level": 5.39, "role": "stop", "source": "[CHART:swing_low]", "note": "swing low = inverse-H&S invalidation" },
+      { "level": 4.61, "role": "target", "source": "[CHART:swing_low]", "note": "fib swing-low / 52w-low 4.84 zone (bear tail / put-spread target)" }
+    ]
+  },
+  "patterns": [
+    { "pattern": "inverse_head_and_shoulders", "direction": "bullish", "confidence": "medium", "measured_target": 9.41, "invalidation": 5.39, "note": "shoulders 6.16/6.19, head 5.39, neckline 7.40 -- clean geometry but UNCONFIRMED and at-risk (price 5.95 near invalidation, neckline 24% above). Confirm on close above 7.40 on >1.2x vol (L-0001). Aligns with the bullish $6-Oct flow.", "source": "[CHART:head_shoulders]" },
+    { "pattern": "symmetrical_triangle", "direction": "neutral", "confidence": "low", "measured_target": null, "invalidation": null, "note": "converging trendlines (upper -0.15, lower +0.007); trade the break either way", "source": "[CHART:triangle]" },
+    { "pattern": "elliott_wave", "direction": null, "confidence": "none", "measured_target": null, "invalidation": null, "note": "no valid count -- pivots not cleanly alternating", "source": "[CHART:elliott_wave]" }
+  ],
+  "events": [
+    { "date": "2026-07-17", "event": "July monthly OPEX ($6 max-pain magnet)", "impact": "-", "source": "[STRUCT:max_pain]" },
+    { "date": "2026-07-30", "event": "FOMC (late-July cadence -- confirm date)", "impact": "?", "source": "[MACRO:FOMC]" },
+    { "date": "2026-08-12", "event": "ENVX Q2 earnings -- THE squeeze trigger (UW 07-30 likely stale; confirm)", "impact": "?", "source": "[FUND:earnings]" }
+  ],
+  "invalidation": {
+    "price": "the range breaks INTO a tail (which the long-optionality holder wants) on two daily closes below 5.50 (-> bear tail 4.84/4.61) or above 7.40 on rising IV (-> bull tail/H&S confirm to 9.41). The thesis FAILS (no payoff) only if price pins $5.90-6.10 into the structures' decay [STRUCT:max_pain][CHART:head_shoulders]",
+    "signal": "next-day OI does NOT confirm the $6-Oct build (sweep was a one-off) [OI:biggest_increases], or conviction_matrix flips DIRECTIONAL_LONG -> HEDGED_LONG [INSIGHT:conviction_matrix]",
+    "macro": "SPY regime breaks further RISK-OFF (beta 2.31) [MACRO:MarketRegime], or hawkish late-July CPI/FOMC lifts the 10y"
+  },
+  "sizing": {
+    "p_raw": 0.20,
+    "p": 0.20,
+    "win_rate_n": 5,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.33,
+    "raw_kelly": -0.143,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": "Negative Kelly edge (raw_kelly -0.143) + debate DISCONFIRMED + DIVERGENT RANGE force directional/book-risk size to 0. Only token defined-risk DEBIT carry on both tails (max-loss = premium, ~0.2-0.3% book each) is sanctioned -- justified by cheap VRP (PREMIUM_BUYING), not by directional edge. Mirrors deep-dive decision.json final_size_pct 0.0."
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 7.45,
+    "entry_trigger": "break and hold above the 7.40 inverse-H&S neckline on >1.2x avg volume (two closes) -- confirms the reversal AND aligns with the bullish $6-Oct flow. Until then STAND ASIDE: at $5.95 there is NO edge (RANGE, backtest 20%, $6 pin). Bear alternative: short only on two closes below 5.50, stop 6.00, target 4.61.",
+    "stop": 6.80,
+    "targets": [
+      { "price": 9.15, "rationale": "prior swing high (first major resistance after the neckline break)", "take_pct": 60 },
+      { "price": 9.41, "rationale": "inverse-H&S measured move / fib confluence", "take_pct": 40 }
+    ],
+    "r_multiple_to_t1": 2.62,
+    "size_pct_book": 0.0,
+    "thesis_one_liner": "Watch-only: the only stock action with an edge is a CONFIRMED inverse-H&S neckline reclaim above 7.40 (flow-aligned, R 2.62), entered starter; at $5.95 with a negative backtest and a $6 long-gamma pin, stand aside -- do not pre-position a +25%-away breakout (L-0001)."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "6/8",
+      "expiry": "2026-10-16",
+      "target_date": "2026-08-13",
+      "target_price": 8.0,
+      "debit_credit": 0.80,
+      "breakeven": 6.80,
+      "est_payoff_at_target": 1.20,
+      "max_loss": 0.80,
+      "size_pct_book": 0.3,
+      "note": "SQUEEZE-TAIL LOTTERY: long the $6 flow strike, short the $8 call-OI wall; held THROUGH the ~Aug-12 earnings trigger (max-loss = debit, so an earnings gap cannot exceed it). Pays on a 26%-short squeeze; caps at $8. Buying cheap vol (VRP -0.17) [FLOW:sweeps][SENT:short_float]"
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put debit spread",
+      "strikes": "5.5/4.5",
+      "expiry": "2026-10-16",
+      "target_date": "2026-08-13",
+      "target_price": 4.5,
+      "debit_credit": 0.40,
+      "breakeven": 5.10,
+      "est_payoff_at_target": 0.60,
+      "max_loss": 0.40,
+      "size_pct_book": 0.2,
+      "note": "DOWNTREND-TAIL HEDGE below the $5.50 gamma-flip toward the $4.61 52w-low; debit (VRP -0.17 says buy not sell). Pairs with the call spread as a cheap long-strangle-via-spreads on a violent range break [CHART:ma_stack][MACRO:sector_flow]"
+    }
+  ],
+  "gap_audit": {
+    "completeness": 94,
+    "have": ["options flow / sweeps", "dark pool / blocks", "OI / positioning", "dealer GEX/max-pain", "historical win-rate", "OHLCV chart + patterns (inverse H&S, triangle)", "macro / sector rotation", "event calendar", "fundamentals (CONFIRM)", "sentiment / short interest", "implied/expected move + VRP"],
+    "missing": [
+      { "item": "confirmed Q2 earnings date (UW 07-30 vs IR-cadence ~Aug-12)", "severity": "important", "how_to_source": "fz quote ENVX / finnhub_enrich.py --ticker ENVX --date 2026-06-27 / ENVX IR page -- re-confirm before placing; both candidates fall inside Oct-16 expiry so it shifts theta budget not expiry choice" },
+      { "item": "next-day OI confirmation of the $6-Oct call build + live tape", "severity": "nice_to_have", "how_to_source": "uw oi biggest-increases --symbol ENVX --json + uw options-flow sweeps --symbol ENVX --json morning-of" }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/ENVX/2026-06-26/",
+    "deep_dive_age_days": 1,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0002 (ACTIVE): DIVERGENT flow/chart -> RANGE, capped conviction 0.55, directional size 0, logged as reason_against",
+      "L-0001 (ACTIVE): inverse H&S unconfirmed -> no anticipatory sizing; bull tail confirms only on close above 7.40 on >1.2x vol (two closes)",
+      "L-0004 (CANDIDATE, mirror): a lone bullish sweep into a long-gamma $6 pin with no near catalyst is a trap for the bull -> size the bull tail as a token lottery only"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "confluence_score": 51,
+  "key_risks": [
+    "Long-gamma pin (GEX 30/30) + July max-pain $6 cap the breakout the $6 calls need, with no catalyst until ~Aug-12 -- theta bleeds both debit legs",
+    "20% backtest (n=5) + 90d net-bearish premium (-$2.0M) + full downtrend below all SMAs -- counter-trend long has no edge",
+    "26% short float is double-edged: squeeze fuel up, but 49M shares of conviction the stock falls; cheap VRP means the range can break violently either way",
+    "Inverse H&S is unconfirmed (neckline 24% above spot) and may fail at the 5.39 head"
+  ],
+  "citations": [
+    "[FLOW:sweeps] $6-Oct call ask-sweep $871,964 / 6,738 ct / 84.2% ask (research/ENVX/2026-06-26/phase-1-flow.md)",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.20 (n=5), avg move -0.05%; raw_kelly -0.143 (research/ENVX/2026-06-26/phase-5-historical.md)",
+    "[STRUCT:max_pain] July-OPEX max-pain $6.00 + long-gamma 30/30 sessions (research/ENVX/2026-06-26/phase-4-structure.md)",
+    "[SENT:short_float] 26.00% SI, 49.12M shares, 7.45 DTC, HTB (research/ENVX/2026-06-26/phase-7c-sentiment.md)",
+    "[DEBATE:residuals] DISCONFIRMED, bear 0.75 >= bull 0.55 (research/ENVX/2026-06-26/phase-8b-debate.md)",
+    "[CHART:head_shoulders] inverse H&S neckline 7.40, head 5.39, target 9.41 -- UNCONFIRMED (chart.json)",
+    "[DP:price_levels] large buy_ratio 0.629, value area $5.95, overhead supply $6.28-6.33/$7.05 (research/ENVX/2026-06-26/phase-2-dark-pool.md)"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

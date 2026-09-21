@@ -1,0 +1,160 @@
+{
+  "ticker": "FSLR",
+  "date": "2026-07-31",
+  "generated": "2026-07-31T21:00:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 211.03,
+  "thesis": "Flow is genuinely long - a 1,900-lot Aug-21 $230 call block printed at the offer and its 72,200-share dealer delta hedge landed 49s later at a 101.1% size match [DP:ts_confirm DUCKDB], putting net customer delta at +$10.73M vs the screener's -$2.37M [FLOW:delta_notional DUCKDB] - but it has bought nothing: twelve sessions and $17.28M of sweep premium moved price 211.93 to 211.03 with dominant_direction 'mixed' [FLOW:sweep_persistence]. Today's high of 217.1274 stopped 0.17% short of the $217.50 gamma wall (net_gex +2,344,544, 78% of the summed surface) and gave back 6.10 points [STRUCT:gex]. Four agents returned RANGE x3 / NEUTRAL x1, zero LONG, zero SHORT, all at conviction 2/5, converging unprompted on 205.83 support and 217.50 resistance [AGENT:accumulation-hunter].",
+  "entries": {
+    "primary": {
+      "price": 205.83,
+      "trigger": "tag of the dark-pool support shelf (205.83-206.01, $90.6M across 48 prints) without a daily close below it; coincides with the 0/7/14/28-DTE max-pain cluster at 205-210",
+      "source": "[DP:price_levels] [STRUCT:max_pain]"
+    },
+    "aggressive": {
+      "price": 200.0,
+      "trigger": "flush into the put_wall_support at 200 (net_oi -1,811, net_gex -465,782) WITH an intraday reclaim of 205.83 - never on the break, this is the short-gamma acceleration zone",
+      "source": "[OI:oi_by_strike] [STRUCT:gex]"
+    },
+    "fade": {
+      "price": 217.5,
+      "trigger": "rejection in the triple-confirmed 214.00-217.50 congestion band - short/roll-down the long side or initiate the call-side credit",
+      "source": "[DP:largest] [OI:oi_by_strike] [STRUCT:gex]"
+    }
+  },
+  "levels": {
+    "support": 205.83,
+    "resistance": 217.5,
+    "gamma_flip": 215.03,
+    "largest_pin": 210.0
+  },
+  "invalidation": {
+    "price": "two daily closes below 205.83 (dark-pool shelf, unanimous agent invalidation); hard stop on any close below 200.00 where net_gex turns -465,782 [DP:price_levels] [STRUCT:gex]",
+    "signal": "regular-session dark-pool buy% falls below 50% for two consecutive sessions (thesis rests on 28.4->64.2->73.1) [DP:session_split DUCKDB]; OR FSLR260821C00230000 open interest fails to print near ~2,155 on the 2026-08-03 snapshot vs 255 pre-trade [OI:biggest_increases]",
+    "macro": "hot core CPI print ~2026-08-12 lifting the 10y further from 4.68%; core PCE already +3.29% YoY with three FOMC members dissenting toward a hike on 2026-07-29 [MACRO:PCEPILFE_2026-06 FRED] [MACRO:FOMC_2026-07-29 WebSearch:federalreserve.gov]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.75,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.244,
+    "raw_kelly": 0.549,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.625,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "215/230",
+      "expiry": "2026-08-21",
+      "debit_credit": 6.53,
+      "breakeven": 221.53,
+      "max_loss": 6.53,
+      "note": "215 = the zero-gamma level (215.03); 230 = the strike the 1,900-lot block actually bought. Width $15 = 2.0x the 21-day expected move ($7.37) so upside is not capped early. Breakeven 221.53 sits ABOVE the 217.50 wall - this structure requires the breakout that failed today; treat as contingent on a close above 217.50 with volume. Debit is 43.5% of width because VRP is +0.3587 (options price 1.93x delivered vol) - satellite, not core. Prices are last-observed NBBO mids, re-price live."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "200/190",
+      "expiry": "2026-08-21",
+      "debit_credit": -3.25,
+      "breakeven": 196.75,
+      "max_loss": 6.75,
+      "note": "THE CORE POSITION. 200 = put_wall_support (net_oi -1,811) where net_gex turns -465,782; 190 = the next wall (net_oi -3,040). Short strike sits BELOW the unanimous 205.83 invalidation and breakeven 196.75 is beneath the 199.24 twelve-session base low. Sells premium into VRP +0.3587 with realized vol falling (60d 0.5821 -> 20d 0.3732), COMPLACENT skew (25d puts 0.7613 < calls 0.7652), and FLAT front-end IV (no event premium). Optional 230/240 call wing makes it an iron condor per the regime guidance, but Aug-21 call-wing quotes are stale/non-monotonic - price live or leave one-sided. Max loss (width - credit), NOT margin, is what must fit the 0.625% budget."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 50,
+    "iv_rank": 81.94,
+    "self_pctile_net_dir": 21.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.7625,
+    "front_expiry_abs": 1.611,
+    "source": "[CTX:implied_move_pct] - daily figure, post-earnings so no event premium (front-end-iv-ratio FLAT at 1.001); scaled to the 2026-08-21 expiry = sqrt(21) x 0.7625% ~ 3.49% / $7.37, 1-sigma band 203.66-218.40"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:45X_policy WebSearch:novoco.com] Section 45X manufacturing credits preserved through 2032; FSLR expects $2.10-2.19B in 2026, ~9% of a $22.68B market cap annually",
+      "[MACRO:sector_flow_persistence DUCKDB] Technology 5-day net directional flow +$839.5M, positive 4 of 5 sessions - sector gate is aligned; phase-0.5's 'worst sector' read was corrected in phase 6",
+      "[MACRO:group_valuation fz EOD] Technology has the lowest PEG of all eleven sectors (0.88); FSLR itself P/E 13.01, forward 8.87, PEG 0.33",
+      "[MACRO:PAYEMS_2026-06 FRED] payroll growth halved to +57k from +129k - the main argument for cuts that would relieve rate pressure"
+    ],
+    "headwinds": [
+      "[MACRO:DGS10_2026-07-30 FRED] 10y at 4.68%, +24bp in 30 days, 2s10s +0.47 and steepening - the binding constraint on a levelized-cost business",
+      "[MACRO:FOMC_2026-07-29 WebSearch:federalreserve.gov] held 3.50-3.75% on a 9-3 vote with three dissents preferring a HIKE",
+      "[MACRO:PCEPILFE_2026-06 FRED] core PCE +3.29% YoY, 129bp above target",
+      "[MACRO:45Y48E_phaseout WebSearch:novoco.com] 45Y/48E project credits in expedited phaseout for construction beginning after 2026-07-04 - already 27 days past; the subsidy moved from FSLR's customers to its factories",
+      "[MACRO:MarketRegime_2026-07-31 UW] TRANSITIONAL regime, breadth 34.1% bullish (2,142 vs 4,138), guidance 'half position sizes'"
+    ]
+  },
+  "catalysts": [
+    {
+      "date": "2026-08-05",
+      "event": "ISM Services PMI (July)",
+      "impact": "low - weak read-through to utility-scale solar; inside the +/-3.5% expected move"
+    },
+    {
+      "date": "2026-08-07",
+      "event": "Nonfarm payrolls (July)",
+      "impact": "medium positive - a second sub-100k print revives cut pricing, rate-sensitive tailwind"
+    },
+    {
+      "date": "2026-08-12",
+      "event": "CPI (July)",
+      "impact": "medium-high NEGATIVE - the key risk; a hot core print lifts the 10y and transmits directly to solar. A single expected-move gap (-3.49% to ~203.66) clears the 205.83 stop, which is why both structures are defined-risk"
+    },
+    {
+      "date": "2026-08-21",
+      "event": "Monthly OPEX - 29,922 OI (13.34% of tracked), P/C 1.166, richest IV on the curve (79.6%)",
+      "impact": "high but MECHANICAL not directional - where the 1,900-lot $230 block expires and the 72,200-share dealer hedge unwinds; both structures anchor here"
+    },
+    {
+      "date": "2026-10-29",
+      "event": "FSLR Q3 earnings",
+      "impact": "high - OUTSIDE the 30-day window; no company-specific catalyst inside it"
+    }
+  ],
+  "key_risks": [
+    "The fundamental bear case is un-hedgeable by the flow layer: three firms cut targets the day after a +37.1% beat (WF $300, Truist $229, Bernstein $197 - 6.7% BELOW spot) because sales of $1.056B missed $1.062B and FY guidance of $4.900-5.200B was affirmed against a $5.118B consensus [SENT:revision_trend]",
+    "Cash leaving while profits are recorded: operating cash flow -$214,866,000 in Q1 2026 against +$346.6M net income, cash $2.4B -> $1.7B in six months as 45X credits accrue ahead of monetization; five C-suite officers sold ~720,802 shares on 2026-07-29 with MSPR negative four straight months and zero insider buying [FUND:operating_cash_flow] [FUND:insider_cluster fz]",
+    "The entire bullish delta conclusion rests on one print's interpretation - reversing the 1,900-lot cross swings net customer delta from +$10.73M to roughly -$4.5M, and OI confirmation is only available on the 2026-08-03 snapshot [FLOW:delta_notional DUCKDB] [OI:oi_lag DUCKDB]",
+    "Short gamma cuts both ways: the squeeze case above 217.50 has an exact mirror below 200 (net_gex -465,782) where 9.89M shares short at 4.09 days to cover do not help [STRUCT:gex] [SENT:short_float fz semi-monthly]",
+    "No measured historical edge: 90-day cumulative premium flow is +0.77% of gross (MIXED), the dark_pool_accumulation backtest returned zero signals on two runs, and the bullish_flow 100% win rate is in-sample on n=9 and market-wide [HIST:cumulative_premium_flow] [HIST:signal_backtest]"
+  ],
+  "citations": [
+    "[DP:ts_confirm DUCKDB] 72,200-share qualified_contingent_trade at 212.9695 (above the 212.54 ask) 49.0s after the 1,900-lot Aug-21 $230 call cross - 101.1% hedge match (72,200/190,000 = delta 0.3800 vs the option's 0.3760), the only non-cancelled QCT of the day",
+    "[FLOW:delta_notional DUCKDB] net customer delta notional +$10.73M long vs the screener's net_flow -$2,374,671; UW's directional math excludes $2,545,750 (9.5% of the tape) as mid/no_side",
+    "[STRUCT:gex] $217.50 carries net_gex +2,344,544 = 78% of summed per-strike gamma; zero_gamma_level 215.03 with spot 1.90% below",
+    "[HIST:intraday_range DUCKDB] today's high 217.1274 stopped 0.17% short of the 217.50 wall and closed 6.10 points (-2.81%) below it",
+    "[FLOW:sweep_persistence] consistency_score 0.80, 4 of 5 sessions in the top sweep names, total_sweep_premium $17,278,108, dominant_direction 'mixed' while price went 211.93 -> 211.03",
+    "[AGENT:accumulation-hunter] four agents returned RANGE x3 / NEUTRAL x1, zero LONG, zero SHORT, all at conviction 2/5, converging unprompted on 205.83 / 217.50",
+    "[DEBATE:bear_residual] bear 0.85 vs bull 0.55, disconfirmed true; strongest unrefuted bear point is the unanimous target-cut cluster into a beat",
+    "[HIST:vrp] VRP +0.3587 (iv30d 0.7378 vs realised_vol 0.3791, independently verified at 0.3821) - regime PREMIUM_SELLING with realized vol falling 60d 0.5821 -> 20d 0.3732",
+    "[DP:session_split DUCKDB] regular-session dark pool 73.1% buy (63.2% ex-hedge) on $59.16M; five-session sequence 44.5 -> 36.8 -> 28.4 -> 64.2 -> 73.1, flipping exactly at the earnings date",
+    "[AGENT:risk-monitor] independent sizing check 0.5 x 0.75 x 0.75 ~ 0.28 -> 'roughly 1/8-1/5 of a normal unit'; 0.625% is exactly 1/8 of the 5.0% cap"
+  ],
+  "confluence_score": 63,
+  "recommended_bin": 0.65,
+  "paths": {
+    "plan": "phase-9-trade-plan.md",
+    "audit": "phase-10-audit.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

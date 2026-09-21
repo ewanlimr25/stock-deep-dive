@@ -1,0 +1,111 @@
+{
+  "ticker": "ELF",
+  "date": "2026-06-30",
+  "generated": "2026-07-01T01:16:11Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 74.0,
+  "thesis": "Insider- and OI-confirmed turnaround (25 consecutive OI-build days +127,955 [HIST:oi-trend], June MSPR +44.1 [FUND:insider-sentiment], a $45 Jan-2028 delta-0.85 LEAP [FLOW:sweeps]) that has run +34.9%/30d into a long-gamma dealer cap (ZGL $59.97, gamma walls $70/$75, max-pain $59-63 below spot [STRUCT:gex]); the desk (2 LONG-mild / 2 RANGE) and a disconfirmed debate converge on a small, defined-risk dip-buy at $70/$64-65 with a capped $75-80 target, not a chase of $74.",
+  "entries": {
+    "primary": { "price": 70.0, "trigger": "pullback to the largest gamma strike / DP cluster holding above-mid (dealers buy dips in long-gamma)", "source": "[STRUCT:gex] / [DP:price_levels]" },
+    "aggressive": { "price": 75.0, "trigger": "decisive daily close back above the $75 call/gamma wall with fresh OI expansion (squeeze-through; 12.7% short is fuel)", "source": "[OI:oi-by-strike] / [SENT:short_float]" },
+    "fade": { "price": 64.5, "trigger": "rejection at $75 back toward the shelf, or a flush into the 5-day institutional shelf that holds — best-value dip-buy", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 70.0, "resistance": 75.0, "gamma_flip": 59.97, "largest_pin": 60.0 },
+  "invalidation": {
+    "price": "two daily closes below $70 (first invalidation, tranche 50%); two daily closes below the $64-65 shelf (thesis broken); intraday break of ZGL $59.97 with no reclaim (hard stop — short-gamma flip)",
+    "signal": "cumulative premium flow net-bearish 3 consecutive sessions (already 90d net-bearish -$9.5M) [HIST:cumulative-premium-flow], OR institutional-accumulation flips to distribution [INSIGHT:institutional-accumulation], OR conviction-matrix flips DIRECTIONAL_LONG->HEDGED_LONG [INSIGHT:conviction-matrix]",
+    "macro": "hawkish CPI surprise ~mid-July above consensus (Fed dots already signal a hike) [MACRO:CPIAUCSL/FOMC], OR market-regime flips TRANSITIONAL->RISK-OFF [MACRO:MarketRegime], OR July haircare sell-through disappoints [MACRO:ELF_catalyst]"
+  },
+  "sizing": {
+    "p_raw": 0.625,
+    "p": 0.625,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.67,
+    "raw_kelly": 0.40,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "72/78",
+      "expiry": "2026-07-31",
+      "debit_credit": 2.0,
+      "breakeven": 74.0,
+      "max_loss": 2.0,
+      "note": "straddles the $75 gamma/call wall (pin magnet), caps at $78 short of the $80 wall, expires pre-earnings (2026-08-05) to dodge IV crush; premium <= 0.6% of book"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "65/60",
+      "expiry": "2026-07-31",
+      "debit_credit": -1.4,
+      "breakeven": 63.6,
+      "max_loss": 3.6,
+      "note": "sells the $64-65 institutional shelf into a premium-selling regime (VRP +0.081) + long-gamma buffer; profits on the pin/consolidation the desk expects; max-loss <= 0.6% of book"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "outside top-50 absolute / 97.9th pctile (DUCKDB)",
+    "iv_rank": 46.8,
+    "self_pctile_net_dir": 94.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.52,
+    "front_expiry_abs": 2.61,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Consumer Defensive persistent INFLOW, persistence 1.0",
+      "[MACRO:ELF_catalyst] rhode +80% YoY, haircare launch, Raymond James Strong Buy $85 PT",
+      "[MACRO:UNRATE] labor resilient (unemployment 4.3%, payrolls +172k)"
+    ],
+    "headwinds": [
+      "[MACRO:FOMC] dots moved up to 3.8% end-2026 — rate hike signaled",
+      "[MACRO:CPIAUCSL] headline CPI +4.2% YoY, core PCE +3.4% — inflation above target",
+      "[MACRO:MarketRegime] TRANSITIONAL — half position sizes, favor defined-risk"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-early", "event": "June ISM Mfg/Services + June jobs report", "impact": "?" },
+    { "date": "2026-07-mid", "event": "June CPI release", "impact": "?" },
+    { "date": "2026-07", "event": "haircare rollout ramp (TikTok Shop -> Target) — idiosyncratic soft catalyst", "impact": "+" },
+    { "date": "2026-08-05", "event": "ELF Q1 FY2027 earnings (Jul-31 structures expire before it)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Long-gamma dealer cap at $75 + max-pain $59-63 below spot: no upside magnet, mean-reversion risk after +34.9%/30d",
+    "Part of the rally was short-covering (SI 15.9%->12.7%) — non-recurring demand that can exhaust",
+    "P/E ~166x on trough earnings (net margin 1.6%): the multiple is a bet on margin recovery delivering",
+    "ZGL $59.97 — a loss of $70->$64-65->$60 flips dealers short-gamma into an amplified downdraft",
+    "TRANSITIONAL regime + hawkish Fed dots into a high-beta (1.59) extended name"
+  ],
+  "citations": [
+    "[HIST:oi-trend] OI BUILDING 25 consecutive days, +127,955 net",
+    "[STRUCT:gex] POSITIVE/long-gamma, ZGL $59.97, gamma walls $70 (+1.03M) / $75 (+681k)",
+    "[HIST:signal-backtest] bullish_flow win_rate 0.625 (n=8, market-wide)",
+    "[FUND:insider-sentiment] June MSPR +44.1 (insiders buying)",
+    "[DEBATE:] disconfirmed, bull_residual 0.65 / bear_residual 0.65"
+  ],
+  "confluence_score": 48,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

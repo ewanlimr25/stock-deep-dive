@@ -1,0 +1,100 @@
+{
+  "ticker": "PATH",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 10.93,
+  "thesis": "PATH is a beaten-down, profitable software name (2/2 recent EPS beats [FUND:earnings_surprise]) being accumulated in the dark pool (block buy_ratio 1.0, $13.95M [DP:block_stratified]) against a ~28-31% short float [SENT:short_interest] into 2026-05-28 earnings, but the edge is structural not directional: VRP +43.7 vol points [HIST:vrp] and a 140% 5/29 IV bubble [STRUCT:iv_term_structure] make the overpriced premium the prize, and the bull/bear debate disconfirmed the directional long (bear 0.65 >= bull 0.55 [DEBATE:bear_residual]). Express defined-risk and small: harvest the rich IV with a neutral-to-mildly-long structure, cap downside below the $10.50 negative-GEX gate [STRUCT:gex], let the $11 gamma pin do the work.",
+  "entries": {
+    "primary": { "price": 10.95, "trigger": "initiate neutral structure pre-event at the $11 gamma pin to sell peak IV", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 10.50, "trigger": "leg the put side on a tag of the DP support shelf / neg-GEX gate", "source": "[DP:price_levels]" },
+    "fade": { "price": 12.00, "trigger": "rejection at the positive-GEX call cap — take profit / counter directional long", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 10.50, "resistance": 11.00, "gamma_flip": 7.26, "largest_pin": 11.00 },
+  "invalidation": {
+    "price": "two daily closes below 10.50 (DP support shelf + neg-GEX gate -> air pocket to 8.5-9)",
+    "signal": "dark-pool ACCUMULATION flips to DISTRIBUTION [INSIGHT:institutional_accumulation] or conviction_matrix flips DIRECTIONAL_LONG->HEDGED_LONG",
+    "macro": "05-28 earnings guide miss gaps PATH through 10.50 [FUND:forward_consensus]; or TRANSITIONAL->RISK-OFF regime flip [MACRO:MarketRegime_2026-05-22]"
+  },
+  "sizing": {
+    "p_raw": 0.55,
+    "p": 0.55,
+    "win_rate_n": 0,
+    "win_rate_source": null,
+    "payoff_b": 1.7,
+    "raw_kelly": 0.285,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "11/12.5",
+      "expiry": "2026-06-18",
+      "debit_credit": 0.55,
+      "breakeven": 11.55,
+      "max_loss": 0.55,
+      "note": "mild-long / squeeze lean; $11 gamma wall to $12.5 above the $12 cap; post-earnings expiry blunts IV crush"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "8.5/9.5 put + 12.5/13.5 call",
+      "expiry": "2026-06-18",
+      "debit_credit": -0.55,
+      "breakeven": 13.05,
+      "max_loss": 0.45,
+      "note": "PRIMARY recommendation: sell rich 100-140% IV, $11 pin centered, short strikes bracket the +/-11.8% implied move, put wing above the 8.5 air-pocket floor"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (universe pctile 3.9)",
+    "iv_rank": 84.0,
+    "self_pctile_net_dir": 23.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 11.8,
+    "front_expiry_abs": 1.30,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_flow_persistence_2026-05-22] Technology #1 persistent inflow (score 1.0)", "[MACRO:DFF_2026-05-21] fed funds easing to 3.62% supports rate-sensitive software"],
+    "headwinds": ["[MACRO:MarketRegime_2026-05-22] TRANSITIONAL, breadth 38% -> half-size", "[MACRO:CPIAUCSL_2026-04] April CPI MoM +0.64% firm -> easing-path risk"]
+  },
+  "catalysts": [
+    { "date": "2026-05-28", "event": "PATH Q1 FY27 earnings (+/-11.8% implied)", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC + SEP", "impact": "?" }
+  ],
+  "key_risks": [
+    "05-28 guide miss gaps PATH through 10.50 into the 8.5-9 negative-GEX air pocket (the strongest_bear_point)",
+    "beat-driven squeeze of the 30% short float blows through the $12.5 call wing",
+    "forward consensus invisible (paid-tier) - cannot see estimate direction into the binary print"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool block buy_ratio 1.0, $13.95M, zero sells",
+    "[SENT:short_interest] ~28-31% of float short, ~5.2 days-to-cover",
+    "[HIST:vrp] VRP +0.4367 (IV30d 98.7% vs realized 55%), PREMIUM_SELLING",
+    "[STRUCT:gex] $11 gamma wall +$20.5M, negative-GEX pocket 8.5-10.5, ZGL 7.26",
+    "[DEBATE:bear_residual] bear 0.65 >= bull 0.55 -> disconfirmed",
+    "[FUND:earnings_surprise] 2/2 recent beats (+15.5%, +7.4%)"
+  ],
+  "confluence_score": 59,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

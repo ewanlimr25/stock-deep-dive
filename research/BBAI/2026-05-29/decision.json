@@ -1,0 +1,103 @@
+{
+  "ticker": "BBAI",
+  "date": "2026-05-29",
+  "generated": "2026-05-31T15:05:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 5.04,
+  "thesis": "BBAI ran +30.9% into a long-gamma $5 dealer pin (+$82.0M GEX, ZGL $2.64 [STRUCT:gex]) while whole-tape net call premium turned negative (-$999,867 [FLOW:insights_deep_dive]) — a price-vs-flow DIVERGENCE [INSIGHT:price-vs-flow]. With IV rich vs realized (VRP +0.28 PREMIUM_SELLING [HIST:vrp]), no catalyst until 8/10, and a TRANSITIONAL reduce-size regime [MACRO:MarketRegime], the edge is to sell premium around the $5 pin, not chase. Starter-only: 26.37% short float [SENT:short_float fz] is a live squeeze tail and the desk came back 0-of-5 long.",
+  "entries": {
+    "primary": { "price": 5.05, "trigger": "spot holds the $5.00-5.10 GEX pin and rejects the $5.50 call wall", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 5.5, "trigger": "intraday tag of the $5.45-5.55 call wall — leg the call-credit side", "source": "[OI:oi-by-strike]" },
+    "fade": { "price": 5.5, "trigger": "daily close above $5.50 = squeeze-through — STOP the short call side, do not fight", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 5.0, "resistance": 5.5, "gamma_flip": 2.64, "largest_pin": 5.0 },
+  "invalidation": {
+    "price": "daily close > $5.50 (squeeze through the call wall) or < $4.50 (air-pocket through thin put support) breaks the $5-pin range",
+    "signal": "net_call_premium flips strongly positive with ask-side near-dated call buying (squeeze confirmed), or GEX regime turns negative [FLOW:insights_deep_dive]",
+    "macro": "hot June CPI / hawkish FOMC small-cap risk-off, OR a fresh defense-contract headline re-ignites momentum [MACRO:Fed]"
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.55,
+    "win_rate_n": 8,
+    "win_rate_source": "fallback_bin",
+    "payoff_b": 2.33,
+    "raw_kelly": 0.357,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "short 4.50P / long 4.00P + short 5.50C / long 6.00C",
+      "expiry": "2026-06-18",
+      "debit_credit": 0.35,
+      "breakeven": "4.15 / 5.85",
+      "max_loss": 0.15,
+      "note": "PRIMARY. Sells rich complacent IV around the $5 long-gamma pin; short strikes outside the +/-6.8% expected move; wings are squeeze-defense; close/roll before the 6/18 un-pin; max loss <= 1.0% of book."
+    },
+    {
+      "kind": "directional",
+      "type": "bear put debit spread",
+      "strikes": "long 5.00P / short 4.00P",
+      "expiry": "2026-06-18",
+      "debit_credit": -0.25,
+      "breakeven": 4.75,
+      "max_loss": 0.25,
+      "note": "STARTER only (p<0.50 bearish backtest + squeeze risk). Target $4.00 max-pain, ~3:1; defined-risk; max loss <= 0.5% of book."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-80",
+    "iv_rank": 34.39,
+    "self_pctile_net_dir": 1.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 6.79,
+    "front_expiry_abs": 0.34,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:sector_rotation] Technology net inflow +$533M", "[MACRO:BBAI_news] defense backlog $281.9M (+14% QoQ)"],
+    "headwinds": ["[MACRO:MarketRegime] TRANSITIONAL — reduce size, breadth 36.3%", "[MACRO:Fed] no 2026 rate cuts + sticky CPI +3.7%"]
+  },
+  "catalysts": [
+    { "date": "2026-06-05", "event": "weekly OPEX (gamma/pin)", "impact": "?" },
+    { "date": "2026-06-12", "event": "May CPI release", "impact": "-" },
+    { "date": "2026-06-17", "event": "FOMC meeting", "impact": "-" },
+    { "date": "2026-06-18", "event": "monthly OPEX / OI cliff ($5-pin un-pin)", "impact": "?" }
+  ],
+  "key_risks": [
+    "26.37% short float + ~3 DTC -> squeeze through $5.50 ignites the short-call wing",
+    "6/18 OPEX un-pin removes the +$82M $5 gamma stabilizer -> range can break violently",
+    "thin put support below $4.50 -> air-pocket toward $4.00 if the pin fails",
+    "low quality (P/S 18.95, -226.7% margin, flat revenue) -> a sentiment gap is fundamentally unanchored",
+    "fresh defense-contract headline re-ignites momentum against the fade"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net_call_premium -$999,867 (vs price +30.9%)",
+    "[STRUCT:gex] long-gamma $5 pin +$82.0M GEX, ZGL $2.64 (regime POSITIVE)",
+    "[HIST:vrp] VRP +0.28 PREMIUM_SELLING (IV 102.7% vs realized 74.6%)",
+    "[SENT:short_float fz] 26.37% short float (~3 DTC) squeeze tail",
+    "[INSIGHT:price-vs-flow] DIVERGENCE price +30.9% vs bearish flow"
+  ],
+  "confluence_score": 68,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

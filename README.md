@@ -1,5 +1,16 @@
 # stock-deep-dive
 
+> **Frozen 2026-09-20.** This workflow is retired and kept as a public record. Its 62 structured
+> decisions (2026-05-22 to 08-12), marked against real prices, did not beat a coin flip, SPY or doing
+> nothing at any horizon: the 22 directional calls hit 36% at 21 sessions (−3.7% excess vs SPY), the
+> 125 option structures averaged +0.01 return on risk before costs, and the sized book lost 3.45% of
+> book on 32.9% cumulatively at risk. The full assessment, the outcome tables, the data inventory,
+> the literature review and the replacement design (a deterministic `make ticker` sheet inside
+> `market-analysis`) are in `findings/stock-deep-dive/` (`README.md`, `RESEARCH/10`, `15`, `20`,
+> `30`, `DESIGN/60`, `70`, `DECISIONS.md`). `research/` and `trade-plans/` are versioned from this
+> date so the record is complete; do not run the skills again. Everything below is the pre-freeze
+> description.
+
 A Claude Code skill that runs an end-to-end, multi-phase institutional deep
 dive on a single US-listed ticker — synthesizing options flow, dark pool
 prints, dealer positioning, historical IV/GEX context, macro regime, deep

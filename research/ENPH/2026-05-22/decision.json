@@ -1,0 +1,103 @@
+{
+  "ticker": "ENPH",
+  "date": "2026-05-22",
+  "generated": "2026-05-25T22:43:20Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 64.03,
+  "thesis": "Genuinely bullish tape — dark-pool block accumulation 95.3% buy [DP:block_stratified] + 4,616 ask-driven June $70C opening longs [OI:biggest_increases] — but a largely-spent short squeeze (32.53% float short [SENT:short_interest]) on a deteriorating core (Q1'26 revenue -18% QoQ, GAAP loss [FUND]), already doubled to above the GS $57 target in a TRANSITIONAL regime [MACRO:MarketRegime]. Long-gamma pins $60-65 ($65 wall 3.5M GEX [STRUCT:gex]) with a +$508M DEX coil that only fires above $65; bear disconfirmed the unconditional long (0.70 vs 0.55 [DEBATE]). Token, trigger-gated long above $65, defined-risk only, with a symmetric defined-risk fade below $60.",
+  "entries": {
+    "primary": { "price": 65.0, "trigger": "confirmed break AND hold above the $65 gamma wall on volume", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 62.34, "trigger": "pullback into the $62.34 dark-pool support shelf that holds intraday", "source": "[DP:price_levels]" },
+    "fade": { "price": 60.0, "trigger": "loss of the $60 gamma/OI floor — flip to put-debit-spread toward $53.15", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 62.34, "resistance": 65.0, "gamma_flip": 17.59, "largest_pin": 50.0 },
+  "invalidation": {
+    "price": "two daily closes below 60.0, or a break above 65 that fails to hold within the session",
+    "signal": "dark-pool accumulation reverses to distribution, or conviction_matrix flips DIRECTIONAL_LONG to HEDGED_LONG [INSIGHT:conviction_matrix]",
+    "macro": "hawkish FOMC dot-plot surprise 2026-06-17 or hot May CPI ~2026-06-11 [MACRO:FOMC]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.6,
+    "raw_kelly": 0.59,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "65/72.5",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.9,
+      "breakeven": 67.9,
+      "max_loss": 2.9,
+      "note": "trigger-gated above $65; strikes anchor to the $65 gamma wall and $70 magnet, inside the +/-28% expected move; spread caps the IV-rank-100/negative-vanna bleed"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put debit spread",
+      "strikes": "60/52.5",
+      "expiry": "2026-06-18",
+      "debit_credit": 2.4,
+      "breakeven": 57.6,
+      "max_loss": 2.4,
+      "note": "plan-B fade, trigger-gated on loss of $60; targets the $53.15 DP shelf; complacent skew makes puts relatively cheap"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 23,
+    "iv_rank": 92.06,
+    "self_pctile_net_dir": 93.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 28.0,
+    "front_expiry_abs": 18.0,
+    "source": "phase-4 IV term structure (27-DTE to 6/18); screener implied_move 0.46% rejected as unreliable"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:ENPH_2026-05-14] idiosyncratic IQ9S-3P launch + AI-data-center narrative", "[SENT:short_interest] 32.5% short = squeeze fuel above $65"],
+    "headwinds": ["[MACRO:DGS10] 10y 4.57% + CPI +3.78% YoY = rate-sensitive solar headwind", "[MACRO:MarketRegime_2026-05-22] TRANSITIONAL, breadth 38%; spot above GS $57 target"]
+  },
+  "catalysts": [
+    { "date": "2026-06-11", "event": "May CPI release", "impact": "-" },
+    { "date": "2026-06-17", "event": "FOMC + dot plot", "impact": "-" },
+    { "date": "2026-06-18", "event": "monthly OPEX", "impact": "?" },
+    { "date": "2026-07-28", "event": "earnings (outside window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Spent short squeeze (32.5% float, 4.63 d-to-cover) + retail-dominated lit call buying = distribution-into-strength into a -18% QoQ core",
+    "Long-gamma pin $60-65 + negative vanna at IV-rank 100 -> long debit bleeds if $65 break fails",
+    "Latent solar cluster (ENPH/TAN 0.76, ENPH/SEDG 0.72) -> do not stack with other solar; FOMC June 17 rate risk"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool block tier 95.3% buy ($27.2M)",
+    "[OI:biggest_increases] June $70C OI +4,616 (ask 5,400 vs bid 275)",
+    "[STRUCT:gex] $65 gamma wall 3.5M GEX / [STRUCT:dex] +$508M DEX coil",
+    "[SENT:short_interest] 32.53% float short, 4.5x peers",
+    "[FUND] Q1'26 revenue -18% QoQ, GAAP loss",
+    "[HIST:signal_backtest] bullish_flow win_rate 1.00 (n=8, capped 0.75, unreliable)",
+    "[DEBATE] bear_residual 0.70 >= bull_residual 0.55"
+  ],
+  "confluence_score": 35,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

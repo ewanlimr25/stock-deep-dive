@@ -1,0 +1,109 @@
+{
+  "ticker": "CRM",
+  "date": "2026-05-29",
+  "generated": "2026-05-31T00:00:00Z",
+  "bias": "LONG",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 191.10,
+  "thesis": "Tactical post-beat continuation long in a cheap, beaten-down quality laggard. CRM beat +23.9% [FUND:earnings_surprise] at 12.4x fwd P/E [FUND:forwardPE fz]; 20/20 call sweeps targeting the $200 call wall (net +58,153 OI) [FLOW:sweeps]/[OI:oi-by-strike] with dealers long gamma and buying dips [STRUCT:gex]/[STRUCT:dex], into the market's most persistent sector inflow (Tech persistence 1.0) [MACRO:sector_flow_persistence] and 7.9% short-covering fuel [SENT:short_float fz semi-monthly]. Capped by $1.05B institutional dark-pool distribution into the pop [DP:block-stratified] on a thin 191->185 floor; debate not disconfirmed (bull 0.65 vs bear 0.55). Small, defined-risk.",
+  "entries": {
+    "primary": { "price": 190.0, "trigger": "pullback into +$25.9M positive-gamma node / 6-18 max-pain (dealer dip-buy zone)", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 187.5, "trigger": "deeper fade toward the $185 OI shelf that holds", "source": "[OI:oi-by-strike]" },
+    "fade": { "price": 195.0, "trigger": "rejection at the $195 call wall without a volume break - trim/avoid chasing", "source": "[OI:oi-by-strike]" }
+  },
+  "levels": { "support": 185.0, "resistance": 200.0, "gamma_flip": 85.37, "largest_pin": 190.0 },
+  "invalidation": {
+    "price": "sustained close below 185.0",
+    "signal": "GEX flips toward negative / DEX dealer dip-buying fades, or the 190C call-writing signature broadens [STRUCT:dex]",
+    "macro": "Technology sector-flow persistence breaks its multi-session inflow streak [MACRO:sector_flow_persistence]"
+  },
+  "sizing": {
+    "p_raw": 0.60,
+    "p": 0.60,
+    "win_rate_n": 70,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.5,
+    "raw_kelly": 0.333,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "190/200",
+      "expiry": "2026-06-18",
+      "debit_credit": 3.6,
+      "breakeven": 193.6,
+      "max_loss": 3.6,
+      "note": "anchored to the $190 gamma node and $200 call wall; defined-risk neutralizes the $185 trapdoor; rides PEAD-drift + short-covering toward the wall"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "180/175",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.6,
+      "breakeven": 178.4,
+      "max_loss": 3.4,
+      "note": "optional financing leg below the $185 invalidation; complacent skew makes puts cheap so credit is modest - financing only, not a standalone short-vol bet"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": "CRM/NOW 0.89, CRM/ADBE 0.88 (soft-watch: no other open blueprint to cluster against; size CRM+any software peer as one line)",
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 33,
+    "iv_rank": 61.4,
+    "self_pctile_net_dir": 100.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.52,
+    "front_expiry_abs": 0.99,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "tailwind",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology #1 sector inflow, persistence 1.0, 5 sessions to +$11.6B",
+      "[MACRO:market-regime] SPY UPTREND, -0.21% from 90d high"
+    ],
+    "headwinds": [
+      "[MACRO:market-regime] breadth only 36.3% bullish - narrow tape, regime advises half-size",
+      "[MACRO:portfolio_correlation] CRM beta 1.13, 0.88-correlated to software cluster - no shelter if tech reverses"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-18", "event": "June monthly OPEX (dominant 24.86% of OI; max-pain $190)", "impact": "?" },
+    { "date": "2026-09-02", "event": "Next earnings (beyond trade horizon)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Institutional distribution is informed not mechanical - $1.05B mega/block ~90% sell; if it continues the thin 191->185 floor gaps to $170 [DP:block-stratified]",
+    "Base-case R:R is thin - a $190-$195 pin is sub-1:1 vs the $185 stop; needs the $195-break / short-covering tail to pay [OI:oi-by-strike]",
+    "Breadth/correlation fragility - 36.3%-breadth tape, CRM highest-beta 0.88-correlated laggard, no diversification if tech wobbles [MACRO:portfolio_correlation]",
+    "Call-writing under the surface - 190C 6/5 prior-day bid>ask; flow edge thinner than the premium headline [OI:smart-positioning]"
+  ],
+  "citations": [
+    "[FLOW:sweeps] 20/20 call sweeps, $26.3M, ~54% ask, targeting $200",
+    "[OI:oi-by-strike] $200 call wall net +58,153 OI; first support $185, gap to $170",
+    "[DP:block-stratified] mega buy-ratio 0.017 / block 0.098 - $1.05B ~90% sell into the pop",
+    "[STRUCT:dex] DEX +$585.6M dealers short calls buy dips; [STRUCT:gex] positive gamma +$50.4M node $190",
+    "[FUND:earnings_surprise] +23.9% beat, 3rd straight accelerating; fwd P/E 12.4",
+    "[HIST:signal-backtest] bullish_flow win-rate 0.60 (5d) / 0.729 (10d), avg +5%",
+    "[MACRO:sector_flow_persistence] Technology persistence 1.0, 5 sessions, +$11.6B",
+    "[SENT:short_float fz semi-monthly] 7.91% short float, 4.71 days-to-cover - covering fuel"
+  ],
+  "confluence_score": 62,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

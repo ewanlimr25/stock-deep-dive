@@ -1,0 +1,185 @@
+{
+  "ticker": "SWKS",
+  "date": "2026-07-31",
+  "generated": "2026-08-02T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 62.28,
+  "thesis": "SWKS is a $60-65 box with a defended floor and no directional edge: put_wall_support $60.00 (net_oi -625) and call_wall_resistance $65.00 (net_oi +435, identical to the 2026-08-21 max-pain strike on the expiry holding 61.87% of tracked OI) [OI:oi_by_strike] [STRUCT:max_pain], while the only opening position on the board was 3,333 Aug-21 52.5 puts SOLD on the bid at vol/OI 3.52, 1.1% above the 52-week low [FLOW:unusual_volume]. There is no measurable edge - the matching signal backtest returned total_signals 0 on two runs (win_rate_source null) [HIST:signal_backtest] - and five specialist agents returned 0 LONG, 0 SHORT at 2.0 average conviction [AGENT:all]. NO TRADE at spot: raw Kelly is negative (-0.085) entering at 62.28 and only turns positive at a tag of 60.00.",
+  "entries": {
+    "primary": {
+      "price": 60.0,
+      "trigger": "tag of the <=30-DTE put_wall_support (1,139 puts vs 514 calls) inside the dark-pool shelf 60.25-61.22, then a daily close back above 60.25",
+      "source": "[OI:oi_by_strike] + [DP:price_levels]"
+    },
+    "aggressive": {
+      "price": 58.9,
+      "trigger": "tap of the 2026-07-29 accumulation shelf 58.44-59.34 (176,487 shares / $10,373,555 in twelve blocks, 67,200 pre-market before 08:38 ET)",
+      "source": "[DP:accumulation_shelf DUCKDB]"
+    },
+    "fade": {
+      "price": 64.84,
+      "trigger": "rejection at the stacked supply wall 64.68-65.00 (607,453 shares / $39,290,060 at the 2026-07-28 pre-earnings close, beneath the call wall and max-pain strike) - counter-trade the box top",
+      "source": "[DP:price_levels] + [STRUCT:max_pain]"
+    }
+  },
+  "levels": {
+    "support": 60.0,
+    "resistance": 65.0,
+    "gamma_flip": 62.5,
+    "largest_pin": 65.0
+  },
+  "invalidation": {
+    "price": "two consecutive daily closes below 58.44 (base of the 2026-07-29 accumulation shelf) voids the thesis to the downside; one daily close above 65.70 voids the RANGE read to the upside",
+    "signal": "phase-2 cleaned dark-pool buy ratio (regular-session, directional-only, VWAP and prior_reference_price prints and the 16:00 auction excluded) below 0.45 on two consecutive sessions with >300,000 directional shares [DP:buy_ratio DUCKDB]; OR the 2026-08-03 OI file showing no material rise in Aug-21 52.5 put OI from 947, which would mean the 3,333-lot short-put floor never became open interest [OI:lag DUCKDB]",
+    "macro": "any China SAMR Phase III ruling on the Qorvo combination in either direction - thesis void on the headline, not on the price [MACRO:SWKS_QRVO_merger_2026-07-28]; secondary, a hot CPI print driving DGS10 through ~4.85% from 4.68% [MACRO:DGS10_2026-07-30 FRED]"
+  },
+  "sizing": {
+    "p_raw": 0.55,
+    "p": 0.55,
+    "win_rate_n": 0,
+    "win_rate_source": null,
+    "payoff_b": 3.205,
+    "raw_kelly": 0.4096,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "60/65",
+      "expiry": "2026-08-21",
+      "debit_credit": 2.6,
+      "breakeven": 62.6,
+      "max_loss": 2.6,
+      "note": "Long 60C / short 65C. Both legs on observed OI (60C 514, 65C 874). 60.00 = phase-3 put_wall_support; 65.00 = call_wall_resistance AND phase-4 max-pain AND the strike where a Sep-18 62.5/65 credit call spread was sold. Quotes 2026-07-31: 60C 4.60/4.96, 65C 2.16/2.42; mid-to-mid debit 2.49, worst-case 2.80. Max gain 2.40, payoff 0.92:1. N4: target 65.00 = +4.37% = 0.48x the priced 9.098% move (not rich), BUT the 5.00 width is narrower than the 5.67 expected move - deliberate, since 64.68-65.00 is a stacked wall, at the cost of being capped in a SAMR gap. Entered at spot this is a losing proposition (raw Kelly -0.085); it works only from the 60.00 trigger."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "55/50",
+      "expiry": "2026-08-21",
+      "debit_credit": -0.43,
+      "breakeven": 54.57,
+      "max_loss": 4.57,
+      "note": "Short 55P / long 50P. Quotes 2026-07-31: 55P bid 0.89, 50P ask 0.46. Sells the zone directly beneath phase-2's 58.44-59.34 accumulation shelf and above phase-1's 52.50 flow-anchored floor - same directional side as the only opening position on the board, but with defined risk. Observed OI: 55P 686, 50P 1,307. N4 PASSES: the 55.00 short strike is -11.7% from spot, below the 56.61 one-expected-move floor, so a single expected-move gap does not breach it. Weakness: 0.43 credit against 4.57 risk is 9.4% return on risk for 21 days - the market is not paying you to underwrite this floor."
+    },
+    {
+      "kind": "rejected",
+      "type": "long straddle (phase-8 earnings-scout proposal)",
+      "strikes": "62.5 straddle",
+      "expiry": "2026-09-18",
+      "debit_credit": 10.44,
+      "breakeven": 72.94,
+      "max_loss": 10.44,
+      "note": "REJECTED. Sep-18 62.5C ask 5.24 + 62.5P ask 5.20 = 10.44 debit; breakevens 52.06/72.94 require a +/-16.76% move = 1.84x the front-expiry priced move, beyond the ~1.5x richness threshold. Independently rejected by phase-8b, where the defender conceded ten-session realized vol (55.53%) sits AT implied (55.90%) so the cheap-vol premise fails, and the SAMR catalyst is undated with formal guidance of early calendar 2027 - 49 days of theta on an unscheduled ruling. A short-put risk reversal was also ruled out: naked short premium is disallowed by the sizing rubric."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "QUIET",
+    "universe_rank_net_dir": 565,
+    "iv_rank": 52.8977,
+    "self_pctile_net_dir": 66.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 9.098,
+    "front_expiry_abs": 5.6749,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:SWKS_QRVO_merger_2026-07-28] $2B buyback authorised alongside the dividend elimination - a partial, price-sensitive offset to the merger-arb supply",
+      "[MACRO:DTWEXBGS_2026-07-24 FRED] broad dollar 120.71, -0.6% m/m - SWKS books the large majority of revenue overseas",
+      "[MACRO:PAYEMS_2026-06 FRED] payrolls decelerating to +57k from +129k - caps hike risk without signalling a break",
+      "[MACRO:SWKS_Q3FY26_2026-07-28] Q3 beat both lines: revenue $935M and non-GAAP EPS $1.08 vs a $1.03 guided midpoint",
+      "[MACRO:group_valuation fz EOD] Semiconductors industry PEG 0.56, group closed +0.25% while being net-sold"
+    ],
+    "headwinds": [
+      "[MACRO:SWKS_dividend_elimination_2026-07-28] dividend ELIMINATED - a 4.56% TTM yield at a 91.35% payout consuming 69.5% of half-year FCF; the income base is now a price-insensitive mandate-driven seller and syndicated screens still listed SWKS as high-yield on 2026-07-30",
+      "[MACRO:SWKS_QRVO_merger_2026-07-28] ~$2B debt raise (Goldman bridge up to $3.05B) turns ~$417M net cash into ~$1.6B net debt, D/E 0.17 -> ~0.52",
+      "[MACRO:MarketRegime_2026-07-31 UW] regime TRANSITIONAL, breadth 34.1% bullish (2,142 of 6,280), guidance 'Half position sizes. Favor defined-risk strategies.'",
+      "[MACRO:MarketRegime_2026-07-31 UW] Technology was the largest net-SOLD sector of eleven at -$187,715,752 aggressor-adjusted",
+      "[MACRO:FOMC_2026-07-29 WebSearch:federalreserve.gov] FOMC held 3.50-3.75% on a 9-3 vote with all three dissenters wanting a HIKE; core PCE +3.29% YoY",
+      "[MACRO:DGS10_2026-07-30 FRED] 10-year at 4.68%, +24bp m/m - multiple compression and a direct increase in the deal's financing cost",
+      "[MACRO:ConfBoard_2026-07-28 WebSearch:advisorperspectives.com] Conference Board Present Situation 114.9, third consecutive monthly decline - handset demand is labour-sensitive"
+    ]
+  },
+  "catalysts": [
+    {
+      "date": "2026-08-03",
+      "event": "ISM Manufacturing PMI (July), 1st business day",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-05",
+      "event": "ISM Services PMI (July), 3rd business day",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-07",
+      "event": "July employment report (date not independently verified)",
+      "impact": "?"
+    },
+    {
+      "date": "2026-08-12",
+      "event": "July CPI (approximate, date not independently verified)",
+      "impact": "-"
+    },
+    {
+      "date": "2026-08-21",
+      "event": "OPEX - 61.87% of tracked OI expires; max pain $65.00",
+      "impact": "+"
+    },
+    {
+      "date": "UNDATED",
+      "event": "China SAMR Phase III decision on the Qorvo merger - BINARY, two-sided, the only event that can exceed the +/-9.10% implied move",
+      "impact": "?"
+    },
+    {
+      "date": "UNDATED",
+      "event": "~$2B debt raise pricing",
+      "impact": "-"
+    },
+    {
+      "date": "2026-10-27",
+      "event": "SWKS FQ4 earnings (verified, not stale) - outside the 1-4w horizon",
+      "impact": "?"
+    }
+  ],
+  "key_risks": [
+    "Vol is fairly priced, not cheap - trailing-10-session realized 55.53% vs iv30d 55.90% [HIST:realized_decomp DUCKDB] - so any long-vol expression pays theta on an UNDATED SAMR decision whose formal guidance is early calendar 2027 [MACRO:SWKS_QRVO_merger_2026-07-28], with no measured base rate to justify it (win_rate_source null, win_rate_n 0 [HIST:signal_backtest]). This is phase-8b's strongest_bear_point.",
+    "The 21.93% float short (~32.85M shares, 5.77 days to cover) is the merger-arb hedge and its unwind is INVERTED: on deal CLOSE the arb delivers received shares with no market buying, so there is no squeeze; only a deal BREAK forces ~32.9M shares of open-market covering - and that arrives with $2B of stranded debt and no synergies, amplified by dealers short gamma at spot (62.5 = -448,437 GEX) [SENT:short_float fz semi-monthly] [STRUCT:gex].",
+    "The $60-65 box is a MAP of supply and demand, not a MECHANISM - phase-4 gex.regime is NEGATIVE with spot on the most negative per-strike GEX on the board, so dealers amplify moves off 62.50 rather than damping them; nothing holds price inside the box except the willingness of participants who have already been selling [STRUCT:gex].",
+    "The 3,333-lot short-put floor at 52.50 is UNCONFIRMED as open interest - the OI dataset is lagged one session (last_date 2026-07-30 / curr_date 2026-07-31), so it can only be verified in the 2026-08-03 file, which is beyond this snapshot [OI:lag DUCKDB]."
+  ],
+  "citations": [
+    "[OI:oi_by_strike] put_wall_support 60.00 (net_oi -625, 1,139 puts vs 514 calls, distance_pct -3.78) and call_wall_resistance 65.00 (net_oi +435, 874 calls vs 439 puts, distance_pct +4.23), <=30 DTE - phase-3-positioning.md",
+    "[FLOW:unusual_volume] Aug-21 52.5 put: total_volume 3,333 vs open_interest 947, vol_oi_ratio 3.5195, total_premium $219,979, sold on the bid - phase-1-flow.md",
+    "[HIST:signal_backtest] dark_pool_accumulation returned {\"note\":\"no backtest results\",\"total_signals\":0} on two runs => win_rate_source null, win_rate_n 0 - phase-5-historical.md",
+    "[STRUCT:max_pain] 2026-08-21 max_pain_strike 65, distance_pct 4.23, holder_value_at_max_pain $603,250, on the expiry holding 61.87% of tracked OI - phase-4-structure.md",
+    "[DP:net_imbalance DUCKDB] +341,637 net shares (+$21,160,930) at buy ratio 0.634 on 2026-07-29 and +232,129 (+$14,211,575) at 0.751 on 2026-07-30, vs a +12,614 to +24,390 baseline - phase-2-dark-pool.md",
+    "[MACRO:MarketRegime_2026-07-31 UW] regime TRANSITIONAL, bullish_pct 34.1, guidance 'Half position sizes. Favor defined-risk strategies.'; Technology sector_rotation -$187,715,752, largest outflow of 11 - phase-6-macro.md",
+    "[AGENT:all] five specialist agents: 3x NEUTRAL / 2x RANGE, 0 LONG, 0 SHORT, average conviction 2.0/5, unanimous on support 60.00 / resistance 65.00 - phase-8-agent-views.md",
+    "[DEBATE:residuals] bull_residual 0.55 vs bear_residual 0.65 => disconfirmed true - phase-8b-debate.md"
+  ],
+  "confluence_score": 49,
+  "recommended_bin": 0.55,
+  "paths": {
+    "plan": "phase-9-trade-plan.md",
+    "audit": "phase-10-audit.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

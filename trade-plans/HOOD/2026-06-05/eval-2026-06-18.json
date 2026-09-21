@@ -1,0 +1,83 @@
+{
+  "ticker": "HOOD",
+  "plan_date": "2026-06-05",
+  "review_date": "2026-06-18",
+  "generated": "2026-06-18T16:30:00Z",
+  "plan_path": "trade-plans/HOOD/2026-06-05/trade-plan.json",
+  "trade_taken": {
+    "vehicle": "option",
+    "direction": "short",
+    "entry": "1.40 credit",
+    "entry_date": "2026-06-05",
+    "stop": null,
+    "targets": [80.0],
+    "structure": "86/90 call credit spread exp 2026-06-18 (the only carry allowed under the VETO)",
+    "size_pct_book": 0.3,
+    "matched_plan": true
+  },
+  "outcome": {
+    "status": "LOSS",
+    "r_achieved": -1.0,
+    "mfe_R": -0.14,
+    "mae_R": 1.25,
+    "first_target_date": null,
+    "stop_hit_date": "2026-06-08",
+    "invalidation_price_hit": true,
+    "source": "yfinance"
+  },
+  "reasoning_review": {
+    "direction_call": "WRONG",
+    "flow_chart_agreement_call": "RIGHT",
+    "pattern_call": "PLAYED_OUT",
+    "level_quality": "GOOD",
+    "sizing_review": "APPROPRIATE",
+    "components": [
+      { "claim": "5-session bearish sweep campaign $317.8M", "side": "for", "verdict": "WRONG", "note": "the sweep campaign was exit/hedging flow, not directional -- price ripped +31%" },
+      { "claim": "short-gamma below ZGL amplifies downside", "side": "for", "verdict": "WRONG", "note": "price RECLAIMED the 87.45 ZGL and short-gamma squeezed UP, not down" },
+      { "claim": "fundamentals VETO bars the directional short", "side": "against", "verdict": "RIGHT", "note": "the veto forced size to 0% and saved the book from a -1R+ directional loss" },
+      { "claim": "SpaceX-IPO-access headline gaps HOOD above 85", "side": "against", "verdict": "RIGHT", "note": "exactly the thesis-killer that fired; HOOD gapped through 85 and ran to 108.15" },
+      { "claim": "flow/chart DIVERGENT -> low-quality short", "side": "against", "verdict": "RIGHT", "note": "the bullish double bottom won; the divergence call was correct" }
+    ]
+  },
+  "calibration": {
+    "conviction": 0.65,
+    "outcome_bit": 0,
+    "brier": 0.4225,
+    "verdict": "OVERCONFIDENT"
+  },
+  "attribution": [
+    { "lane": "fundamentals", "effect": "decisive_right", "note": "the VETO was the single best decision -- kept directional size at 0%" },
+    { "lane": "sentiment", "effect": "decisive_right", "note": "the debate's named SpaceX-IPO risk was the actual catalyst" },
+    { "lane": "chart_pattern", "effect": "decisive_right", "note": "medium double bottom correctly warned the chart wouldn't confirm the short" },
+    { "lane": "flow", "effect": "decisive_wrong", "note": "bearish sweep campaign was misleading exit liquidity" },
+    { "lane": "dealer_structure", "effect": "decisive_wrong", "note": "short-gamma squeezed UP on the ZGL reclaim" }
+  ],
+  "lessons": [
+    {
+      "id": "L-0004",
+      "status": "CANDIDATE",
+      "scope": ["setup:divergent", "setup:fundamentals-veto", "signal:bearish-sweep", "structure:short-gamma"],
+      "lesson": "A persistent bearish sweep in a SHORT-GAMMA name with a live bullish catalyst (e.g. IPO access) + a fundamentals VETO is a trap: a ZGL *reclaim* squeezes UP. Respect the veto and the bear's strongest point -- do not even carry defined-risk bearish premium into an undated bullish catalyst.",
+      "applies_to": "A3 conviction + A4 sizing"
+    },
+    {
+      "id": "L-0002",
+      "status": "ACTIVE",
+      "scope": ["setup:divergent"],
+      "lesson": "Reinforced by HOOD 2026-06-05 (LOSS, +31% against): a DIVERGENT flow↔chart read is not a directional trade. The watch-only / 0% directional decision was correct here.",
+      "applies_to": "A3 bias + conviction"
+    }
+  ],
+  "proposed_rubric_edits": [
+    {
+      "file": ".claude/skills/trade-plan/rubrics/direction-rubric.md",
+      "change": "Add to Step 2: in a short-gamma book, a zero-gamma-level RECLAIM is a squeeze-UP trigger -- treat a short positioned below the ZGL as especially fragile when an undated bullish catalyst is live.",
+      "rationale": "HOOD 2026-06-05 short lost as price reclaimed the 87.45 ZGL and ran to 108.15 (+31%)."
+    }
+  ],
+  "paths": {
+    "eval_md": "eval-2026-06-18.md",
+    "ledger": "trade-plans/_eval/reasoning-ledger.md"
+  },
+  "disclaimer": "For research and educational use only. Not financial advice."
+}

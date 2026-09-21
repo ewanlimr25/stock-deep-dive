@@ -1,0 +1,110 @@
+{
+  "ticker": "MARA",
+  "date": "2026-06-18",
+  "generated": "2026-06-19T00:00:00Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-5d",
+  "spot_reference": 14.22,
+  "thesis": "Gamma-pinned BTC proxy: dealers net long gamma every session for 30 days (ZGL $5.26, peak net_gex +$36.4M at $14.5) [STRUCT:gex], max-pain $14 for 6/26, and today's loud call premium was SOLD (net_flow -$1.61M; $14.5C 6/26 churned 63k contracts for only +514 OI [OI:biggest-increases]). Macro caps it (BTC below 50d/200d MAs into a hawkish 6/17 FOMC; regime prescribes 'iron condors in range' [MACRO:MarketRegime]) and all four desk agents returned RANGE. Sell the $14.5-$15 upside defined-risk around a $14 pin, small, because it is a busy name's normal day and a 26.5% short float makes the up-break violent.",
+  "entries": {
+    "primary": { "price": 14.5, "trigger": "sell the upside on a tag/rejection of the $14.5 gamma + call wall", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 14.85, "trigger": "fade into the $14.85-14.93 dark-pool supply band (richer call premium to sell)", "source": "[DP:price_levels]" },
+    "fade": { "price": 15.0, "trigger": "if BTC reclaims $65.2k and MARA closes > $15, abandon the short-call / flip to a small squeeze-chase long above the $15.5 long leg", "source": "[SENT:short_float]" }
+  },
+  "levels": { "support": 14.0, "resistance": 15.0, "gamma_flip": 5.26, "largest_pin": 14.0 },
+  "invalidation": {
+    "price": "two daily closes above $15.00 (dominant call/GEX wall) — range cap broken; downside void below $13.83",
+    "signal": "GEX/DEX flips to short-gamma above $15, OR institutional-accumulation flips to distribution, OR cumulative premium flow net-bullish 3 sessions (real standing call-OI build, not churn) [INSIGHT:institutional-accumulation]",
+    "macro": "BTC reclaims its $65.2k 50d MA / breaks $66k resistance (squeeze trigger), or breaks below $60k (beta-5.35 down-cascade) [MACRO:BTC]"
+  },
+  "sizing": {
+    "p_raw": 0.857,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.43,
+    "raw_kelly": 0.169,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear call (credit) spread",
+      "strikes": "14.5/15.5",
+      "expiry": "2026-06-26",
+      "debit_credit": 0.23,
+      "breakeven": 14.73,
+      "max_loss": 0.77,
+      "note": "mirrors the smart-money trade; long $15.5 leg caps the squeeze tail (phase-8b); profits if MARA <= 14.5 at 6/26"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "13/12 put wing + 15/16 call wing",
+      "expiry": "2026-06-26",
+      "debit_credit": 0.30,
+      "breakeven": "12.70 / 15.30",
+      "max_loss": 0.70,
+      "note": "regime-prescribed range trade; short strikes outside the +/-4.1% 8-day expected move, bracketing the $14 pin; this is the 1.5%-of-book sizing anchor"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 30.3,
+    "self_pctile_net_dir": 12.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.46,
+    "front_expiry_abs": 0.21,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:VIX] VIX 16.4 falling — calm vol supports the pin",
+      "[MACRO:MarketRegime] UW regime guidance: 'half size, defined-risk, iron condors in range'",
+      "[HIST:vrp] VRP +6.3% premium-selling carry"
+    ],
+    "headwinds": [
+      "[MACRO:FOMC] hawkish 6/17 FOMC — 2026 dot 3.4%->3.8%, hike bias",
+      "[MACRO:BTC] BTC below its 50d/200d MAs (sub-$65.2k)",
+      "[MACRO:CPIAUCSL] CPI YoY +4.16% sticky",
+      "[SENT:short_float] 26.5% short float = up-squeeze tail"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-26", "event": "weekly OPEX (structures' expiry; pin/max-pain $14)", "impact": "?" },
+    { "date": "2026-06-19", "event": "ongoing BTC test of $65.2k 50d MA / $66k resistance (real trigger)", "impact": "?" },
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "-" },
+    { "date": "2026-07-28", "event": "next FOMC (hike bias live)", "impact": "-" },
+    { "date": "2026-08-04", "event": "MARA Q2 earnings (outside the 6/26 expiry)", "impact": "?" }
+  ],
+  "key_risks": [
+    "26.5% short float (~98.6M sh) is squeeze fuel — a BTC reclaim of $65.2k rips MARA through the $14.5/$15 walls and inverts the long-gamma pin into a dealer chase (phase-8b strongest bear point); short legs MUST stay defined-risk",
+    "beta 5.35 to a sub-MA BTC — a clean BTC break either way overwhelms the local gamma pin",
+    "IV at the 4.17th percentile — selling premium near 1y lows has a thin cushion if vol re-expands on a BTC move"
+  ],
+  "citations": [
+    "[STRUCT:gex] peak net_gex +$36.4M at $14.5 / ZGL $5.26 (long-gamma pin)",
+    "[OI:biggest-increases] $14.5C 6/26 OI +514 vs 63,005 volume (call-selling was churn, not a standing short)",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.857 (n=7); [HIST:gex-time-series] 30d zero regime flips",
+    "[MACRO:FOMC] hawkish 6/17 (2026 dot 3.8%) + [MACRO:BTC] BTC below 50d/200d MAs"
+  ],
+  "confluence_score": 76,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

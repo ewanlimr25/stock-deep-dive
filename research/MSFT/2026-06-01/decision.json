@@ -1,0 +1,119 @@
+{
+  "ticker": "MSFT",
+  "date": "2026-06-01",
+  "generated": "2026-06-02T11:34:36Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 459.77,
+  "thesis": "MSFT's bullish call tape is real but two-way and normal-magnitude — net flow only +$81.2M on $1.39B gross call premium [FLOW:insights_deep_dive] — and runs into a long-gamma dealer pin (GEX +$268.7M centered at 460, max pain 417.5 every near-term expiry) that caps upside and pulls toward OPEX [STRUCT:gex][STRUCT:max_pain]. The bullish_flow signal is edge-negative here (44.4% win, -1.25% avg, n=9) [HIST:signal_backtest] and the desk returned RANGE 4-of-4 [AGENT:risk-monitor] into a TRANSITIONAL half-size regime [MACRO:MarketRegime]. No directional edge — fade the crowded, capped upside with a small defined-risk call credit spread, not a long.",
+  "entries": {
+    "primary": { "price": 475.0, "trigger": "sell the call spread on a tag/rejection of the 470-480 call-wall / GEX cap (fade the rip)", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 460.0, "trigger": "initiate the call credit spread now — IV still bid pre-NFP, harvest elevated event premium into the long-gamma pin", "source": "[STRUCT:front_end_iv_ratio]" },
+    "fade": { "price": 480.0, "trigger": "two daily closes above 480 on expanding non-0DTE volume -> pin broke up, cover the short calls and stand down", "source": "[AGENT:accumulation-hunter]" }
+  },
+  "levels": { "support": 450.0, "resistance": 480.0, "gamma_flip": 410.0, "largest_pin": 460.0 },
+  "invalidation": {
+    "price": "two daily closes above 480 (call-wall / GEX cap breached -> range broke up, short-call structure wrong) [OI:oi_by_strike]; secondary two daily closes below 410 (short-gamma flip -> amplifies toward 417-430) [STRUCT:gex]",
+    "signal": "GEX flips POSITIVE->NEGATIVE on phase-4 daily refresh (long-gamma pin gone) [STRUCT:gex]; or conviction-matrix flips MIXED->DIRECTIONAL_LONG [INSIGHT:conviction_matrix]",
+    "macro": "dovish FOMC/CPI surprise (06-10 / 06-16-17) ripping through 480, or hawkish surprise triggering the negative-vanna vol-crush to 417-430 [MACRO:FOMC][STRUCT:vanna_charm]"
+  },
+  "sizing": {
+    "p_raw": 0.444,
+    "p": 0.444,
+    "win_rate_n": 9,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.5,
+    "raw_kelly": 0.073,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread (bull expression — NOT recommended)",
+      "strikes": "460/480",
+      "expiry": "2026-06-18",
+      "debit_credit": 8.0,
+      "breakeven": 468.0,
+      "max_loss": 8.0,
+      "note": "Bull expression only. NOT recommended: bullish_flow edge negative (44.4%, -1.25%), crowd already long, upside gamma-capped at 480, expiry straddles NFP/CPI/FOMC IV-crush"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call credit spread (RECOMMENDED)",
+      "strikes": "480/490",
+      "expiry": "2026-06-18",
+      "debit_credit": -2.5,
+      "breakeven": 482.5,
+      "max_loss": 7.5,
+      "note": "Sells the rich COMPLACENT call skew (skew_ratio 0.902) at the 480 call wall / GEX cap; 480 short just beyond the +3.33% expected move; profits if MSFT stays <=480 AND if the downside tail fires. Size so total max-loss <= 1% of book"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor (second choice — takes the downside tail)",
+      "strikes": "430P/415P + 480C/490C",
+      "expiry": "2026-06-18",
+      "debit_credit": -3.0,
+      "breakeven": "427 / 483",
+      "max_loss": 7.0,
+      "note": "Inferior here — the 430 short put takes the phase-8b negative-vanna air-pocket risk to 417-430; short put set below the 417.5 max-pain magnet and above the 400 put wall"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 5,
+    "iv_rank": 73.07,
+    "self_pctile_net_dir": 77.1
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.33,
+    "front_expiry_abs": 15.36,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:SectorFlowPersistence] Technology #1 inflow +$13.1B, persistence 1.0, accelerating 5 sessions",
+      "[MACRO:ISM_Mfg] ISM Manufacturing 54.0, growth accelerating"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime] TRANSITIONAL — half size, defined-risk, iron condors; breadth 40% bullish",
+      "[MACRO:CPIAUCSL] CPI 3.8% sticky, Fed on hold 3.50-3.75%, 10y 4.45%"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-05", "event": "May NFP / jobs report (front-end IV event)", "impact": "?" },
+    { "date": "2026-06-10", "event": "CPI", "impact": "?" },
+    { "date": "2026-06-16", "event": "FOMC (Powell's last; consensus hold)", "impact": "?" },
+    { "date": "2026-06-18", "event": "June OPEX (OI cliff 17.78%, max pain 417.5)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Negative-vanna vol-crush after the NFP/CPI/FOMC cluster -> unhedged air-pocket to the 417-430 max-pain zone (phase-8b bear point) [STRUCT:vanna_charm]",
+    "Crowded long (92% buy ratings, 0 sells, complacent skew) -> a dovish surprise can squeeze through the 480 short call [SENT:recommendation]",
+    "bullish_flow signal edge-negative (44.4% win, -1.25% avg, n=9) -> no directional momentum to chase [HIST:signal_backtest]",
+    "MSFT/PATH 0.637 -> do not double the same AI/Tech bet across concurrent blueprints [MACRO:Correlation]"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net_flow +$81.2M on $1.39B gross call premium",
+    "[STRUCT:gex] POSITIVE GEX +$268.7M, gamma pin 460, long-gamma regime",
+    "[STRUCT:max_pain] 06-18 OPEX max pain 417.5 (-9.3%), every near-term expiry 7-9% below spot",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.444, avg -1.25%, n=9",
+    "[AGENT:risk-monitor] desk 4/4 RANGE, avg conviction 2.25",
+    "[MACRO:MarketRegime] TRANSITIONAL — half size, defined-risk, iron condors in range"
+  ],
+  "confluence_score": 59,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

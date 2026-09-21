@@ -1,0 +1,114 @@
+{
+  "ticker": "CRM",
+  "date": "2026-06-05",
+  "generated": "2026-06-06T17:50:00-04:00",
+  "bias": "SHORT",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 185.66,
+  "thesis": "Failed post-earnings breakout on its own trapdoor: bearish sweep persistence 5/5 sessions $211.13M [FLOW:sweep_persistence] into FULLY_NEGATIVE dealer gamma with -$13.34M parked at the 185 strike [STRUCT:gex] and the sector the day's biggest directional outflow -$807.6M [MACRO:MarketRegime_2026-06-05 UW], with a dark-pool air pocket from 186 to the 176.17 gap-fill [DP:level_xcheck DUCKDB]. Mechanics short, not a business short: fundamentals improving on every axis (3/3 accelerating beats, $25B ASR) and the short crowd already populated (SI 7.91% float) take the directional to watch-only; only a trigger-conditional defined-risk carry at starter size survives the gate stack.",
+  "entries": {
+    "primary": { "price": 184.5, "trigger": "decisive break + hold below the 185 put-wall/gamma trigger (15-min close below 185, no reclaim within the hour)", "source": "[OI:oi_by_strike] [STRUCT:gex]" },
+    "aggressive": { "price": 189.75, "trigger": "rejection at the 190 battleground / 6-18 max-pain magnet tag on declining volume", "source": "[STRUCT:max_pain] [OI:oi_by_strike]" },
+    "fade": { "price": 176.5, "trigger": "counter-trade LONG: tag of the 176.17 pre-earnings gap-fill at the air-pocket floor, ASR bid + squeeze ledger, stop below 174", "source": "[DP:price_path DUCKDB] [FUND:financials_reported]" }
+  },
+  "levels": { "support": 185.0, "resistance": 190.0, "gamma_flip": 192.5, "largest_pin": 190.0 },
+  "invalidation": {
+    "price": "two daily closes above 190.00 (battleground + 6/18 max-pain magnet); single close above 195 = squeeze confirmation, hard-stop all bearish exposure [STRUCT:max_pain] [STRUCT:term_skew]",
+    "signal": "sweep-persistence breaks the 5/5 bearish streak [FLOW:sweep_persistence]; OR GEX regime returns POSITIVE with spot above refreshed ZGL [STRUCT:gex]; OR DP buy_ratio >0.60 steps up on the 183-186 shelf [DP:block_stratified]",
+    "macro": "benign May CPI (~6/10) PLUS as-expected/dovish FOMC (6/16-17) releases the max-pain magnet upward; or uw risk market-regime flips back to uptrend [MACRO:MarketRegime UW]"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.51,
+    "raw_kelly": 0.584,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "180/170",
+      "expiry": "2026-07-17",
+      "debit_credit": 3.71,
+      "breakeven": 176.29,
+      "max_loss": 3.71,
+      "note": "fundamentals-vetoed, carry only; trigger-conditional (enter only on break/hold below 185 or 190 rejection); strikes on the 180/170 put walls bracketing the 176.17 gap-fill; prices indicative from 6/05 observed prints; negative VRP favors the debit side"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call credit spread",
+      "strikes": "195/200",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.2,
+      "breakeven": 196.2,
+      "max_loss": 3.8,
+      "note": "sells the 195 call wall + dealer long-gamma pocket into the 6/18 OPEX cliff (25.13% of chain OI); either/or with the primary within the same 0.5% carry budget; exits on a single close >195; conflicts with negative-VRP preference, accepted as the pays-in-chop-and-breakdown carry"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": "CRM/NOW 0.863, CRM/PATH 0.820 (concurrent 2026-06-05 blueprints)",
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (exact pctile 15.4 DUCKDB)",
+    "iv_rank": 60.0,
+    "self_pctile_net_dir": 61.5
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.56,
+    "front_expiry_abs": 1.04,
+    "source": "[CTX:implied_move] uw_screener implied_move_perc 0.00560; front-week 6/12 ATM IV 51.7% for the weekly range"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:CRM_Q1FY27_2026-05-28] $25B ASR executing daily - mechanical bid under the stock",
+      "[MACRO:ISM_Mfg_2026-06-01] ISM Mfg 54.0 / Services 54.5 - no recession bid"
+    ],
+    "headwinds": [
+      "[MACRO:MarketRegime_2026-06-05 UW] Technology -$807.6M biggest sector outflow; regime TRANSITIONAL, breadth 29.4% bullish, half-size guidance",
+      "[MACRO:AVGO_earnings_2026-06-03] AVGO AI-guide shock -$280B / Nasdaq -4%, contagion unresolved through 6/05",
+      "[MACRO:CPIAUCSL_2026-04 FRED] CPI 3.78% YoY with hot MoM prints; 2y +12bp/30d - rate pressure on duration",
+      "[MACRO:UMich_2026-05-22] consumer sentiment 44.8 record low"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release (approx date; hot-MoM streak)", "impact": "?" },
+    { "date": "2026-06-11", "event": "CRM ex-dividend", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC decision + presser (hold priced, divided committee)", "impact": "?" },
+    { "date": "2026-06-18", "event": "CRM monthly OPEX - 25.13% of chain OI; max-pain 190", "impact": "?" },
+    { "date": "2026-07-01", "event": "ISM June prints", "impact": "?" }
+  ],
+  "key_risks": [
+    "Strongest bear point (8b): the short's measured edge (87.5%, avg -2.73%, N=8, in-sample) was generated at the START of bearish-flow runs and is already 4x overspent after -11.4% in four sessions - entry presses a 62.7M-share crowd into a daily $25B ASR bid on an improving business",
+    "Squeeze: complacent skew (25-delta calls richer than puts) = no call-supply brake to 195-200 if 185 holds and shorts cover",
+    "6/18 OPEX mechanics partially supportive: dealers LONG the stranded 190-220 calls; their decay unwinds dealer short-hedges = buy-flow into expiry",
+    "Cluster: CRM/NOW 0.863 + CRM/PATH 0.820 - one software bet in triplicate across concurrent blueprints",
+    "Benign CPI+FOMC pair releases the 190-192.5 max-pain magnet straight through the stop"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] bearish dominant 5/5 sessions, $211.13M total sweep premium, consistency 1.0",
+    "[STRUCT:gex] regime FULLY_NEGATIVE, total GEX -3,333,998, largest mass -$13.34M at strike 185",
+    "[HIST:signal_backtest] bearish_flow win_rate 87.5%, n=8, avg_move -2.73% (in-sample, market-wide)",
+    "[MACRO:MarketRegime_2026-06-05 UW] Technology -$807.6M biggest directional outflow; regime TRANSITIONAL",
+    "[DP:level_xcheck DUCKDB] DP shelves 189/201/210 ($415.9M/$415.3M/$413.7M) overhead; air pocket 186->176",
+    "[FUND:earnings_surprises] 3/3 beats accelerating +3.7% -> +12.6% -> +23.9% (the VETO axis)",
+    "[SENT:short_float fz semi-monthly] SI 7.91% float, DTC 4.46, borrow EASY (the CAUTION axis)"
+  ],
+  "confluence_score": 54,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

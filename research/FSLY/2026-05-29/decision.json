@@ -1,0 +1,108 @@
+{
+  "ticker": "FSLY",
+  "date": "2026-05-29",
+  "generated": "2026-05-31T00:00:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-3m",
+  "spot_reference": 17.77,
+  "thesis": "Small, defined-risk, cheap-convexity STARTER on an armed-but-not-triggered squeeze. OI is call-laddered $20/$22.5/$25 with a 4-day call-led build (+6,062 on 5/29) over a 14.6% short float [OI:oi-by-strike]/[HIST:oi-trend], and VRP -0.566 (RV 144% >> IV 88%) makes the upside cheap-vs-realized [HIST:vrp]. But ZERO sweeps, earnings >2mo out, positive gamma pinning $17.5, and 1.74 days-to-cover mean it is not yet kinetic [FLOW:sweeps]/[STRUCT:gex]; phase-8b disconfirmed (0.55/0.55). Buy a 20/22.5 July call spread as a starter, add only on a $18.5-19 volume/sweep ignition, hard stop on a $16 close.",
+  "entries": {
+    "primary": { "price": 17.5, "trigger": "tag of the +$2.24M gamma node / 6-18 max-pain / dark-pool shelf $17.49-$17.58 (dealer-pinned support)", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 18.75, "trigger": "volume/sweep ignition through $18.5-$19 - the real trade; flips desk stand-aside agents LONG", "source": "[FLOW:sweeps]" },
+    "fade": { "price": 20.0, "trigger": "rejection at the $20 call wall without volume - trim the starter", "source": "[OI:oi-by-strike]" }
+  },
+  "levels": { "support": 17.5, "resistance": 20.0, "gamma_flip": 12.07, "largest_pin": 17.5 },
+  "invalidation": {
+    "price": "close below 16.0",
+    "signal": "OI build reverses (call OI bleeding) or DP large-tier flips to selling - quiet accumulation was a head-fake [HIST:oi-trend]",
+    "macro": "no volume/sweep ignition by mid-July (price stays gamma-pinned, sub-average volume) - cheap convexity decays, do not add [FLOW:sweeps]"
+  },
+  "sizing": {
+    "p_raw": 0.60,
+    "p": 0.60,
+    "win_rate_n": 70,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.26,
+    "raw_kelly": 0.283,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "20/22.5",
+      "expiry": "2026-07-17",
+      "debit_credit": 0.55,
+      "breakeven": 20.55,
+      "max_loss": 0.55,
+      "note": "the cheap-convexity starter anchored to the $20/$22.5 call ladder; VRP says cheap-vs-realized; max-loss = debit, neutralizes the $16 trapdoor; add a second tranche only on the $18.5-19 ignition"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "17.5/15",
+      "expiry": "2026-07-17",
+      "debit_credit": -0.70,
+      "breakeven": 16.80,
+      "max_loss": 1.80,
+      "note": "optional financing leg selling the $17.5 gamma-pin support; short-15 strike sits below the $16 stop so assignment risk overlaps the trapdoor - most should skip; aggressive only"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50",
+    "iv_rank": 46.4,
+    "self_pctile_net_dir": 62.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 2.46,
+    "front_expiry_abs": 0.44,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "neutral",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology #1 sector inflow, persistence 1.0 (generic, FSLY not participating)",
+      "[MACRO:market-regime] SPY UPTREND"
+    ],
+    "headwinds": [
+      "[MACRO:market-regime] breadth only 36.3% bullish - narrow tape, half-size guidance",
+      "[MACRO:portfolio_correlation] FSLY idiosyncratic/low-beta (0.37) - no sector push either"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-17", "event": "July OPEX (call-ladder gravity)", "impact": "?" },
+    { "date": "2026-08-05", "event": "Next earnings (beyond tactical horizon; no isolable event-vol expiry)", "impact": "?" }
+  ],
+  "key_risks": [
+    "No catalyst / no ignition - zero sweeps, earnings >2mo, positive gamma pins $17.5; most likely path is a chop that decays premium [FLOW:sweeps]/[STRUCT:gex]",
+    "Unprofitable small-cap, no earnings floor - op margin -16%; nothing valuation-wise to catch it if momentum fails [FUND:operatingMargin fz]",
+    "Weak squeeze reflexivity - 14.6% SI but only 1.74 days-to-cover; shorts cover fast [SENT:short_float fz semi-monthly]",
+    "Sub-scale accumulation + insiders selling - DP $10.5M (FSLY absent from top-200 DP names); Insider Trans -19.4% into +74.5% YTD [DP:block-stratified]"
+  ],
+  "citations": [
+    "[OI:oi-by-strike] $20 call wall net +14,840 (+12.9%), ladder 20/22.5/25; P/C OI 0.53",
+    "[HIST:vrp] VRP -0.566 PREMIUM_BUYING (RV 144% >> IV 88%) - cheap-vs-realized",
+    "[HIST:oi-trend] 4 consecutive OI-build days, +6,062 on 5/29, all call-led",
+    "[FLOW:sweeps] 0 sweeps on a +4.9% day - armed but un-ignited",
+    "[STRUCT:gex] positive gamma pins $17.5 (+$2.24M node); flips negative below $16",
+    "[SENT:short_float fz semi-monthly] 14.6% SI / 1.74 days-to-cover (low)",
+    "[FUND:earnings_surprise] 4/4 beats crossing into profit (+112%, +58%)"
+  ],
+  "confluence_score": 61,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

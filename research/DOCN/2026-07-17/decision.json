@@ -1,0 +1,106 @@
+{
+  "ticker": "DOCN",
+  "date": "2026-07-17",
+  "generated": "2026-07-20T03:30:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 118.91,
+  "thesis": "DOCN is a -34% fallen name ($180.50->$118.91 [HIST:trend]) whose crash was technical (Russell 2000->1000 rebalance forced selling + a 7/15 dilutive $500M convert-repurchase equity offering [MACRO:DOCN_2026-07]), now pinned in a long-gamma range (ZGL $70.14, max-pain $120 [STRUCT:max_pain]) with IV rank 99 / VRP +0.434 [HIST:vrp] making vol rich to sell. The desk returned zero directional votes [AGENT], the one bullish print was OI-reducing [OI:decrease_with_volume], and phase-7b VETO'd a directional long -- so harvest the downside-skewed vol with a small, defined-risk, bearish-lean premium-selling structure that side-steps the 8/4 earnings binary.",
+  "entries": {
+    "primary": { "price": "123-126", "trigger": "sell the bear call spread INTO a rally toward the DP supply shelf (123.3/126.3), closer to the 128 wall", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 119.0, "trigger": "put the spread on at spot now to start harvesting rich IV / long-gamma decay", "source": "[STRUCT:gex]" },
+    "fade": { "price": 128.0, "trigger": "if DOCN reclaims the 128 call wall on volume the bearish-lean is wrong -- close; do NOT flip long (7b veto)", "source": "[OI:oi_by_strike]" }
+  },
+  "levels": { "support": 115.0, "resistance": 128.0, "gamma_flip": 70.14, "largest_pin": 120.0 },
+  "invalidation": {
+    "price": "two daily closes above 128 (call wall break / squeeze) OR two daily closes below 115 (breakdown toward 110/111.13)",
+    "signal": "GEX regime flips NEGATIVE on phase-4 daily refresh (long-gamma pin gone) [STRUCT:gex], or cumulative premium flow net-bullish 3 straight sessions [HIST:cumulative_premium_flow]",
+    "macro": "7/29 FOMC hawkish/hike surprise breaks the range [MACRO:FOMC_2026-07-29]; the 8/4 earnings binary is avoided by construction (structure expires 7/31)"
+  },
+  "sizing": {
+    "p_raw": 0.143,
+    "p": 0.143,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.35,
+    "raw_kelly": -2.31,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread (WATCH-ONLY / 0% -- fundamentals-vetoed)",
+      "strikes": "115/105",
+      "expiry": "2026-08-21",
+      "debit_credit": 3.66,
+      "breakeven": 111.34,
+      "max_loss": 3.66,
+      "note": "carry only if the 7b VETO lifts on a confirmed 8/4 miss; through-earnings gap-down capture, defined risk survives the gap; not for entry now"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call spread (RECOMMENDED CARRY, sell-upside / downside-skew-aware)",
+      "strikes": "128/133",
+      "expiry": "2026-07-31",
+      "debit_credit": -1.3,
+      "breakeven": 129.3,
+      "max_loss": 3.7,
+      "note": "sells the 128 call wall (2156 OI) into a long-gamma pin to 120; harvests IV rank 99 / VRP +0.434; expires BEFORE 8/4 earnings; size max-loss <= 1% of book"
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": "outside top-50 (91.9 pctile DUCKDB)",
+    "iv_rank": 99.12,
+    "self_pctile_net_dir": 52.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.80,
+    "front_expiry_abs": 2.14,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector_flow_persistence] Technology #1 inflow +$1.17B persistence 0.8 (does not transfer to the DOCN laggard)",
+      "[MACRO:DTWEXBGS] USD softening 120.5 (mild risk-support)"
+    ],
+    "headwinds": [
+      "[MACRO:DGS10] 10y 4.57% rising -> duration/multiple pressure",
+      "[MACRO:FOMC_2026-07-29] hold-expected but ~25% hike tail, no cut",
+      "[MACRO:MarketRegime] TRANSITIONAL/CHOPPY, breadth 38.4% bull -> half size / defined-risk"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC decision (hold likely, ~25% hike tail, no cut)", "impact": "-" },
+    { "date": "2026-08-04", "event": "DOCN Q2 earnings (guidance Q2 EPS 0.20-0.23 / FY 1.10-1.20)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Downside-skewed outcome (vanna -260 vol-crush + guided-down forward EPS + insider selling MSPR -98.9/-77.8) -- a symmetric condor over-claims neutrality [STRUCT:vanna_charm][FUND]",
+    "Squeeze tail: ~15% short float, easy borrow, strong prelim Q2 -> a bullish 8/4 surprise into a max-bullish Street (PTs $155-185) could break the range up [SENT:short_float]",
+    "7/29 FOMC hike-tail breaks the long-gamma regime before 8/4 [MACRO:FOMC_2026-07-29]"
+  ],
+  "citations": [
+    "[HIST:trend] DOCN -34% ($180.50 -> $118.91) 30d",
+    "[STRUCT:max_pain] near-expiry max-pain magnet $120 (7/24 & 8/7)",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.143 (n=7)",
+    "[OI:decrease_with_volume] 180C Nov OI -430 (the $985K bullish print closed, not opened)",
+    "[FUND:tier_adjustment] fundamentals VETO (2 contradictions)"
+  ],
+  "confluence_score": 68,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

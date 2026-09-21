@@ -1,0 +1,108 @@
+{
+  "ticker": "NOW",
+  "date": "2026-05-27",
+  "generated": "2026-05-28T13:48:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 102.12,
+  "thesis": "High-quality SaaS compounder (forward PEG ~1.0, strong-buy, target $140.63 [FUND:metric]) de-rated 51% off its high, coiled in a short-gamma squeeze geometry (spot $102.75 < ZGL $104.62, dealers short calls forced to buy [STRUCT:gex]) with a 3.4:1 bullish call tape (+$0.36bn delta-notional [FLOW:delta_notional DUCKDB]) — but with no dark-pool accumulation [DP:block_stratified], an adverse persistent Tech outflow (-$433.5M [MACRO:sector_rotation]) and a disconfirmed debate [DEBATE], it is a small, trigger-contingent long on a $103.30 break toward the $110 gamma wall, not a conviction position.",
+  "entries": {
+    "primary": { "price": 103.5, "trigger": "break + hold of $103.30 DP supply on volume expansion, toward the $104.62 ZGL flip", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 100.75, "trigger": "pullback into the $101.0-$101.7 DP support shelf that holds (V-bottom retest)", "source": "[DP:price_levels]" },
+    "fade": { "price": 109.75, "trigger": "rejection at the $110 gamma wall — take profit / counter-trade squeeze exhaustion", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 99.69, "resistance": 103.3, "gamma_flip": 104.62, "largest_pin": 110.0 },
+  "invalidation": {
+    "price": "two daily closes below 99.69 (loses major DP support + V-bottom)",
+    "signal": "net call premium falls below put premium for 2+ sessions, or vanna-driven IV-bleed selling accelerates [STRUCT:vanna_charm]",
+    "macro": "hawkish June FOMC ~2026-06-16 surprise, or SPY regime flips RISK-OFF [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 0.857,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.625,
+    "raw_kelly": 0.596,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.9,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "105/110",
+      "expiry": "2026-07-17",
+      "debit_credit": 2.0,
+      "breakeven": 107.0,
+      "max_loss": 2.0,
+      "note": "long 105C / short 110C; short strike anchored to the $110 gamma wall (+7.4M); expires before 7/22 earnings; VRP premium-buying favors debit; take 50% at $106 OI magnet"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "100/95",
+      "expiry": "2026-07-17",
+      "debit_credit": -1.7,
+      "breakeven": 98.3,
+      "max_loss": 3.3,
+      "note": "short 100P / long 95P; sells the V-bottom floor that is also the price-invalidation; the RANGE/hold-the-floor expression; runs against premium-buying VRP so secondary only"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 29,
+    "iv_rank": 63.07,
+    "self_pctile_net_dir": 81.3
+  },
+  "expected_move": {
+    "front_expiry_pct": 4.07,
+    "front_expiry_abs": 4.15,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:DFF_2026-05-26 FRED] Fed funds 3.62% easing cycle supports de-rated growth duration",
+      "[MACRO:correlation DUCKDB] NOW negatively correlated to AAPL/NVDA/BABA — diversifier"
+    ],
+    "headwinds": [
+      "[MACRO:sector_rotation UW] Technology net-directional outflow -$433.5M, persistence 1.0",
+      "[MACRO:MarketRegime UW] regime TRANSITIONAL 'reduce size, defined-risk', 37% breadth",
+      "[MACRO:CPILFESL_2026-04 FRED] sticky core CPI +0.38% MoM caps the easing pace"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI release", "impact": "?" },
+    { "date": "2026-06-16", "event": "June FOMC", "impact": "?" },
+    { "date": "2026-06-18", "event": "monthly OPEX", "impact": "?" },
+    { "date": "2026-07-22", "event": "NOW earnings (outside structure window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Negative-vanna IV-bleed trap: elevated IV with no catalyst until 7/22 forces dealer selling [STRUCT:vanna_charm]",
+    "No dark-pool accumulation + UW composite DISTRIBUTION/score-0 confluence — bullish flow uncorroborated [DP][INSIGHT]",
+    "Persistent adverse Technology rotation (-$433.5M, 1.0) could drag NOW's own flow sign negative [MACRO:sector_rotation]"
+  ],
+  "citations": [
+    "[STRUCT:gex] ZGL $104.62 vs spot $102.75, regime NEGATIVE, $110 wall +7.4M",
+    "[FUND:metric] forward PEG ~1.0, strong-buy recom 1.35, target $140.63 (+37.7%)",
+    "[MACRO:sector_rotation UW] Technology net outflow -$433.5M, persistence 1.0",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.857 (n=7) -> capped p 0.75",
+    "[DEBATE] phase-8b disconfirmed, bull_residual 0.65 = bear_residual 0.65"
+  ],
+  "confluence_score": 53,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

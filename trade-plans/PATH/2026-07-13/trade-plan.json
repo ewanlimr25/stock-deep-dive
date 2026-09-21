@@ -1,0 +1,214 @@
+{
+  "ticker": "PATH",
+  "date": "2026-07-13",
+  "generated": "2026-07-14T01:18:09Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 11.85,
+  "thesis": "An unattributed institution lifted 54.6M sh / $644M at the ask (buy_ratio 1.000, ~15x PATH's darkpool record) on 07-09 and kept buying into 07-13, building a $678.8M shelf at $11.80 [DP:block_stratified][DP:price_levels] under a name 28-32% of float short [SENT:short_float], and the chart has turned with it (+24.7% off twice-defended 9.87/9.88 lows, HH 12.31, MACD bullish [CHART:trend]). But the block moved price zero, insiders are net sellers, and the debate did not clear the trade (bear_residual 0.65 >= bull 0.65 [DEBATE:disconfirmed]) - so this is a floor-bin, starter-size long off the defended shelf, expressed defined-risk, with the add reserved for a volume-confirmed break of 12.35.",
+  "reasons_for": [
+    "The shelf is defended with real money: 07-09 mega block at the ask (54.6M sh / $644M, buy_ratio 1.000) + continuation buying 07-13 at 61%; $678.8M at the exact entry level. Falsifiable: large-tier buy_ratio < 0.45 or daily close < 11.60 [DP:block_stratified][DP:price_levels]",
+    "Squeeze asymmetry above the trigger: 28-32% SI, ~5 days-to-cover, crowd CROWDED_SHORT - above 12.35 the marginal buyer is a covering short [SENT:short_float]",
+    "The chart now agrees: impulse off equal lows 9.88/9.87, higher-high 12.31, MACD bullish, RSI 60.9 with headroom, 1.47x volume, price > sma20/50, ema9 > ema21 [CHART:trend][CHART:macd][CHART:swing_low]",
+    "Mechanical floor stack: long-gamma + positive DEX dealer bid; $11 pin/max-pain and $10 put wall beneath the shelf [STRUCT:gex][STRUCT:max_pain][OI:put_wall]",
+    "Macro mild tailwind: Fed easing (DFF 3.62%), tech inflow ALIGNED (persistence 1), live AI catalyst, no offering/13D filed as of 07-13 [MACRO:DFF][MACRO:UiPath_2026-07-09]"
+  ],
+  "reasons_against": [
+    "STEELMAN: the block may be exit liquidity, not demand - $644M that moved price zero over 4-5 sessions while insiders sold 9.6M sh reads as supply-absorption (unannounced secondary / index cross); the adversarial debate did NOT clear the trade (bear_residual 0.65 >= bull 0.65). Watchable: 13D/13G/S-3/424B attribution or buy_ratio < 0.45 kills the thesis [DEBATE:disconfirmed][FUND:insider_MSPR][HIST:trend]",
+    "Options flow does not confirm the equity flow: net premium -$167k, sweep persistence mixed, most persistent theme is $12 Jan-28 put buying at the ask - no upside campaign in the options tape [FLOW:phase-1]",
+    "The upside is pre-sold: $12 call wall (+1.1%), triple-confirmed $13 gamma wall with covered-call writing on the bid; long-gamma dampens the squeeze inside the $11-$13 box [OI:smart_positioning][STRUCT:gex]",
+    "No fundamental or trend endorsement: fundamentals CAUTION, insiders persistent net sellers, consensus HOLD (UBS PT $12, below T2), price under sma200 12.95 in a TRANSITIONAL regime at 33.8% breadth [FUND:phase-7b][SENT:recommendation][CHART:ma_stack][MACRO:MarketRegime_2026-07-13]",
+    "Violent downside tail: below 11.60/11.80 there is no OI support until $10 - 32% SI becomes an accelerant into 9.87-10 (-15%) [OI:put_wall][CHART:swing_low]"
+  ],
+  "levels": {
+    "support": 11.80,
+    "resistance": 12.34,
+    "gamma_flip": 5.70,
+    "largest_pin": 11.00,
+    "moving_averages": [
+      { "name": "sma50", "level": 10.91 },
+      { "name": "sma200", "level": 12.95 },
+      { "name": "ema21", "level": 11.20 }
+    ],
+    "fib_levels": { "0.236": 10.69, "0.382": 11.61, "0.500": 12.35, "0.618": 13.09, "0.786": 14.15 },
+    "key_levels": [
+      { "level": 13.00, "role": "target", "source": "[STRUCT:gex]", "note": "T2: gamma wall inside the 12.95-13.28 supply zone (sma200 12.95 + fib 0.618 13.09 + 13.28 4-touch)" },
+      { "level": 12.35, "role": "trigger", "source": "[CHART:fib_0.500]", "note": "range->trend trigger; = 12.34 5-touch resistance [CHART:support_resistance]; T1; daily close > 12.35 on >1.2x vol" },
+      { "level": 12.16, "role": "resistance", "source": "[DP:blocks]", "note": "07-13 continuation prints topped 12.145-12.17" },
+      { "level": 11.80, "role": "support", "source": "[DP:price_levels]", "note": "entry: the $678.8M institutional shelf; chart confirms via ema9/spot hold" },
+      { "level": 11.60, "role": "stop", "source": "[DP:invalidation]", "note": "signal stop, daily-close basis (deep-dive invalidation)" },
+      { "level": 11.29, "role": "support", "source": "[CHART:support_resistance]", "note": "6-touch support; 11.42 (4-touch) above it; 0.382 of the Jun->Jul leg ~11.38" },
+      { "level": 11.28, "role": "stop", "source": "[CHART:support_resistance]", "note": "hard stop below the 6-touch support, 0.80 ATR from entry" },
+      { "level": 11.00, "role": "pin", "source": "[STRUCT:max_pain]", "note": "Jul-17 max-pain + largest OI pin + 11.05 chart support" },
+      { "level": 10.69, "role": "support", "source": "[CHART:fib_0.236]", "note": "with 10.48 4-touch support; $10 put wall below [OI:put_wall]" },
+      { "level": 9.87, "role": "support", "source": "[CHART:swing_low]", "note": "twice-defended equal lows 06-18/06-26; the tail" }
+    ]
+  },
+  "patterns": [
+    {
+      "pattern": "engine_sweep_all_detectors",
+      "direction": "neutral",
+      "confidence": "none",
+      "measured_target": null,
+      "invalidation": null,
+      "note": "All 6 detectors (flag, H&S, double, triangle, cup-handle, Elliott) returned detected:false; patterns_detected: []. No Elliott count (pivots not cleanly alternating). No pattern forced onto noise per pattern-rubric.",
+      "source": "[CHART:patterns]"
+    },
+    {
+      "pattern": "double_bottom_like_base",
+      "direction": "bullish",
+      "confidence": "none",
+      "measured_target": null,
+      "invalidation": 9.87,
+      "note": "Manual observation, NOT a pattern call: equal lows 9.88/9.87 (06-18/06-26) with no intervening neckline pivot - engine correctly rejects. No target claimed; value is invalidation architecture only.",
+      "source": "[CHART:swing_low]"
+    }
+  ],
+  "events": [
+    { "date": "2026-07-15", "event": "CPI (June print, approx.)", "impact": "?", "source": "[MACRO:phase-6]" },
+    { "date": "2026-07-17", "event": "July monthly OPEX - Jul-17 max-pain $11, mild downward pin into Friday", "impact": "-", "source": "[STRUCT:max_pain]" },
+    { "date": "2026-07-29", "event": "FOMC (approx.) - easing-path signal; hawkish = invalidation lane", "impact": "?", "source": "[MACRO:phase-6]" },
+    { "date": "ongoing", "event": "AI-automation product news (Maestro Case AI momentum)", "impact": "+", "source": "[MACRO:UiPath_2026-07-09]" },
+    { "date": "any", "event": "07-09 block attribution filing (13D/13G/S-3/424B) - the thesis hinge, binary either way", "impact": "?", "source": "[DP:open_question] / SEC EDGAR" },
+    { "date": "2026-09-03", "event": "PATH earnings - OUTSIDE horizon; 2026-08-21 expiries avoid it", "impact": "?", "source": "[MACRO:phase-6]" }
+  ],
+  "invalidation": {
+    "price": "daily close below 11.60 (the $11.80 shelf failed; no OI support until $10) - hard disaster stop 11.28 below the 6-touch 11.29 support for gap protection",
+    "signal": "large-tier darkpool buy_ratio < 0.45, OR the 07-09 block attributes as supply (secondary offering / 13D distribution filing) [DP:block_stratified]",
+    "macro": "hawkish FOMC / 10y above ~4.8% compressing software multiples, or breadth deteriorating below 33.8% into risk-off [MACRO:MarketRegime_2026-07-13]"
+  },
+  "sizing": {
+    "p_raw": 0.55,
+    "p": 0.55,
+    "win_rate_n": 0,
+    "win_rate_source": "fallback_bin",
+    "payoff_b": 1.67,
+    "raw_kelly": 0.28,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": "quarter-Kelly 7.0% -> cap 5% -> win-rate map half (2.5%, p in [0.50,0.70)) -> debate DISCONFIRMED one size-step cut + TRANSITIONAL-regime half-size guidance -> starter 1.0%; total thesis (stock + options) capped at 1.0% book risk"
+  },
+  "stock_plan": {
+    "direction": "long",
+    "entry": 11.80,
+    "entry_trigger": "limit at the DP shelf, conditional on shelf-hold: large-tier DP buy_ratio >= 0.55 continuing and no daily close < 11.60 while working. Add tranche only on daily close > 12.35 on >1.2x avg volume, starter until two closes hold (L-0001)",
+    "stop": 11.28,
+    "targets": [
+      { "price": 12.34, "rationale": "5-touch resistance + fib 0.500 (12.35) + BB upper - first ceiling", "take_pct": 50 },
+      { "price": 13.00, "rationale": "gamma wall / sma200 12.95 / fib 0.618 13.09 supply zone - deep-dive fade level", "take_pct": 50 }
+    ],
+    "r_multiple_to_t1": 1.04,
+    "size_pct_book": 1.0,
+    "thesis_one_liner": "Long the $678.8M institutional shelf at 11.80 with a 32%-SI squeeze kicker, starter size until the 12.35 range trigger breaks on volume; dead on a close below 11.60 or DP bid withdrawal."
+  },
+  "options_plans": [
+    {
+      "kind": "directional",
+      "structure": "call debit spread",
+      "strikes": "12/13",
+      "expiry": "2026-08-21",
+      "target_date": "2026-08-07",
+      "target_price": 12.95,
+      "debit_credit": 0.35,
+      "breakeven": 12.35,
+      "est_payoff_at_target": 0.78,
+      "max_loss": 0.35,
+      "size_pct_book": 0.5,
+      "note": "Short $13 leg sells the triple-confirmed gamma wall / covered-call cap [STRUCT:gex], funding the long and offsetting +0.084 VRP richness; breakeven 12.35 = the range->trend trigger. Target +9.3% vs ~+/-10% priced move over the window (inside 1.5x, not rich). Expiry clears 09-03 earnings; CPI 07-15 / FOMC 07-29 inside window mitigated by defined risk + starter size. ~0.95 intrinsic at expiry if underlying 12.95."
+    },
+    {
+      "kind": "defined_risk",
+      "structure": "put credit spread",
+      "strikes": "11/10",
+      "expiry": "2026-08-21",
+      "target_date": "2026-08-21",
+      "target_price": 11.85,
+      "debit_credit": -0.31,
+      "breakeven": 10.69,
+      "est_payoff_at_target": 0.31,
+      "max_loss": 0.69,
+      "size_pct_book": 0.5,
+      "note": "Paid to defend the shelf: short $11 on the OI pin/max-pain strike above the $10 put wall [OI:pin][OI:put_wall]; long $10 caps the 32%-SI cascade tail; breakeven 10.69 = fib 0.236 with 10.48 4-touch support above [CHART:fib_0.236]. Full credit at >= 11.00 by expiry; aligns with premium-selling VRP [HIST:phase-5]."
+    }
+  ],
+  "gap_audit": {
+    "completeness": 94,
+    "have": [
+      "options flow (phase-1)",
+      "dark pool / block accumulation (phase-2)",
+      "OI / positioning walls + pins (phase-3)",
+      "dealer structure GEX/DEX/ZGL/max-pain (phase-4)",
+      "IV percentile + VRP (phase-5, backtest empty)",
+      "macro regime + sector rotation (phase-6)",
+      "event calendar (CPI/FOMC/OPEX/earnings)",
+      "fundamentals veto (phase-7b)",
+      "sentiment / short interest / crowd (phase-7c)",
+      "implied move 5.3% + IV rank 40.4 (phase-0.5)",
+      "earnings date 2026-09-03 (outside horizon)",
+      "OHLCV 373 sessions + S/R + trend + fib + ATR (chart.json)"
+    ],
+    "missing": [
+      {
+        "item": "Empirical win-rate for the dark-pool-accumulation signal class (Kelly p)",
+        "severity": "important",
+        "how_to_source": "uw historical signal-backtest --signal-type dark_pool_accumulation --lookback-days 5 (returned total_signals: 0 twice on 2026-07-13; no history for this class yet - size from conviction bin, never above starter, until it accrues; re-run at next deep dive)"
+      },
+      {
+        "item": "07-09 block attribution (fresh accumulation vs offering / index cross / 13D)",
+        "severity": "nice_to_have",
+        "how_to_source": "SEC EDGAR watch for 13D/13G/S-3/424B on UiPath after 2026-07-09; daily uw dark-pool block-stratified --symbol PATH to confirm large-tier buy_ratio > 0.55"
+      },
+      {
+        "item": "Intraday tape freshness at execution time",
+        "severity": "nice_to_have",
+        "how_to_source": "uw options-flow sweeps --symbol PATH + uw dark-pool largest --symbol PATH on the morning of entry"
+      }
+    ],
+    "verdict": "SUFFICIENT"
+  },
+  "sources": {
+    "deep_dive_reused": "research/PATH/2026-07-13/",
+    "deep_dive_age_days": 0,
+    "chart_source": "yfinance",
+    "flow_source": "deep_dive",
+    "ledger_lessons_applied": [
+      "L-0001: 12.35 breakout add requires volume-confirmed close, starter until two closes hold",
+      "L-0002: checked - FLOW-LEADS not DIVERGENT, directional trade permitted",
+      "L-0003: checked - deep dive same-day (0 sessions), no staleness cut; refresh threshold ~2026-07-27 noted",
+      "L-0004: CANDIDATE, pattern not matched (long-gamma book, LONG bias) - noted only"
+    ]
+  },
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true,
+    "context_modifier": "BUSY_NAME_NORMAL_DAY",
+    "flow_chart_agreement": "FLOW-LEADS"
+  },
+  "confluence_score": 45,
+  "key_risks": [
+    "07-09 block attribution unresolved - if it is an offering/index cross, the $11.80 shelf evaporates",
+    "32% short interest cuts both ways: squeeze fuel above 12.35, pile-on accelerant to 9.87-10 below the shelf (no OI support until $10)",
+    "Insiders persistent net sellers (MSPR -100) + HOLD consensus (UBS PT $12) - no fundamental endorsement of the move",
+    "Options tape not confirming: net-bearish tilt with a persistent $12 Jan-28 put campaign",
+    "$12/$13 call walls + covered-call writing cap near-term upside; long-gamma dampens the squeeze mechanism",
+    "CPI 07-15 / FOMC 07-29 inside the window - a 5.3% gap jumps the 11.60 close-stop (mitigant: starter size, hard stop 11.28, defined-risk options)"
+  ],
+  "citations": [
+    "[DP:block_stratified] 2026-07-09 mega block 54.6M sh / $644.2M, buy_ratio 1.000, zero sell - research/PATH/2026-07-13/phase-2-dark-pool.md",
+    "[DP:price_levels] $678.8M / 57.5M sh shelf at 11.80; 07-13 continuation 61% buy - phase-2-dark-pool.md",
+    "[CHART:support_resistance] 12.34 resistance (5 touches, last 2026-07-07) + [CHART:fib_0.500] 12.35 - chart.json",
+    "[STRUCT:gex] $13 gamma wall (triple-confirmed), ZGL 5.70, long-gamma - phase-4-structure.md",
+    "[SENT:short_float] 28-32% of float short, ~5 days to cover, CROWDED_SHORT - phase-7c-sentiment.md",
+    "[DEBATE:disconfirmed] bull_residual 0.65 / bear_residual 0.65 -> disconfirmed true - phase-8b-debate.md",
+    "[HIST:signal_backtest] total_signals: 0 (x2 runs) -> win_rate_source fallback_bin - phase-5-historical.md",
+    "[CHART:swing_low] equal lows 9.88 (06-18) / 9.87 (06-26); [CHART:atr14] 0.65 - chart.json"
+  ],
+  "paths": { "plan": "trade-plan.md", "chart_json": "chart.json", "eval": null },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing, structures, targets and dates are illustrative."
+}

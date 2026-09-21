@@ -1,0 +1,100 @@
+{
+  "ticker": "SNOW",
+  "date": "2026-05-29",
+  "generated": "2026-05-29T20:45:00Z",
+  "bias": "RANGE",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 255.55,
+  "thesis": "Best-in-class hyper-grower gone parabolic/euphoric (+52% into a 5/27 beat, RSI 86.9 [HIST:rsi fz], 50/58 analysts buy/SB with PT raises to $285-325 [SENT:recom fz]) but smart money is distributing into it: dark-pool mega tier net seller 0.401 with closing blocks at the $255.55 high [DP:block-stratified], largest sweep a $14M bid-side call sale [FLOW:sweeps], price-vs-flow bearishly divergent [INSIGHT:price-vs-flow]. Dealers long gamma pin $250-255 [STRUCT:gex], so the trade is a defined-risk fade/range at the $255 wall - nobody can chase (RSI 87, P/S 17.6) and nobody should naked-short (beat + strong-buy + dealer-short-call squeeze fuel, phase-7b VETO).",
+  "entries": {
+    "primary": { "price": 255.0, "trigger": "sell into strength at the $255 gamma wall / MOC-distribution zone", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 260.0, "trigger": "failed push above the wall that rejects; stand aside if it holds >$262", "source": "[STRUCT:gex]" },
+    "fade": { "price": 248.0, "trigger": "if $250 wall breaks and the pin is lost, stand aside / momentum-short - do NOT fade-buy", "source": "[STRUCT:gex]" }
+  },
+  "levels": { "support": 250.0, "resistance": 255.0, "gamma_flip": 149.78, "largest_pin": 255.0 },
+  "invalidation": {
+    "price": "sustained close above 262 (clears pin into thin gamma, dealer-short-call squeeze toward 280.67); hard invalidation close >280.67 (52w-high breakout). Downside: close <248 ends the range (pin lost), stand aside.",
+    "signal": "dark-pool mega tier flips to net buyer >0.55, or price-vs-flow divergence resolves bullish [DP:block-stratified][INSIGHT:price-vs-flow]",
+    "macro": "regime flips RISK_ON / breadth broadens >55%, or fresh AI-capex headline re-ignites mega-cap leadership [MACRO:MarketRegime_2026-05-29 UW]"
+  },
+  "sizing": {
+    "p_raw": 0.50,
+    "p": 0.50,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.61,
+    "raw_kelly": 0.19,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "bear call spread (call credit)",
+      "strikes": "265/280",
+      "expiry": "2026-06-18",
+      "debit_credit": -4.49,
+      "breakeven": 269.49,
+      "max_loss": 10.51,
+      "note": "fade tilt; short strike above the $255 pin, long wing at the $280.67 52w-high squeeze level (phase-8b invalidation)"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "265C/280C + 240P/225P",
+      "expiry": "2026-06-18",
+      "debit_credit": -9.25,
+      "breakeven": "230.75 / 274.25",
+      "max_loss": 5.75,
+      "note": "regime-prescribed range play; profits across the $240-265 pin zone (contains the +/-$6.3 1-sigma move); monetizes rich front IV (backwardation). Preferred over the naked-short-vetoed directional bet."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "absent bullish top-60; rank 38 bearish board (net_call-net_put pctile 98.8)",
+    "iv_rank": 51.5,
+    "self_pctile_net_dir": 79.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.55,
+    "front_expiry_abs": 1.4,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:SectorFlowPersistence_2026-05-29 UW] Tech leadership persistence 1/1 (SNOW beneficiary - headwind for the fade)", "[MACRO:DFF_2026-05-28 FRED] easing cycle"],
+    "headwinds": ["[MACRO:MarketRegime_2026-05-29 UW] TRANSITIONAL half-size, iron condors in range, weak breadth 36%", "[FUND:peer_pe fz] nosebleed valuation P/S 17.6 / fwd PE 97"]
+  },
+  "catalysts": [
+    { "date": "2026-05-27", "event": "Q1 FY2027 earnings (PASSED) - beat, AI growth", "impact": "+" },
+    { "date": "2026-06-15", "event": "May CPI release (approx)", "impact": "?" },
+    { "date": "2026-08-26", "event": "next SNOW earnings (outside window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "dealers net short calls (DEX +$3.63B) into a strong-buy PT flood + AI FOMO - a break >$262 forces a hedge-buying squeeze toward the $280.67 highs that runs the fade",
+    "fading euphoria has timing risk - strong fundamentals (+29% growth) can sustain the move longer than a tight structure allows",
+    "complacent skew (0.972) + far ZGL ($149.78) + no short-squeeze cushion (5.81% SI) = underpriced downside air-pocket if the AI trade cracks"
+  ],
+  "citations": [
+    "[DP:block-stratified] mega tier net seller buy_ratio 0.401 (516K sold vs 345K bought)",
+    "[STRUCT:gex] long gamma +$35.2M, walls $255 (+$9.1M) / $250 (+$7.2M), pinned",
+    "[INSIGHT:price-vs-flow] bearish divergence, price +77.5% but flow bearish",
+    "[HIST:rsi fz] RSI 86.9, +53.8% above SMA20 (parabolic)",
+    "[SENT:recom fz] Recom 1.40 strong-buy, PT flood $285-325 (crowded-long euphoria)"
+  ],
+  "confluence_score": 69,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

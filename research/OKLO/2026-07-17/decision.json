@@ -1,0 +1,99 @@
+{
+  "ticker": "OKLO",
+  "date": "2026-07-17",
+  "generated": "2026-07-18T00:00:00Z",
+  "bias": "SHORT",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 41.11,
+  "thesis": "A 5-session bearish sweep campaign ($41,004,637, consistency 1) [FLOW:sweep_persistence] atop a -37% / 30-session collapse with bearish_flow backtesting 100% (n=10) [HIST:signal_backtest], a confirmed de-rating (insider MSPR -90.4, 11/12 months negative) [FUND:mspr], and FULLY_NEGATIVE gamma with dealers selling to hedge [STRUCT:dex] — but a crowded 19.3%-float short at the 52-week low into 08-10 earnings [SENT:short_float] means defined-risk, half-size, exit-before-earnings, not a naked short.",
+  "entries": {
+    "primary": { "price": 45.0, "trigger": "sell strength — rejection at the 5-day DP supply shelf $45.5-46.2", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 39.9, "trigger": "daily close below the $40 put_wall_support → continuation into the $35 magnet", "source": "[OI:oi_by_strike]" },
+    "fade": { "price": 46.5, "trigger": "close above $46.20 / IV crush fires the vanna squeeze — flip long toward the $47-50 max-pain magnet", "source": "[STRUCT:vanna_charm]" }
+  },
+  "levels": { "support": 40.0, "resistance": 46.2, "gamma_flip": null, "largest_pin": 47.0 },
+  "invalidation": {
+    "price": "two daily closes above 46.20 (reclaims the 07-16 gap / DP supply shelf)",
+    "signal": "GEX leaves FULLY_NEGATIVE or DEX turns net-positive while spot rallies [STRUCT:gex]",
+    "macro": "OKLO milestone/DOE-loan reaffirmation or theme rotation back into OKLO; 2026-08-10 earnings binary [MACRO:OKLO]"
+  },
+  "sizing": {
+    "p_raw": 1.0,
+    "p": 0.85,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.2,
+    "raw_kelly": 0.725,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 2.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "40/34",
+      "expiry": "2026-08-07",
+      "debit_credit": 2.3,
+      "breakeven": 37.7,
+      "max_loss": 2.3,
+      "note": "long the $40 put_wall_support, short straddling the heavy $35 wall / fresh $33 put; expires before 08-10 earnings; illustrative at ~97% IV"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "bear call credit spread",
+      "strikes": "47/52",
+      "expiry": "2026-08-07",
+      "debit_credit": -1.0,
+      "breakeven": 48.0,
+      "max_loss": 4.0,
+      "note": "monetizes rich IV (VRP +0.28); short above the $45.5-46.2 DP shelf, below the $47-50 max-pain ceiling; $52 long caps the short-gamma squeeze"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 213,
+    "iv_rank": 32.7,
+    "self_pctile_net_dir": 64.2
+  },
+  "expected_move": {
+    "front_expiry_pct": 0.73,
+    "front_expiry_abs": 0.30,
+    "source": "[CTX:implied_move] screener implied_move_perc — near-dated/unreliable; structures sized to IV-derived ~+/-23-25% to 2026-08-10 earnings"
+  },
+  "macro": {
+    "net": "net headwind for OKLO = tailwind for the short",
+    "tailwinds": ["[MACRO:MarketRegime] TRANSITIONAL, breadth 38.4% bullish, half-size/defined-risk", "[MACRO:DGS10] 10y 4.57% pressures a zero-cash-flow duration name", "[MACRO:sector_flow] Utilities 10/11, -$138M outflow on the 07-16 break day"],
+    "headwinds": ["[MACRO:DFF] Fed cutting (3.63%) = mild risk-on support", "nuclear-theme bullish headlines (ARK) can rotate back to OKLO"]
+  },
+  "catalysts": [
+    { "date": "2026-08-10", "event": "OKLO earnings (pre-revenue; milestone/guidance)", "impact": "?" },
+    { "date": "2026-07-24", "event": "post-OPEX IV crush window (vanna squeeze watch)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Crowded short (19.3% float) + positive vanna + max-pain $47-50 above spot = mechanically primed up-squeeze on a post-OPEX IV crush",
+    "Cash-rich balance sheet (current ratio 59.9) + 52-week-low level = downside floor / bounce risk; no path to zero",
+    "Still-bullish analysts ($55 PT) + 08-10 earnings binary = re-rate/squeeze catalyst"
+  ],
+  "citations": [
+    "[FLOW:sweep_persistence] bearish 5/5 sessions, consistency 1, $41,004,637",
+    "[HIST:signal_backtest] bearish_flow win_rate 1.00 (n=10, avg -5.22%)",
+    "[FUND:mspr] insider MSPR -90.4, negative 11/12 months",
+    "[STRUCT:dex] net DEX -167M, dealers sell underlying to hedge",
+    "[SENT:short_float] 19.29% of float short (2026-06-15), DTC 2.6"
+  ],
+  "confluence_score": 68,
+  "recommended_bin": 0.75,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

@@ -1,0 +1,117 @@
+{
+  "ticker": "IREN",
+  "date": "2026-06-05",
+  "generated": "2026-06-07T02:25:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 54.35,
+  "thesis": "Most net-bearish IREN session in 40 (net flow -$18.83M, self-pctile 0.0 [CTX:self_pctile DUCKDB]) but the bearishness is rented: reactive 06/12 put ladder bought at ask at 130% IV (50P +29,735 [OI:biggest_increases]) while blocks sold the 55/56 strangle and 110C '27/'28 LEAP builds opened, inside a 5/5-bullish $339.9M sweep campaign [FLOW:sweep_persistence]. Dealers short gamma 44-59 (GEX -$64.8M [STRUCT:gex]), 06/18 max-pain 55 [STRUCT:max_pain], BTC ~$60k -18% w/w headwind [MACRO:BTC_2026-06-05], desk unanimous NEUTRAL/RANGE [AGENT]. Trade the 50-60 box, defined-risk, 0.6% size: fade the edges, don't live in the middle.",
+  "entries": {
+    "primary": { "price": 60.0, "trigger": "stall-and-reject at the 59.5-60 gamma flip + 60 call wall (27,719 OI <=30DTE); short-delta only on rejection", "source": "[STRUCT:gex] flip ~59.5-60; [OI:oi_by_strike] 60 call_wall_resistance" },
+    "aggressive": { "price": 50.25, "trigger": "tag of the 06/12 50-put wall (54,682 put OI) with BTC >= $58k - range-long side, defined risk only", "source": "[OI:oi_by_strike] 50 put_wall_support" },
+    "fade": { "price": 62.3, "trigger": "daily close > 62 (above flip, 61.86 DP shelf, 06/12 max-pain 61) - box broken UP, flip long toward 65.3-66.6 shelf", "source": "[DP:price_levels] 61.86 shelf $43.6M; [STRUCT:max_pain] 06/12 = 61" }
+  },
+  "levels": { "support": 50.0, "resistance": 60.0, "gamma_flip": 59.5, "largest_pin": 55.0 },
+  "invalidation": {
+    "price": "two daily closes < 50 (put wall + GEX shelf -> uncharted air-pocket to 45/40) = exit all; daily close > 62 = box broken UP (plan-B flip, not loss-exit)",
+    "signal": "bid-side Jan-27+ LEAP call selling recurs 06/08-06/09 at >=$3M/day (Friday was a one-day $6.05M spike vs $1.4M on 06/04 [AGENT:sweep-tracker]); or cumulative premium flow net-bearish 3 consecutive sessions; or conviction-matrix flips MIXED -> DIRECTIONAL_SHORT",
+    "macro": "BTC daily close < $56k (put ladder validated as trend) or > $65k (crowding force-unwound upward) [MACRO:BTC_2026-06-05]; May CPI 2026-06-10 core > 0.4% MoM = hawkish surprise"
+  },
+  "sizing": {
+    "p_raw": 0.875,
+    "p": 0.75,
+    "win_rate_n": 8,
+    "win_rate_source": "backtest",
+    "payoff_b": 2.0,
+    "raw_kelly": 0.625,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.6,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "55/50",
+      "expiry": "2026-06-26",
+      "debit_credit": 1.5,
+      "breakeven": 53.5,
+      "max_loss": 1.5,
+      "note": "ONLY on the primary 59.5-60.5 rejection entry, never at spot (54.35 = -$30.7M gamma pit, no edge). Strikes = the 55 battleground (51,891 OI) and 50 wall (54,682 OI). 06/26 expiry survives both binaries; 113.5% IV tenor vs 130% front. Debit indicative at 06-05 marks - re-quote."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "45/50/60/65",
+      "expiry": "2026-06-18",
+      "debit_credit": -1.8,
+      "breakeven": "48.20 / 61.80",
+      "max_loss": 3.2,
+      "note": "All four strikes are native walls (50P/60C short at the wall strikes; 45P/65C wings). Matches UW regime guidance verbatim ('iron condors in range'). Short strikes sit INSIDE the +/-1-sigma move (+/-22.9% to 06/18) - walls-hold bet, not vol-edge (VRP -0.048); hence 0.6% size, manage at 2x credit, no roll through FOMC. Credit indicative - re-quote."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": "#28 bearish screener; outside top-50 bullish",
+    "iv_rank": 48.2,
+    "self_pctile_net_dir": 0.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 18.3,
+    "front_expiry_abs": 9.97,
+    "source": "[STRUCT:iv_term_structure] 06/12 avg_iv 130.2% -> +/-1sigma to expiry; screener implied_move_perc 0.96% flagged as artifact [CTX:implied_move]. To 06/18: +/-22.9% ($12.45)."
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": [
+      "[MACRO:ISM_2026-06] Mfg 54.0 / Services 54.5 - AI-capex demand intact",
+      "[MACRO:PAYEMS] NFP +172k, UNRATE 4.3% - no recession bid",
+      "[MACRO:FOMC_2026-06-17] 98.7% hold priced",
+      "[MACRO:sector_breadth fz EOD] equal-weight -0.92% vs SPY -2.58% - orderly de-gross"
+    ],
+    "headwinds": [
+      "[MACRO:BTC_2026-06-05] BTC ~$60k, -18% w/w - primary driver, trades through weekends",
+      "[MACRO:CPIAUCSL_2026-04 FRED] headline +3.78% YoY re-accelerating",
+      "[MACRO:DGS2] 2y +17bp m/m to 4.05% - long-duration de-rate",
+      "[MACRO:UMICH_2026-05-22] sentiment record-low 44.8",
+      "[MACRO:sector_flow] Tech option flow decelerating -71% over 4 sessions"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-06-10", "event": "May CPI (war-month energy print)", "impact": "?" },
+    { "date": "2026-06-12", "event": "weekly OPEX - put ladder + 55/56 strangle expire", "impact": "?" },
+    { "date": "2026-06-16", "event": "FOMC + SEP (Warsh's first dots)", "impact": "?" },
+    { "date": "2026-06-18", "event": "June monthly OPEX - max-pain 55, 16.55% of OI", "impact": "+" },
+    { "date": "continuous", "event": "BTC level / US-Iran headlines", "impact": "-" }
+  ],
+  "key_risks": [
+    "Weekend BTC gap: the driver trades Sat/Sun, the structures don't - strongest_bear_point: 'pins require positive gamma and positive gamma starts at 60' [DEBATE:][STRUCT:gex]",
+    "RV (113.7%) > IV (109%) for a month [HIST:vrp] - the condor is short realized vol that has been winning; walls-hold bet only",
+    "CPI 06/10 + FOMC 06/16-17 detonate inside the short-gamma pit on the hedges' own expiry [AGENT:risk-monitor]",
+    "Crowded-short unwind >$65k BTC rips the box top (beta 4.28); sub-50 air-pocket rips the bottom [OI:oi_by_strike][DP:price_levels]",
+    "IREN/RKT 0.608 soft-watch; book also carries CRM/NOW/PATH 0.76-0.86 cluster - cap tech-complex defined-risk premium at 2% of book"
+  ],
+  "citations": [
+    "[OI:biggest_increases] 50P 06/12 OI +29,735 (1,601->31,336), 81% at ask, $2.60M",
+    "[STRUCT:gex] total_gex -$64,788,860; 44-59 all-negative pit (54: -$30.7M); flip ~59.5-60",
+    "[STRUCT:max_pain] 06/18 max_pain_strike 55, distance_pct +1.14, total_oi 315,927",
+    "[FLOW:sweep_persistence] 5/5 sessions dominant-bullish, total_sweep_premium $339,924,997",
+    "[HIST:signal_backtest] bearish_flow win_rate 87.5% (n=8, in-sample) -> capped p 0.75",
+    "[MACRO:BTC_2026-06-05] BTC ~$60k, -18% w/w amid US-Iran war",
+    "[DEBATE:] bull_residual 0.65 vs bear_residual 0.65 -> disconfirmed=true"
+  ],
+  "confluence_score": 48,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

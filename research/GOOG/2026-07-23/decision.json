@@ -1,0 +1,99 @@
+{
+  "ticker": "GOOG",
+  "date": "2026-07-23",
+  "generated": "2026-07-24T01:18:35Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 318.34,
+  "thesis": "GOOG's -7% on 2026-07-23 is a capex-timing overshoot (+24% rev / +82% Cloud re-rated on a $195-205B capex guide) [FUND:capex] into a 2.2-sigma crowded-short tape (P/C z +2.21 BEARISH_EXTREME) [HIST:pc_ratio_zscore] with dealers long-gamma and max pain at 350 above spot [STRUCT:max_pain]; the desk (4 agents, zero SHORT) reads it as a small, defined-risk mean-reversion long capped by $1.9B overhead DP supply at 341-346 [DP:price_levels].",
+  "entries": {
+    "primary": { "price": 316.0, "trigger": "hold above the 310 put-wall on a retest + first up-day / IV crush", "source": "[OI:oi_by_strike]" },
+    "aggressive": { "price": 313.0, "trigger": "flush into the 310 put-wall that long-gamma dealers defend", "source": "[STRUCT:gex]" },
+    "fade": { "price": 309.0, "trigger": "close below 310 — thesis breaks, stand aside or buy 300 puts", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 310.0, "resistance": 341.0, "gamma_flip": 187.5, "largest_pin": 350.0 },
+  "invalidation": {
+    "price": "daily close below 310.0; hard stop 300.0",
+    "signal": "GEX flips NEGATIVE (7 flips/30d instability) or sweep_persistence flips to clean bearish [STRUCT:gex]",
+    "macro": "hawkish FOMC surprise 2026-07-29 [MACRO:FOMC_2026-07-29]"
+  },
+  "sizing": {
+    "p_raw": 0.55,
+    "p": 0.55,
+    "win_rate_n": 7,
+    "win_rate_source": null,
+    "payoff_b": 2.2,
+    "raw_kelly": 0.345,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "320/340",
+      "expiry": "2026-08-21",
+      "debit_credit": 7.0,
+      "breakeven": 327.0,
+      "max_loss": 7.0,
+      "note": "long premium favored by VRP -0.073 PREMIUM_BUYING; 340 sits at base of 341-346 DP supply, below 350 call wall — achievable target"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "310/300",
+      "expiry": "2026-08-21",
+      "debit_credit": -3.0,
+      "breakeven": 307.0,
+      "max_loss": 7.0,
+      "note": "sells the 2.2-sigma crowded, complacent-skew puts at the dealer-defended 310 wall; long 300P caps risk at the hard invalidation"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 6,
+    "iv_rank": 38.3,
+    "self_pctile_net_dir": 1.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 1.57,
+    "front_expiry_abs": 4.99,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:earnings_passed] earnings binary cleared -> IV crush + vanna-buy", "[MACRO:sector_flow_persistence] Comm Services 5-day trend still INFLOW"],
+    "headwinds": ["[MACRO:MarketRegime_2026-07-23] TRANSITIONAL/risk-off, breadth 31.9% bullish", "[MACRO:DGS10_2026-07-22] 10y at 4.67% pressures multiples", "[MACRO:FOMC_2026-07-29] FOMC inside the window"]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC (no SEP), hold expected", "impact": "?" },
+    { "date": "2026-11-04", "event": "GOOG Q3 earnings (outside window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "capex/FCF re-rate is real (first negative FCF, PEG 1.57 > META 0.93) and $1.9B overhead DP supply at 341-346 caps the bounce",
+    "GEX regime unstable (7 flips/30d) — a close below 310 flips dealers short-gamma into a falling knife toward 300",
+    "post-guidance analyst revisions are a blind spot; hawkish FOMC + risk-off tape could cap any bounce",
+    "bearish_flow base rate (85.7%, n=7) historically continues DOWN — the fade fights the tape's own tendency"
+  ],
+  "citations": [
+    "[FUND:capex] 2026 capex $195-205B + first negative FCF drove the -7% de-rate",
+    "[HIST:pc_ratio_zscore] P/C z +2.21 BEARISH_EXTREME (0.71 vs 20d mean 0.46)",
+    "[STRUCT:max_pain] max pain 350 (near) / 365 (Aug-21), ~10-15% above spot",
+    "[DP:price_levels] overhead DP supply $1.14B @341.91 + $797M @346.19"
+  ],
+  "confluence_score": 54,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

@@ -1,0 +1,106 @@
+{
+  "ticker": "RKT",
+  "date": "2026-07-17",
+  "generated": "2026-07-19T20:45:00Z",
+  "bias": "LONG",
+  "conviction": 0.65,
+  "horizon": "1-4w",
+  "spot_reference": 14.54,
+  "thesis": "Continuous dark-pool large-tier accumulation (buy_ratio 0.651) [DP:block_stratified] with dealers mechanically forced to buy (DEX +$51.1M) [STRUCT:dex] around a 4/4-EPS-beat business (+25% to +50%) [FUND:earnings_surprise] and a fresh Morgan Stanley Overweight/$19 upgrade [SENT:recommendation]; the bearish lit tape is overwriting, not distribution (price +9.9% under 18/30 bearish-flow days) [HIST:trend]. Edge is coiled in a $14.5-15 long-gamma cage [STRUCT:gex] and gated behind FOMC 07-29 + earnings 07-30 (~±8-10% implied) with vol only fairly priced (VRP +0.003) [HIST:vrp] -> low-conviction, constructive, defined-risk lean, not a sized directional bet.",
+  "entries": {
+    "primary": { "price": 14.4, "trigger": "pullback into the dark-pool support shelf / $14.5 put-support + ATM GEX pivot", "source": "[DP:price_levels]/[STRUCT:gex]" },
+    "aggressive": { "price": 13.9, "trigger": "flush to the $14.0 max-pain magnet that holds — buy the dip in the long-gamma regime", "source": "[STRUCT:max-pain]" },
+    "fade": { "price": 15.1, "trigger": "rejection at the $15 call wall — fade back into the range rather than chase", "source": "[OI:oi-by-strike]" }
+  },
+  "levels": { "support": 14.3, "resistance": 15.0, "gamma_flip": 14.5, "largest_pin": 14.5 },
+  "invalidation": {
+    "price": "two daily closes below $13.50 (phase-3 put_wall_support / below the phase-2 $14.30 shelf)",
+    "signal": "dark-pool large-tier buy_ratio rolls below 0.50 (accumulation -> distribution) OR DEX flips negative while spot holds [STRUCT:dex]",
+    "macro": "hawkish FOMC surprise 2026-07-29 (hike, or hawkish hold that gaps 30y mortgage decisively above 6.55%) [MACRO:FOMC/MORTGAGE30US]"
+  },
+  "sizing": {
+    "p_raw": 0.65,
+    "p": 0.65,
+    "win_rate_n": 0,
+    "win_rate_source": null,
+    "payoff_b": 1.4,
+    "raw_kelly": 0.4,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.5,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "15/17",
+      "expiry": "2026-08-21",
+      "debit_credit": 0.65,
+      "breakeven": 15.65,
+      "max_loss": 0.65,
+      "note": "post-earnings expiry covers FOMC 07-29 + earnings 07-30; short $17 leg finances event vega vs a naked call; strikes anchor the $15 call wall/positive-gamma pin and $17 call-heavy strike"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "13.5/12.5",
+      "expiry": "2026-08-21",
+      "debit_credit": -0.3,
+      "breakeven": 13.2,
+      "max_loss": 0.7,
+      "note": "sells the $13.50 put-wall / invalidation shelf the market is already selling; profits if the cage holds; benefits from post-earnings IV crush; max loss capped through a ±10% gap (N4)"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CONFIRM",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": false
+  },
+  "context": {
+    "unusual_verdict": "BUSY_NAME_NORMAL_DAY",
+    "universe_rank_net_dir": 6040,
+    "iv_rank": 51.7,
+    "self_pctile_net_dir": 36.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 6.6,
+    "front_expiry_abs": 0.96,
+    "source": "[CTX:implied_move] Jul-24 ATM straddle ~$0.96; earnings-tenor ~±8-10%"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": [
+      "[MACRO:sector-overlay] Mr. Cooper servicing book hedges rising rates (MSR marks up as prepays slow)",
+      "[MACRO:CPIAUCSL] CPI contained (332.6, flat) supports eventual cuts"
+    ],
+    "headwinds": [
+      "[MACRO:MORTGAGE30US] 30y mortgage rate rising 6.55% (+12bps/2wk) — origination headwind",
+      "[MACRO:MarketRegime] regime TRANSITIONAL, breadth 38.4% — reduce size",
+      "[MACRO:FOMC] FOMC 07-29 hawkish tail (9-8 hike split)"
+    ]
+  },
+  "catalysts": [
+    { "date": "2026-07-29", "event": "FOMC decision (2pm ET)", "impact": "?" },
+    { "date": "2026-07-30", "event": "RKT Q2 2026 earnings", "impact": "?" }
+  ],
+  "key_risks": [
+    "Fairly-priced binary: FOMC 07-29 hawkish-tail into earnings 07-30 (~±8-10% implied) on a beta-2.21, retail-held name (inst own 29.77%) in a reduce-size regime — no cheap-vol cushion (VRP +0.003)",
+    "P/E 171x TTM on integration-depressed earnings — de-rates hard if 07-30 synergy guidance disappoints",
+    "Short float 10.83% + beta 2.21 = two-way squeeze/flush risk; a rate spike + guidance wobble is a gap-down"
+  ],
+  "citations": [
+    "[DP:block_stratified] dark-pool large-tier buy_ratio 0.651 (1,426 trades, $191.2M)",
+    "[FUND:earnings_surprise] 4/4 EPS beats, +25% to +50%, EPS $0.04->$0.15",
+    "[HIST:trend] price +9.9% over 30 sessions despite 18/30 bearish-flow days",
+    "[STRUCT:gex] POSITIVE/long-gamma, ZGL $9.66, -$48.5M ATM pocket at $14.5, $15 positive-gamma wall",
+    "[MACRO:MORTGAGE30US] 30y mortgage 6.55% rising"
+  ],
+  "confluence_score": 57,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

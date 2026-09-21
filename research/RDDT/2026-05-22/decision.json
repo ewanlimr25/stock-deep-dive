@@ -1,0 +1,101 @@
+{
+  "ticker": "RDDT",
+  "date": "2026-05-22",
+  "generated": "2026-05-26T00:00:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-5d",
+  "spot_reference": 141.67,
+  "thesis": "RDDT printed its most net-bearish flow day in 31 sessions (net -$6.98M, self-pctile 0.0 [CTX:self_pctile]) via call-selling + put-buying [FLOW:aggressor_ex0dte] into a fully short-gamma book (GEX -$11.66M, no flip [STRUCT:gex]) that amplifies a break of 140 — but the bearish signal has only a 30% historical win-rate [HIST:signal_backtest], the business is accelerating (rev +70.6%, EPS +460%, 4/4 beats, PEG 0.095 [FUND]) which VETOES a conviction short, and the desk endorsed zero shorts [AGENT]. Two-sided, low-edge, short-gamma whip: WATCH mid-range, play only the 140 / 147-150 boundaries with starter-size defined-risk debit structures.",
+  "entries": {
+    "primary": { "price": 141.67, "trigger": "WATCH — no mid-range edge; await a boundary", "source": "[STRUCT:gex]" },
+    "aggressive": { "price": 139.9, "trigger": "confirmed close below 140, no reclaim — short-gamma accelerant toward ~120", "source": "[STRUCT:gex]" },
+    "fade": { "price": 146.5, "trigger": "rejection at the $137M dark-pool supply node — counter-trade short", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 141.5, "resistance": 147.0, "gamma_flip": 103.0, "largest_pin": 120.0 },
+  "invalidation": {
+    "price": "two daily closes below 140 (bull/fade dead, short-gamma arms downside) OR above 147 (bear break voided)",
+    "signal": "GEX flips to POSITIVE regime / DEX turns positive on daily refresh [STRUCT:gex]",
+    "macro": "hawkish FOMC surprise 2026-06-17 [MACRO:FOMC] or a definitive Meta Forum adoption headline [MACRO:RDDT_news]"
+  },
+  "sizing": {
+    "p_raw": 0.30,
+    "p": 0.30,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.7,
+    "raw_kelly": -0.11,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "put debit spread",
+      "strikes": "140/120",
+      "expiry": "2026-07-17",
+      "debit_credit": 6.5,
+      "breakeven": 133.5,
+      "max_loss": 6.5,
+      "note": "bearish/Forum-break expression; carry-only, fundamentals-VETOED + sentiment-CAUTIONED; fire ONLY on a confirmed close below 140. Strikes anchored to 140 gamma floor + 120 standing put-OI magnet."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "call debit spread",
+      "strikes": "145/160",
+      "expiry": "2026-07-17",
+      "debit_credit": 5.0,
+      "breakeven": 150.0,
+      "max_loss": 5.0,
+      "note": "fade/squeeze expression if 140 holds; debit (premium-buying regime); long strike above 146-147 DP supply, short at 160 positive-GEX shelf. Trigger: reclaim/hold of 142."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "CAUTION",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 22,
+    "iv_rank": 18.7,
+    "self_pctile_net_dir": 0.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 8.0,
+    "front_expiry_abs": 11.3,
+    "source": "[CTX:implied_move] IV30d-derived 5/29 weekly (screener implied_move_perc 0.56% is a 1-day figure)"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:DFF] Fed funds 3.62% easing", "[MACRO:RDDT_analysts] sell-side bullish avg PT ~$225 (+58%)"],
+    "headwinds": ["[MACRO:RDDT_news] Meta 'Forum' competitive launch", "[MACRO:SectorRotation] Comm Services net-directional outflow -$49.2M", "[MACRO:MarketRegime] TRANSITIONAL — half size"]
+  },
+  "catalysts": [
+    { "date": "2026-06-11", "event": "May CPI release", "impact": "?" },
+    { "date": "2026-06-17", "event": "FOMC + dot plot", "impact": "?" },
+    { "date": "2026-06-19", "event": "June OPEX / quad witching", "impact": "?" },
+    { "date": "2026-07-30", "event": "RDDT Q2 earnings (outside window)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Meta 'Forum' genuine structural competitive disruption + short-gamma break of 140 accelerates toward ~120 [MACRO + STRUCT:gex]",
+    "14.65% short interest + positive vanna coil + +2.77sigma contrarian P/C = violent squeeze through 147-150 against any short [SENT + STRUCT:vanna_charm]",
+    "rich absolute multiple (P/S 11, P/B 14.9) + beta 2.15 — big two-way whip in a TRANSITIONAL regime [FUND]"
+  ],
+  "citations": [
+    "[FLOW:aggressor_ex0dte] dated bullish $12.19M vs bearish $19.54M (calls sold + puts bought)",
+    "[STRUCT:gex] total GEX -$11.66M, FULLY_NEGATIVE, no zero-gamma flip",
+    "[HIST:signal_backtest] bearish_flow win_rate 0.30 (n=10) -> negative Kelly edge",
+    "[FUND] revenue +70.6% YoY, EPS +460% YoY, 4/4 beats, PEG 0.095 -> 7b VETO of short",
+    "[DEBATE] phase-8b disconfirmed: bull_residual 0.65 = bear_residual 0.65"
+  ],
+  "confluence_score": 50,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

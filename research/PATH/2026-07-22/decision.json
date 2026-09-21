@@ -1,0 +1,99 @@
+{
+  "ticker": "PATH",
+  "date": "2026-07-22",
+  "generated": "2026-07-22T21:30:00Z",
+  "bias": "NEUTRAL",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 10.53,
+  "thesis": "PATH gapped ~13% on the OpenAI 'Presence' competitive shock [MACRO:OpenAI_Presence] into a long-gamma range-bound dealer regime (DEX bid, max-pain $11-11.5) [STRUCT:dex] [STRUCT:max_pain]; fundamentals veto any bounce-as-accumulation long (insider selling MSPR ~-100, -9.6M sh Mar-26) [FUND:MSPR] and positioning vetoes a fresh short (crowded ~13-32% float short) [SENT:short_float], and all four desk agents returned NEUTRAL/RANGE [AGENT:risk-monitor] — no directional edge, trade the $10-$12 range with defined risk or stand flat.",
+  "entries": {
+    "primary": { "price": 10.55, "trigger": "spot $10.40-10.70 holding above the $10 put wall — range confirmed; initiate iron condor", "source": "[OI:oi_by_strike]" },
+    "aggressive": { "price": 11.25, "trigger": "sell condor into a bounce to the $11-11.5 max-pain pin (richer premium, nearer the $12 ceiling)", "source": "[STRUCT:max_pain]" },
+    "fade": { "price": 9.85, "trigger": "two closes < $9.87 flip to the bear put spread (down-tail); two closes > $12 = squeeze, stand aside do NOT fade", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 10.0, "resistance": 12.0, "gamma_flip": 6.92, "largest_pin": 11.0 },
+  "invalidation": {
+    "price": "two daily closes below 9.87 (range floor / below $10 put wall) OR two daily closes above 12.00 (reclaim of $11.90-12.50 DP supply + call wall)",
+    "signal": "post-7/24 DEX/GEX weakens and cumulative premium flow net-bearish 3 consecutive sessions, OR institutional-accumulation flips NEUTRAL->distribution (vanna air-pocket confirmed) [STRUCT:vanna_charm]",
+    "macro": "fresh OpenAI-competition headline or a second analyst PT cut below $10 [MACRO:UBS_PT], OR regime flip to RISK-OFF as breadth deteriorates from 33.8% [MACRO:MarketRegime]"
+  },
+  "sizing": {
+    "p_raw": 0.10,
+    "p": 0.10,
+    "win_rate_n": 10,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.86,
+    "raw_kelly": -0.38,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.0,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "defined_risk",
+      "type": "iron condor",
+      "strikes": "8.5/9.5 put + 12/13 call",
+      "expiry": "2026-08-21",
+      "debit_credit": -0.35,
+      "breakeven": "9.15 / 12.35",
+      "max_loss": 0.65,
+      "note": "PRIMARY. Put-skewed (short put $9.5) for the heavier phase-8b down-tail; profits if PATH holds ~$9.5-$12 into 8/21 and benefits from post-7/24 IV decay (VRP +0.18). Starter ~1% book."
+    },
+    {
+      "kind": "directional",
+      "type": "bear put spread",
+      "strikes": "10/9",
+      "expiry": "2026-08-21",
+      "debit_credit": 0.35,
+      "breakeven": 9.65,
+      "max_loss": 0.35,
+      "note": "GATED / watch-only. The phase-8b down-tail expression; defined max loss (no squeeze blow-up). Bearish base rate 10% -> negative Kelly and 7c vetoes fresh shorts, so STARTER hedge only, not a conviction bet."
+    }
+  ],
+  "gates": {
+    "fundamentals": "VETO",
+    "sentiment": "VETO",
+    "crowd_state": "CROWDED_SHORT",
+    "correlation_cluster": null,
+    "sector_rotation": "adverse",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 64,
+    "iv_rank": 45.58,
+    "self_pctile_net_dir": 1.4
+  },
+  "expected_move": {
+    "front_expiry_pct": 4.7,
+    "front_expiry_abs": 0.5,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "headwind",
+    "tailwinds": ["[MACRO:SectorFlowPersistence] Technology durable inflow persistence 0.80 (but PATH diverges, does not reach the name)", "[MACRO:DFF] Fed easing, funds 3.63%"],
+    "headwinds": ["[MACRO:OpenAI_Presence] OpenAI 'Presence' secular competitive shock", "[MACRO:UBS_PT] analyst PTs cut to $12", "[MACRO:MarketRegime] TRANSITIONAL, breadth 33.8%, half-size", "[MACRO:DGS10] 10y 4.63% rising"]
+  },
+  "catalysts": [
+    { "date": "2026-07-24", "event": "NOT a scheduled event — front IV is OpenAI-shock residual (IV decay expected)", "impact": "?" },
+    { "date": "2026-09-03", "event": "Q2 FY2027 earnings (outside these structures' 8/21 expiry)", "impact": "?" }
+  ],
+  "key_risks": [
+    "post-7/24 vanna IV-crush air-pocket removes the dealer bid while insiders distribute [STRUCT:vanna_charm] [FUND:MSPR] — down-tail heavier than up-tail (phase-8b)",
+    "short-squeeze on any $10 hold (13-32% float short, DTC 2.6-4.3) rips toward $11.5-12 [SENT:short_float]",
+    "continued OpenAI-competition headline gaps can exceed the priced +/-4.7% move [MACRO:OpenAI_Presence]"
+  ],
+  "citations": [
+    "[MACRO:OpenAI_Presence] OpenAI 'Presence' launch 2026-07-22 drove the -13%",
+    "[FUND:MSPR] sustained insider selling, MSPR ~-100 most months, -9.6M sh Mar-2026",
+    "[SENT:short_float] crowded short ~13-32% of float, DTC 2.6-4.3",
+    "[STRUCT:max_pain] long-gamma DEX bid + max-pain $11-11.5 range gravity",
+    "[HIST:signal_backtest] bearish_flow win-rate 0.10 (n=10) -> negative Kelly"
+  ],
+  "confluence_score": 49,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

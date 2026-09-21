@@ -1,0 +1,102 @@
+{
+  "ticker": "MU",
+  "date": "2026-06-25",
+  "generated": "2026-06-25T22:30:00Z",
+  "bias": "LONG",
+  "conviction": 0.55,
+  "horizon": "1-3m",
+  "spot_reference": 1213.56,
+  "thesis": "MU is a fundamentally cheap-on-forward (fwd P/E 8.4, 4/4 beats [FUND:fwd_pe]) leader of a confirmed memory supercycle and the #1 single-name net-bullish premium in the universe (+$279M, calls 2.79x [FLOW:insights_deep_dive]) with price-and-flow aligned [INSIGHT:price_vs_flow] — but the entry is wrong: spot sits at the 1211-1213 double-top after a +15.8% earnings gap on a +325%-YTD parabola, the dark pool is balanced/distributive (mega buy_ratio 0.47 [DP:block_stratified]), and dealer structure is long-gamma with max-pain pulling to 1040 [STRUCT:max_pain]. Structural long, but only on a pullback to the $1,134 absorbed shelf — token size at spot.",
+  "entries": {
+    "primary": { "price": 1134.0, "trigger": "pullback to the heaviest 5-session dark-pool shelf, go long on first hold/reclaim", "source": "[DP:price_levels]" },
+    "aggressive": { "price": 1255.0, "trigger": "decisive daily close above the intraday high on rising IV (vanna flips seller->bid, no short base)", "source": "[INSIGHT:price_vs_flow]" },
+    "fade": { "price": 1213.0, "trigger": "rejection at the 1211-1255 double-top -> tactical put-debit fade (counter-trade)", "source": "[HIST:trend]" }
+  },
+  "levels": { "support": 1134.0, "resistance": 1213.0, "gamma_flip": null, "largest_pin": 1040.0 },
+  "invalidation": {
+    "price": "two daily closes below 1052 (6-23 pivot low / shelf failure) confirm the parabola round-trip",
+    "signal": "dark-pool tiers flip to distribution (mega buy_ratio <= 0.45, clusters below spot) [DP:block_stratified], or cumulative premium flow net-bearish 3 consecutive sessions [HIST:cumulative_premium_flow]",
+    "macro": "DRAM/HBM contract-price rollover or hyperscaler capex cut re-rates the fwd-8.4 multiple [MACRO:memory_cycle_2026], or hawkish FOMC ~July 28-29 flips regime risk-off"
+  },
+  "sizing": {
+    "p_raw": 0.60,
+    "p": 0.60,
+    "win_rate_n": 5,
+    "win_rate_source": "backtest",
+    "payoff_b": 1.5,
+    "raw_kelly": 0.333,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 0.3,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread",
+      "strikes": "1150/1350",
+      "expiry": "2026-09-18",
+      "debit_credit": 60.0,
+      "breakeven": 1210.0,
+      "max_loss": 60.0,
+      "note": "LONG, entered on the $1,134 pullback; expires 4 days before 9-22 earnings (captures cycle + pre-earnings IV ramp, avoids the print). Debit-structured per VRP PREMIUM_BUYING (RV 122% > IV 91%)."
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread",
+      "strikes": "1100/1000",
+      "expiry": "2026-07-17",
+      "debit_credit": -22.0,
+      "breakeven": 1078.0,
+      "max_loss": 78.0,
+      "note": "Bullish-leaning income; short 1100 (-9.4%) below the 1134 shelf, long 1000 on the OI put_wall_support. Caveat: RV>IV, keep small; its risk (break <1100) IS the primary invalidation."
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CAUTION",
+    "crowd_state": "CROWDED_LONG",
+    "correlation_cluster": null,
+    "sector_rotation": "aligned",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 1,
+    "iv_rank": 77.07,
+    "self_pctile_net_dir": 98.1
+  },
+  "expected_move": {
+    "front_expiry_pct": 3.93,
+    "front_expiry_abs": 47.39,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:memory_cycle_2026] AI memory supercycle — DRAM +90% QoQ, HBM sold out 2026, capex +40%", "[MACRO:DFF_2026-06-24] easing Fed 3.63% + falling 10y 4.41%", "[MACRO:sector_flow_2026-06-25] tech net inflow +$3.68B, persistence 1.0"],
+    "headwinds": ["[MACRO:MarketRegime_2026-06-25] regime TRANSITIONAL, reduce size, breadth 35.4%", "[MACRO:MarketRegime_2026-06-25] narrow leadership — the inflow is MU itself; SNDK +883% froth"]
+  },
+  "catalysts": [
+    { "date": "2026-07-15", "event": "June CPI release", "impact": "?" },
+    { "date": "2026-07-17", "event": "July monthly OPEX (17.27% of OI, put-heavy)", "impact": "?" },
+    { "date": "2026-07-29", "event": "FOMC + rate decision (easing-cycle cut watch)", "impact": "?" },
+    { "date": "2026-09-22", "event": "MU next earnings (beyond 30d)", "impact": "?" }
+  ],
+  "key_risks": [
+    "Distribution-into-strength: dark pool balanced (mega 0.47) + retail/lit chasing into a +325% parabola with no short cushion (3.71%/0.81d)",
+    "Peak-cycle earnings — fwd P/E 8.4 is the cyclical-top value-trap optic; a DRAM/HBM rollover re-rates fast",
+    "Long-gamma + vanna selling + max-pain 1040 cap upside near-term; poor risk/reward chasing the ATH"
+  ],
+  "citations": [
+    "[FLOW:insights_deep_dive] net_flow +$279M, call premium 2.79x put",
+    "[DP:block_stratified] dark-pool tiers balanced, mega buy_ratio 0.47",
+    "[STRUCT:max_pain] near-expiry max-pain 1040 (-14.5%)",
+    "[FUND:fwd_pe] forward P/E 8.4, PEG 0.05, 4/4 beats",
+    "[HIST:signal_backtest] bullish_flow win-rate 0.60 (n=5)",
+    "[DEBATE] disconfirmed, bull 0.60 / bear 0.65"
+  ],
+  "confluence_score": 44,
+  "recommended_bin": 0.55,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}

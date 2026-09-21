@@ -1,0 +1,99 @@
+{
+  "ticker": "BE",
+  "date": "2026-07-21",
+  "generated": "2026-07-22T09:15:00Z",
+  "bias": "RANGE",
+  "conviction": 0.55,
+  "horizon": "1-4w",
+  "spot_reference": 226.26,
+  "thesis": "BE's record net-bullish flow is manufactured from $25.7M of net put-SELLING at 197.5-230 [FLOW:sweeps] into a VRP +0.49 PREMIUM_SELLING regime with IV percentile 100 [HIST:vrp]; the desk is unanimous non-directional (3 RANGE / 2 NEUTRAL) [AGENT:earnings-scout], so the edge is selling the rich event vol with defined risk between the triple-confirmed 197.5 floor and the 250 call wall, sized starter after the 8b disconfirmation and the 7b insider-selling caution.",
+  "entries": {
+    "primary": { "price": 215.0, "trigger": "tag of the 7/24 max-pain magnet holding; sell the put credit spread into the pin", "source": "[STRUCT:max_pain]" },
+    "aggressive": { "price": 207.0, "trigger": "deeper dip into the 210 put wall / DP support, richer credit", "source": "[OI:oi_by_strike]" },
+    "fade": { "price": 246.0, "trigger": "rip to the 243-250 call wall pre-earnings — sell the rip / trim longs", "source": "[DP:price_levels]" }
+  },
+  "levels": { "support": 197.5, "resistance": 250.0, "gamma_flip": null, "largest_pin": 215.0 },
+  "invalidation": {
+    "price": "daily close below 197.5 (put wall + GEX trapdoor breaks, accelerates toward 165)",
+    "signal": "post-print IV percentile fails to compress OR institutional-accumulation stays DISTRIBUTION with net_flow negative [INSIGHT:institutional_accumulation]",
+    "macro": "hawkish FOMC surprise 2026-07-29 or renewed AI-sector rout [MACRO:FOMC_2026-07-29]"
+  },
+  "sizing": {
+    "p_raw": 0.857,
+    "p": 0.75,
+    "win_rate_n": 7,
+    "win_rate_source": "backtest",
+    "payoff_b": 0.481,
+    "raw_kelly": 0.230,
+    "fraction": 0.25,
+    "cap_pct": 5.0,
+    "final_size_pct": 1.25,
+    "deviation_reason": null
+  },
+  "structures": [
+    {
+      "kind": "directional",
+      "type": "call debit spread (LEAP)",
+      "strikes": "300/350",
+      "expiry": "2027-01-15",
+      "debit_credit": 15.0,
+      "breakeven": 315.0,
+      "max_loss": 15.0,
+      "note": "mirrors the institutional 310/430/510 LEAP ladder; vega-reduced spread avoids front-month IV crush; strikes anchored to the 300 call wall (+19,769 OI) and the 350 LEAP block ($17.2M)"
+    },
+    {
+      "kind": "defined_risk",
+      "type": "put credit spread (bull put)",
+      "strikes": "205/185",
+      "expiry": "2026-08-21",
+      "debit_credit": -6.5,
+      "breakeven": 198.5,
+      "max_loss": 13.5,
+      "note": "short 205 below the 210 put wall, long 185 below the 197.5 GEX trapdoor (8b bear's unrefuted point); breakeven 198.5 sits on the triple-confirmed floor; a priced -10.6% gap to ~202 stays above breakeven"
+    }
+  ],
+  "gates": {
+    "fundamentals": "CAUTION",
+    "sentiment": "CONFIRM",
+    "crowd_state": "BALANCED",
+    "correlation_cluster": null,
+    "sector_rotation": "neutral",
+    "debate_disconfirmed": true
+  },
+  "context": {
+    "unusual_verdict": "GENUINELY_UNUSUAL",
+    "universe_rank_net_dir": 11,
+    "iv_rank": 98.78,
+    "self_pctile_net_dir": 100.0
+  },
+  "expected_move": {
+    "front_expiry_pct": 10.6,
+    "front_expiry_abs": 23.89,
+    "source": "[CTX:implied_move]"
+  },
+  "macro": {
+    "net": "mixed",
+    "tailwinds": ["[MACRO:BE_earnings_2026-07-28] AI-datacenter revenue guide +106.5% YoY", "[MACRO:sector_flow_2026-07-21] Technology inflow +$2.46B, BE the AI-power proxy"],
+    "headwinds": ["[MACRO:MarketRegime_2026-07-21] TRANSITIONAL regime — half position sizes / defined-risk", "[MACRO:DGS10_2026-07-20] 10y at 4.60% + core PCE 3.41% pressures a capex-heavy name"]
+  },
+  "catalysts": [
+    { "date": "2026-07-28", "event": "BE Q2 earnings AMC (EPS $0.41e, rev +106.5%e)", "impact": "?" },
+    { "date": "2026-07-29", "event": "FOMC (hold 3.50-3.75% expected)", "impact": "?" }
+  ],
+  "key_risks": [
+    "soft 7/28 guide on a 26x-sales name amplified through the 197.5 short-gamma trapdoor past the priced 10.6% move [STRUCT:gex]",
+    "the +14.8% bounce is a spent short-squeeze (SI -35%) on a DP-distribution overhang — can fade if the print doesn't confirm [SENT:short_interest]",
+    "post-earnings vanna/IV-crush can sell even a beat (net_vanna -1302) [STRUCT:vanna_charm]"
+  ],
+  "citations": [
+    "[FLOW:sweeps] puts net SOLD $25.7M (bid $44.0M vs ask $18.3M)",
+    "[HIST:vrp] VRP +0.4935, PREMIUM_SELLING (IV 1.77 vs RV 1.28)",
+    "[STRUCT:gex] GEX FULLY_NEGATIVE, worst strike 197.5 (-4.84M)",
+    "[HIST:signal_backtest] bullish_flow win_rate 0.857 (n=7) -> capped p 0.75",
+    "[DEBATE:] bull 0.65 / bear 0.65, disconfirmed=true"
+  ],
+  "confluence_score": 54,
+  "recommended_bin": 0.65,
+  "paths": { "plan": "phase-9-trade-plan.md", "audit": "phase-10-audit.md" },
+  "disclaimer": "For research and educational use only. Not financial advice. Sizing and structures are illustrative."
+}
